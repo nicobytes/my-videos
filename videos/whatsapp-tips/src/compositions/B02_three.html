@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+        #b02 {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 960px;
+          font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+          text-align: center;
+        }
+        #b02-lbl1 {
+          position: absolute;
+          left: 65px;
+          top: 108px;
+          width: 950px;
+          height: 70px;
+          font-size: 52px;
+          font-weight: 400;
+          color: #111111;
+        }
+        #b02-three {
+          position: absolute;
+          left: 65px;
+          top: 190px;
+          width: 950px;
+          height: 460px;
+          font-size: 420px;
+          font-weight: 700;
+          line-height: 460px;
+          color: #075e54;
+        }
+        #b02-lbl2 {
+          position: absolute;
+          left: 65px;
+          top: 680px;
+          width: 950px;
+          height: 90px;
+          font-size: 72px;
+          font-weight: 700;
+          color: #075e54;
+        }
+        .b02-stack {
+          display: grid;
+        }
+        .b02-stack > * {
+          grid-area: 1 / 1;
+        }
+        #b02-phrase {
+          position: absolute;
+          left: 65px;
+          top: 140px;
+          width: 950px;
+          height: 680px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+        }
+        #b02-p1,
+        #b02-p3 {
+          font-size: 88px;
+          font-weight: 700;
+          line-height: 1.1;
+          color: #111111;
+        }
+        #b02-p2 {
+          font-size: 200px;
+          font-weight: 700;
+          line-height: 1;
+          color: #075e54;
+        }
+      </style>
+
+      <div id="root" data-composition-id="B02_three" data-width="1080" data-height="1920">
+        <div id="b02">
+          <div id="b02-lbl1">¿Sabías que existen</div>
+          <div id="b02-three" class="b02-stack"><span id="b02-d1">1</span><span id="b02-d2">2</span><span id="b02-d3">3</span></div>
+          <div id="b02-lbl2">tipos de WhatsApp</div>
+          <div id="b02-phrase">
+            <div id="b02-p1">no todos sirven</div>
+            <div id="b02-p2">igual</div>
+            <div id="b02-p3">para tu negocio?</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var B = /*BEATS*/;
+          var T0 = 1.8;
+          function at(t) { return Math.max(0, t - T0); }
+          var tl = gsap.timeline({ paused: true });
+
+          // Slam: the "3" drops in from above the panel and lands hard on the bass hit
+          tl.fromTo("#b02-three", { autoAlpha: 0, y: -520 }, { autoAlpha: 1, y: 0, duration: 0.3, ease: "power4.out" }, at(B.three.slam));
+          // Counter ticks 1 → 2 → 3 as it lands (one element per digit, reversible sets)
+          gsap.set("#b02-d1, #b02-d2, #b02-d3", { autoAlpha: 0 });
+          [1, 2, 3].forEach(function (d, i) {
+            if (i) tl.set("#b02-d" + i, { autoAlpha: 0 }, at(B.three.ticks[i]));
+            tl.set("#b02-d" + d, { autoAlpha: 1 }, at(B.three.ticks[i]));
+          });
+          tl.fromTo("#b02-three", { scale: 1.08 }, { scale: 1, duration: 0.3, ease: "expo.out", immediateRender: false }, at(B.three.ticks[2]));
+          // Labels arrive from opposite sides with different attacks
+          tl.fromTo("#b02-lbl1", { autoAlpha: 0, x: -70 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: "expo.out" }, at(B.three.labels));
+          tl.fromTo("#b02-lbl2", { autoAlpha: 0, x: 70 }, { autoAlpha: 1, x: 0, duration: 0.5, ease: "circ.out" }, at(B.three.labels) + 0.12);
+
+          // Morph: the 3 + labels dissolve, the phrase resolves and LANDS on 4.24
+          var mo = at(B.phrase.morphOut);
+          tl.to("#b02-three", { autoAlpha: 0, scale: 0.55, filter: "blur(18px)", duration: 0.3, ease: "power2.in" }, mo);
+          tl.to("#b02-lbl1", { autoAlpha: 0, y: -24, duration: 0.2, ease: "power2.in" }, mo);
+          tl.to("#b02-lbl2", { autoAlpha: 0, y: 24, duration: 0.2, ease: "power2.in" }, mo);
+          tl.set(["#b02-three", "#b02-lbl1", "#b02-lbl2"], { autoAlpha: 0 }, mo + 0.3); // hard kill
+          var land = at(B.phrase.land);
+          tl.fromTo("#b02-p1", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "power4.out" }, land - 0.4);
+          tl.fromTo("#b02-p2", { autoAlpha: 0, scale: 1.3, filter: "blur(18px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, land - 0.3);
+          tl.fromTo("#b02-p3", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.45, ease: "circ.out" }, land - 0.15);
+          // "igual" is spoken: a short emphasis pulse while the marker swipes under it
+          tl.fromTo("#b02-p2", { scale: 1.06 }, { scale: 1, duration: 0.35, ease: "expo.out", immediateRender: false }, at(B.phrase.igual));
+
+          window.__timelines["B02_three"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

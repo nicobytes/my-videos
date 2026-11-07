@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-400.woff2") format("woff2");
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-600.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-800.woff2") format("woff2");
+          font-weight: 800;
+        }
+        :root {
+          --accent: #38bdf8;
+          --accent-soft: #93d9fb;
+          --ink: #f5f7ff;
+          --muted: #9aa8c7;
+          --panel: rgba(8, 13, 32, 0.8);
+        }
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        #root {
+          position: relative;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          font-family: "Inter", sans-serif;
+          color: var(--ink);
+          background:
+            radial-gradient(900px 700px at 50% 30%, rgba(56, 189, 248, 0.22), transparent 70%),
+            radial-gradient(800px 900px at 85% 85%, rgba(120, 50, 170, 0.18), transparent 70%),
+            radial-gradient(1200px 1200px at 50% 50%, #0a1433, #040816 75%);
+        }
+        .head {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 190px;
+          opacity: 0;
+        }
+        .kicker {
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          font-size: 30px;
+          font-weight: 600;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--muted);
+        }
+        .kicker .dot {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: var(--accent);
+          box-shadow: 0 0 18px var(--accent);
+        }
+        .title {
+          margin-top: 22px;
+          font-size: 100px;
+          line-height: 1.02;
+          font-weight: 800;
+          letter-spacing: -0.035em;
+        }
+        .cdn-sub {
+          margin-top: 18px;
+          font-size: 40px;
+          font-weight: 400;
+          color: #d4dcf2;
+        }
+        .cdn-sub b {
+          font-weight: 600;
+          color: var(--accent-soft);
+        }
+        #diagram {
+          position: absolute;
+          left: 190px;
+          top: 640px;
+          width: 700px;
+          height: 700px;
+        }
+        .node-label {
+          position: absolute;
+          transform: translate(-50%, 14px);
+          font-size: 26px;
+          font-weight: 600;
+          color: var(--muted);
+          white-space: nowrap;
+          opacity: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-73dw" id="root" data-composition-id="card-cdn" data-width="1080" data-height="1920" data-duration="3.24">
+        <div data-hf-id="hf-xa8y" id="head" class="head">
+          <div data-hf-id="hf-yu5r" class="kicker"><span data-hf-id="hf-9gry" class="dot"></span>La red liviana</div>
+          <div data-hf-id="hf-42ht" class="title">CDN</div>
+          <div data-hf-id="hf-iovr" class="cdn-sub">Content <b data-hf-id="hf-33o5">Delivery</b> Network</div>
+        </div>
+
+        <svg data-hf-id="hf-9pdw" id="diagram" viewBox="0 0 900 900" fill="none">
+          <g data-hf-id="hf-vbhm" id="spokes" stroke="#38bdf8" stroke-width="4" stroke-linecap="round" opacity="0.7" />
+          <g data-hf-id="hf-lx9q" id="nodes" />
+          <circle data-hf-id="hf-kd3s" id="hub" cx="450" cy="450" r="70" fill="rgba(8,13,32,0.9)" stroke="#93d9fb" stroke-width="4" />
+          <text data-hf-id="hf-wery" x="450" y="462" text-anchor="middle" font-family="Inter, sans-serif" font-size="30" font-weight="700" fill="#f5f7ff">origen</text>
+        </svg>
+        <div data-hf-id="hf-33rw" id="labels"></div>
+
+      </div>
+
+      <script>
+        (function () {
+          const svgNS = "http://www.w3.org/2000/svg";
+          const spokesG = document.getElementById("spokes");
+          const nodesG = document.getElementById("nodes");
+          const labelsDiv = document.getElementById("labels");
+          const CX = 450,
+            CY = 450,
+            R = 360;
+          const NAMES = ["edge", "edge", "edge", "edge", "edge", "edge"];
+          const nodeEls = [];
+          const lineEls = [];
+          for (let i = 0; i < NAMES.length; i++) {
+            const ang = (Math.PI * 2 * i) / NAMES.length - Math.PI / 2;
+            const x = CX + R * Math.cos(ang);
+            const y = CY + R * Math.sin(ang);
+
+            const line = document.createElementNS(svgNS, "line");
+            line.setAttribute("x1", CX);
+            line.setAttribute("y1", CY);
+            line.setAttribute("x2", x);
+            line.setAttribute("y2", y);
+            spokesG.appendChild(line);
+            lineEls.push(line);
+
+            const node = document.createElementNS(svgNS, "circle");
+            node.setAttribute("cx", x);
+            node.setAttribute("cy", y);
+            node.setAttribute("r", 34);
+            node.setAttribute("fill", "#0d1a3a");
+            node.setAttribute("stroke", "#38bdf8");
+            node.setAttribute("stroke-width", "3");
+            nodesG.appendChild(node);
+            nodeEls.push(node);
+
+            const fileMark = document.createElementNS(svgNS, "text");
+            fileMark.setAttribute("x", x);
+            fileMark.setAttribute("y", y + 9);
+            fileMark.setAttribute("text-anchor", "middle");
+            fileMark.setAttribute("font-family", "Inter, sans-serif");
+            fileMark.setAttribute("font-size", "26");
+            fileMark.setAttribute("fill", "#93d9fb");
+            fileMark.textContent = "▤";
+            nodesG.appendChild(fileMark);
+          }
+
+          window.__timelines = window.__timelines || {};
+          const tl = gsap.timeline({ paused: true });
+          const IN = { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" };
+
+          tl.fromTo("#head", { opacity: 0, y: 30 }, { ...IN }, 0.05);
+          tl.fromTo("#hub", { scale: 0, transformOrigin: "450px 450px" }, { scale: 1, duration: 0.4, ease: "back.out(2.4)" }, 0.35);
+          tl.fromTo(
+            lineEls,
+            { opacity: 0 },
+            { opacity: 0.7, duration: 0.35, ease: "power2.out", stagger: 0.04 },
+            0.55
+          );
+          tl.fromTo(
+            nodeEls,
+            { scale: 0, transformOrigin: "center" },
+            { scale: 1, duration: 0.35, ease: "back.out(2.4)", stagger: 0.04 },
+            0.6
+          );
+
+          window.__timelines["card-cdn"] = tl;
+          tl.seek(0);
+
+          const HOST_START = 96.72;
+          const DURATION = 3.24;
+          const root = document.querySelector('[data-composition-id="card-cdn"]');
+          function renderAt(globalTime) {
+            const inWindow = globalTime >= HOST_START && globalTime <= HOST_START + DURATION;
+            root.style.opacity = inWindow ? "1" : "0";
+            const local = Math.min(DURATION, Math.max(0, globalTime - HOST_START));
+            tl.seek(local);
+          }
+          window.addEventListener("hf-seek", (e) => renderAt(e.detail.time));
+          renderAt(window.__hfThreeTime || 0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

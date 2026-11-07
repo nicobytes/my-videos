@@ -1,0 +1,76 @@
+1
+00:00:00,080 --> 00:00:01,720
+Últimamente he estado desarrollando agentes
+
+2
+00:00:01,720 --> 00:00:03,000
+que corren y viven en WhatsApp para
+
+3
+00:00:03,000 --> 00:00:04,960
+diferentes empresas y hace poco sacamos
+
+4
+00:00:04,960 --> 00:00:06,160
+este estadística
+
+5
+00:00:06,400 --> 00:00:08,400
+en donde miramos cómo está atendiendo y
+
+6
+00:00:08,400 --> 00:00:09,480
+esto es lo vital.
+
+7
+00:00:09,520 --> 00:00:11,680
+Fíjate que en las horas básicamente
+
+8
+00:00:11,680 --> 00:00:13,320
+hábiles, en las horas de trabajo, pues
+
+9
+00:00:13,320 --> 00:00:15,520
+nuestro agent obviamente sigue funcionando,
+
+10
+00:00:15,680 --> 00:00:17,480
+pero también responde en picos en donde
+
+11
+00:00:17,480 --> 00:00:19,000
+normalmente ya nadie te atiende.
+
+12
+00:00:19,400 --> 00:00:21,840
+En la madrugada, en la altas horas de la noche,
+
+13
+00:00:22,080 --> 00:00:24,520
+el agente literalmente toma toda la base de
+
+14
+00:00:24,520 --> 00:00:26,520
+conocimiento de tu compañía, responde, haz
+
+15
+00:00:26,520 --> 00:00:28,960
+atención y deja listo precisamente para que
+
+16
+00:00:28,960 --> 00:00:29,600
+alguien ya
+
+17
+00:00:30,560 --> 00:00:32,120
+pues del equipo de ventas tome esa
+
+18
+00:00:32,120 --> 00:00:33,920
+conversación cuando ya esté en horas de
+
+19
+00:00:33,920 --> 00:00:35,160
+trabajo y cierre la venta.
+

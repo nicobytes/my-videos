@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="shell-template">
+      <style>
+        #shell-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        /* The one shape: an edge layer (the 3px border) and a fill layer, both full-frame and
+           clipped to the current object's rect. The wrapper's drop-shadow follows the clip. */
+        #shell-wrap {
+          position: absolute;
+          inset: 0;
+          filter: drop-shadow(0 24px 64px rgba(21, 91, 63, 0.14)) drop-shadow(0 6px 16px rgba(21, 91, 63, 0.08));
+        }
+        #shell-edge,
+        #shell-fill {
+          position: absolute;
+          inset: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-cli0" id="shell-root" data-composition-id="shell" data-start="0" data-duration="53.75" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-nf42" id="shell-wrap">
+          <div data-hf-id="hf-69oh" id="shell-edge"></div>
+          <div data-hf-id="hf-6359" id="shell-fill"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          // Each frame's object surface: [left, top, width, height, radius, fill, edge].
+          // Must match the frame files (their objects are transparent; this shell paints them).
+          var W = 1080;
+          var H = 1920;
+          var BORDER = 3;
+          var R = {
+            card01: [110, 440, 860, 760, 36, "#FFFFFF", "#D3D1C7"],
+            phone02: [140, 430, 800, 760, 52, "#FFFFFF", "#D3D1C7"],
+            card03: [110, 660, 860, 760, 36, "#FFFFFF", "#D3D1C7"],
+            disc04: [220, 440, 640, 640, 320, "#FFFFFF", "#FFFFFF"],
+            phone05: [140, 420, 800, 940, 52, "#FFFFFF", "#D3D1C7"],
+            card07: [110, 400, 860, 920, 36, "#FFFFFF", "#D3D1C7"],
+            card08: [160, 540, 760, 600, 36, "#FFFFFF", "#D3D1C7"],
+            card09: [110, 640, 860, 712, 36, "#FFFFFF", "#D3D1C7"],
+            phone10: [140, 490, 800, 720, 52, "#FFFFFF", "#D3D1C7"],
+            card11: [110, 370, 860, 940, 36, "#FFFFFF", "#D3D1C7"],
+            button12: [160, 770, 760, 176, 88, "#0F422E", "#0F422E"],
+          };
+
+          // Morphs at each frame boundary (global seconds, timed to the voice). Frame 6 keeps frame 5's phone.
+          // Morphs 7–9 sit on the music's beat (assets/music/beats.json); the rest already land within 60 ms of one.
+          // The last morph closes the loop: the CTA button becomes the opening card again.
+          var MORPH = 0.5;
+          var STEPS = [
+            { t: 4.3, to: "phone02" },
+            { t: 6.1, to: "card03" },
+            { t: 11.05, to: "disc04" },
+            { t: 15.6, to: "phone05" },
+            { t: 20.46, to: "card07" },
+            { t: 25.87, to: "card08" },
+            { t: 30.07, to: "card09" },
+            { t: 34.9, to: "phone10" },
+            { t: 44.7, to: "card11" },
+            { t: 49.25, to: "button12" },
+            { t: 53.1, to: "card01" },
+          ];
+
+          // The CTA press (frame 12 local 1.88s = global 51.13s, on "citas") compresses the button surface.
+          var PRESS_AT = 51.13;
+          var PRESS_ORIGIN = "540px 858px";
+
+          function inset(r, pad) {
+            var top = r[1] + pad;
+            var left = r[0] + pad;
+            var right = W - (r[0] + r[2]) + pad;
+            var bottom = H - (r[1] + r[3]) + pad;
+            var radius = Math.max(0, r[4] - pad);
+            return "inset(" + top + "px " + right + "px " + bottom + "px " + left + "px round " + radius + "px)";
+          }
+
+          var tl = gsap.timeline({ paused: true });
+          var first = R.card01;
+          tl.set("#shell-edge", { clipPath: inset(first, 0), backgroundColor: first[6] }, 0);
+          tl.set("#shell-fill", { clipPath: inset(first, BORDER), backgroundColor: first[5] }, 0);
+
+          STEPS.forEach(function (step) {
+            var r = R[step.to];
+            tl.to("#shell-edge", { clipPath: inset(r, 0), backgroundColor: r[6], duration: MORPH, ease: "power2.inOut" }, step.t);
+            tl.to("#shell-fill", { clipPath: inset(r, BORDER), backgroundColor: r[5], duration: MORPH, ease: "power2.inOut" }, step.t);
+          });
+
+          // press-release-spring: linear press, soft spring release (state continuity by adjacency).
+          tl.fromTo("#shell-wrap", { scale: 1, transformOrigin: PRESS_ORIGIN }, { scale: 0.94, duration: 0.12, ease: "power1.in", immediateRender: false }, PRESS_AT);
+          tl.to("#shell-wrap", { scale: 1, duration: 0.5, ease: "back.out(1.4)" }, PRESS_AT + 0.12);
+
+          window.__timelines["shell"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

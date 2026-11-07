@@ -1,0 +1,156 @@
+1
+00:00:00,080 --> 00:00:02,000
+Hablemos sobre los effects en Angular.
+
+2
+00:00:02,000 --> 00:00:03,600
+Básicamente deberíamos tratar de evitarlos
+
+3
+00:00:03,600 --> 00:00:05,400
+a toda costa y Angular ha hecho mucho buen
+
+4
+00:00:05,400 --> 00:00:06,080
+trabajo para
+
+5
+00:00:06,640 --> 00:00:08,640
+mecanismos para poder evitarlos.
+
+6
+00:00:08,640 --> 00:00:09,040
+Sin embargo,
+
+7
+00:00:09,360 --> 00:00:10,640
+pues a veces hay que utilizarlos para
+
+8
+00:00:10,640 --> 00:00:12,520
+analytics, logging, debugging, manipulación
+
+9
+00:00:12,520 --> 00:00:13,760
+del DOM, etcétera.
+
+10
+00:00:13,840 --> 00:00:15,520
+Hay una forma mucho más limpia de escribir
+
+11
+00:00:15,520 --> 00:00:17,400
+estos effects a mi parecer y es con esta
+
+12
+00:00:17,400 --> 00:00:19,440
+alternativa que tiene en
+
+13
+00:00:19,680 --> 00:00:21,760
+su paquete que se llama signal method.
+
+14
+00:00:22,240 --> 00:00:24,080
+Tiene 3 ventajas sobre el efecto normal de
+
+15
+00:00:24,080 --> 00:00:24,560
+Angular.
+
+16
+00:00:24,560 --> 00:00:26,000
+La primera es flexible inputs.
+
+17
+00:00:26,000 --> 00:00:28,560
+Yo puedo enviarle un signal o simplemente
+
+18
+00:00:28,560 --> 00:00:29,120
+un valor
+
+19
+00:00:29,360 --> 00:00:31,560
+y él va a suscribirse y ejecutar esa lógica
+
+20
+00:00:31,560 --> 00:00:32,080
+de negocio
+
+21
+00:00:32,400 --> 00:00:34,320
+aparte como si fuera programación en la
+
+22
+00:00:34,320 --> 00:00:36,000
+entrada objetos, lo cual lo hace grande
+
+23
+00:00:36,000 --> 00:00:37,640
+para el unit test y tengo que pelear con el
+
+24
+00:00:37,640 --> 00:00:39,680
+constructor, inyectables y demás.
+
+25
+00:00:39,680 --> 00:00:42,080
+Tiene automáticamente el implicit un
+
+26
+00:00:42,080 --> 00:00:42,520
+tracket.
+
+27
+00:00:42,520 --> 00:00:44,520
+Entonces yo no me tengo que recordar cuándo
+
+28
+00:00:44,520 --> 00:00:45,920
+poner un tracket o no
+
+29
+00:00:46,400 --> 00:00:47,440
+para evitar
+
+30
+00:00:47,680 --> 00:00:48,440
+memory leaks.
+
+31
+00:00:48,440 --> 00:00:49,280
+Eso ya lo hace.
+
+32
+00:00:49,600 --> 00:00:50,320
+De por sí, eso ya
+
+33
+00:00:50,560 --> 00:00:52,040
+me ahorra un montón de pensamiento
+
+34
+00:00:52,040 --> 00:00:53,920
+cognitivo de cuándo usar un track o no.
+
+35
+00:00:53,920 --> 00:00:56,160
+Simplemente uso signal method y ya y se ve
+
+36
+00:00:56,160 --> 00:00:57,920
+mucho más limpio, declarativo y es
+
+37
+00:00:57,920 --> 00:00:58,960
+inyectable. Así que
+
+38
+00:00:59,280 --> 00:01:01,280
+te recomiendo usarlo si utilizas el paquete
+
+39
+00:01:01,440 --> 00:01:02,960
+de NRS signal.
+

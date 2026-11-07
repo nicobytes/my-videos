@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="shell-template">
+      <style>
+        #shell-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        #shell-world {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 1920px;
+          transform-origin: 0 0;
+        }
+        /* The one shape: edge + fill, clipped to the spring-driven geometry; the shadow follows the clip. */
+        #shell-wrap {
+          position: absolute;
+          inset: 0;
+          filter: drop-shadow(0 24px 64px rgba(21, 91, 63, 0.14)) drop-shadow(0 6px 16px rgba(21, 91, 63, 0.08));
+        }
+        #shell-edge,
+        #shell-fill {
+          position: absolute;
+          inset: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-z96f" id="shell-root" data-composition-id="shell" data-start="0" data-duration="75.05" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-n9u1" id="shell-world" data-layout-allow-overflow>
+          <div data-hf-id="hf-nf42" id="shell-wrap">
+            <div data-hf-id="hf-69oh" id="shell-edge"></div>
+            <div data-hf-id="hf-6359" id="shell-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var world = document.getElementById("shell-world");
+          var edge = document.getElementById("shell-edge");
+          var fill = document.getElementById("shell-fill");
+          var fillColor = R.colorTrack(R.SHELL, "fill");
+          var edgeColor = R.colorTrack(R.SHELL, "edge");
+          window.__timelines["shell"] = R.mountFull(function (t) {
+            var g = R.shell(t);
+            world.style.transform = R.worldTransform(t);
+            edge.style.clipPath = R.inset(g, 0);
+            edge.style.backgroundColor = edgeColor(t);
+            fill.style.clipPath = R.inset(g, 3);
+            fill.style.backgroundColor = fillColor(t);
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="scene-base-template">
+      <style>
+        #scene-base-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        #scene-base-canvas {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 1920px;
+          display: block;
+        }
+      </style>
+
+      <!-- The one shape (MOTION.md), now a slab with real thickness: one mesh for the whole reel, rebuilt each frame
+           from the same spring as v2 (shell). Under it, the soft shadows it and the pill throw on the background. -->
+      <div data-hf-id="hf-o4od" id="scene-base-root" data-composition-id="scene-base" data-start="0" data-duration="75.05" data-width="1080" data-height="1920">
+        <canvas data-hf-id="hf-b3px" id="scene-base-canvas" data-layout-allow-occlusion width="1080" height="1920"></canvas>
+      </div>
+
+      <script type="module">
+        import * as THREE from "three";
+        import { makeRenderer, makeCamera, applyView, makeSlabGroup, applyTilt, addLights, Body, SoftShadow, rimClock, LogoRelief, mount } from "./compositions/shared/scene3d.js";
+
+        const R = window.Reel;
+        const renderer = makeRenderer(document.getElementById("scene-base-canvas"));
+        const scene = new THREE.Scene();
+        const camera = makeCamera();
+        addLights(scene);
+        const slabGroup = makeSlabGroup(scene);
+        const slab = new Body(slabGroup, R.SLAB_D, R.BEVEL);
+        const clock = rimClock(slab.side); // state 4: the disc's rim drains with the hour
+        const logo = new LogoRelief(slabGroup, { l: 196, t: 566, w: 76 }); // state 11: where 11-parlana.html puts the mark
+        // On the background: a wide, soft shadow and a tighter one under the slab (as v2's two drop shadows), and the pill's.
+        const wide = new SoftShadow(scene, 0);
+        const near = new SoftShadow(scene, 0.5);
+        const pillOnGround = new SoftShadow(scene, 1);
+        const fill = R.colorTrack(R.SHELL, "fill");
+        const edge = R.colorTrack(R.SHELL, "edge");
+
+        function render(t) {
+          applyView(camera, t);
+          applyTilt(slabGroup, t);
+          const g = R.shell(t);
+          slab.update(g, R.FLOAT, fill(t), edge(t));
+          const rc = R.rim(t);
+          clock.uRimOn.value = rc.on;
+          clock.uRimFrac.value = rc.frac;
+          clock.uRimC.value.set((g.l + g.r) / 2, -(g.t + g.b) / 2);
+          const lg = R.logoLift(t);
+          logo.update(lg.h, lg.k);
+          const h = R.FLOAT + R.SLAB_D / 2;
+          const s = R.shadowOf(h);
+          wide.update(g, { dx: s.dx * 0.6, dy: s.dy * 0.9, blur: 90, alpha: 0.13 });
+          near.update(g, { dx: s.dx * 0.25, dy: s.dy * 0.35, blur: 22, alpha: 0.1 });
+          // The pill's shadow where it hangs past the slab's edge (the slab hides the rest).
+          const p = R.pill(t);
+          pillOnGround.update(p.g, R.shadowOf(p.base + p.depth / 2));
+          renderer.render(scene, camera);
+        }
+        mount("scene-base", render);
+      </script>
+    </template>
+  </body>
+</html>

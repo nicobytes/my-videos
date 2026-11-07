@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><meta charset="UTF-8"><link rel="stylesheet" href="compositions/shared/pixel.css"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jersey 10"; src: url("assets/fonts/jersey10-latin.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Plus Jakarta Sans"; src: url("assets/fonts/plusjakarta-latin.woff2") format("woff2"); font-weight: 200 800; }
+        #f06-root { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; background: #00260f; }
+        .f06-ring { position: absolute; left: 340px; top: 830px; width: 400px; height: 400px; border: 24px solid #00bd4c; opacity: 0; visibility: hidden; }
+        #f06-brand { position: absolute; left: 0; top: 230px; width: 1080px; display: flex; align-items: center; justify-content: center; gap: 30px; }
+        #f06-logo { width: 190px; height: auto; display: block; }
+        #f06-word { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 150px; color: #f1efe8; letter-spacing: -0.02em; line-height: 1; }
+        #f06-agent, #f06-agent-h { left: 320px; top: 720px; width: 440px; }
+        .f06-sp { width: 84px; }
+      </style>
+
+      <div id="f06-root" data-composition-id="f06" data-start="0" data-duration="1.74" data-width="1080" data-height="1920">
+        <div class="f06-ring" id="f06-r0"></div>
+        <div class="f06-ring" id="f06-r1"></div>
+        <div class="f06-ring" id="f06-r2"></div>
+        <div id="f06-brand">
+          <img id="f06-logo" src="assets/brand/parlana-logo.svg" alt="">
+          <div id="f06-word">Parlana</div>
+        </div>
+        <img id="f06-agent" class="px" src="assets/sprites/agent.svg" alt="">
+        <img id="f06-agent-h" class="px" src="assets/sprites/agent-happy.svg" style="visibility: hidden;" alt="">
+        <img id="f06-s0" class="px f06-sp" src="assets/sprites/sparkle.svg" style="left: 230px; top: 760px;" alt="">
+        <img id="f06-s1" class="px f06-sp" src="assets/sprites/sparkle.svg" style="left: 780px; top: 700px;" alt="">
+        <img id="f06-s2" class="px f06-sp" src="assets/sprites/sparkle.svg" style="left: 820px; top: 1100px;" alt="">
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          // local anchors (abs − 20.90): Parlana 0.02 · le pone 0.32 · agente 0.79 · inteligencia 1.21
+          // pixel burst: square rings expand in stepped frames (pixel cadence)
+          ["#f06-r0", "#f06-r1", "#f06-r2"].forEach(function (r, i) {
+            tl.fromTo(r, { autoAlpha: 1, scale: 0.1 }, { autoAlpha: 0, scale: 2.6, duration: 0.55, ease: "steps(6)" }, i * 0.18);
+          });
+          tl.fromTo("#f06-logo", { autoAlpha: 0, scale: 0, rotation: -20 }, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.35, ease: "power3.out" }, 0.02);
+          tl.fromTo("#f06-word", { autoAlpha: 0, x: -40 }, { autoAlpha: 1, x: 0, duration: 0.3, ease: "power3.out" }, 0.12);
+          // the agent drops in and lands (stepped fall, one squash)
+          tl.fromTo("#f06-agent", { autoAlpha: 1, y: -1100 }, { y: 0, duration: 0.4, ease: "steps(8)" }, 0.3);
+          tl.to("#f06-agent", { keyframes: [{ scaleY: 0.85, scaleX: 1.1, duration: 0.06 }, { scaleY: 1, scaleX: 1, duration: 0.12 }], transformOrigin: "50% 100%" }, 0.7);
+          tl.set("#f06-agent-h", { visibility: "visible" }, 0.8); tl.set("#f06-agent", { visibility: "hidden" }, 0.8);
+          ["#f06-s0", "#f06-s1", "#f06-s2"].forEach(function (s, i) {
+            tl.fromTo(s, { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.15, ease: "steps(3)" }, 0.82 + i * 0.1);
+          });
+          window.__timelines["f06"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

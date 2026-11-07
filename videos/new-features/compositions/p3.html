@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        
+
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-300.woff2") format("woff2"); font-weight: 300; }
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-500.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-500.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-600.woff2") format("woff2"); font-weight: 600; }
+
+.lbl { font: 500 28px/1 "Jost"; letter-spacing: 0.16em; text-transform: uppercase; color: #5B4334; }
+.ttl { font: 500 64px/1.04 "Cormorant Garamond"; color: #312A23; letter-spacing: -0.01em; }
+.txt { font: 400 30px/1.42 "Jost"; color: #5B4334; }
+.meta { font: 400 28px/1.3 "Jost"; color: #8A7668; }
+.w { display: inline-block; }
+.stamp { display: inline-block; padding: 12px 22px 10px; border: 3px solid #5B4334; color: #5B4334;
+  font: 600 28px/1 "Jost"; letter-spacing: 0.14em; text-transform: uppercase; transform-origin: 0% 50%; }
+.stamp.ask { background: #A4583A; border-color: #A4583A; color: #FFFFFF; }
+.chip { font: 500 28px/1 "Jost"; letter-spacing: 0.04em; color: #5B4334; white-space: nowrap; }
+.chip.ask { color: #A4583A; font-weight: 600; }
+.chip .mk { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: currentColor; margin-right: 12px; transform: translateY(-2px); }
+
+        #root { position: absolute; inset: 0; }
+        #p3-panel { position: absolute; left: 1216px; top: 104px; width: 640px; height: 912px; }
+        #p3-head { display: flex; flex-direction: column; gap: 26px; }
+        #p3-panel .ans { position: absolute; left: 0; top: 600px; width: 640px; display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+        #p3-panel .ttl.small { font-size: 50px; }
+        #p3-panel .answer { font: 400 32px/1.38 "Jost"; color: #312A23; }
+        #p3-panel .stamp { transform: rotate(-3deg); }
+        #p3-led { position: absolute; inset: 0; background: #FBF8F4; }
+        #p3-sheet { position: absolute; inset: 0; transform-origin: 1000px 448px; }
+        #p3-sheet .doc { position: absolute; left: 360px; top: 112px; font: 300 56px/1 "Cormorant Garamond"; color: #5B4334; }
+        #p3-sheet .row { position: absolute; left: 340px; width: 1500px; height: 84px; border-bottom: 2px solid #E4D6C6;
+          display: flex; align-items: center; }
+        #p3-sheet .num { width: 70px; padding-left: 20px; font: 400 30px/1 "Jost"; color: #8A7668; }
+        #p3-sheet .rt { flex: 1; font: 500 42px/1 "Cormorant Garamond"; color: #312A23; }
+        #p3-sheet .rs { width: 300px; text-align: right; padding-right: 20px; }
+        #p3-sheet .rs .chip { display: inline-block; transform-origin: 100% 50%; }
+        #p3-hl { position: absolute; left: 340px; top: 0; width: 1500px; height: 84px; background: #F3E6DE; }
+      </style>
+      <div id="root" data-composition-id="p3" data-width="1920" data-height="1080">
+        <div id="p3-panel">
+          <div id="p3-head">
+            <div id="p3-lbl" class="lbl">Pedido 3 de 9</div>
+            <div id="p3-ttl" class="ttl"><span class="w p3-tw">Visualización</span> <span class="w p3-tw">de</span> <span class="w p3-tw">agenda</span> <span class="w p3-tw">con</span> <span class="w p3-tw">datos</span> <span class="w p3-tw">restringidos</span></div>
+            <div id="p3-desc" class="txt">Un acceso que solo vea fecha, hora, cliente y servicio, sin editar ni ver el número de contacto.</div>
+            <div id="p3-meta" class="meta">Mejora · Prioridad alta · 13/10/2026</div>
+          </div>
+          <div id="p3-ans" class="ans">
+            <span id="p3-stamp" class="stamp ask">Por confirmar</span>
+            <div id="p3-answer" class="answer">¿Es para roles como el de Alex, que opera en Sucre? ¿Solo en la app móvil? Cuéntennos la necesidad.</div>
+          </div>
+        <div id="p3-new" class="ans">
+          <span id="p3-newchip" class="stamp ask">Nuevo</span>
+          <div id="p3-newt" class="ttl small"><span class="w p3-nw">La</span> <span class="w p3-nw">agenda</span> <span class="w p3-nw">se</span> <span class="w p3-nw">sincroniza</span> <span class="w p3-nw">con</span> <span class="w p3-nw">Google</span> <span class="w p3-nw">Calendar</span></div>
+          <div id="p3-newb" class="txt">Se conecta en Integraciones y cada agenda elige su calendario.</div>
+        </div>
+        </div>
+        <div id="p3-led">
+          <div id="p3-sheet">
+            <div id="p3-hl"></div>
+            <div class="doc">Pedidos de cambios para el sistema Sofi</div>
+        <div class="row" style="top:238px"><span class="num">1</span><span id="p3-rt1" class="rt">Comprobante de pago</span><span class="rs"><span id="p3-st1" class="chip">✓ Resuelto</span></span></div>
+        <div class="row" style="top:322px"><span class="num">2</span><span id="p3-rt2" class="rt">Editar citas en agenda</span><span class="rs"><span id="p3-st2" class="chip ask"><span class="mk"></span>Su respuesta</span></span></div>
+        <div class="row" style="top:406px"><span class="num">3</span><span id="p3-rt3" class="rt">Agenda con datos restringidos</span><span class="rs"></span></div>
+        <div class="row" style="top:490px"><span class="num">4</span><span id="p3-rt4" class="rt">Sofi no está agendando bien</span><span class="rs"></span></div>
+        <div class="row" style="top:574px"><span class="num">5</span><span id="p3-rt5" class="rt">Ir a la conversación desde la agenda</span><span class="rs"></span></div>
+        <div class="row" style="top:658px"><span class="num">6</span><span id="p3-rt6" class="rt">Tiempo para enviar mensajes</span><span class="rs"></span></div>
+        <div class="row" style="top:742px"><span class="num">7</span><span id="p3-rt7" class="rt">Nueva cita en lugar de reagendar</span><span class="rs"></span></div>
+        <div class="row" style="top:826px"><span class="num">8</span><span id="p3-rt8" class="rt">Límite de fecha en agenda</span><span class="rs"></span></div>
+        <div class="row" style="top:910px"><span class="num">9</span><span id="p3-rt9" class="rt">Siguiente sesión o reagendar</span><span class="rs"></span></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        // Ledger beat: the client's list, the highlight steps to this row.
+        tl.fromTo("#p3-led", { clipPath: "inset(0% 0% 100% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.42, ease: "power3.inOut" }, 0);
+        tl.fromTo("#p3-hl", { y: 322 }, { y: 406, duration: 0.55, ease: "power3.inOut" }, 0.3);
+      tl.fromTo("#p3-st2", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.2, ease: "expo.out" }, 0.62);
+        tl.fromTo("#p3-rt3", { color: "#312A23" }, { color: "#A4583A", duration: 0.25, ease: "power2.out" }, 0.95);
+        // Push into the row, then the card takes the frame.
+        tl.fromTo("#p3-sheet", { scale: 1, filter: "blur(0px)" }, { scale: 1.45, filter: "blur(10px)", duration: 0.55, ease: "power3.in" }, 1.95);
+        tl.fromTo("#p3-led", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power2.in" }, 2.25);
+        tl.fromTo("#p3-lbl", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 2.35);
+        tl.fromTo(".p3-tw", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.067, ease: "power4.out" }, 2.45);
+        tl.fromTo("#p3-desc", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 3.002);
+        tl.fromTo("#p3-meta", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 3.182);
+        // The verdict: stamped when Nicolás says it.
+        tl.fromTo("#p3-stamp", { opacity: 0, scale: 1.35, rotation: -7 }, { opacity: 1, scale: 1, rotation: -3, duration: 0.22, ease: "expo.out" }, 21.827);
+        tl.fromTo("#p3-answer", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 22.127);
+      tl.to("#p3-ans", { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power2.in" }, 29.847);
+      tl.fromTo("#p3-new", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 30.047);
+      tl.fromTo("#p3-newchip", { opacity: 0, scale: 1.35, rotation: -6 }, { opacity: 1, scale: 1, rotation: -3, duration: 0.22, ease: "expo.out" }, 30.047);
+      tl.fromTo(".p3-nw", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.067, ease: "power4.out" }, 30.297);
+      tl.fromTo("#p3-newb", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 30.966);
+        // Hidden while the screen or the camera covers the card.
+        tl.set("#p3-panel", { opacity: 0 }, 47.173);
+        tl.set("#p3-panel", { opacity: 1 }, 273.3);
+        window.__timelines["p3"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

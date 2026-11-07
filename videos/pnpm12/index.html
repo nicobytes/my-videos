@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/Inter-400-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/Inter-700-latin.woff2") format("woff2");
+        font-weight: 700;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Caveat";
+        src: url("fonts/Caveat-400-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Caveat";
+        src: url("fonts/Caveat-700-latin.woff2") format("woff2");
+        font-weight: 700;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "LXGW WenKai TC";
+        src: url("fonts/LXGWWenKaiTC-400-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Virgil";
+        src: url("fonts/Virgil.woff2") format("woff2");
+        font-display: block;
+      }
+
+      :root {
+        --bg: #0d1117;
+        --text: #f1f1f1;
+        --accent-0: #4ade80;
+        --accent-1: #f472b6;
+        --accent-2: #60a5fa;
+        --accent-3: #fbbf24;
+        --accent-4: #a78bfa;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+        font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+      }
+      #stage {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+      }
+      .video-wrapper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        z-index: 1;
+      }
+      .video-wrapper video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .card-host {
+        position: absolute;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 3;
+      }
+      .card-host .card {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-lsif" id="stage" data-composition-id="talking-head-recut" data-start="0" data-duration="57.9" data-fps="30" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-7ke0" class="video-wrapper" id="video-wrap" style="left:0;top:0;width:1080px;height:1920px;opacity:1;">
+        <video data-hf-id="hf-txmv" id="bg-video" src="input-video.mp4" muted playsinline data-start="0" data-duration="57.9" data-track-index="1"></video>
+      </div>
+      <audio data-hf-id="hf-lvp3" id="source-audio" src="input-video.mp4" data-start="0" data-duration="57.9" data-track-index="10" data-volume="1"></audio>
+
+      <div data-hf-id="hf-dhfg" id="host-card-01" class="card-host clip" data-card-id="card-01" data-start="2.8000" data-duration="4.4000" data-track-index="2" style="left:0;top:0;width:1080px;height:1920px;">
+<div data-hf-id="hf-8sxq" class="card" data-card-id="card-01">
+  <style>
+    .card[data-card-id="card-01"] .root {
+      --ink: #e6edf3;
+      --muted: #7d8590;
+      --green: #4ade80;
+      --amber: #fbbf24;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #0d1117;
+      color: var(--ink);
+      font-family: ui-monospace, "SF Mono", Menlo, "Courier New", monospace;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 56px 160px;
+    }
+    .card[data-card-id="card-01"] .panel {
+      width: 100%;
+      max-width: 920px;
+    }
+    .card[data-card-id="card-01"] .kicker {
+      color: var(--muted);
+      font: 600 22px/1 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.18em;
+      margin-bottom: 28px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-01"] .headline {
+      font: 700 76px/1.1 ui-monospace, Menlo, monospace;
+      margin: 0 0 36px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-01"] .headline .hl {
+      background: rgba(74, 222, 128, 0.18);
+      color: var(--green);
+      padding: 0 10px;
+    }
+    .card[data-card-id="card-01"] .chips {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 0 0 40px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-01"] .chip {
+      border: 1px solid #3d4450;
+      border-radius: 8px;
+      padding: 12px 18px;
+      font: 600 30px/1 ui-monospace, Menlo, monospace;
+      color: var(--muted);
+    }
+    .card[data-card-id="card-01"] .arrow {
+      color: var(--amber);
+      font-size: 34px;
+    }
+    .card[data-card-id="card-01"] .chip.win {
+      color: var(--green);
+      border-color: rgba(74, 222, 128, 0.5);
+    }
+    .card[data-card-id="card-01"] .detail {
+      color: var(--ink);
+      font: 400 34px/1.4 ui-monospace, Menlo, monospace;
+      opacity: 0;
+    }
+  </style>
+  <div data-hf-id="hf-iz4w" class="root">
+    <div data-hf-id="hf-owjm" class="panel">
+      <div data-hf-id="hf-ykhz" class="kicker" id="card-01-kicker" data-anim="fade-in" data-anim-at="0.1" data-anim-duration="0.3">
+        $ takeaway --hook
+      </div>
+      <h2 data-hf-id="hf-7cv1" class="headline" id="card-01-title" data-anim="fade-in" data-anim-at="0.35" data-anim-duration="0.45">
+        <span data-hf-id="hf-elsz" class="hl">pnpm 12</span> reemplaza dos tools
+      </h2>
+      <div data-hf-id="hf-6sww" class="chips" id="card-01-chips" data-anim="fade-in" data-anim-at="0.85" data-anim-duration="0.4">
+        <span data-hf-id="hf-cbqm" class="chip">nvm</span>
+        <span data-hf-id="hf-kbt9" class="arrow">+</span>
+        <span data-hf-id="hf-7lys" class="chip">npm</span>
+        <span data-hf-id="hf-v68i" class="arrow">→</span>
+        <span data-hf-id="hf-zkok" class="chip win">pnpm</span>
+      </div>
+      <div data-hf-id="hf-mebr" class="detail" id="card-01-detail" data-anim="fade-in" data-anim-at="1.3" data-anim-duration="0.35">
+        Una sola herramienta. Confías en pnpm.
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+
+      <div data-hf-id="hf-zyoa" id="host-card-02" class="card-host clip" data-card-id="card-02" data-start="9.4000" data-duration="5.4000" data-track-index="2" style="left:0;top:0;width:1080px;height:1920px;">
+<div data-hf-id="hf-4utp" class="card" data-card-id="card-02">
+  <style>
+    .card[data-card-id="card-02"] .root {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: ui-monospace, "SF Mono", Menlo, "Courier New", monospace;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 56px 160px;
+    }
+    .card[data-card-id="card-02"] .panel {
+      width: 100%;
+      max-width: 920px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .card[data-card-id="card-02"] .kicker {
+      color: #7d8590;
+      font: 600 20px/1 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.16em;
+      opacity: 0;
+    }
+    .card[data-card-id="card-02"] .row {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .card[data-card-id="card-02"] .logo {
+      width: 240px;
+      height: auto;
+      object-fit: contain;
+      opacity: 0;
+      background: #fff;
+      border-radius: 12px;
+      padding: 18px;
+      box-sizing: border-box;
+    }
+    .card[data-card-id="card-02"] .headline {
+      font: 700 52px/1.15 ui-monospace, Menlo, monospace;
+      margin: 0 0 18px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-02"] .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-02"] .line {
+      font: 400 30px/1.3 ui-monospace, Menlo, monospace;
+      color: #7d8590;
+    }
+    .card[data-card-id="card-02"] .line span {
+      color: #fbbf24;
+    }
+    .card[data-card-id="card-02"] .pain {
+      color: #f472b6;
+      font: 600 32px/1.3 ui-monospace, Menlo, monospace;
+      opacity: 0;
+    }
+  </style>
+  <div data-hf-id="hf-yjx4" class="root">
+    <div data-hf-id="hf-gxly" class="panel">
+      <div data-hf-id="hf-8ukm" class="kicker" id="card-02-kicker" data-anim="fade-in" data-anim-at="0.08" data-anim-duration="0.3">
+        TOOL #1 · REPLACE
+      </div>
+      <div data-hf-id="hf-thy4" class="row">
+        <img data-hf-id="hf-ix03" class="logo" id="card-02-logo" src="assets/logo-nvm.svg" alt="nvm" data-anim="scale-pop" data-anim-at="0.25" data-anim-duration="0.45">
+        <div data-hf-id="hf-yeow">
+          <h2 data-hf-id="hf-fpoq" class="headline" id="card-02-title" data-anim="fade-in" data-anim-at="0.4" data-anim-duration="0.4">
+            Node Version Manager
+          </h2>
+          <div data-hf-id="hf-vc17" class="stack" id="card-02-stack" data-anim="fade-in" data-anim-at="0.85" data-anim-duration="0.4">
+            <div data-hf-id="hf-hlq8" class="line">proyecto A → <span data-hf-id="hf-4zhe">Node 18</span></div>
+            <div data-hf-id="hf-up9d" class="line">proyecto B → <span data-hf-id="hf-11dd">Node 20</span></div>
+            <div data-hf-id="hf-m13q" class="line">proyecto C → <span data-hf-id="hf-1tzf">Node 22</span></div>
+          </div>
+        </div>
+      </div>
+      <div data-hf-id="hf-13k9" class="pain" id="card-02-pain" data-anim="fade-in" data-anim-at="1.35" data-anim-duration="0.35">
+        // dolor de cabeza en la misma máquina
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+
+      <div data-hf-id="hf-eqnc" id="host-card-03" class="card-host clip" data-card-id="card-03" data-start="18.5000" data-duration="5.7000" data-track-index="2" style="left:0;top:0;width:1080px;height:1920px;">
+<div data-hf-id="hf-435w" class="card" data-card-id="card-03">
+  <style>
+    .card[data-card-id="card-03"] .root {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: ui-monospace, "SF Mono", Menlo, "Courier New", monospace;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 48px 160px;
+    }
+    .card[data-card-id="card-03"] .panel {
+      width: 100%;
+      max-width: 960px;
+      border: 2px solid #2c333e;
+      border-radius: 12px;
+      padding: 40px 36px;
+      box-sizing: border-box;
+      background: #010409;
+    }
+    .card[data-card-id="card-03"] .titlebar {
+      color: #7d8590;
+      font: 600 20px/1 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.14em;
+      margin-bottom: 36px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-03"] .prompt-line {
+      font: 500 36px/1.5 ui-monospace, Menlo, monospace;
+      margin-bottom: 24px;
+      opacity: 0;
+      word-break: break-word;
+    }
+    .card[data-card-id="card-03"] .prompt { color: #4ade80; }
+    .card[data-card-id="card-03"] .cmd .flag { color: #fbbf24; }
+    .card[data-card-id="card-03"] .cursor {
+      display: inline-block;
+      width: 16px;
+      height: 36px;
+      background: #4ade80;
+      margin-left: 4px;
+      vertical-align: -6px;
+      animation: card-03-blink 1s steps(1) infinite;
+    }
+    @keyframes card-03-blink {
+      50% { opacity: 0; }
+    }
+    .card[data-card-id="card-03"] .badge {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 18px;
+      border: 1px solid rgba(74, 222, 128, 0.45);
+      border-radius: 8px;
+      color: #4ade80;
+      font: 600 28px/1 ui-monospace, Menlo, monospace;
+      opacity: 0;
+    }
+    .card[data-card-id="card-03"] .hint {
+      margin-top: 40px;
+      color: #7d8590;
+      font: 400 30px/1.4 ui-monospace, Menlo, monospace;
+      opacity: 0;
+    }
+  </style>
+  <div data-hf-id="hf-xd01" class="root">
+    <div data-hf-id="hf-hbwz" class="panel">
+      <div data-hf-id="hf-xax2" class="titlebar" id="card-03-bar" data-anim="fade-in" data-anim-at="0.08" data-anim-duration="0.3">
+        RUNTIME · GLOBAL · ~/shell
+      </div>
+      <div data-hf-id="hf-od0r" class="prompt-line" id="card-03-cmd" data-anim="fade-in" data-anim-at="0.35" data-anim-duration="0.45">
+        <span data-hf-id="hf-99ip" class="prompt">$</span>
+        <span data-hf-id="hf-pipu" class="cmd">pnpm runtime set node <span data-hf-id="hf-hktc" class="flag">lts</span> <span data-hf-id="hf-op7j" class="flag">-g</span></span>
+      </div>
+      <div data-hf-id="hf-6k5d" class="prompt-line" id="card-03-cursor-line" data-anim="fade-in" data-anim-at="1.0" data-anim-duration="0.25">
+        <span data-hf-id="hf-yo2t" class="prompt">$</span><span data-hf-id="hf-1edb" class="cursor"></span>
+      </div>
+      <div data-hf-id="hf-yexy" class="badge" id="card-03-badge" data-anim="fade-in" data-anim-at="1.3" data-anim-duration="0.35">
+        Node LTS · managed by pnpm
+      </div>
+      <div data-hf-id="hf-0r09" class="hint" id="card-03-hint" data-anim="fade-in" data-anim-at="1.75" data-anim-duration="0.35">
+        // integrado en pnpm 12 — sin nvm
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+
+      <div data-hf-id="hf-d8d3" id="host-card-04" class="card-host clip" data-card-id="card-04" data-start="26.8000" data-duration="5.0000" data-track-index="2" style="left:0;top:0;width:1080px;height:1920px;">
+<div data-hf-id="hf-rknf" class="card" data-card-id="card-04">
+  <style>
+    .card[data-card-id="card-04"] .root {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: ui-monospace, "SF Mono", Menlo, "Courier New", monospace;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 40px 160px;
+    }
+    .card[data-card-id="card-04"] .panel {
+      width: 100%;
+      max-width: 980px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+    .card[data-card-id="card-04"] .kicker {
+      color: #7d8590;
+      font: 600 20px/1 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.16em;
+      opacity: 0;
+    }
+    .card[data-card-id="card-04"] .headline {
+      font: 700 48px/1.15 ui-monospace, Menlo, monospace;
+      margin: 0;
+      opacity: 0;
+    }
+    .card[data-card-id="card-04"] .headline .hl {
+      color: #60a5fa;
+    }
+    .card[data-card-id="card-04"] .code {
+      margin: 0;
+      padding: 28px 32px;
+      border-radius: 12px;
+      border: 1px solid #2c333e;
+      background: #010409;
+      font: 500 30px/1.55 ui-monospace, Menlo, monospace;
+      white-space: pre;
+      overflow: hidden;
+      opacity: 0;
+    }
+    .card[data-card-id="card-04"] .code .punc {
+      color: #7d8590;
+    }
+    .card[data-card-id="card-04"] .code .key {
+      color: #7ee787;
+    }
+    .card[data-card-id="card-04"] .code .str {
+      color: #a5d6ff;
+    }
+    .card[data-card-id="card-04"] .code .hl-line {
+      display: block;
+      margin: 0 -12px;
+      padding: 0 12px;
+      border-radius: 6px;
+      background: rgba(251, 191, 36, 0.12);
+    }
+    .card[data-card-id="card-04"] .code .hl-line .key {
+      color: #fbbf24;
+    }
+    .card[data-card-id="card-04"] .note {
+      color: #fbbf24;
+      font: 600 30px/1.3 ui-monospace, Menlo, monospace;
+      opacity: 0;
+    }
+  </style>
+  <div data-hf-id="hf-xrb2" class="root">
+    <div data-hf-id="hf-hq80" class="panel">
+      <div data-hf-id="hf-n4rq" class="kicker" id="card-04-kicker" data-anim="fade-in" data-anim-at="0.08" data-anim-duration="0.3">
+        PROJECT-AWARE GLOBAL BINS
+      </div>
+      <h2 data-hf-id="hf-rx6l" class="headline" id="card-04-title" data-anim="fade-in" data-anim-at="0.25" data-anim-duration="0.35">
+        Tag en <span data-hf-id="hf-wdnt" class="hl">package.json</span>
+      </h2>
+      <pre data-hf-id="hf-42yc" class="code" id="card-04-code" data-anim="fade-in" data-anim-at="0.5" data-anim-duration="0.45"><span data-hf-id="hf-ampi" class="punc">{</span>
+  <span data-hf-id="hf-16bw" class="key">"devEngines"</span><span data-hf-id="hf-zo09" class="punc">:</span> <span data-hf-id="hf-yg2i" class="punc">{</span>
+    <span data-hf-id="hf-6jnu" class="key">"runtime"</span><span data-hf-id="hf-0it9" class="punc">:</span> <span data-hf-id="hf-yudj" class="punc">{</span>
+      <span data-hf-id="hf-pam3" class="key">"name"</span><span data-hf-id="hf-1pqc" class="punc">:</span> <span data-hf-id="hf-3mk2" class="str">"node"</span><span data-hf-id="hf-58an" class="punc">,</span>
+      <span data-hf-id="hf-i5de" class="key">"version"</span><span data-hf-id="hf-1bfb" class="punc">:</span> <span data-hf-id="hf-3xpo" class="str">"^22.0.0"</span><span data-hf-id="hf-tdfj" class="punc">,</span>
+      <span data-hf-id="hf-55ow" class="hl-line"><span data-hf-id="hf-sicx" class="key">"onFail"</span><span data-hf-id="hf-2ice" class="punc">:</span> <span data-hf-id="hf-fike" class="str">"download"</span></span>
+    <span data-hf-id="hf-9u3g" class="punc">}</span>
+  <span data-hf-id="hf-kluc" class="punc">}</span>
+<span data-hf-id="hf-jex9" class="punc">}</span></pre>
+      <div data-hf-id="hf-8eoi" class="note" id="card-04-note" data-anim="fade-in" data-anim-at="1.15" data-anim-duration="0.35">
+        onFail: "download" → y listo
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+
+      <div data-hf-id="hf-g2co" id="host-card-05" class="card-host clip" data-card-id="card-05" data-start="34.2000" data-duration="5.8000" data-track-index="2" style="left:0;top:0;width:1080px;height:1920px;">
+<div data-hf-id="hf-nmje" class="card" data-card-id="card-05">
+  <style>
+    .card[data-card-id="card-05"] .root {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: ui-monospace, "SF Mono", Menlo, "Courier New", monospace;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 56px 160px;
+    }
+    .card[data-card-id="card-05"] .panel {
+      width: 100%;
+      max-width: 920px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .card[data-card-id="card-05"] .kicker {
+      color: #7d8590;
+      font: 600 20px/1 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.16em;
+      opacity: 0;
+    }
+    .card[data-card-id="card-05"] .row {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+    .card[data-card-id="card-05"] .logo {
+      width: 280px;
+      height: auto;
+      object-fit: contain;
+      opacity: 0;
+      border-radius: 10px;
+    }
+    .card[data-card-id="card-05"] .headline {
+      font: 700 88px/1.05 ui-monospace, Menlo, monospace;
+      margin: 0 0 22px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-05"] .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-05"] .badge {
+      padding: 14px 18px;
+      border-radius: 8px;
+      font: 600 28px/1 ui-monospace, Menlo, monospace;
+      border: 1px solid #3d4450;
+    }
+    .card[data-card-id="card-05"] .badge.slow {
+      color: #fbbf24;
+      border-color: rgba(251, 191, 36, 0.45);
+    }
+    .card[data-card-id="card-05"] .badge.sec {
+      color: #f472b6;
+      border-color: rgba(244, 114, 182, 0.45);
+    }
+  </style>
+  <div data-hf-id="hf-wkdz" class="root">
+    <div data-hf-id="hf-ey2t" class="panel">
+      <div data-hf-id="hf-og7s" class="kicker" id="card-05-kicker" data-anim="fade-in" data-anim-at="0.08" data-anim-duration="0.3">
+        TOOL #2 · REPLACE
+      </div>
+      <div data-hf-id="hf-lt04" class="row">
+        <img data-hf-id="hf-j9vh" class="logo" id="card-05-logo" src="assets/logo-npm.png" alt="npm" data-anim="scale-pop" data-anim-at="0.25" data-anim-duration="0.45">
+        <div data-hf-id="hf-y7yw">
+          <h2 data-hf-id="hf-44uj" class="headline" id="card-05-title" data-anim="fade-in" data-anim-at="0.4" data-anim-duration="0.4">
+            npm
+          </h2>
+          <div data-hf-id="hf-o714" class="badges" id="card-05-badges" data-anim="fade-in" data-anim-at="0.9" data-anim-duration="0.4">
+            <span data-hf-id="hf-034x" class="badge slow">lento</span>
+            <span data-hf-id="hf-igdy" class="badge sec">issues de seguridad</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+
+      <div data-hf-id="hf-ir2u" id="host-card-06" class="card-host clip" data-card-id="card-06" data-start="42.0000" data-duration="4.2000" data-track-index="2" style="left:0;top:0;width:1080px;height:1920px;">
+<div data-hf-id="hf-hgtl" class="card" data-card-id="card-06">
+  <style>
+    .card[data-card-id="card-06"] .root {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: ui-monospace, "SF Mono", Menlo, "Courier New", monospace;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 56px 160px;
+    }
+    .card[data-card-id="card-06"] .panel {
+      width: 100%;
+      max-width: 920px;
+    }
+    .card[data-card-id="card-06"] .kicker {
+      color: #7d8590;
+      font: 600 20px/1 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.16em;
+      margin-bottom: 28px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-06"] .headline {
+      font: 700 68px/1.15 ui-monospace, Menlo, monospace;
+      margin: 0 0 36px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-06"] .headline .hl {
+      background: rgba(74, 222, 128, 0.18);
+      color: #4ade80;
+      padding: 0 10px;
+    }
+    .card[data-card-id="card-06"] .line {
+      font: 400 32px/1.4 ui-monospace, Menlo, monospace;
+      color: #7d8590;
+      margin-bottom: 16px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-06"] .line .g { color: #4ade80; }
+    .card[data-card-id="card-06"] .line .a { color: #fbbf24; }
+    .card[data-card-id="card-06"] .line .b { color: #60a5fa; }
+  </style>
+  <div data-hf-id="hf-wyp0" class="root">
+    <div data-hf-id="hf-fcdu" class="panel">
+      <div data-hf-id="hf-my3o" class="kicker" id="card-06-kicker" data-anim="fade-in" data-anim-at="0.08" data-anim-duration="0.3">
+        $ why pnpm
+      </div>
+      <h2 data-hf-id="hf-5lx1" class="headline" id="card-06-title" data-anim="fade-in" data-anim-at="0.3" data-anim-duration="0.45">
+        <span data-hf-id="hf-x8q3" class="hl">Rust</span> · seguro · rapidísimo
+      </h2>
+      <div data-hf-id="hf-tqnp" class="line" id="card-06-l1" data-anim="fade-in" data-anim-at="0.85" data-anim-duration="0.35">
+        <span data-hf-id="hf-guni" class="g">→</span> reescrito en <span data-hf-id="hf-ciac" class="a">Rust</span>
+      </div>
+      <div data-hf-id="hf-u9pc" class="line" id="card-06-l2" data-anim="fade-in" data-anim-at="1.2" data-anim-duration="0.35">
+        <span data-hf-id="hf-fkfm" class="g">→</span> más <span data-hf-id="hf-3q7u" class="b">seguro</span> que npm
+      </div>
+      <div data-hf-id="hf-w6be" class="line" id="card-06-l3" data-anim="fade-in" data-anim-at="1.55" data-anim-duration="0.35">
+        <span data-hf-id="hf-fyqn" class="g">→</span> evita ataques de supply chain
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+
+      <div data-hf-id="hf-zcu1" id="host-card-07" class="card-host clip" data-card-id="card-07" data-start="47.5000" data-duration="4.3000" data-track-index="2" style="left:0;top:0;width:1080px;height:1920px;">
+<div data-hf-id="hf-gp5s" class="card" data-card-id="card-07">
+  <style>
+    .card[data-card-id="card-07"] .root {
+      --ink: #e6edf3;
+      --muted: #8b949e;
+      --track: #21262d;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #0d1117;
+      color: var(--ink);
+      font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 36px 160px;
+    }
+    .card[data-card-id="card-07"] .panel {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .card[data-card-id="card-07"] .kicker {
+      color: #7d8590;
+      font: 600 18px/1 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.14em;
+      opacity: 0;
+    }
+    .card[data-card-id="card-07"] .headline {
+      font: 700 44px/1.15 ui-monospace, Menlo, monospace;
+      margin: 0;
+      opacity: 0;
+    }
+    .card[data-card-id="card-07"] .headline .hl {
+      color: #4ade80;
+    }
+    .card[data-card-id="card-07"] .chart {
+      background: #12151a;
+      border: 1px solid #2c333e;
+      border-radius: 14px;
+      padding: 36px 32px 28px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-07"] .chart-title {
+      font: 700 40px/1.1 Inter, ui-sans-serif, sans-serif;
+      margin: 0 0 6px;
+      color: #fff;
+    }
+    .card[data-card-id="card-07"] .chart-sub {
+      font: 400 22px/1.3 Inter, ui-sans-serif, sans-serif;
+      color: var(--muted);
+      margin: 0 0 28px;
+    }
+    .card[data-card-id="card-07"] .rows {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .card[data-card-id="card-07"] .row {
+      display: grid;
+      grid-template-columns: 260px 1fr 200px;
+      align-items: center;
+      gap: 16px;
+    }
+    .card[data-card-id="card-07"] .label {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      font: 600 24px/1 Inter, ui-sans-serif, sans-serif;
+      color: #fff;
+      text-align: right;
+    }
+    .card[data-card-id="card-07"] .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .card[data-card-id="card-07"] .bar-track {
+      height: 28px;
+      background: transparent;
+      position: relative;
+    }
+    .card[data-card-id="card-07"] .bar {
+      height: 28px;
+      width: 0;
+      border-radius: 4px;
+      transform-origin: left center;
+    }
+    .card[data-card-id="card-07"] .meta {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font: 700 26px/1 Inter, ui-sans-serif, sans-serif;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .card[data-card-id="card-07"] .meta .slow {
+      font-weight: 500;
+      font-size: 22px;
+      color: var(--muted);
+    }
+    .card[data-card-id="card-07"] .axis {
+      margin-top: 22px;
+      margin-left: 276px;
+      margin-right: 200px;
+      border-top: 1px solid #3d4450;
+      display: flex;
+      justify-content: space-between;
+      padding-top: 10px;
+      font: 500 18px/1 Inter, ui-sans-serif, sans-serif;
+      color: var(--muted);
+    }
+    .card[data-card-id="card-07"] .callout {
+      color: #fbbf24;
+      font: 600 28px/1.3 ui-monospace, Menlo, monospace;
+      opacity: 0;
+    }
+  </style>
+  <div data-hf-id="hf-vrrx" class="root">
+    <div data-hf-id="hf-fqov" class="panel">
+      <div data-hf-id="hf-xgkg" class="kicker" id="card-07-kicker" data-anim="fade-in" data-anim-at="0.08" data-anim-duration="0.3">
+        BENCH · CLEAN · NOTHING CACHED
+      </div>
+      <h2 data-hf-id="hf-rczf" class="headline" id="card-07-title" data-anim="fade-in" data-anim-at="0.25" data-anim-duration="0.35">
+        <span data-hf-id="hf-jzg9" class="hl">14×</span> más rápido que npm
+      </h2>
+
+      <div data-hf-id="hf-w9jc" class="chart" id="card-07-chart" data-anim="fade-in" data-anim-at="0.45" data-anim-duration="0.35">
+        <h3 data-hf-id="hf-of0i" class="chart-title">clean</h3>
+        <p data-hf-id="hf-037d" class="chart-sub">A fresh clone. Nothing cached.</p>
+        <div data-hf-id="hf-hnc7" class="rows">
+          <div data-hf-id="hf-km31" class="row">
+            <div data-hf-id="hf-2e37" class="label"><span data-hf-id="hf-aipr" class="dot" style="background:#cb3837"></span>npm</div>
+            <div data-hf-id="hf-2kxp" class="bar-track">
+              <div data-hf-id="hf-hoj0" class="bar" id="card-07-b0" data-anim="grow-x" data-anim-at="0.7" data-anim-duration="0.7" data-anim-target-w="520" style="background:#cb3837;width:0"></div>
+            </div>
+            <div data-hf-id="hf-fle6" class="meta">45.5s <span data-hf-id="hf-5nhl" class="slow">14x slower</span></div>
+          </div>
+          <div data-hf-id="hf-l0e2" class="row">
+            <div data-hf-id="hf-kf9r" class="label"><span data-hf-id="hf-l400" class="dot" style="background:#f5a623"></span>pnpm 11</div>
+            <div data-hf-id="hf-dok1" class="bar-track">
+              <div data-hf-id="hf-okp3" class="bar" id="card-07-b1" data-anim="grow-x" data-anim-at="0.85" data-anim-duration="0.55" data-anim-target-w="100" style="background:#f5a623;width:0"></div>
+            </div>
+            <div data-hf-id="hf-u52e" class="meta">8.79s <span data-hf-id="hf-3chl" class="slow">2.7x slower</span></div>
+          </div>
+          <div data-hf-id="hf-mzx7" class="row">
+            <div data-hf-id="hf-grx7" class="label"><span data-hf-id="hf-s6p0" class="dot" style="background:#0d9488"></span>pnpm 12 + global store</div>
+            <div data-hf-id="hf-evh4" class="bar-track">
+              <div data-hf-id="hf-3g6s" class="bar" id="card-07-b2" data-anim="grow-x" data-anim-at="1.0" data-anim-duration="0.5" data-anim-target-w="53" style="background:#0d9488;width:0"></div>
+            </div>
+            <div data-hf-id="hf-84s4" class="meta">4.64s <span data-hf-id="hf-vu5h" class="slow">1.4x slower</span></div>
+          </div>
+          <div data-hf-id="hf-ne88" class="row">
+            <div data-hf-id="hf-xqcc" class="label"><span data-hf-id="hf-yiqh" class="dot" style="background:#8a6d5f"></span>pnpm 12 hoisted</div>
+            <div data-hf-id="hf-eh63" class="bar-track">
+              <div data-hf-id="hf-5pcc" class="bar" id="card-07-b3" data-anim="grow-x" data-anim-at="1.12" data-anim-duration="0.5" data-anim-target-w="52" style="background:#8a6d5f;width:0"></div>
+            </div>
+            <div data-hf-id="hf-8smd" class="meta">4.54s <span data-hf-id="hf-net5" class="slow">1.4x slower</span></div>
+          </div>
+          <div data-hf-id="hf-m7b5" class="row">
+            <div data-hf-id="hf-k0yq" class="label"><span data-hf-id="hf-j2fz" class="dot" style="background:#f68b1e"></span>pnpm 12</div>
+            <div data-hf-id="hf-chmy" class="bar-track">
+              <div data-hf-id="hf-zuiu" class="bar" id="card-07-b4" data-anim="grow-x" data-anim-at="1.24" data-anim-duration="0.5" data-anim-target-w="50" style="background:#f68b1e;width:0"></div>
+            </div>
+            <div data-hf-id="hf-jpwv" class="meta">4.38s <span data-hf-id="hf-jarc" class="slow">1.3x slower</span></div>
+          </div>
+          <div data-hf-id="hf-mlm6" class="row">
+            <div data-hf-id="hf-ao01" class="label"><span data-hf-id="hf-swot" class="dot" style="background:#8b5cf6"></span>pnpm 12 + pnpr</div>
+            <div data-hf-id="hf-c3bx" class="bar-track">
+              <div data-hf-id="hf-vxwk" class="bar" id="card-07-b5" data-anim="grow-x" data-anim-at="1.36" data-anim-duration="0.5" data-anim-target-w="38" style="background:#8b5cf6;width:0"></div>
+            </div>
+            <div data-hf-id="hf-28dv" class="meta">3.31s</div>
+          </div>
+        </div>
+        <div data-hf-id="hf-2hmb" class="axis">
+          <span data-hf-id="hf-i6df">0</span><span data-hf-id="hf-luis">15s</span><span data-hf-id="hf-6i43">30s</span><span data-hf-id="hf-mf47">45s</span>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-zbsa" class="callout" id="card-07-callout" data-anim="fade-in" data-anim-at="1.9" data-anim-duration="0.35">
+        npm 45.5s → pnpm 12 + pnpr 3.31s
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+
+      <div data-hf-id="hf-245d" id="host-card-08" class="card-host clip" data-card-id="card-08" data-start="53.5000" data-duration="4.4000" data-track-index="2" style="left:0;top:0;width:1080px;height:1920px;">
+<div data-hf-id="hf-46nb" class="card" data-card-id="card-08">
+  <style>
+    .card[data-card-id="card-08"] .root {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: ui-monospace, "SF Mono", Menlo, "Courier New", monospace;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 56px 160px;
+    }
+    .card[data-card-id="card-08"] .panel {
+      width: 100%;
+      max-width: 920px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+      align-items: stretch;
+    }
+    .card[data-card-id="card-08"] .kicker {
+      color: #7d8590;
+      font: 600 20px/1 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.16em;
+      opacity: 0;
+    }
+    .card[data-card-id="card-08"] .gone {
+      display: flex;
+      gap: 36px;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+    }
+    .card[data-card-id="card-08"] .logo-wrap {
+      position: relative;
+      width: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card[data-card-id="card-08"] .logo-wrap img {
+      width: 200px;
+      height: auto;
+      object-fit: contain;
+      opacity: 0.55;
+      filter: grayscale(1);
+    }
+    .card[data-card-id="card-08"] .x {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font: 700 120px/1 ui-monospace, Menlo, monospace;
+      color: #ffffff;
+      -webkit-text-stroke: 4px #0d1117;
+      paint-order: stroke fill;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .card[data-card-id="card-08"] .winner {
+      text-align: center;
+      opacity: 0;
+    }
+    .card[data-card-id="card-08"] .winner .mark {
+      font: 700 100px/1.05 ui-monospace, Menlo, monospace;
+      color: #4ade80;
+      margin: 8px 0 16px;
+    }
+    .card[data-card-id="card-08"] .winner .sub {
+      font: 400 32px/1.35 ui-monospace, Menlo, monospace;
+      color: #e6edf3;
+    }
+  </style>
+  <div data-hf-id="hf-w62y" class="root">
+    <div data-hf-id="hf-g4zw" class="panel">
+      <div data-hf-id="hf-deit" class="kicker" id="card-08-kicker" data-anim="fade-in" data-anim-at="0.08" data-anim-duration="0.3">
+        $ uninstall --done
+      </div>
+      <div data-hf-id="hf-72w9" class="gone" id="card-08-gone" data-anim="fade-in" data-anim-at="0.3" data-anim-duration="0.4">
+        <div data-hf-id="hf-bt52" class="logo-wrap">
+          <img data-hf-id="hf-145n" id="card-08-nvm" src="assets/logo-nvm.svg" alt="nvm">
+          <div data-hf-id="hf-ef2j" class="x" id="card-08-x1" data-anim="scale-pop" data-anim-at="0.7" data-anim-duration="0.35">✕</div>
+        </div>
+        <div data-hf-id="hf-c4lm" class="logo-wrap">
+          <img data-hf-id="hf-bi5m" id="card-08-npm" src="assets/logo-npm.png" alt="npm">
+          <div data-hf-id="hf-mqv1" class="x" id="card-08-x2" data-anim="scale-pop" data-anim-at="0.95" data-anim-duration="0.35">✕</div>
+        </div>
+      </div>
+      <div data-hf-id="hf-74s7" class="winner" id="card-08-win" data-anim="fade-in" data-anim-at="1.4" data-anim-duration="0.45">
+        <div data-hf-id="hf-3r3y" class="mark">pnpm</div>
+        <div data-hf-id="hf-ja4v" class="sub">Una herramienta para Node + deps</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      </div>
+
+      <div data-hf-id="hf-vmw6" id="caption-gradient-fill-host" class="clip" data-composition-id="caption-gradient-fill" data-composition-src="compositions/caption-gradient-fill.html" data-start="0" data-duration="57.9" data-track-index="45" data-width="1080" data-height="1920" style="position:absolute;left:0;top:0;width:1080px;height:1920px;z-index:45;pointer-events:none;"></div>
+
+      <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+      <script>
+        (function () {
+          window.__fmt = function (v, fmt) {
+            if (typeof fmt === "string" && /^\.[0-9]+f$/.test(fmt)) {
+              return Number(v).toFixed(Number(fmt.slice(1, -1)));
+            }
+            if (fmt === ",d") return Math.round(v).toLocaleString();
+            return String(Math.round(v));
+          };
+
+          const tl = window.gsap.timeline({ paused: true });
+
+          tl.set("#video-wrap", {
+            left: 0,
+            top: 0,
+            width: 1080,
+            height: 1920,
+            opacity: 1,
+          }, 0);
+
+          tl.to("#video-wrap", { opacity: 0, duration: 0.35, ease: "power2.out" }, 2.8);
+          tl.to("#video-wrap", { opacity: 1, duration: 0.3, ease: "power2.in" }, 6.9);
+
+
+          tl.to("#video-wrap", { opacity: 0, duration: 0.35, ease: "power2.out" }, 9.4);
+          tl.to("#video-wrap", { opacity: 1, duration: 0.3, ease: "power2.in" }, 14.5);
+
+
+          tl.to("#video-wrap", { opacity: 0, duration: 0.35, ease: "power2.out" }, 18.5);
+          tl.to("#video-wrap", { opacity: 1, duration: 0.3, ease: "power2.in" }, 23.9);
+
+
+          tl.to("#video-wrap", { opacity: 0, duration: 0.35, ease: "power2.out" }, 26.8);
+          tl.to("#video-wrap", { opacity: 1, duration: 0.3, ease: "power2.in" }, 31.5);
+
+
+          tl.to("#video-wrap", { opacity: 0, duration: 0.35, ease: "power2.out" }, 34.2);
+          tl.to("#video-wrap", { opacity: 1, duration: 0.3, ease: "power2.in" }, 39.7);
+
+
+          tl.to("#video-wrap", { opacity: 0, duration: 0.35, ease: "power2.out" }, 42);
+          tl.to("#video-wrap", { opacity: 1, duration: 0.3, ease: "power2.in" }, 45.9);
+
+
+          tl.to("#video-wrap", { opacity: 0, duration: 0.35, ease: "power2.out" }, 47.5);
+          tl.to("#video-wrap", { opacity: 1, duration: 0.3, ease: "power2.in" }, 51.5);
+
+
+          tl.to("#video-wrap", { opacity: 0, duration: 0.35, ease: "power2.out" }, 53.5);
+          tl.to("#video-wrap", { opacity: 1, duration: 0.3, ease: "power2.in" }, 57.6);
+
+
+          // ── card-01 [2.8 → 7.2] fullscreen opaque ──
+          tl.set('.card-host[data-card-id="card-01"] .card', { opacity: 0 }, 0);
+          tl.fromTo(
+            '.card-host[data-card-id="card-01"] .card',
+            { opacity: 0 },
+            { opacity: 1, duration: 0.35, ease: "power2.out" },
+            2.8,
+          );
+          tl.fromTo(".card[data-card-id=\"card-01\"] #card-01-kicker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 2.9);
+          tl.fromTo(".card[data-card-id=\"card-01\"] #card-01-title", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out" }, 3.1666666666666665);
+          tl.fromTo(".card[data-card-id=\"card-01\"] #card-01-chips", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 3.6666666666666665);
+          tl.fromTo(".card[data-card-id=\"card-01\"] #card-01-detail", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 4.1);
+          tl.to(
+            '.card-host[data-card-id="card-01"] .card',
+            { opacity: 0, duration: 0.3, ease: "power2.in" },
+            6.9,
+          );
+          tl.set('.card-host[data-card-id="card-01"] .card', { opacity: 0 }, 7.2);
+
+
+          // ── card-02 [9.4 → 14.8] fullscreen opaque ──
+          tl.set('.card-host[data-card-id="card-02"] .card', { opacity: 0 }, 0);
+          tl.fromTo(
+            '.card-host[data-card-id="card-02"] .card',
+            { opacity: 0 },
+            { opacity: 1, duration: 0.35, ease: "power2.out" },
+            9.4,
+          );
+          tl.fromTo(".card[data-card-id=\"card-02\"] #card-02-kicker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 9.466666666666667);
+          tl.fromTo(".card[data-card-id=\"card-02\"] #card-02-logo", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 9.666666666666666);
+          tl.fromTo(".card[data-card-id=\"card-02\"] #card-02-title", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 9.8);
+          tl.fromTo(".card[data-card-id=\"card-02\"] #card-02-stack", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 10.266666666666667);
+          tl.fromTo(".card[data-card-id=\"card-02\"] #card-02-pain", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 10.766666666666667);
+          tl.to(
+            '.card-host[data-card-id="card-02"] .card',
+            { opacity: 0, duration: 0.3, ease: "power2.in" },
+            14.5,
+          );
+          tl.set('.card-host[data-card-id="card-02"] .card', { opacity: 0 }, 14.8);
+
+
+          // ── card-03 [18.5 → 24.2] fullscreen opaque ──
+          tl.set('.card-host[data-card-id="card-03"] .card', { opacity: 0 }, 0);
+          tl.fromTo(
+            '.card-host[data-card-id="card-03"] .card',
+            { opacity: 0 },
+            { opacity: 1, duration: 0.35, ease: "power2.out" },
+            18.5,
+          );
+          tl.fromTo(".card[data-card-id=\"card-03\"] #card-03-bar", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 18.566666666666666);
+          tl.fromTo(".card[data-card-id=\"card-03\"] #card-03-cmd", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out" }, 18.866666666666667);
+          tl.fromTo(".card[data-card-id=\"card-03\"] #card-03-cursor-line", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 19.5);
+          tl.fromTo(".card[data-card-id=\"card-03\"] #card-03-badge", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 19.8);
+          tl.fromTo(".card[data-card-id=\"card-03\"] #card-03-hint", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 20.266666666666666);
+          tl.to(
+            '.card-host[data-card-id="card-03"] .card',
+            { opacity: 0, duration: 0.3, ease: "power2.in" },
+            23.9,
+          );
+          tl.set('.card-host[data-card-id="card-03"] .card', { opacity: 0 }, 24.2);
+
+
+          // ── card-04 [26.8 → 31.8] fullscreen opaque ──
+          tl.set('.card-host[data-card-id="card-04"] .card', { opacity: 0 }, 0);
+          tl.fromTo(
+            '.card-host[data-card-id="card-04"] .card',
+            { opacity: 0 },
+            { opacity: 1, duration: 0.35, ease: "power2.out" },
+            26.8,
+          );
+          tl.fromTo(".card[data-card-id=\"card-04\"] #card-04-kicker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 26.866666666666667);
+          tl.fromTo(".card[data-card-id=\"card-04\"] #card-04-title", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 27.066666666666666);
+          tl.fromTo(".card[data-card-id=\"card-04\"] #card-04-code", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out" }, 27.3);
+          tl.fromTo(".card[data-card-id=\"card-04\"] #card-04-note", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 27.966666666666665);
+          tl.to(
+            '.card-host[data-card-id="card-04"] .card',
+            { opacity: 0, duration: 0.3, ease: "power2.in" },
+            31.5,
+          );
+          tl.set('.card-host[data-card-id="card-04"] .card', { opacity: 0 }, 31.8);
+
+
+          // ── card-05 [34.2 → 40] fullscreen opaque ──
+          tl.set('.card-host[data-card-id="card-05"] .card', { opacity: 0 }, 0);
+          tl.fromTo(
+            '.card-host[data-card-id="card-05"] .card',
+            { opacity: 0 },
+            { opacity: 1, duration: 0.35, ease: "power2.out" },
+            34.2,
+          );
+          tl.fromTo(".card[data-card-id=\"card-05\"] #card-05-kicker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 34.266666666666666);
+          tl.fromTo(".card[data-card-id=\"card-05\"] #card-05-logo", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 34.46666666666667);
+          tl.fromTo(".card[data-card-id=\"card-05\"] #card-05-title", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 34.6);
+          tl.fromTo(".card[data-card-id=\"card-05\"] #card-05-badges", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 35.1);
+          tl.to(
+            '.card-host[data-card-id="card-05"] .card',
+            { opacity: 0, duration: 0.3, ease: "power2.in" },
+            39.7,
+          );
+          tl.set('.card-host[data-card-id="card-05"] .card', { opacity: 0 }, 40);
+
+
+          // ── card-06 [42 → 46.2] fullscreen opaque ──
+          tl.set('.card-host[data-card-id="card-06"] .card', { opacity: 0 }, 0);
+          tl.fromTo(
+            '.card-host[data-card-id="card-06"] .card',
+            { opacity: 0 },
+            { opacity: 1, duration: 0.35, ease: "power2.out" },
+            42,
+          );
+          tl.fromTo(".card[data-card-id=\"card-06\"] #card-06-kicker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 42.06666666666667);
+          tl.fromTo(".card[data-card-id=\"card-06\"] #card-06-title", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out" }, 42.3);
+          tl.fromTo(".card[data-card-id=\"card-06\"] #card-06-l1", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 42.86666666666667);
+          tl.fromTo(".card[data-card-id=\"card-06\"] #card-06-l2", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 43.2);
+          tl.fromTo(".card[data-card-id=\"card-06\"] #card-06-l3", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 43.56666666666667);
+          tl.to(
+            '.card-host[data-card-id="card-06"] .card',
+            { opacity: 0, duration: 0.3, ease: "power2.in" },
+            45.9,
+          );
+          tl.set('.card-host[data-card-id="card-06"] .card', { opacity: 0 }, 46.2);
+
+          // ── card-07 [47.5 → 51.8] fullscreen opaque ──
+          tl.set('.card-host[data-card-id="card-07"] .card', { opacity: 0 }, 0);
+          tl.fromTo(
+            '.card-host[data-card-id="card-07"] .card',
+            { opacity: 0 },
+            { opacity: 1, duration: 0.35, ease: "power2.out" },
+            47.5,
+          );
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-kicker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 47.56666666666667);
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-title", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 47.766666666666666);
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-chart", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 47.96666666666667);
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-b0", { width: 0 }, { width: 520, duration: 0.7, ease: "power2.out" }, 48.2);
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-b1", { width: 0 }, { width: 100, duration: 0.55, ease: "power2.out" }, 48.36666666666667);
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-b2", { width: 0 }, { width: 53, duration: 0.5, ease: "power2.out" }, 48.5);
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-b3", { width: 0 }, { width: 52, duration: 0.5, ease: "power2.out" }, 48.63333333333333);
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-b4", { width: 0 }, { width: 50, duration: 0.5, ease: "power2.out" }, 48.733333333333334);
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-b5", { width: 0 }, { width: 38, duration: 0.5, ease: "power2.out" }, 48.86666666666667);
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-callout", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 49.4);
+          tl.to(
+            '.card-host[data-card-id="card-07"] .card',
+            { opacity: 0, duration: 0.3, ease: "power2.in" },
+            51.5,
+          );
+          tl.set('.card-host[data-card-id="card-07"] .card', { opacity: 0 }, 51.8);
+
+          tl.fromTo(
+            '.card-host[data-card-id="card-07"] .card',
+            { opacity: 0 },
+            { opacity: 1, duration: 0.35, ease: "power2.out" },
+            47.5,
+          );
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-kicker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 47.56666666666667);
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-title", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 47.766666666666666);
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-chart", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out" }, 48);
+          tl.fromTo(".card[data-card-id=\"card-07\"] #card-07-callout", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 48.666666666666664);
+          tl.to(
+            '.card-host[data-card-id="card-07"] .card',
+            { opacity: 0, duration: 0.3, ease: "power2.in" },
+            51.5,
+          );
+          tl.set('.card-host[data-card-id="card-07"] .card', { opacity: 0 }, 51.8);
+
+
+          // ── card-08 [53.5 → 57.9] fullscreen opaque ──
+          tl.set('.card-host[data-card-id="card-08"] .card', { opacity: 0 }, 0);
+          tl.fromTo(
+            '.card-host[data-card-id="card-08"] .card',
+            { opacity: 0 },
+            { opacity: 1, duration: 0.35, ease: "power2.out" },
+            53.5,
+          );
+          tl.fromTo(".card[data-card-id=\"card-08\"] #card-08-kicker", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 53.56666666666667);
+          tl.fromTo(".card[data-card-id=\"card-08\"] #card-08-gone", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 53.8);
+          tl.fromTo(".card[data-card-id=\"card-08\"] #card-08-x1", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 54.2);
+          tl.fromTo(".card[data-card-id=\"card-08\"] #card-08-x2", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, 54.46666666666667);
+          tl.fromTo(".card[data-card-id=\"card-08\"] #card-08-win", { opacity: 0 }, { opacity: 1, duration: 0.45, ease: "power2.out" }, 54.9);
+          tl.to(
+            '.card-host[data-card-id="card-08"] .card',
+            { opacity: 0, duration: 0.3, ease: "power2.in" },
+            57.6,
+          );
+          tl.set('.card-host[data-card-id="card-08"] .card', { opacity: 0 }, 57.9);
+
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["talking-head-recut"] = tl;
+        })();
+      </script>
+    </div>
+  </body>
+</html>

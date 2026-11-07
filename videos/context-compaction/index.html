@@ -1,0 +1,413 @@
+<!doctype html>
+<html
+  lang="es"
+  data-composition-variables='[
+    {"id":"color-ground","type":"color","label":"Cartulina","default":"#493A80"},
+    {"id":"color-paper","type":"color","label":"Papel","default":"#F6F2E8"},
+    {"id":"color-ink","type":"color","label":"Tinta","default":"#141218"},
+    {"id":"color-accent","type":"color","label":"Acento (resaltador)","default":"#FFC72C"},
+    {"id":"font-display","type":"string","label":"Fuente display","default":"League Gothic"},
+    {"id":"font-ui","type":"string","label":"Fuente interfaz","default":"Montserrat"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--color-ground, #493a80);
+      }
+      #root {
+        width: 100%;
+        height: 100%;
+        font-family: var(--font-ui, "Montserrat"), sans-serif;
+        color: var(--color-ink, #141218);
+      }
+      #ground {
+        position: absolute;
+        inset: 0;
+        background: var(--color-ground, #493a80) url("assets/textures/cardboard.png") 0 0 / 1080px 1920px;
+      }
+
+      /* ---------- Paper-cut kit, shared by every scene ---------- */
+
+      /* Purple card stock, for a scene that owns its own ground. */
+      .card-ground {
+        position: absolute;
+        inset: 0;
+        background: var(--color-ground, #493a80) url("assets/textures/cardboard.png") 0 0 / 1080px 1920px;
+      }
+      /* A piece of off-white paper. Its cut edge comes from a .cut-* class. */
+      .paper {
+        background: var(--color-paper, #f6f2e8) url("assets/textures/paper.png") 0 0 / 512px 512px;
+        color: var(--color-ink, #141218);
+      }
+      /* Lifted paper: the shadow lives on a wrapper, never on the clipped piece. */
+      .lift {
+        filter: drop-shadow(0 3px 0 rgba(20, 10, 40, 0.3)) drop-shadow(0 14px 22px rgba(20, 10, 40, 0.32));
+      }
+      .lift-hi {
+        filter: drop-shadow(0 4px 0 rgba(20, 10, 40, 0.28)) drop-shadow(0 30px 40px rgba(20, 10, 40, 0.38));
+      }
+      /* Hand-cut edges: no straight line is quite straight. */
+      .cut-a {
+        clip-path: polygon(0.4% 1.2%, 24% 0%, 61% 0.8%, 99.5% 0%, 100% 34%, 99.3% 71%, 100% 99.2%, 72% 100%, 38% 99.1%, 0% 100%, 0.7% 64%, 0% 30%);
+      }
+      .cut-b {
+        clip-path: polygon(0% 0.6%, 41% 0%, 77% 1%, 100% 0.2%, 99.4% 41%, 100% 78%, 99.6% 100%, 57% 99.3%, 19% 100%, 0.5% 99.4%, 0% 58%, 0.6% 22%);
+      }
+      /* Black tape with torn zigzag ends; white condensed caps. */
+      .tape {
+        display: inline-block;
+        padding: 0.12em 0.42em 0.02em;
+        background: var(--color-ink, #141218);
+        color: #fff;
+        font-family: var(--font-display, "League Gothic"), sans-serif;
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        clip-path: polygon(0 0, 100% 0, 98.2% 16%, 100% 33%, 98.4% 50%, 100% 67%, 98.2% 84%, 100% 100%, 0 100%, 1.8% 84%, 0 67%, 1.6% 50%, 0 33%, 1.8% 16%);
+      }
+      .tape.yellow {
+        background: var(--color-accent, #ffc72c);
+        color: var(--color-ink, #141218);
+      }
+      .tape.white {
+        background: var(--color-paper, #f6f2e8) url("assets/textures/paper.png") 0 0 / 512px 512px;
+        color: var(--color-ink, #141218);
+      }
+      /* Footage in the bottom half of a split: a full-size layer masked by a torn
+         edge at y≈970, with the white paper core showing above the tear. The
+         mask is the only thing that changes between full frame and split. */
+      .split-photo {
+        position: absolute;
+        inset: 0;
+        filter: drop-shadow(0 -6px 14px rgba(20, 10, 40, 0.45));
+      }
+      .split-photo .rim {
+        position: absolute;
+        inset: 0;
+        background: #fff;
+        clip-path: polygon(0 958px, 76px 966px, 151px 954px, 238px 970px, 324px 958px, 410px 973px, 497px 960px, 583px 969px, 670px 953px, 756px 971px, 842px 959px, 929px 974px, 1015px 956px, 1080px 966px, 1080px 3000px, 0 3000px);
+      }
+      .split-photo .shot {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        clip-path: polygon(0 972px, 76px 984px, 151px 970px, 238px 988px, 324px 974px, 410px 990px, 497px 976px, 583px 986px, 670px 968px, 756px 988px, 842px 975px, 929px 991px, 1015px 971px, 1080px 982px, 1080px 3000px, 0 3000px);
+      }
+      /* ---- Paper phone with a chat in WhatsApp colours (no WhatsApp mark) ---- */
+      .ph-body {
+        position: absolute;
+        inset: 0;
+        background: var(--color-ink, #141218);
+        border: 10px solid #fff;
+        border-radius: 58px;
+        padding: 14px;
+      }
+      .ph-screen {
+        position: absolute;
+        inset: 14px;
+        border-radius: 40px;
+        overflow: hidden;
+        background: #efe7dc url("assets/textures/paper.png") 0 0 / 512px 512px;
+        background-blend-mode: multiply;
+      }
+      .ph-head {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 112px;
+        background: #008069;
+        color: #fff;
+        font-family: "Roboto", sans-serif;
+        padding: 30px 0 0 104px;
+      }
+      .ph-avatar {
+        position: absolute;
+        left: 26px;
+        top: 26px;
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        background: #f6f2e8;
+        border: 4px solid #fff;
+      }
+      .ph-name {
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 1;
+      }
+      .ph-status {
+        font-size: 28px;
+        line-height: 1.2;
+        opacity: 0.85;
+      }
+      .ph-thread {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 112px;
+        bottom: 0;
+        overflow: hidden;
+      }
+      .ph-list {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .bub {
+        max-width: 330px;
+        padding: 12px 18px 14px;
+        border-radius: 18px;
+        font-family: "Roboto", sans-serif;
+        font-size: 29px;
+        line-height: 1.22;
+        color: #111b21;
+        box-shadow: 0 2px 0 rgba(17, 27, 33, 0.18);
+      }
+      .bub.out {
+        align-self: flex-end;
+        background: #d9fdd3;
+        border-top-right-radius: 4px;
+      }
+      .bub.in {
+        align-self: flex-start;
+        background: #fff;
+        border-top-left-radius: 4px;
+      }
+      .bub .tick {
+        margin-left: 8px;
+        color: #53bdeb;
+        font-size: 24px;
+        letter-spacing: -6px;
+      }
+
+      /* ---- right column: tool / skill chips and labels ---- */
+      .chip {
+        position: absolute;
+        padding: 18px 24px 16px;
+        font-family: var(--font-ui, "Montserrat"), sans-serif;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 1.15;
+        white-space: nowrap;
+      }
+      .chip .kind {
+        display: block;
+        font-family: var(--font-display, "League Gothic"), sans-serif;
+        font-weight: 400;
+        font-size: 44px;
+        letter-spacing: 0.02em;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      /* The top half of a split: everything a scene puts there stays inside
+         y 250–940 (platform UI above, footage below). */
+      .cam {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 50%;
+      }
+      .cam video,
+      .cam img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
+    <script>
+      /* Paper-cut motion kit, shared by every scene. Everything is a tween on
+         the scene's paused timeline: seek-safe, no callbacks, no clocks. */
+      // Every tween must write on the frame it is seeked to: no lazy first render.
+      gsap.defaults({ lazy: false });
+      window.PC = (function () {
+        // A piece of paper is slapped down: slight overshoot, no fade.
+        function slap(tl, sel, t, o) {
+          o = o || {};
+          const r = o.rot || 0;
+          tl.set(sel, { opacity: 1 }, t);
+          tl.fromTo(
+            sel,
+            { scale: o.from || 1.12, x: o.dx || 0, y: o.dy === undefined ? -18 : o.dy, rotation: r + (o.spin === undefined ? 3 : o.spin) },
+            { scale: 1, x: 0, y: 0, rotation: r, duration: o.dur || 0.22, ease: "expo.out", immediateRender: false, lazy: false },
+            t,
+          );
+        }
+        // Lifted, then pulled off frame in one accelerating move.
+        function pull(tl, sel, t, o) {
+          o = o || {};
+          const r = o.rot || 0;
+          tl.to(sel, { y: -22, rotation: r + 3, duration: 0.1, ease: "power2.out", lazy: false }, t);
+          tl.to(sel, { x: o.toX || 0, y: o.toY === undefined ? -1500 : o.toY, rotation: r + (o.spin || 9), duration: o.dur || 0.3, ease: "power3.in", lazy: false }, t + 0.1);
+          tl.set(sel, { opacity: 0 }, t + 0.1 + (o.dur || 0.3));
+        }
+        // A seeded torn edge (LCG), as polygons the tween interpolates point by point.
+        function edge(seed, rows) {
+          let st = seed >>> 0;
+          const rnd = () => ((st = (Math.imul(1664525, st) + 1013904223) >>> 0) / 4294967296);
+          const knots = [];
+          for (let i = 0; i <= 6; i++) knots.push(rnd() * 2 - 1);
+          const out = [];
+          for (let i = 0; i <= rows; i++) {
+            const v = i / rows, f = v * 6, k = Math.min(5, Math.floor(f)), u = f - k, w = u * u * (3 - 2 * u);
+            out.push({ y: v * 1920, off: (knots[k] + (knots[k + 1] - knots[k]) * w) * 34 + (rnd() * 2 - 1) * 5 });
+          }
+          return out;
+        }
+        // The tear: the sheet keeps a static torn-edge mask and slides right while its
+        // content slides left by the same amount, so the picture stays put and only
+        // the edge travels. Transforms only (clip-path strings are never tweened).
+        // Markup: <div sheet><div inner>…content…</div></div><div rim></div>
+        function rip(tl, sheetSel, innerSel, rimSel, t, o) {
+          o = o || {};
+          const e = edge(o.seed || 0x7a9e11cf, 48);
+          const pt = (r, dx) => (r.off + dx).toFixed(1) + "px " + r.y.toFixed(1) + "px";
+          gsap.set(sheetSel, { clipPath: "polygon(" + e.map((r) => pt(r, 0)).concat(["2600px 1920px", "2600px 0px"]).join(", ") + ")" });
+          gsap.set(rimSel, {
+            clipPath: "polygon(" + e.map((r) => pt(r, -2)).concat(e.slice().reverse().map((r, i) => pt(r, 9 + ((i * 7) % 5)))).join(", ") + ")",
+            opacity: 0,
+          });
+          const X0 = -90, X1 = 1180, dur = o.dur || 0.45, ease = o.ease || "power3.inOut";
+          gsap.set([sheetSel, rimSel], { x: X0 });
+          gsap.set(innerSel, { x: -X0 });
+          tl.to([sheetSel, rimSel], { x: X1, duration: dur, ease }, t);
+          tl.to(innerSel, { x: -X1, duration: dur, ease }, t);
+          tl.set(rimSel, { opacity: 1 }, t);
+          tl.set(rimSel, { opacity: 0 }, t + dur);
+        }
+        // Stop-motion reveal of a clip-path in discrete steps (paper is moved, not morphed).
+        function steps(tl, sel, f0, f1, t, dur, n, fn) {
+          for (let k = 1; k <= n; k++) tl.set(sel, { clipPath: fn(f0 + ((f1 - f0) * k) / n) }, +(t + (dur * k) / n).toFixed(3));
+        }
+        // Torn top edge of the bottom footage in a split, and the same edge flattened to the top of the frame.
+        const XS = [0, 76, 151, 238, 324, 410, 497, 583, 670, 756, 842, 929, 1015, 1080];
+        const SHOT_Y = [972, 984, 970, 988, 974, 990, 976, 986, 968, 988, 975, 991, 971, 982];
+        const RIM_Y = [958, 966, 954, 970, 958, 973, 960, 969, 953, 971, 959, 974, 956, 966];
+        const poly = (ys) => "polygon(" + XS.map((x, i) => x + "px " + ys[i] + "px").concat(["1080px 1920px", "0px 1920px"]).join(", ") + ")";
+        const split = { shot: poly(SHOT_Y), rim: poly(RIM_Y), full: poly(XS.map(() => -20)) };
+        return { slap, pull, rip, steps, split };
+      })();
+    </script>
+  </head>
+  <body>
+    <div data-hf-id="hf-uhv8"
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="93.2"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div data-hf-id="hf-7hg0" id="ground"></div>
+
+      <div data-hf-id="hf-wrj6" id="intro" data-composition-id="intro" data-composition-src="compositions/intro.html" data-start="0" data-duration="7.45" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 20"></div>
+      <div data-hf-id="hf-wxqk" id="consola" data-composition-id="consola" data-composition-src="compositions/consola.html" data-start="7" data-duration="5" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 19"></div>
+      <div data-hf-id="hf-wqq1" id="chat" data-composition-id="chat" data-composition-src="compositions/chat.html" data-start="12" data-duration="13.3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 18"></div>
+      <div data-hf-id="hf-wqrc" id="factura" data-composition-id="factura" data-composition-src="compositions/factura.html" data-start="25.3" data-duration="8.15" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 17"></div>
+      <div data-hf-id="hf-foz2" id="busqueda" data-composition-id="busqueda" data-composition-src="compositions/busqueda.html" data-start="33" data-duration="6.9" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 16"></div>
+      <div data-hf-id="hf-94f8" id="compactar" data-composition-id="compactar" data-composition-src="compositions/compactar.html" data-start="39.9" data-duration="10.4" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 15"></div>
+      <div data-hf-id="hf-hkr1" id="limite" data-composition-id="limite" data-composition-src="compositions/limite.html" data-start="50.3" data-duration="17.6" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 14"></div>
+      <div data-hf-id="hf-9lrx" id="adk" data-composition-id="adk" data-composition-src="compositions/adk.html" data-start="67.9" data-duration="15.05" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 13"></div>
+      <div data-hf-id="hf-oip4" id="resultados" data-composition-id="resultados" data-composition-src="compositions/resultados.html" data-start="82.5" data-duration="10.7" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index: 12"></div>
+
+      <div data-hf-id="hf-5n9r" id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="93.2" data-track-index="4" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index: 50"></div>
+
+      <audio data-hf-id="hf-00ud" id="vo" class="clip" src="assets/vo/voiceover-norm.wav" data-start="7.3" data-duration="85.6" data-track-index="6" data-volume="1"></audio>
+      <!-- The intro's own voice, normalised to -15 LUFS (scripts/normalize-voice.py); the clip itself is muted. -->
+      <audio id="intro-voice" class="clip" src="assets/footage/intro-voice.wav" data-start="0" data-duration="7.44" data-track-index="5" data-volume="1"></audio>
+      <!-- Music bed (MusicGen draft, CC-BY-NC weights): sections follow the voice. See BRIEF.md. -->
+      <audio id="music" class="clip" src="assets/music/track-s1.wav" data-start="0" data-duration="93.2" data-track-index="7" data-volume="0.2" data-fade-in="0.4" data-fade-out="1.5"></audio>
+      <!-- The one riser of the film: its peak lands on the drop at 66.0 s (the file peaks at 10.03 s). -->
+      <audio id="sfx-riser" class="clip" src="assets/sfx/riser.mp3" data-start="62" data-media-start="6.03" data-duration="4" data-track-index="9" data-volume="0.51"></audio>
+      <audio id="sfx-00" class="clip" src="assets/sfx/slap-1.mp3" data-start="0.62" data-duration="0.2" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-01" class="clip" src="assets/sfx/tape-rip-1.mp3" data-start="3.32" data-duration="0.46" data-track-index="8" data-volume="0.68"></audio>
+      <audio id="sfx-02" class="clip" src="assets/sfx/tape-rip-2.mp3" data-start="3.52" data-duration="0.45" data-track-index="9" data-volume="0.59"></audio>
+      <audio id="sfx-03" class="clip" src="assets/sfx/slap-2.mp3" data-start="6.22" data-duration="0.25" data-track-index="8" data-volume="0.59"></audio>
+      <audio id="sfx-04" class="clip" src="assets/sfx/paper-tear.mp3" data-start="7.0" data-duration="0.37" data-track-index="8" data-volume="0.77"></audio>
+      <audio id="sfx-05" class="clip" src="assets/sfx/whoosh.mp3" data-start="9.0" data-duration="0.57" data-track-index="8" data-volume="0.48"></audio>
+      <audio id="sfx-06" class="clip" src="assets/sfx/slap-3.mp3" data-start="9.3" data-duration="0.36" data-track-index="9" data-volume="0.51"></audio>
+      <audio id="sfx-07" class="clip" src="assets/sfx/pop.mp3" data-start="11.42" data-duration="0.72" data-track-index="8" data-volume="0.42"></audio>
+      <audio id="sfx-08" class="clip" src="assets/sfx/slap-1.mp3" data-start="11.5" data-duration="0.2" data-track-index="9" data-volume="0.51"></audio>
+      <audio id="sfx-09" class="clip" src="assets/sfx/whoosh-2.mp3" data-start="11.78" data-duration="0.57" data-track-index="9" data-volume="0.42"></audio>
+      <audio id="sfx-10" class="clip" src="assets/sfx/slap-2.mp3" data-start="12.02" data-duration="0.25" data-track-index="10" data-volume="0.51"></audio>
+      <audio id="sfx-11" class="clip" src="assets/sfx/slap-3.mp3" data-start="12.18" data-duration="0.36" data-track-index="8" data-volume="0.42"></audio>
+      <audio id="sfx-12" class="clip" src="assets/sfx/pop.mp3" data-start="12.9" data-duration="0.72" data-track-index="8" data-volume="0.31"></audio>
+      <audio id="sfx-13" class="clip" src="assets/sfx/pop.mp3" data-start="15.3" data-duration="0.72" data-track-index="8" data-volume="0.26"></audio>
+      <audio id="sfx-14" class="clip" src="assets/sfx/slap-1.mp3" data-start="17.3" data-duration="0.2" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-15" class="clip" src="assets/sfx/slap-2.mp3" data-start="19.3" data-duration="0.25" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-16" class="clip" src="assets/sfx/slap-3.mp3" data-start="20.25" data-duration="0.36" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-17" class="clip" src="assets/sfx/paper-tear.mp3" data-start="24.82" data-duration="0.37" data-track-index="8" data-volume="0.68"></audio>
+      <audio id="sfx-18" class="clip" src="assets/sfx/whoosh.mp3" data-start="25.02" data-duration="0.57" data-track-index="9" data-volume="0.42"></audio>
+      <audio id="sfx-19" class="clip" src="assets/sfx/slap-1.mp3" data-start="25.32" data-duration="0.2" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-20" class="clip" src="assets/sfx/whoosh-2.mp3" data-start="25.4" data-duration="0.57" data-track-index="10" data-volume="0.37"></audio>
+      <audio id="sfx-21" class="clip" src="assets/sfx/typing.mp3" data-start="25.6" data-duration="1.5" data-track-index="8" data-volume="0.31"></audio>
+      <audio id="sfx-22" class="clip" src="assets/sfx/slap-2.mp3" data-start="29.0" data-duration="0.25" data-track-index="8" data-volume="0.59"></audio>
+      <audio id="sfx-23" class="clip" src="assets/sfx/slap-3.mp3" data-start="30.55" data-duration="0.36" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-24" class="clip" src="assets/sfx/tape-rip-2.mp3" data-start="33.0" data-duration="0.45" data-track-index="8" data-volume="0.68"></audio>
+      <audio id="sfx-25" class="clip" src="assets/sfx/slap-1.mp3" data-start="36.05" data-duration="0.2" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-26" class="clip" src="assets/sfx/slap-2.mp3" data-start="36.5" data-duration="0.25" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-27" class="clip" src="assets/sfx/paper-fold-1.mp3" data-start="38.85" data-duration="0.7" data-track-index="8" data-volume="0.68"></audio>
+      <audio id="sfx-28" class="clip" src="assets/sfx/whoosh.mp3" data-start="39.55" data-duration="0.57" data-track-index="9" data-volume="0.42"></audio>
+      <audio id="sfx-29" class="clip" src="assets/sfx/slap-3.mp3" data-start="39.95" data-duration="0.36" data-track-index="8" data-volume="0.42"></audio>
+      <audio id="sfx-30" class="clip" src="assets/sfx/slap-1.mp3" data-start="40.6" data-duration="0.2" data-track-index="8" data-volume="0.42"></audio>
+      <audio id="sfx-31" class="clip" src="assets/sfx/paper-tear.mp3" data-start="42.6" data-duration="0.37" data-track-index="8" data-volume="0.59"></audio>
+      <audio id="sfx-32" class="clip" src="assets/sfx/tape-rip-1.mp3" data-start="43.1" data-duration="0.46" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-33" class="clip" src="assets/sfx/tape-rip-2.mp3" data-start="45.0" data-duration="0.45" data-track-index="8" data-volume="0.59"></audio>
+      <audio id="sfx-34" class="clip" src="assets/sfx/paper-fold-2.mp3" data-start="46.4" data-duration="0.99" data-track-index="8" data-volume="0.59"></audio>
+      <audio id="sfx-35" class="clip" src="assets/sfx/paper-fold-1.mp3" data-start="47.8" data-duration="0.7" data-track-index="8" data-volume="0.59"></audio>
+      <audio id="sfx-36" class="clip" src="assets/sfx/slap-2.mp3" data-start="48.0" data-duration="0.25" data-track-index="9" data-volume="0.51"></audio>
+      <audio id="sfx-37" class="clip" src="assets/sfx/slap-3.mp3" data-start="49.2" data-duration="0.36" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-38" class="clip" src="assets/sfx/whoosh-2.mp3" data-start="49.98" data-duration="0.57" data-track-index="8" data-volume="0.37"></audio>
+      <audio id="sfx-39" class="clip" src="assets/sfx/slap-1.mp3" data-start="50.32" data-duration="0.2" data-track-index="9" data-volume="0.51"></audio>
+      <audio id="sfx-40" class="clip" src="assets/sfx/slap-2.mp3" data-start="50.48" data-duration="0.25" data-track-index="10" data-volume="0.42"></audio>
+      <audio id="sfx-41" class="clip" src="assets/sfx/slap-3.mp3" data-start="53.5" data-duration="0.36" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-42" class="clip" src="assets/sfx/pop.mp3" data-start="53.9" data-duration="0.72" data-track-index="8" data-volume="0.37"></audio>
+      <audio id="sfx-43" class="clip" src="assets/sfx/slap-1.mp3" data-start="54.9" data-duration="0.2" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-44" class="clip" src="assets/sfx/paper-fold-2.mp3" data-start="56.9" data-duration="0.99" data-track-index="8" data-volume="0.59"></audio>
+      <audio id="sfx-45" class="clip" src="assets/sfx/pop.mp3" data-start="62.2" data-duration="0.72" data-track-index="8" data-volume="0.34"></audio>
+      <audio id="sfx-46" class="clip" src="assets/sfx/pop.mp3" data-start="63.3" data-duration="0.72" data-track-index="8" data-volume="0.26"></audio>
+      <audio id="sfx-47" class="clip" src="assets/sfx/impact.mp3" data-start="66.0" data-duration="2.12" data-track-index="8" data-volume="0.77"></audio>
+      <audio id="sfx-48" class="clip" src="assets/sfx/slap-2.mp3" data-start="66.6" data-duration="0.25" data-track-index="9" data-volume="0.51"></audio>
+      <audio id="sfx-49" class="clip" src="assets/sfx/whoosh-2.mp3" data-start="67.6" data-duration="0.57" data-track-index="9" data-volume="0.37"></audio>
+      <audio id="sfx-50" class="clip" src="assets/sfx/slap-3.mp3" data-start="67.92" data-duration="0.36" data-track-index="10" data-volume="0.51"></audio>
+      <audio id="sfx-51" class="clip" src="assets/sfx/whoosh.mp3" data-start="67.98" data-duration="0.57" data-track-index="11" data-volume="0.37"></audio>
+      <audio id="sfx-52" class="clip" src="assets/sfx/typing.mp3" data-start="68.4" data-duration="1.5" data-track-index="8" data-volume="0.31"></audio>
+      <audio id="sfx-53" class="clip" src="assets/sfx/typing.mp3" data-start="70.0" data-duration="1.5" data-track-index="8" data-volume="0.26"></audio>
+      <audio id="sfx-54" class="clip" src="assets/sfx/slap-1.mp3" data-start="70.9" data-duration="0.2" data-track-index="9" data-volume="0.51"></audio>
+      <audio id="sfx-55" class="clip" src="assets/sfx/whoosh-2.mp3" data-start="72.95" data-duration="0.57" data-track-index="8" data-volume="0.37"></audio>
+      <audio id="sfx-56" class="clip" src="assets/sfx/whoosh.mp3" data-start="75.0" data-duration="0.57" data-track-index="8" data-volume="0.34"></audio>
+      <audio id="sfx-57" class="clip" src="assets/sfx/whoosh-2.mp3" data-start="80.1" data-duration="0.57" data-track-index="8" data-volume="0.34"></audio>
+      <audio id="sfx-58" class="clip" src="assets/sfx/paper-tear.mp3" data-start="82.5" data-duration="0.37" data-track-index="8" data-volume="0.77"></audio>
+      <audio id="sfx-59" class="clip" src="assets/sfx/slap-3.mp3" data-start="87.25" data-duration="0.36" data-track-index="8" data-volume="0.51"></audio>
+      <audio id="sfx-60" class="clip" src="assets/sfx/pop.mp3" data-start="89.5" data-duration="0.72" data-track-index="8" data-volume="0.34"></audio>
+      <audio id="sfx-61" class="clip" src="assets/sfx/whoosh.mp3" data-start="90.25" data-duration="0.57" data-track-index="8" data-volume="0.42"></audio>
+      <audio id="sfx-62" class="clip" src="assets/sfx/slap-1.mp3" data-start="92.0" data-duration="0.2" data-track-index="8" data-volume="0.59"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

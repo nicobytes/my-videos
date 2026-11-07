@@ -1,0 +1,276 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #li-phone-wrap {
+      position: absolute;
+      z-index: 3;
+      left: 64px;
+      top: 262px;
+      width: 470px;
+      height: 690px;
+    }
+    /* The summary card the old bubbles fold into, inside the chat. */
+    .bub.sum {
+      align-self: stretch;
+      max-width: none;
+      background: var(--color-paper, #f6f2e8) url("assets/textures/paper.png") 0 0 / 512px 512px;
+      border: 3px dashed #8a7a55;
+      border-radius: 10px;
+      font-size: 28px;
+    }
+    .bub.sum b {
+      display: block;
+      font-family: var(--font-display, "League Gothic"), sans-serif;
+      font-weight: 400;
+      font-size: 40px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    #li-badge-wrap {
+      position: absolute;
+      left: 560px;
+      top: 300px;
+    }
+    #li-badge {
+      position: relative;
+      padding: 22px 30px 20px 116px;
+      font-weight: 800;
+      font-size: 44px;
+      line-height: 1.05;
+    }
+    #li-badge small {
+      display: block;
+      font-weight: 700;
+      font-size: 30px;
+      margin-top: 4px;
+    }
+    #li-badge svg {
+      position: absolute;
+      left: 26px;
+      top: 22px;
+      width: 74px;
+      height: 92px;
+    }
+    #li-less-wrap {
+      position: absolute;
+      left: 578px;
+      top: 780px;
+    }
+    #li-less {
+      font-size: 92px;
+    }
+
+    #li-card-wrap {
+      position: absolute;
+      left: 50px;
+      top: 990px;
+      width: 980px;
+      height: 450px;
+    }
+    #li-card {
+      position: absolute;
+      inset: 0;
+    }
+    #li-card-title {
+      position: absolute;
+      left: 30px;
+      top: -40px;
+      font-size: 60px;
+    }
+    #li-limit-svg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 980px;
+      height: 450px;
+    }
+    #li-reveal {
+      position: absolute;
+      inset: 0;
+    }
+    #li-plot {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 980px;
+      height: 450px;
+      overflow: visible;
+    }
+    #li-limit-tag {
+      position: absolute;
+      right: 26px;
+      top: 70px;
+      font-size: 50px;
+    }
+  </style>
+  <div data-hf-id="hf-6bi5" id="root" data-composition-id="limite" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-wum6" class="card-ground"></div>
+
+    <div data-hf-id="hf-cu9c" id="li-phone-wrap" class="lift">
+      <div data-hf-id="hf-pb59" class="ph-body">
+        <div data-hf-id="hf-66w1" class="ph-screen">
+          <div data-hf-id="hf-hzzb" class="ph-head">
+            <div data-hf-id="hf-zid6" class="ph-avatar"></div>
+            <div data-hf-id="hf-ei4i" class="ph-name">Tienda Bot</div>
+            <div data-hf-id="hf-emhd" class="ph-status">en línea</div>
+          </div>
+          <div data-hf-id="hf-6fod" class="ph-thread">
+            <div data-hf-id="hf-1zjr" class="ph-list" id="li-list">
+              <div data-hf-id="hf-s13l" class="bub out" id="li-b1">¿Puedo pagar con QR?</div>
+              <div data-hf-id="hf-lou0" class="bub in" id="li-b2">Sí, te envío el código</div>
+              <div data-hf-id="hf-j71m" class="bub sum" id="li-sum"><b data-hf-id="hf-1sgc">Resumen</b>Pedido #4821 a talla M. Llega el jueves. Paga con QR.</div>
+              <div data-hf-id="hf-27sc" class="bub out" id="li-b3">¿Cuándo llega mi pedido?</div>
+              <div data-hf-id="hf-h5g6" class="bub in" id="li-b4">El jueves, como te dije<span data-hf-id="hf-ok14" class="tick">✓✓</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-xq67" id="li-badge-wrap" class="lift">
+      <div data-hf-id="hf-dpgw" id="li-badge" class="paper cut-a">
+        <!-- a feather: the light model -->
+        <svg data-hf-id="hf-j4q6" viewBox="0 0 74 92" aria-hidden="true">
+          <path data-hf-id="hf-oi7a" d="M60 4 C20 14 6 50 12 84 C40 70 64 40 60 4 Z" fill="#fff" stroke="#141218" stroke-width="5" stroke-linejoin="round" />
+          <path data-hf-id="hf-795m" d="M12 84 L46 30" stroke="#141218" stroke-width="4" stroke-linecap="round" />
+        </svg>
+        Gemini Flash<small data-hf-id="hf-j04i">modelo ligero</small>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-j2jf" id="li-less-wrap" class="lift">
+      <div data-hf-id="hf-rsir" id="li-less" class="tape">Menos tokens</div>
+    </div>
+
+    <div data-hf-id="hf-29d0" id="li-card-wrap" class="lift">
+      <div data-hf-id="hf-i6h7" id="li-card" class="paper cut-b"></div>
+      <!-- The 85 % line is a reference, not data: it spans the card, unclipped. -->
+      <svg data-hf-id="hf-40g6" id="li-limit-svg" viewBox="0 0 980 450" aria-hidden="true">
+        <line data-hf-id="hf-a9lq" id="li-limit" x1="70" x2="940" stroke="#ffc72c" stroke-width="10" stroke-dasharray="4 18" stroke-linecap="round" />
+      </svg>
+      <div data-hf-id="hf-32ri" id="li-reveal">
+        <svg data-hf-id="hf-07pp" id="li-plot" viewBox="0 0 980 450" aria-hidden="true">
+          <path data-hf-id="hf-06wj" id="li-area" fill="#d8cff3" />
+          <path data-hf-id="hf-8yix" id="li-line" fill="none" stroke="#141218" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" />
+          <circle data-hf-id="hf-ogbh" id="li-tip" r="13" fill="#141218" stroke="#fff" stroke-width="5" />
+        </svg>
+      </div>
+      <div data-hf-id="hf-5ols" id="li-limit-tag" class="tape yellow">Límite 85 %</div>
+      <div data-hf-id="hf-ukoc" id="li-card-title" class="tape">Contexto (tokens)</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      // Host starts at 50.3 s; times below are film seconds.
+      const S = 50.3;
+      const at = (g) => +(g - S).toFixed(3);
+      const tl = gsap.timeline({ paused: true });
+
+      // Token curve: ILLUSTRATIVE values. The conversation climbs to the 85 %
+      // line, a light model summarises, the context drops to the summary's
+      // size and keeps growing slowly from there.
+      const PLOT = { x0: 70, x1: 940, y0: 405, y1: 75 };
+      const LIMIT = 0.85;
+      const EVENTS = [
+        [0.0, 0.36], [0.06, 0.42], [0.12, 0.47], [0.18, 0.53], [0.24, 0.58],
+        [0.3, 0.64], [0.36, 0.69], [0.42, 0.74], [0.48, 0.79], [0.56, LIMIT],
+        [0.62, 0.2], [0.68, 0.23], [0.74, 0.26], [0.8, 0.29],
+      ];
+      const X = (f) => PLOT.x0 + (PLOT.x1 - PLOT.x0) * f;
+      const Y = (f) => PLOT.y0 - (PLOT.y0 - PLOT.y1) * f;
+      let d = `M ${X(0)} ${Y(EVENTS[0][1])}`;
+      for (const [x, v] of EVENTS.slice(1)) d += ` H ${X(x)} V ${Y(v)}`;
+      document.getElementById("li-line").setAttribute("d", d);
+      document.getElementById("li-area").setAttribute("d", `${d} V ${PLOT.y0} H ${X(0)} Z`);
+      gsap.set("#li-limit", { attr: { y1: Y(LIMIT), y2: Y(LIMIT) } });
+      const reveal = (f) => `inset(-60px ${(980 - X(f)).toFixed(1)}px -20px 0px)`;
+      const lineReveal = (f) => `inset(0px ${(980 * (1 - f)).toFixed(1)}px 0px 0px)`;
+      let shown = 0;
+      const grow = (to, g, n) => {
+        PC.steps(tl, "#li-reveal", shown, to, at(g), 0.18, n || 3, reveal);
+        shown = to;
+      };
+
+      const ROT = { phone: -3, badge: 3, less: -3, title: -2, tag: 2 };
+      gsap.set("#li-phone-wrap", { rotation: ROT.phone, opacity: 0 });
+      gsap.set("#li-card-wrap", { opacity: 0 });
+      gsap.set("#li-badge-wrap", { rotation: ROT.badge, opacity: 0 });
+      gsap.set("#li-less", { rotation: ROT.less, opacity: 0 });
+      gsap.set("#li-card-title", { rotation: ROT.title, opacity: 0 });
+      gsap.set("#li-limit-tag", { rotation: ROT.tag, opacity: 0 });
+      gsap.set("#li-reveal", { clipPath: reveal(0) });
+      gsap.set("#li-limit-svg", { clipPath: lineReveal(0) });
+      gsap.set("#li-tip", { attr: { cx: X(EVENTS[9][0]), cy: Y(LIMIT) }, opacity: 0 });
+      gsap.set(["#li-b1", "#li-b2", "#li-sum", "#li-b3", "#li-b4"], { display: "none" });
+      gsap.set(".bub.out", { transformOrigin: "100% 0%" });
+      gsap.set(".bub.in", { transformOrigin: "0% 0%" });
+      gsap.set("#li-sum", { transformOrigin: "50% 0%" });
+      const bubble = (sel, g) => {
+        tl.set(sel, { display: "block" }, at(g));
+        tl.fromTo(sel, { scale: 0.75 }, { scale: 1, duration: 0.12, ease: "power2.out", immediateRender: false }, at(g));
+      };
+
+      // 50.3: back to the home stage.
+      PC.slap(tl, "#li-phone-wrap", at(50.3), { rot: ROT.phone, from: 1.08, dy: 120, spin: -4, dur: 0.3 });
+      PC.slap(tl, "#li-card-wrap", at(50.46), { from: 1.05, dy: 90, spin: 1.5, dur: 0.3 });
+      PC.slap(tl, "#li-card-title", at(50.6), { rot: ROT.title });
+      grow(0.2, 50.5);
+      bubble("#li-b1", 50.9);
+      bubble("#li-b2", 51.6);
+
+      // "¿Cómo funciona? Cuando la conversación alcanza…": the climb, step by step.
+      grow(0.26, 51.4);
+      grow(0.32, 51.9);
+      grow(0.38, 52.4);
+      grow(0.44, 52.9);
+      // "límite de tokens" (53.15): the 85 % line is drawn, then the curve meets it.
+      PC.steps(tl, "#li-limit-svg", 0, 1, at(53.1), 0.4, 6, lineReveal);
+      PC.slap(tl, "#li-limit-tag", at(53.5), { rot: ROT.tag, from: 1.25 });
+      grow(0.5, 53.3);
+      grow(0.58, 53.65);
+      tl.set("#li-tip", { opacity: 1 }, at(53.9));
+      tl.fromTo("#li-tip", { attr: { r: 26 } }, { attr: { r: 13 }, duration: 0.2, ease: "back.out(2)", immediateRender: false }, at(53.9));
+
+      // "un modelo un poco más ligero" (54.89).
+      PC.slap(tl, "#li-badge-wrap", at(54.9), { rot: ROT.badge, from: 1.1, dx: 320, dy: 0, spin: 8, dur: 0.3 });
+      // "resumir todos los eventos" (56.88): the old bubbles fold into the summary.
+      tl.to("#li-b1", { scaleY: 0, duration: 0.16, ease: "power2.in" }, at(56.9));
+      tl.to("#li-b2", { scaleY: 0, duration: 0.16, ease: "power2.in" }, at(57.0));
+      tl.set(["#li-b1", "#li-b2"], { display: "none" }, at(57.16));
+      bubble("#li-sum", 57.16);
+      PC.pull(tl, "#li-badge-wrap", at(60.1), { rot: ROT.badge, toX: 600, toY: -400, dur: 0.24 });
+
+      // "el bot no pierde memoria" (63.12): the camera pushes into the phone so the
+      // question and the answer it still knows read on a phone screen, then pulls back
+      // to the chart before the drop.
+      tl.to("#li-phone-wrap", { scale: 1.5, x: 240, y: 180, duration: 0.5, ease: "power2.inOut" }, at(61.6));
+      bubble("#li-b3", 62.2);
+      bubble("#li-b4", 63.3);
+      tl.to("#li-phone-wrap", { scale: 1, x: 0, y: 0, duration: 0.45, ease: "power2.inOut" }, at(65.25));
+
+      // "drásticamente" (66.02): the drop. A beat of stillness before it.
+      grow(0.64, 66.0, 2);
+      tl.set("#li-tip", { attr: { cx: X(EVENTS[10][0]), cy: Y(EVENTS[10][1]) } }, at(66.06));
+      tl.fromTo("#li-tip", { attr: { r: 28 } }, { attr: { r: 13 }, duration: 0.28, ease: "back.out(2.4)", immediateRender: false }, at(66.06));
+      PC.slap(tl, "#li-less", at(66.6), { rot: ROT.less, from: 1.3, dy: -40 });
+      grow(0.7, 66.7);
+      tl.set("#li-tip", { attr: { cx: X(EVENTS[11][0]), cy: Y(EVENTS[11][1]) } }, at(66.8));
+      grow(0.76, 67.1);
+      tl.set("#li-tip", { attr: { cx: X(EVENTS[12][0]), cy: Y(EVENTS[12][1]) } }, at(67.3));
+
+      // 67.6: cleared for the code.
+      PC.pull(tl, "#li-phone-wrap", at(67.6), { rot: ROT.phone, toX: -300, dur: 0.22 });
+      PC.pull(tl, "#li-less", at(67.6), { rot: ROT.less, toX: 500, dur: 0.22 });
+      PC.pull(tl, "#li-card-wrap", at(67.64), { toY: 1400, spin: -4, dur: 0.22 });
+      tl.set({}, {}, 17.6);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["limite"] = tl;
+    })();
+  </script>
+</template>

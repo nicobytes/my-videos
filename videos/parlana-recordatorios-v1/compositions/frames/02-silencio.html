@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/parlana.css" />
+  </head>
+  <body>
+    <template id="f02-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #f02-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        /* Parlana's chat mock (blog), in the neutral palette of the problem act.
+           The phone frame surface is painted by the shell track. */
+        #f02-phone {
+          position: absolute;
+          left: 140px;
+          top: 430px;
+          width: 800px;
+          height: 760px;
+          padding: 14px;
+          box-sizing: border-box;
+          border: 3px solid transparent;
+        }
+        #f02-screen {
+          width: 100%;
+          height: 100%;
+          border-radius: 40px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          background: #efeae2;
+        }
+        #f02-head {
+          flex: none;
+          height: 150px;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          padding: 0 34px;
+          background: #3c3b36;
+        }
+        #f02-avatar {
+          width: 84px;
+          height: 84px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #5f5e58;
+          color: #ffffff;
+          font-size: 40px;
+          font-weight: 700;
+        }
+        #f02-name {
+          color: #ffffff;
+          font-size: 44px;
+          font-weight: 600;
+          line-height: 1.1;
+        }
+        #f02-status {
+          color: rgba(255, 255, 255, 0.72);
+          font-size: 30px;
+          font-weight: 400;
+        }
+        #f02-body {
+          flex: 1;
+          position: relative;
+        }
+        #f02-msg {
+          right: 36px;
+          top: 56px;
+          width: 600px;
+          background: #3c3b36;
+          color: #ffffff;
+          border-top-right-radius: 10px;
+          transform-origin: 100% 100%;
+        }
+        #f02-msg .pr-meta {
+          color: rgba(255, 255, 255, 0.66);
+        }
+        #f02-msg .pr-meta svg {
+          width: 34px;
+          height: 22px;
+        }
+        #f02-typing {
+          position: absolute;
+          left: 36px;
+          top: 400px;
+          height: 100px;
+          padding: 0 34px;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          background: var(--surface);
+          border: 2px solid var(--line);
+          border-radius: 32px;
+          border-top-left-radius: 10px;
+          transform-origin: 0% 0%;
+        }
+        .f02-dot {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: #a9a79f;
+        }
+      </style>
+
+      <div data-hf-id="hf-cuhd" id="f02-root" data-composition-id="f02" data-start="0" data-duration="1.8" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5d2o" id="f02-phone">
+          <div data-hf-id="hf-u1fc" id="f02-screen">
+            <div data-hf-id="hf-z4e4" id="f02-head" class="pr-ui">
+              <div data-hf-id="hf-m127" id="f02-avatar">J</div>
+              <div data-hf-id="hf-yeow">
+                <div data-hf-id="hf-uurj" id="f02-name">Juan Pérez</div>
+                <div data-hf-id="hf-8d44" id="f02-status">últ. vez ayer</div>
+              </div>
+            </div>
+            <div data-hf-id="hf-l84g" id="f02-body">
+              <div data-hf-id="hf-xpbs" id="f02-msg" class="pr-bubble">
+                Hola Juan, ¿vienes a tu cita?
+                <div data-hf-id="hf-v4ko" class="pr-meta">
+                  10:14
+                  <svg data-hf-id="hf-u9ca" viewBox="0 0 28 18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path data-hf-id="hf-egyw" d="M2 10l4.5 4.5L15 4" /><path data-hf-id="hf-nrew" d="M11.5 14.5L13 16 23 4" /></svg>
+                </div>
+              </div>
+              <div data-hf-id="hf-c7st" id="f02-typing"><span data-hf-id="hf-rqi9" class="f02-dot" id="f02-dot-1"></span><span data-hf-id="hf-voma" class="f02-dot" id="f02-dot-2"></span><span data-hf-id="hf-zmqb" class="f02-dot" id="f02-dot-3"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          // VO cues, frame-local seconds (from assets/vo/transcript.json): "No avisó. No contesta."
+          var CUE = { screen: 0.3, msg: 0.45, typing: 0.72, typingGone: 1.5, out: 1.62 };
+          var tl = gsap.timeline({ paused: true });
+
+          // The chat arrives on the morphed phone (content after the shape, text-state-swap values).
+          tl.fromTo("#f02-screen", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.screen);
+
+          // The message: chat-message's measured arrival from the sender's corner.
+          tl.fromTo("#f02-msg", { opacity: 0, scale: 0.75 }, { opacity: 1, scale: 1, duration: 0.12, ease: "power2.out" }, CUE.msg);
+
+          // "escribiendo…" shows up, its dots pulse for a while, then it vanishes: no answer.
+          tl.fromTo("#f02-typing", { opacity: 0, scale: 0.75 }, { opacity: 1, scale: 1, duration: 0.12, ease: "power2.out" }, CUE.typing);
+          var dots = [document.getElementById("f02-dot-1"), document.getElementById("f02-dot-2"), document.getElementById("f02-dot-3")];
+          var phase = { p: 0 };
+          var pulseDur = CUE.typingGone - CUE.typing;
+          tl.fromTo(
+            phase,
+            { p: 0 },
+            {
+              p: Math.PI * 2 * 2,
+              duration: pulseDur,
+              ease: "none",
+              onUpdate: function () {
+                for (var i = 0; i < dots.length; i++) {
+                  dots[i].style.opacity = String(0.45 + 0.55 * Math.max(0, Math.sin(phase.p - i * 0.9)));
+                }
+              },
+            },
+            CUE.typing,
+          );
+          tl.to("#f02-typing", { opacity: 0, scale: 0.9, duration: 0.15, ease: "power2.in" }, CUE.typingGone);
+
+          tl.fromTo("#f02-screen", { y: 0, filter: "blur(0px)" }, { opacity: 0, y: -18, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, CUE.out);
+
+          window.__timelines["f02"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><meta charset="UTF-8"><link rel="stylesheet" href="compositions/shared/pixel.css"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jersey 10"; src: url("assets/fonts/jersey10-latin.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Plus Jakarta Sans"; src: url("assets/fonts/plusjakarta-latin.woff2") format("woff2"); font-weight: 200 800; }
+        #f08-root { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; background: #f1efe8; }
+        #f08-agenda { left: 110px; top: 110px; width: 860px; height: 520px; padding: 22px 26px; }
+        #f08-agenda h3 { font-family: "Jersey 10", monospace; font-weight: 400; font-size: 64px; margin: 0 0 14px; }
+        .f08-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+        .f08-day { font-family: "Jersey 10", monospace; font-size: 40px; text-align: center; }
+        .f08-slot { height: 70px; background: #e6e3d8; border: 5px solid #888780; }
+        #f08-full { left: 300px; top: 400px; font-size: 104px; color: #009a3e; border: 10px solid #009a3e; background: #e6f9ee; padding: 0 34px; font-family: "Jersey 10", monospace; line-height: 1.05; position: absolute; }
+        #f08-badge { left: 860px; top: 690px; min-width: 80px; height: 80px; font-size: 56px; background: #00bd4c; color: #00260f; }
+        .f08-heart { width: 70px; }
+      </style>
+
+      <div id="f08-root" data-composition-id="f08" data-start="0" data-duration="3.24" data-width="1080" data-height="1920">
+        <img class="px" src="assets/sprites/bg-spa.svg" style="left: 0; top: 0; width: 1080px;" alt="">
+        <img class="px" src="assets/sprites/phone-small.svg" style="left: 820px; top: 700px; width: 100px;" alt="">
+        <img class="px" src="assets/sprites/candle-1.svg" style="left: 930px; top: 760px; width: 60px;" alt="">
+        <img class="px" src="assets/sprites/plant.svg" style="left: 40px; top: 1150px; width: 196px;" alt="">
+        <img id="f08-vale" class="px" src="assets/sprites/vale-happy.svg" style="left: 386px; top: 760px; width: 308px;" alt="">
+        <img id="f08-vale-b" class="px" src="assets/sprites/vale-happy-blink.svg" style="left: 386px; top: 760px; width: 308px; visibility: hidden;" alt="">
+        <img class="px" src="assets/sprites/bed-client.svg" style="left: 232px; top: 1090px; width: 616px;" alt="">
+        <div id="f08-badge" class="badge notch">✓</div>
+        <div id="f08-hearts"></div>
+        <div id="f08-agenda" class="panel notch">
+          <h3>Agenda de la semana</h3>
+          <div class="f08-grid" id="f08-grid"></div>
+        </div>
+        <div id="f08-full" class="notch">¡Llena!</div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          // local anchors (abs − 28.68): Ahora Vale 0.3 · ama 1.52 · agenda 2.0 · llena 2.8
+          var grid = document.getElementById("f08-grid");
+          ["Lun", "Mar", "Mié", "Jue", "Vie"].forEach(function (d) { var e = document.createElement("div"); e.className = "f08-day"; e.textContent = d; grid.appendChild(e); });
+          for (var i = 0; i < 15; i++) { var s = document.createElement("div"); s.className = "f08-slot"; s.id = "f08-s" + i; grid.appendChild(s); }
+          // mirror of the empty week: half already booked, the rest fills on "agenda"
+          var PRE = [0, 2, 4, 6, 7, 11, 13];
+          for (var j = 0; j < 15; j++) {
+            var pre = PRE.indexOf(j) >= 0;
+            var at = pre ? 0.25 + PRE.indexOf(j) * 0.06 : 2.0 + ((j * 7) % 15) * 0.035;
+            tl.to("#f08-s" + j, { backgroundColor: "#00bd4c", borderColor: "#00260f", duration: 0.04 }, at);
+            tl.fromTo("#f08-s" + j, { scale: 1.3 }, { scale: 1, duration: 0.16, ease: "steps(3)", immediateRender: false }, at);
+          }
+          tl.fromTo("#f08-agenda", { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 0.05);
+          tl.fromTo("#f08-full", { autoAlpha: 0, scale: 2.2, rotation: -14 }, { autoAlpha: 1, scale: 1, rotation: -8, duration: 0.22, ease: "power4.in" }, 2.75);
+          // hearts rise on "lo que ama" — particle-burst with baked positions (no randomness)
+          var H = [[330, 980, 0], [700, 960, 0.08], [460, 900, 0.16], [600, 930, 0.24], [250, 1040, 0.32], [780, 1020, 0.4]];
+          var hearts = document.getElementById("f08-hearts");
+          H.forEach(function (h, k) {
+            var img = document.createElement("img");
+            img.className = "px f08-heart"; img.src = k % 3 === 0 ? "assets/sprites/heart-green.svg" : "assets/sprites/heart.svg";
+            img.style.left = h[0] + "px"; img.style.top = h[1] + "px";
+            hearts.appendChild(img);
+            tl.fromTo(img, { autoAlpha: 0, y: 0 }, { keyframes: [{ autoAlpha: 1, y: -60, duration: 0.3, ease: "steps(3)" }, { y: -200, duration: 0.8, ease: "steps(8)" }, { autoAlpha: 0, duration: 0.1 }] }, 1.45 + h[2]);
+          });
+          [[0.9, 1.02], [2.4, 2.52]].forEach(function (b) {
+            tl.set("#f08-vale-b", { visibility: "visible" }, b[0]); tl.set("#f08-vale", { visibility: "hidden" }, b[0]);
+            tl.set("#f08-vale-b", { visibility: "hidden" }, b[1]); tl.set("#f08-vale", { visibility: "visible" }, b[1]);
+          });
+          window.__timelines["f08"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

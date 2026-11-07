@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/parlana.css" />
+  </head>
+  <body>
+    <template id="f06-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #f06-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #f06-status-chip {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 320px;
+          display: flex;
+          justify-content: center;
+        }
+        #f06-status-chip .pr-chip {
+          height: 72px;
+          padding: 0 32px;
+          font-family: "Figtree", sans-serif;
+          font-weight: 700;
+          font-size: 40px;
+        }
+        /* Same phone as frame 5; the frame surface is painted by the shell track. */
+        #f06-phone {
+          position: absolute;
+          left: 140px;
+          top: 420px;
+          width: 800px;
+          height: 940px;
+          padding: 14px;
+          box-sizing: border-box;
+          border: 3px solid transparent;
+        }
+        #f06-screen {
+          width: 100%;
+          height: 100%;
+          border-radius: 40px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          background: #efeae2;
+        }
+        #f06-head {
+          flex: none;
+          height: 150px;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          padding: 0 34px;
+          background: var(--green);
+        }
+        #f06-avatar {
+          width: 84px;
+          height: 84px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.18);
+          color: #ffffff;
+          font-size: 40px;
+          font-weight: 700;
+        }
+        #f06-name {
+          color: #ffffff;
+          font-size: 44px;
+          font-weight: 600;
+          line-height: 1.1;
+        }
+        #f06-status {
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 30px;
+          font-weight: 400;
+        }
+        #f06-body {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          padding: 56px 36px;
+        }
+        #f06-msg {
+          position: relative;
+          width: 600px;
+        }
+        #f06-msg .pr-meta {
+          color: rgba(255, 255, 255, 0.72);
+        }
+        #f06-replies {
+          width: 600px;
+          margin-top: 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+        .f06-reply {
+          height: 96px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 26px;
+          background: var(--surface);
+          color: var(--green);
+          font-size: 40px;
+          font-weight: 700;
+        }
+        /* Starts exactly where frame 5 ended: the cursor is hovering "Confirmar". */
+        #f06-confirm {
+          background: var(--green-tint);
+        }
+        /* The patient answers in the same chat. */
+        #f06-answer {
+          position: relative;
+          align-self: flex-start;
+          margin-top: 24px;
+          font-weight: 600;
+          transform-origin: 0% 100%;
+        }
+        #f06-answer .pr-meta {
+          color: var(--muted);
+        }
+        /* Centered on the tap point: "Confirmar", right of its lettering (730, 921). */
+        #f06-ripple {
+          position: absolute;
+          left: 660px;
+          top: 851px;
+          width: 140px;
+          height: 140px;
+          border-radius: 50%;
+          border: 6px solid rgba(21, 91, 63, 0.35);
+          box-sizing: border-box;
+        }
+      </style>
+
+      <div data-hf-id="hf-32fy" id="f06-root" data-composition-id="f06" data-start="0" data-duration="2.55" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-i34t" id="f06-status-chip"><span data-hf-id="hf-xjaa" class="pr-chip pr-chip--green">✓ Cita confirmada</span></div>
+        <div data-hf-id="hf-8i4k" id="f06-phone">
+          <div data-hf-id="hf-cx10" id="f06-screen">
+            <div data-hf-id="hf-3x34" id="f06-head" class="pr-ui">
+              <div data-hf-id="hf-tacl" id="f06-avatar">T</div>
+              <div data-hf-id="hf-yeow">
+                <div data-hf-id="hf-8uvn" id="f06-name">Tu consultorio</div>
+                <div data-hf-id="hf-021k" id="f06-status">en línea</div>
+              </div>
+            </div>
+            <div data-hf-id="hf-p63i" id="f06-body" class="pr-ui">
+              <div data-hf-id="hf-b5gq" id="f06-msg" class="pr-bubble pr-bubble--out">
+                Recordatorio: tu cita es mañana a las 10:00.
+                <div data-hf-id="hf-g8w5" class="pr-meta">18:00</div>
+              </div>
+              <div data-hf-id="hf-omo8" id="f06-replies">
+                <div data-hf-id="hf-vdyj" class="f06-reply" id="f06-confirm">Confirmar</div>
+                <div data-hf-id="hf-e7vs" class="f06-reply">Cambiar hora</div>
+              </div>
+              <div data-hf-id="hf-1ctu" id="f06-answer" class="pr-bubble pr-bubble--in">
+                Confirmo ✓
+                <div data-hf-id="hf-h1i7" class="pr-meta">18:02</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-hf-id="hf-a0wm" id="f06-ripple"></div>
+      </div>
+
+      <script>
+        (function () {
+          // The 1 s pause after "antes" (opened in the edit): the tap does the talking.
+          var CUE = { press: 0.45, release: 0.55, answer: 0.95, chip: 1.2, out: 2.37 };
+          var tl = gsap.timeline({ paused: true });
+
+          // press-release-spring, "state change at release" variation: Confirmar turns green.
+          tl.fromTo("#f06-confirm", { scale: 1 }, { scale: 0.95, duration: CUE.release - CUE.press, ease: "power1.in" }, CUE.press);
+          tl.to("#f06-confirm", { scale: 1, duration: 0.45, ease: "back.out(1.4)" }, CUE.release);
+          tl.fromTo("#f06-confirm", { backgroundColor: "#e7f0eb", color: "#155b3f" }, { backgroundColor: "#155b3f", color: "#ffffff", duration: 0.15, ease: "power2.out" }, CUE.release);
+
+          // cursor-click-ripple: one ring from the tap point, attack-decay.
+          tl.fromTo("#f06-ripple", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 0.6, duration: 0.08, ease: "power2.out" }, CUE.release);
+          tl.to("#f06-ripple", { opacity: 0, scale: 1.5, duration: 0.6, ease: "power2.out" }, CUE.release + 0.08);
+
+          // The patient's answer, then the confirmation lands above the phone.
+          tl.fromTo("#f06-answer", { opacity: 0, scale: 0.75 }, { opacity: 1, scale: 1, duration: 0.12, ease: "power2.out" }, CUE.answer);
+          tl.fromTo("#f06-status-chip", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power3.out" }, CUE.chip);
+
+          tl.fromTo(["#f06-screen", "#f06-status-chip"], { filter: "blur(0px)" }, { opacity: 0, y: -18, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, CUE.out);
+
+          window.__timelines["f06"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

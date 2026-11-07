@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><meta charset="UTF-8"><link rel="stylesheet" href="compositions/shared/pixel.css"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jersey 10"; src: url("assets/fonts/jersey10-latin.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Plus Jakarta Sans"; src: url("assets/fonts/plusjakarta-latin.woff2") format("woff2"); font-weight: 200 800; }
+        #f01-root {
+          position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden;
+          background: #1e3a33;
+        }
+        /* pixel dot grid: one 10px square per 120px tile (hard-edged, no gradient) */
+        #f01-dots { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27120%27 height=%27120%27%3E%3Crect x=%2755%27 y=%2755%27 width=%2710%27 height=%2710%27 fill=%27%232c5048%27/%3E%3C/svg%3E"); }
+        #f01-phone { left: 190px; top: 200px; width: 700px; height: 1120px; }
+        #f01-list { position: absolute; left: 0; right: 0; top: 96px; }
+        #f01-badge { left: 790px; top: 140px; }
+        .f01-fly { transform-origin: 50% 50%; }
+      </style>
+
+      <div id="f01-root" data-composition-id="f01" data-start="0" data-duration="2.7" data-width="1080" data-height="1920">
+        <div id="f01-dots"></div>
+        <div id="f01-phone" class="phone notch">
+          <div class="screen">
+            <div class="wa-head"><div class="dot"></div>Spa Vale · Chats</div>
+            <div id="f01-list"></div>
+          </div>
+        </div>
+        <div id="f01-badge" class="badge notch">12</div>
+
+        <div id="f01-b1" class="bub notch f01-fly" style="left: 40px; top: 330px;">¿Precio?</div>
+        <div id="f01-b2" class="bub notch f01-fly" style="left: 700px; top: 470px;">¿Turno hoy?</div>
+        <div id="f01-b3" class="bub notch f01-fly" style="left: 60px; top: 860px;">Hola!! info</div>
+        <div id="f01-b4" class="bub notch f01-fly" style="left: 640px; top: 1080px;">¿Dónde quedan?</div>
+        <div id="f01-b5" class="bub notch f01-fly" style="left: 90px; top: 1230px;">¿Hay cupo?</div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          // Chat rows: one per lead, newest on top. Colors from frame.md.
+          var ROWS = [
+            ["Ana", "¿Cuánto cuesta el masaje?", 3, "#e8796a"], ["Carla", "Hola! info porfa", 2, "#8f9a45"],
+            ["Lucía", "¿Tienes turno hoy?", 4, "#ba7517"], ["Mariana", "¿Dónde quedan?", 1, "#5e3a4a"],
+            ["Sofi", "¿Aceptan QR?", 2, "#00bd4c"], ["Dani", "Holaaa", 5, "#7fb8e8"],
+            ["Paola", "¿Hay cupo el sábado?", 1, "#e8b04a"], ["Romi", "Precio?", 3, "#888780"],
+          ];
+          var list = document.getElementById("f01-list");
+          ROWS.forEach(function (r, i) {
+            var row = document.createElement("div");
+            row.className = "row"; row.id = "f01-row-" + i;
+            row.innerHTML = '<div class="av" style="background:' + r[3] + '"></div><div class="tx"><span class="nm">' + r[0] +
+              '</span><span class="ms">' + r[1] + '</span></div><div class="un notch">' + r[2] + "</div>";
+            list.appendChild(row);
+            // waterfall-entry: rows land top-down, each a short stepped drop
+            tl.fromTo(row, { autoAlpha: 0, y: -40 }, { autoAlpha: 1, y: 0, duration: 0.18, ease: "steps(3)" }, 0.08 + i * 0.13);
+          });
+
+          // counting-dynamic-scale: unread badge 12 → 47 → 99+, scale grows with the count
+          var badge = document.getElementById("f01-badge");
+          var st = { v: 12 };
+          tl.fromTo(badge, { scale: 0.7 }, { scale: 1, duration: 0.3, ease: "power3.out" }, 0);
+          tl.to(st, { v: 47, duration: 1.1, ease: "none", onUpdate: function () { badge.textContent = Math.round(st.v); } }, 0.05);
+          tl.to(st, { v: 99, duration: 1.08, ease: "power2.in", onUpdate: function () { badge.textContent = st.v >= 99 ? "99+" : Math.round(st.v); } }, 1.2);
+          tl.fromTo(badge, { scale: 1.6 }, { scale: 1.15, duration: 0.25, ease: "power3.out", immediateRender: false }, 2.28);
+
+          // phone buzz — finite, stepped (pixel cadence); launched by "funcionó" and "no para"
+          function buzz(at, n) {
+            var kf = [];
+            for (var k = 0; k < n; k++) kf.push({ x: k % 2 ? -10 : 10, duration: 0.04 });
+            kf.push({ x: 0, duration: 0.04 });
+            tl.to("#f01-phone", { keyframes: kf, ease: "none" }, at);
+          }
+          buzz(0.66, 6); buzz(1.8, 6); buzz(2.3, 8);
+
+          // flying leads: pop in around the phone (spring-pop, smooth settle)
+          [["#f01-b1", 1.16, -6], ["#f01-b2", 1.5, 5], ["#f01-b3", 1.8, -4], ["#f01-b4", 2.2, 4], ["#f01-b5", 2.45, -3]].forEach(function (b) {
+            tl.fromTo(b[0], { autoAlpha: 0, scale: 0, rotation: 0 }, { autoAlpha: 1, scale: 1, rotation: b[2], duration: 0.22, ease: "power3.out" }, b[1]);
+          });
+
+          window.__timelines["f01"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

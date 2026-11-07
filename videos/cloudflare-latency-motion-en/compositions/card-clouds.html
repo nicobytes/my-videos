@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-400.woff2") format("woff2");
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-600.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-800.woff2") format("woff2");
+          font-weight: 800;
+        }
+        :root {
+          --accent: #4d8ef7;
+          --accent-soft: #8fb6ff;
+          --ink: #f5f7ff;
+          --muted: #9aa8c7;
+          --panel: rgba(8, 13, 32, 0.8);
+        }
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        #root {
+          position: relative;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          font-family: "Inter", sans-serif;
+          color: var(--ink);
+          background:
+            radial-gradient(900px 700px at 20% 18%, rgba(56, 84, 190, 0.35), transparent 70%),
+            radial-gradient(800px 900px at 85% 80%, rgba(120, 50, 170, 0.25), transparent 70%),
+            radial-gradient(1200px 1200px at 50% 50%, #0a1433, #040816 75%);
+        }
+        .head {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 190px;
+          opacity: 0;
+        }
+        .kicker {
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          font-size: 30px;
+          font-weight: 600;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--muted);
+        }
+        .kicker .dot {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: var(--accent);
+          box-shadow: 0 0 18px var(--accent);
+        }
+        .title {
+          margin-top: 22px;
+          font-size: 86px;
+          line-height: 1.05;
+          font-weight: 800;
+          letter-spacing: -0.035em;
+        }
+        .title .accent {
+          color: var(--accent-soft);
+        }
+        .chips {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 620px;
+          display: flex;
+          flex-direction: column;
+          gap: 40px;
+        }
+        .chip {
+          display: flex;
+          align-items: center;
+          height: 220px;
+          padding: 0 60px;
+          border-radius: 34px;
+          background: #f7f4ef;
+          border: 1.5px solid rgba(0, 0, 0, 0.06);
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+          opacity: 0;
+        }
+        .chip img {
+          display: block;
+          height: 100px;
+          width: auto;
+        }
+        #chip-azure img,
+        #chip-gcloud img {
+          height: 84px;
+        }
+      </style>
+
+      <div data-hf-id="hf-ud6f" id="root" data-composition-id="card-clouds" data-width="1080" data-height="1920" data-duration="5.6">
+        <div data-hf-id="hf-xa8y" id="head" class="head">
+          <div data-hf-id="hf-gk4u" class="kicker"><span data-hf-id="hf-9gry" class="dot"></span>El modelo tradicional</div>
+          <div data-hf-id="hf-zenn" class="title">Un proveedor. <span data-hf-id="hf-c1up" class="accent">Una región.</span></div>
+        </div>
+
+        <div data-hf-id="hf-exrd" class="chips">
+          <div data-hf-id="hf-2e2m" id="chip-aws" class="chip"><img data-hf-id="hf-zl7i" src="assets/logos/aws.png" alt="AWS"></div>
+          <div data-hf-id="hf-ay50" id="chip-azure" class="chip"><img data-hf-id="hf-gtye" src="assets/logos/azure.png" alt="Azure"></div>
+          <div data-hf-id="hf-qsgt" id="chip-gcloud" class="chip"><img data-hf-id="hf-hykz" src="assets/logos/google-cloud.png" alt="Google Cloud"></div>
+        </div>
+
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const IN = { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" };
+        const CHIP_IN = { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" };
+
+        tl.fromTo("#head", { opacity: 0, y: 40 }, { ...IN }, 0.15);
+        tl.fromTo("#chip-aws", { opacity: 0, scale: 0.82, y: 24 }, { ...CHIP_IN, y: 0 }, 0.55);
+        tl.fromTo("#chip-azure", { opacity: 0, scale: 0.82, y: 24 }, { ...CHIP_IN, y: 0 }, 0.75);
+        tl.fromTo("#chip-gcloud", { opacity: 0, scale: 0.82, y: 24 }, { ...CHIP_IN, y: 0 }, 0.95);
+
+        window.__timelines["card-clouds"] = tl;
+        tl.seek(0);
+
+        // Drive everything from the HOST's global hf-seek time ourselves, the
+        // same way scene-gcp/scene-cf do for three.js — don't rely on the
+        // registry seeking `tl` with an already-local time (unverified for a
+        // plain GSAP-only composition-src card). This also self-blanks: the
+        // host never hides a composition-src slot's DOM outside its own
+        // data-start/data-duration window (unlike <video>/<audio> clips), and
+        // this card's #root has an opaque full-bleed background, so it must
+        // hide itself or it would permanently cover th-2a/th-2c in DOM order.
+        const HOST_START = 7.0;
+        const DURATION = 5.6;
+        // Look up by data-composition-id, not id="root" — the render pipeline's
+        // compositor can rewrite/alias the plain `id` on a cloned sub-comp root
+        // (confirmed while debugging scene-gcp), but the scoping attribute that
+        // CSS depends on to style this element at all is guaranteed to survive.
+        const root = document.querySelector('[data-composition-id="card-clouds"]');
+        function renderAt(globalTime) {
+          const inWindow = globalTime >= HOST_START && globalTime <= HOST_START + DURATION;
+          root.style.opacity = inWindow ? "1" : "0";
+          const local = Math.min(DURATION, Math.max(0, globalTime - HOST_START));
+          tl.seek(local);
+        }
+        window.addEventListener("hf-seek", (e) => renderAt(e.detail.time));
+        renderAt(window.__hfThreeTime || 0);
+      </script>
+    </template>
+  </body>
+</html>

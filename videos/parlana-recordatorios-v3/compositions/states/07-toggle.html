@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/v2.css" />
+  </head>
+  <body>
+    <template id="c07-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #c07-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Figtree", sans-serif;
+          color: #2c2c2a;
+        }
+        #c07-label { left: 196px; top: 806px; font-size: 40px; font-weight: 700; }
+        #c07-off, #c07-on { left: 196px; top: 864px; font-size: 28px; }
+        #c07-off { color: #8a8880; }
+        #c07-on { color: #155b3f; font-weight: 600; opacity: 0; }
+        #c07-track { left: 726px; top: 814px; width: 160px; height: 92px; border-radius: 46px; background: #d3d1c7; }
+      </style>
+
+      <!-- 7 · '¿Y si esos recordatorios se enviaran automáticamente?' — the knob switches on. -->
+      <div data-hf-id="hf-t576" id="c07-root" data-composition-id="c07" data-start="0" data-duration="3.98" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-w9iq" id="c07-world" class="world" data-layout-allow-overflow>
+          <div data-hf-id="hf-e3vn" id="c07-clip" class="clip-layer">
+            <div data-hf-id="hf-z2xr" id="c07-st" class="st">
+              <div data-hf-id="hf-lv1u" id="c07-label" class="abs">Recordatorios automáticos</div>
+              <div data-hf-id="hf-looq" id="c07-off" class="abs">Desactivados</div>
+              <div data-hf-id="hf-bgv0" id="c07-on" class="abs">Día anterior y unas horas antes</div>
+              <div data-hf-id="hf-bm2c" id="c07-track" class="abs"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var P = window.Physics;
+          var A = R.A;
+          var S = R.S;
+          function $(id) {
+            return document.getElementById("c07-" + id);
+          }
+          var st = $("st");
+          var track = $("track");
+          var off = $("off");
+          var on = $("on");
+          var trackColor = P.color([{ t: 0, c: P.hex("#D3D1C7") }, { t: R.TAP.knob + 0.04, c: P.hex("#155B3F") }], 14);
+          window.__timelines["c07"] = R.mountState("toggle", $("root"), $("world"), $("clip"), function (t, span) {
+            R.apply(st, t, span[0], span[1]);
+            track.style.backgroundColor = trackColor(t);
+            var k = R.smooth((t - (R.TAP.knob + 0.25)) / 0.2);
+            off.style.opacity = (1 - k).toFixed(3);
+            on.style.opacity = k.toFixed(3);
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{
+ "file": "bed-s3.wav",
+ "model": "facebook/musicgen-stereo-large",
+ "license": "CC-BY-NC-4.0 (model weights)",
+ "sections": [
+  {
+   "at": 0.0,
+   "prompt": "calm warm background music for a friendly software walkthrough, soft felt piano and gentle acoustic guitar, light airy pads, no drums, no vocals, steady and unobtrusive, 90 BPM"
+  }
+ ],
+ "seed": 3,
+ "duration_s": 40.0,
+ "sample_rate": 48000,
+ "channels": 2,
+ "guidance": 3.0,
+ "temperature": 1.0,
+ "top_k": 250,
+ "window_s": 30.0,
+ "context_s": 10.0,
+ "device": "NVIDIA GeForce RTX 3090",
+ "dtype": "float16",
+ "torch": "2.14.1+cu130",
+ "transformers": "5.20.1",
+ "elapsed_s": 131.6,
+ "vram_peak_gb": 8.3
+}

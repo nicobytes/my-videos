@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/parlana.css" />
+  </head>
+  <body>
+    <template id="f04-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #f04-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        /* The white disc is painted by the shell track; this frame draws the ring and the words. */
+        #f04-ring {
+          position: absolute;
+          left: 220px;
+          top: 440px;
+          width: 640px;
+          height: 640px;
+        }
+        #f04-center {
+          position: absolute;
+          left: 220px;
+          top: 440px;
+          width: 640px;
+          height: 640px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        #f04-big {
+          font-size: 130px;
+          color: var(--ink);
+        }
+        #f04-lost {
+          margin-top: 18px;
+          font-size: 48px;
+          font-weight: 600;
+          color: var(--muted);
+        }
+        #f04-label {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1132px;
+          text-align: center;
+          font-size: 32px;
+          color: var(--muted);
+        }
+        /* First green of the film: the tease of the answer. */
+        #f04-chip {
+          position: absolute;
+          left: 370px;
+          top: 1190px;
+          width: 340px;
+          height: 124px;
+          font-size: 62px;
+        }
+      </style>
+
+      <div data-hf-id="hf-ngps" id="f04-root" data-composition-id="f04" data-start="0" data-duration="4.55" data-width="1080" data-height="1920">
+        <svg data-hf-id="hf-p987" id="f04-ring" viewBox="0 0 640 640" aria-hidden="true">
+          <circle data-hf-id="hf-zvix" cx="320" cy="320" r="290" fill="none" stroke="#D3D1C7" stroke-width="40" />
+          <circle data-hf-id="hf-wzh5" id="f04-arc" cx="320" cy="320" r="290" fill="none" stroke="#5F5E58" stroke-width="40" transform="rotate(-90 320 320)" />
+        </svg>
+        <div data-hf-id="hf-2tpt" id="f04-center">
+          <div data-hf-id="hf-sgtr" id="f04-big" class="pr-display">−1 hora</div>
+          <div data-hf-id="hf-drpd" id="f04-lost" class="pr-ui">perdida</div>
+        </div>
+        <div data-hf-id="hf-vzaq" id="f04-label" class="pr-data">un mensaje</div>
+        <div data-hf-id="hf-czmv" id="f04-chip" class="pr-btn pr-btn--primary">Bs 0,14</div>
+      </div>
+
+      <script>
+        (function () {
+          // VO cues, frame-local seconds (from assets/vo/transcript.json):
+          // "Una hora perdida que se pudo haber evitado con un mensaje de solo 14 centavos."
+          var CUE = { ring: 0.3, drainFrom: 0.55, drainTo: 2.2, big: 0.5, lost: 0.9, label: 2.25, chip: 3.45, out: 4.37 };
+          var tl = gsap.timeline({ paused: true });
+
+          // The hour drains (stat-bars-and-fills ring form; svg-path-draw mechanics, measured length).
+          var arc = document.getElementById("f04-arc");
+          var LEN = arc.getTotalLength ? arc.getTotalLength() : 2 * Math.PI * 290;
+          arc.style.strokeDasharray = String(LEN);
+          tl.fromTo("#f04-ring", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.ring);
+          tl.fromTo(arc, { strokeDashoffset: 0 }, { strokeDashoffset: LEN, duration: CUE.drainTo - CUE.drainFrom, ease: "power2.inOut" }, CUE.drainFrom);
+          // An empty arc can leave an antialiased sliver at 12 o'clock; drop it once drained.
+          tl.fromTo(arc, { opacity: 1 }, { opacity: 0, duration: 0.08, ease: "none", immediateRender: false }, CUE.drainTo - 0.04);
+
+          tl.fromTo("#f04-big", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power2.out" }, CUE.big);
+          tl.fromTo("#f04-lost", { opacity: 0, y: 14, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.lost);
+
+          // "…con un mensaje de catorce centavos": the answer's first green.
+          tl.fromTo("#f04-label", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, CUE.label);
+          tl.fromTo("#f04-chip", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.42, ease: "power3.out" }, CUE.chip);
+
+          tl.fromTo(["#f04-ring", "#f04-center", "#f04-label", "#f04-chip"], { y: 0, filter: "blur(0px)" }, { opacity: 0, y: -18, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, CUE.out);
+
+          window.__timelines["f04"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/v2.css" />
+  </head>
+  <body>
+    <template id="c10-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #c10-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Figtree", sans-serif;
+          color: #2c2c2a;
+        }
+        #c10-coin { left: 166px; top: 680px; width: 180px; height: 180px; border-radius: 90px; background: #155b3f; color: #f6f4ef; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 62px; opacity: 0; }
+        #c10-kick { left: 166px; top: 612px; font-size: 28px; color: #5f5e58; }
+        #c10-eq { left: 380px; top: 716px; font-size: 76px; color: #8a8880; }
+        #c10-count { left: 450px; top: 704px; font-weight: 700; font-size: 84px; line-height: 1; font-variant-numeric: tabular-nums; }
+        #c10-unit { left: 452px; top: 800px; font-size: 32px; font-weight: 600; color: #5f5e58; }
+        .c10-bub { top: 900px; width: 88px; height: 72px; border-radius: 22px 22px 22px 6px; background: #e7f0eb; color: #155b3f; display: flex; align-items: center; justify-content: center; opacity: 0; transform-origin: 50% 100%; }
+        .c10-bub svg { width: 36px; height: 36px; stroke-width: 2.6; }
+        #c10-track { left: 166px; top: 1060px; width: 748px; height: 12px; border-radius: 6px; background: #e4e1d8; }
+        #c10-fill { left: 166px; top: 1060px; width: 748px; height: 12px; border-radius: 6px; background: #155b3f; transform-origin: 0 50%; }
+        #c10-knob { left: 0; top: 0; width: 60px; height: 60px; border-radius: 30px; background: #ffffff; border: 3px solid #d3d1c7; box-shadow: 0 6px 14px rgba(44, 44, 42, 0.18); }
+        .c10-end { top: 1096px; font-size: 26px; color: #8a8880; }
+        .c10-note { left: 166px; font-size: 28px; color: #5f5e58; }
+      </style>
+
+      <!-- 10 · 'con solo un boliviano… hasta 7 recordatorios' (slider drag) → 'sin tener que enviarlos tú mismo' (self-send). -->
+      <div data-hf-id="hf-pc1p" id="c10-root" data-composition-id="c10" data-start="0" data-duration="7.426" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-f9oi" id="c10-world" class="world" data-layout-allow-overflow>
+          <div data-hf-id="hf-3m67" id="c10-clip" class="clip-layer">
+            <div data-hf-id="hf-as0f" id="c10-st" class="st">
+              <div data-hf-id="hf-mq24" id="c10-kick" class="abs">Por la API oficial de WhatsApp, con solo</div>
+              <div data-hf-id="hf-wb6g" id="c10-coin" class="abs fr">Bs 1</div>
+              <div data-hf-id="hf-p4bw" id="c10-eq" class="abs fr">=</div>
+              <div data-hf-id="hf-xl33" id="c10-count" class="abs fr">1</div>
+              <div data-hf-id="hf-iys4" id="c10-unit" class="abs">recordatorio</div>
+              <div data-hf-id="hf-57jb" id="c10-b0" class="abs c10-bub" style="left: 166px"><svg data-hf-id="hf-t6g8" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-s5bw" d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
+              <div data-hf-id="hf-ybuw" id="c10-b1" class="abs c10-bub" style="left: 270px"><svg data-hf-id="hf-bbvk" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-ceb8" d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
+              <div data-hf-id="hf-njlm" id="c10-b2" class="abs c10-bub" style="left: 374px"><svg data-hf-id="hf-a4yh" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-b7e5" d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
+              <div data-hf-id="hf-ja90" id="c10-b3" class="abs c10-bub" style="left: 478px"><svg data-hf-id="hf-aj9i" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-blp6" d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
+              <div data-hf-id="hf-7pkt" id="c10-b4" class="abs c10-bub" style="left: 582px"><svg data-hf-id="hf-9ccf" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-dl8b" d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
+              <div data-hf-id="hf-9x1v" id="c10-b5" class="abs c10-bub" style="left: 686px"><svg data-hf-id="hf-9qng" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-dzjc" d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
+              <div data-hf-id="hf-ar58" id="c10-b6" class="abs c10-bub" style="left: 790px"><svg data-hf-id="hf-8jqd" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-csm9" d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
+              <div data-hf-id="hf-uaec" id="c10-track" class="abs"></div>
+              <div data-hf-id="hf-27fs" id="c10-fill" class="abs"></div>
+              <div data-hf-id="hf-rz2z" id="c10-knob" class="abs"></div>
+              <div data-hf-id="hf-jtgl" class="abs c10-end" style="left: 166px">1</div>
+              <div data-hf-id="hf-9lvz" class="abs c10-end" style="left: 900px">7</div>
+              <div data-hf-id="hf-869k" class="abs c10-note" style="top: 1148px">Costo de Meta por mensaje de utilidad: ≈ Bs 0,14 c/u.</div>
+              <div data-hf-id="hf-7yhh" class="abs c10-note" style="top: 1188px">No incluye el servicio de Parlana.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var P = window.Physics;
+          var A = R.A;
+          var S = R.S;
+          function $(id) {
+            return document.getElementById("c10-" + id);
+          }
+          var st = $("st");
+          var coin = $("coin");
+          var count = $("count");
+          var unit = $("unit");
+          var fill = $("fill");
+          var knob = $("knob");
+          var bubs = [0, 1, 2, 3, 4, 5, 6].map(function (i) {
+            return $("b" + i);
+          });
+          // When the slider first reaches each value (deterministic scan of the same pure functions).
+          var reach = [0, 0, 0, 0, 0, 0, 0];
+          for (var u = R.HOLD.slider[0], v = 1; u < R.HOLD.slider[1] + 0.5; u += 1 / 240) {
+            var nv = R.sliderValue(u);
+            while (v < nv) reach[v++] = u;
+          }
+          reach[0] = R.HOLD.slider[0] - 0.3;
+          window.__timelines["c10"] = R.mountState("price", $("root"), $("world"), $("clip"), function (t, span) {
+            R.apply(st, t, span[0], span[1]);
+            // The pill leaves the coin to become "Enviar"; the coin it was stays behind.
+            coin.style.opacity = t >= A.mejor ? "1" : "0";
+            var x = R.sliderX(t);
+            var v = R.sliderValue(t);
+            count.textContent = String(v);
+            unit.textContent = v === 1 ? "recordatorio" : "recordatorios";
+            var ratio = (Math.min(x, R.SL.x1) - R.SL.x0) / (R.SL.x1 - R.SL.x0);
+            fill.style.transform = "scaleX(" + Math.max(0.0001, ratio).toFixed(4) + ")";
+            var over = Math.max(0, x - R.SL.x1); // rubber band past the end
+            knob.style.transform = "translate(" + (Math.min(x, R.SL.x1) - 30 + over * 0.5).toFixed(2) + "px, 1036px) scaleX(" + (1 + over / 90).toFixed(4) + ")";
+            bubs.forEach(function (el, i) {
+              var k = P.step(t - reach[i], 18, 0.65);
+              var o = R.clamp01((t - reach[i]) / 0.08);
+              // "…sin tener que enviarlos tú mismo": each one leaves on an eighth note.
+              var go = R.AUTOSEND[i];
+              var d = P.step(t - go, 11, 0.9);
+              o = Math.min(o, 1 - R.smooth((t - go - 0.1) / 0.3));
+              el.style.opacity = o.toFixed(3);
+              el.style.transform = "translate(" + (260 * d).toFixed(2) + "px, " + (-60 * d).toFixed(2) + "px) scale(" + (0.6 + 0.4 * k).toFixed(4) + ")";
+            });
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

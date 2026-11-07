@@ -1,0 +1,257 @@
+[
+ {
+  "t": 1.25,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 1.4,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 1.55,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 1.7,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 1.85,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 2.0,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 2.15,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 2.3,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 2.45,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 2.6,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 2.75,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 2.9,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 3.05,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 3.2,
+  "type": "tick",
+  "gain": 0.5
+ },
+ {
+  "t": 3.42,
+  "type": "thump",
+  "gain": 0.6
+ },
+ {
+  "t": 4.75,
+  "type": "pop",
+  "gain": 0.7
+ },
+ {
+  "t": 6.52,
+  "type": "tick",
+  "gain": 0.3
+ },
+ {
+  "t": 6.58,
+  "type": "tick",
+  "gain": 0.3
+ },
+ {
+  "t": 6.64,
+  "type": "tick",
+  "gain": 0.3
+ },
+ {
+  "t": 6.7,
+  "type": "tick",
+  "gain": 0.3
+ },
+ {
+  "t": 6.76,
+  "type": "tick",
+  "gain": 0.3
+ },
+ {
+  "t": 7.2,
+  "type": "thump",
+  "gain": 0.5
+ },
+ {
+  "t": 14.5,
+  "type": "pop",
+  "gain": 0.8
+ },
+ {
+  "t": 15.6,
+  "type": "whoosh",
+  "gain": 0.5
+ },
+ {
+  "t": 16.7,
+  "type": "pop",
+  "gain": 0.7
+ },
+ {
+  "t": 18.55,
+  "type": "click",
+  "gain": 1.0
+ },
+ {
+  "t": 19.2,
+  "type": "chime",
+  "gain": 0.6
+ },
+ {
+  "t": 24.15,
+  "type": "pop",
+  "gain": 0.5
+ },
+ {
+  "t": 26.7,
+  "type": "pop",
+  "gain": 0.7
+ },
+ {
+  "t": 31.7,
+  "type": "tick",
+  "gain": 0.25
+ },
+ {
+  "t": 31.87,
+  "type": "tick",
+  "gain": 0.25
+ },
+ {
+  "t": 32.04,
+  "type": "tick",
+  "gain": 0.25
+ },
+ {
+  "t": 32.21,
+  "type": "tick",
+  "gain": 0.25
+ },
+ {
+  "t": 32.38,
+  "type": "tick",
+  "gain": 0.25
+ },
+ {
+  "t": 32.55,
+  "type": "tick",
+  "gain": 0.25
+ },
+ {
+  "t": 32.72,
+  "type": "tick",
+  "gain": 0.25
+ },
+ {
+  "t": 32.89,
+  "type": "tick",
+  "gain": 0.25
+ },
+ {
+  "t": 33.06,
+  "type": "tick",
+  "gain": 0.25
+ },
+ {
+  "t": 33.23,
+  "type": "tick",
+  "gain": 0.25
+ },
+ {
+  "t": 33.5,
+  "type": "chime",
+  "gain": 0.6
+ },
+ {
+  "t": 37.4,
+  "type": "click",
+  "gain": 1.0
+ },
+ {
+  "t": 47.2,
+  "type": "tick",
+  "gain": 0.3
+ },
+ {
+  "t": 47.3,
+  "type": "tick",
+  "gain": 0.3
+ },
+ {
+  "t": 47.4,
+  "type": "tick",
+  "gain": 0.3
+ },
+ {
+  "t": 47.5,
+  "type": "tick",
+  "gain": 0.3
+ },
+ {
+  "t": 47.6,
+  "type": "tick",
+  "gain": 0.3
+ },
+ {
+  "t": 47.7,
+  "type": "tick",
+  "gain": 0.3
+ },
+ {
+  "t": 47.8,
+  "type": "tick",
+  "gain": 0.3
+ },
+ {
+  "t": 48.25,
+  "type": "chime",
+  "gain": 0.5
+ },
+ {
+  "t": 51.13,
+  "type": "click",
+  "gain": 1.0
+ },
+ {
+  "t": 51.35,
+  "type": "chime",
+  "gain": 0.6
+ }
+]

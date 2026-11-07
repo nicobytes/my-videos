@@ -1,0 +1,14 @@
+{
+  "category": "maps",
+  "aspect": "9:16",
+  "size": [1080, 1920],
+  "duration": 27,
+  "asset_needs": [],
+  "brief": "3D low-poly globe (three.js + three-globe). Scene 1: 42 Google Cloud regions pop in; zoom to South America; Cochabamba pin; arc + round-trip packet to Google's Bogotá edge (labelled as the routed path): 2,607 km, ~39 ms RTT. Scene 2: 343 Cloudflare PoPs radiate out from Cochabamba; dive into Bolivia; arc to La Paz: 231 km, ~3.5 ms RTT. End: 11x lower latency bars + method footnote.",
+  "data": {
+    "gcp": "42 public GCP regions (hand-entered coordinates)",
+    "cloudflare": "342 PoPs inverse-projected from cloudflare-pops SVG (Mercator scale 115, translate 400,325) + La Paz from cloudflare.com/network",
+    "rtt_model": "2 x great-circle km x 1.5 / 200 km/ms"
+  },
+  "decisions": { "bogota": "Keep Bogotá, label it routed (user choice)" }
+}

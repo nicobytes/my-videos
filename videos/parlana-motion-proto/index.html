@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Parlana · prototipo de movimiento</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="compositions/shared/physics.js"></script>
+    <script src="compositions/shared/timeline.js"></script>
+    <style>
+      @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+      @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+      @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+      @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+      @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+      @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #f6f4ef;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: "Figtree", sans-serif;
+        color: #2c2c2a;
+      }
+      .layer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+      #bg {
+        background:
+          radial-gradient(circle at 10% 8%, rgba(21, 91, 63, 0.1) 0%, rgba(21, 91, 63, 0) 45%),
+          radial-gradient(circle at 92% 62%, rgba(186, 117, 23, 0.08) 0%, rgba(186, 117, 23, 0) 42%),
+          #f6f4ef;
+      }
+      /* Camera: one transform on the world; the cursor and the background stay in screen space. */
+      #world {
+        transform-origin: 0 0;
+      }
+      #shell-wrap {
+        filter: drop-shadow(0 24px 64px rgba(21, 91, 63, 0.14)) drop-shadow(0 6px 16px rgba(21, 91, 63, 0.08));
+      }
+      #pill-wrap {
+        filter: drop-shadow(0 10px 22px rgba(44, 44, 42, 0.16));
+      }
+      .abs {
+        position: absolute;
+      }
+      .st {
+        opacity: 0;
+      }
+      .face {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        white-space: nowrap;
+        opacity: 0;
+      }
+      .chip {
+        display: flex;
+        align-items: center;
+        height: 56px;
+        padding: 0 22px;
+        border-radius: 28px;
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+      }
+      .ico {
+        width: 34px;
+        height: 34px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* 1 · agenda card */
+      #s1-day { left: 196px; top: 646px; background: #f1efe8; border: 2px solid #d3d1c7; color: #5f5e58; }
+      #s1-clock { left: 704px; top: 646px; width: 180px; gap: 10px; justify-content: center; background: #2c2c2a; color: #f6f4ef; font-size: 28px; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+      #s1-time { left: 188px; top: 712px; font-family: "Fraunces", serif; font-weight: 700; font-size: 228px; line-height: 1; }
+      #s1-what { left: 196px; top: 960px; font-size: 54px; font-weight: 700; }
+      #s1-who { left: 196px; top: 1030px; font-size: 42px; font-weight: 500; color: #5f5e58; }
+      #s1-room { left: 196px; top: 1088px; display: flex; align-items: center; gap: 12px; font-size: 28px; color: #5f5e58; }
+
+      /* 2 · chat */
+      #s2-head { left: 170px; top: 450px; width: 740px; height: 128px; background: #3c3b36; }
+      #s2-avatar { left: 206px; top: 482px; width: 64px; height: 64px; border-radius: 32px; background: #5f5e58; color: #f6f4ef; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 700; }
+      #s2-name { left: 290px; top: 478px; font-size: 32px; font-weight: 700; color: #f6f4ef; }
+      #s2-seen { left: 290px; top: 522px; font-size: 24px; color: #d3d1c7; }
+      #s2-msg { left: 450px; top: 640px; width: 420px; padding: 22px 26px 16px; border-radius: 30px 8px 30px 30px; background: #e7f0eb; font-size: 34px; line-height: 1.25; transform-origin: 100% 0; }
+      #s2-msg small { display: block; margin-top: 8px; text-align: right; font-size: 22px; color: #5f5e58; }
+      #s2-input { left: 206px; top: 1192px; width: 572px; height: 80px; border-radius: 40px; background: #ffffff; display: flex; align-items: center; padding-left: 34px; font-size: 30px; color: #8a8880; }
+
+      /* 3 · weeks */
+      #s3-title { left: 146px; top: 652px; font-size: 36px; font-weight: 700; }
+      #s3-window { left: 146px; top: 750px; width: 788px; height: 350px; overflow: hidden; }
+      #s3-strip { position: absolute; left: 0; top: 0; height: 350px; }
+      .week { position: absolute; top: 0; width: 240px; height: 350px; border-radius: 28px; background: #f1efe8; border: 2px solid #e4e1d8; padding: 26px 24px; display: flex; flex-direction: column; gap: 10px; }
+      .week b { font-size: 24px; font-weight: 600; color: #8a8880; letter-spacing: 0.04em; }
+      .week i { font-style: normal; font-family: "Fraunces", serif; font-weight: 600; font-size: 46px; }
+      .week span { font-size: 30px; font-weight: 600; color: #5f5e58; }
+      .week em { margin-top: auto; align-self: flex-start; font-style: normal; font-size: 24px; font-weight: 700; color: #f6f4ef; background: #2c2c2a; border-radius: 22px; padding: 8px 18px; }
+
+      /* 4 · the lost hour */
+      #s4-ring { left: 300px; top: 590px; width: 480px; height: 480px; }
+      #s4-big { left: 300px; top: 728px; width: 480px; text-align: center; font-family: "Fraunces", serif; font-weight: 700; font-size: 132px; line-height: 1; }
+      #s4-sub { left: 300px; top: 872px; width: 480px; text-align: center; font-size: 36px; color: #5f5e58; }
+
+      /* 5 · busy phone */
+      #s5-unread { left: 206px; top: 560px; font-size: 26px; font-weight: 600; color: #5f5e58; }
+      .note { left: 206px; top: 0; width: 668px; height: 112px; border-radius: 28px; background: #f1efe8; display: flex; align-items: center; gap: 20px; padding: 0 24px; }
+      .note .wa { width: 64px; height: 64px; border-radius: 32px; background: #155b3f; color: #f6f4ef; display: flex; align-items: center; justify-content: center; flex: none; }
+      .note .wa svg { width: 34px; height: 34px; }
+      .note b { display: block; font-size: 28px; font-weight: 700; }
+      .note span { display: block; font-size: 26px; color: #5f5e58; }
+      #s5-task { left: 206px; top: 0; width: 668px; height: 96px; border-radius: 28px; background: #ffffff; border: 2px dashed #d3d1c7; display: flex; align-items: center; gap: 16px; padding: 0 26px; font-size: 28px; font-weight: 600; }
+
+      /* 6 · automatic reminders */
+      #s6-label { left: 196px; top: 806px; font-size: 40px; font-weight: 700; }
+      #s6-off, #s6-on { left: 196px; top: 864px; font-size: 28px; }
+      #s6-off { color: #8a8880; }
+      #s6-on { color: #155b3f; font-weight: 600; opacity: 0; }
+      #s6-track { left: 726px; top: 814px; width: 160px; height: 92px; border-radius: 46px; background: #d3d1c7; }
+
+      /* the pill's faces */
+      #f-pending { font-size: 30px; font-weight: 600; color: #5f5e58; }
+      #f-missed { font-size: 46px; font-weight: 700; color: #f6f4ef; }
+      #f-send { color: #f6f4ef; }
+      #f-send .ico { width: 40px; height: 40px; }
+      #f-dots i { width: 14px; height: 14px; border-radius: 7px; background: #8a8880; }
+      #f-count, #f-lost, #f-island { font-weight: 600; color: #f6f4ef; }
+      #f-count { font-size: 30px; }
+      #f-lost { font-size: 34px; }
+      #f-island { font-size: 30px; }
+      #f-island i { width: 14px; height: 14px; border-radius: 7px; background: #f6f4ef; }
+
+      #cursor-arrow {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 40px;
+        height: 54px;
+        filter: drop-shadow(0 4px 6px rgba(44, 44, 42, 0.25));
+      }
+      #cursor-arrow svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-l7ay" id="root" data-composition-id="main" data-start="0" data-duration="15.6" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-zab6" id="bg" class="clip layer" data-start="0" data-duration="15.6" data-track-index="0"></div>
+
+      <div data-hf-id="hf-5uc2" id="scene" class="clip layer" data-start="0" data-duration="15.6" data-track-index="1">
+        <div data-hf-id="hf-o6f4" id="world" class="layer" data-layout-allow-overflow>
+          <!-- The one shape: edge + fill, clipped to the spring-driven geometry. -->
+          <div data-hf-id="hf-m4ti" id="shell-wrap" class="layer">
+            <div data-hf-id="hf-ongd" id="shell-edge" class="layer"></div>
+            <div data-hf-id="hf-taw1" id="shell-fill" class="layer"></div>
+          </div>
+
+          <!-- Everything a state shows lives inside the shape: this layer shares its clip. -->
+          <div data-hf-id="hf-2bss" id="content" class="layer">
+            <div data-hf-id="hf-8u2w" id="s1" class="st layer">
+              <div data-hf-id="hf-5e60" id="s1-day" class="abs chip">MARTES · HOY</div>
+              <div data-hf-id="hf-mik5" id="s1-clock" class="abs chip">
+                <svg data-hf-id="hf-t6g8" class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle data-hf-id="hf-1iwn" cx="12" cy="12" r="9" /><path data-hf-id="hf-8ge0" d="M12 7v5l3.5 2" /></svg>
+                <span data-hf-id="hf-8tkp" id="s1-clock-t">10:00</span>
+              </div>
+              <div data-hf-id="hf-ele1" id="s1-time" class="abs">10:00</div>
+              <div data-hf-id="hf-o9t2" id="s1-what" class="abs">Consulta</div>
+              <div data-hf-id="hf-938j" id="s1-who" class="abs">Juan Pérez</div>
+              <div data-hf-id="hf-6pjp" id="s1-room" class="abs">
+                <svg data-hf-id="hf-bbvk" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-5hs9" d="M7 3h10v8H7z" /><path data-hf-id="hf-69z4" d="M5 11h14v4H5z" /><path data-hf-id="hf-es79" d="M7 15v6M17 15v6" /></svg>
+                Silla vacía
+              </div>
+            </div>
+
+            <div data-hf-id="hf-jpkj" id="s2" class="st layer">
+              <div data-hf-id="hf-gfkc" id="s2-head" class="abs"></div>
+              <div data-hf-id="hf-4feh" id="s2-avatar" class="abs">J</div>
+              <div data-hf-id="hf-qqnh" id="s2-name" class="abs">Juan Pérez</div>
+              <div data-hf-id="hf-o9sj" id="s2-seen" class="abs">últ. vez ayer</div>
+              <div data-hf-id="hf-8z8s" id="s2-msg" class="abs">Hola Juan, ¿vienes a tu cita?<small data-hf-id="hf-698m">10:14 ✓✓</small></div>
+              <div data-hf-id="hf-vlqz" id="s2-input" class="abs">Mensaje</div>
+            </div>
+
+            <div data-hf-id="hf-frgi" id="s3" class="st layer">
+              <div data-hf-id="hf-in89" id="s3-title" class="abs">Martes 10:00 · Juan Pérez</div>
+              <div data-hf-id="hf-ffqm" id="s3-window" class="abs" data-layout-allow-overflow>
+                <div data-hf-id="hf-rvuv" id="s3-strip" data-layout-allow-overflow>
+                  <div data-hf-id="hf-hmdv" class="week" style="left: 0px"><b data-hf-id="hf-fd31">SEMANA 1</b><i data-hf-id="hf-wzb2">12 may</i><span data-hf-id="hf-a1ge">10:00</span><em data-hf-id="hf-8qut">No llegó</em></div>
+                  <div data-hf-id="hf-qa5r" class="week" style="left: 260px"><b data-hf-id="hf-gk04">SEMANA 2</b><i data-hf-id="hf-3ekz">19 may</i><span data-hf-id="hf-ki4i">10:00</span><em data-hf-id="hf-n4fd">No llegó</em></div>
+                  <div data-hf-id="hf-y7co" class="week" style="left: 520px"><b data-hf-id="hf-g5p3">SEMANA 3</b><i data-hf-id="hf-zfvx">26 may</i><span data-hf-id="hf-kwfj">10:00</span><em data-hf-id="hf-obcg">No llegó</em></div>
+                  <div data-hf-id="hf-ecos" class="week" style="left: 780px"><b data-hf-id="hf-hcm6">SEMANA 4</b><i data-hf-id="hf-7prz">2 jun</i><span data-hf-id="hf-laqk">10:00</span><em data-hf-id="hf-nx1f">No llegó</em></div>
+                  <div data-hf-id="hf-ip0q" class="week" style="left: 1040px"><b data-hf-id="hf-othf">HOY</b><i data-hf-id="hf-iwwq">9 jun</i><span data-hf-id="hf-lp1l">10:00</span><em data-hf-id="hf-lxia">No llegó</em></div>
+                </div>
+              </div>
+            </div>
+
+            <div data-hf-id="hf-wzqt" id="s4" class="st layer">
+              <svg data-hf-id="hf-xjsp" id="s4-ring" class="abs" viewBox="0 0 480 480" aria-hidden="true">
+                <circle data-hf-id="hf-8hop" cx="240" cy="240" r="196" fill="none" stroke="#E4E1D8" stroke-width="26" />
+                <circle data-hf-id="hf-zjjm" id="s4-arc" cx="240" cy="240" r="196" fill="none" stroke="#2C2C2A" stroke-width="26" stroke-linecap="round" transform="rotate(-90 240 240)" />
+              </svg>
+              <div data-hf-id="hf-6hij" id="s4-big" class="abs">−1 h</div>
+              <div data-hf-id="hf-gfxg" id="s4-sub" class="abs">reservada para nadie</div>
+            </div>
+
+            <div data-hf-id="hf-w830" id="s5" class="st layer">
+              <div data-hf-id="hf-dwd3" id="s5-unread" class="abs">WhatsApp · <span data-hf-id="hf-x4ut" id="s5-n">4</span> sin leer</div>
+              <div data-hf-id="hf-gjit" id="s5-n0" class="abs note"><div data-hf-id="hf-z3uc" class="wa"><svg data-hf-id="hf-a4yh" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-nkex" d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.1A8.5 8.5 0 1 1 21 12z" /></svg></div><div data-hf-id="hf-yeow"><b data-hf-id="hf-ojdu">Carla</b><span data-hf-id="hf-39ef">¿Tienen turno mañana?</span></div></div>
+              <div data-hf-id="hf-dk98" id="s5-n1" class="abs note"><div data-hf-id="hf-aslo" class="wa"><svg data-hf-id="hf-aj9i" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-3d9p" d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.1A8.5 8.5 0 1 1 21 12z" /></svg></div><div data-hf-id="hf-y7yw"><b data-hf-id="hf-tlp3">Diego</b><span data-hf-id="hf-hh4r">¿Cuánto cuesta una limpieza?</span></div></div>
+              <div data-hf-id="hf-ofqv" id="s5-n2" class="abs note"><div data-hf-id="hf-9lol" class="wa"><svg data-hf-id="hf-9ccf" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-4k6s" d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.1A8.5 8.5 0 1 1 21 12z" /></svg></div><div data-hf-id="hf-x11t"><b data-hf-id="hf-4k8h">Sofía</b><span data-hf-id="hf-yqxw">¿Atienden el sábado?</span></div></div>
+              <div data-hf-id="hf-khmu" id="s5-n3" class="abs note"><div data-hf-id="hf-9zzm" class="wa"><svg data-hf-id="hf-9qng" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-45vr" d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.1A8.5 8.5 0 1 1 21 12z" /></svg></div><div data-hf-id="hf-xfcu"><b data-hf-id="hf-d2iz">Mario</b><span data-hf-id="hf-gyan">Quisiera agendar una cita</span></div></div>
+              <div data-hf-id="hf-x375" id="s5-task" class="abs">
+                <svg data-hf-id="hf-8jqd" class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect data-hf-id="hf-4tln" x="4" y="4" width="16" height="16" rx="4" /></svg>
+                Enviar recordatorio a Juan
+              </div>
+            </div>
+
+            <div data-hf-id="hf-4vyv" id="s6" class="st layer">
+              <div data-hf-id="hf-9qhn" id="s6-label" class="abs">Recordatorios automáticos</div>
+              <div data-hf-id="hf-mtfh" id="s6-off" class="abs">Desactivados</div>
+              <div data-hf-id="hf-xhqf" id="s6-on" class="abs">Día anterior y unas horas antes</div>
+              <div data-hf-id="hf-csyf" id="s6-track" class="abs"></div>
+            </div>
+          </div>
+
+          <!-- The thread: the appointment's status pill, one element for the whole piece. -->
+          <div data-hf-id="hf-xyol" id="pill-wrap" class="layer">
+            <div data-hf-id="hf-w47i" id="pill-edge" class="layer"></div>
+            <div data-hf-id="hf-tdo2" id="pill-fill" class="layer"></div>
+            <div data-hf-id="hf-d9oh" id="f-pending" class="face">Pendiente</div>
+            <div data-hf-id="hf-yvif" id="f-missed" class="face">No llegó</div>
+            <div data-hf-id="hf-nmiw" id="f-send" class="face"><svg data-hf-id="hf-8y1e" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-vlx4" d="M4 12h15" /><path data-hf-id="hf-fi8a" d="M13 6l6 6-6 6" /></svg></div>
+            <div data-hf-id="hf-eh2y" id="f-dots" class="face"><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i></div>
+            <div data-hf-id="hf-7drg" id="f-count" class="face">No llegó · <span data-hf-id="hf-mb00" id="f-count-n">3</span></div>
+            <div data-hf-id="hf-4pwi" id="f-lost" class="face">Ingreso perdido</div>
+            <div data-hf-id="hf-qvdf" id="f-island" class="face"><i data-hf-id="hf-ylp6"></i>Atendiendo a Lucía</div>
+          </div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-sslv" id="cursor" class="clip layer" data-start="0" data-duration="15.6" data-track-index="2">
+        <div data-hf-id="hf-u77f" id="cursor-arrow">
+          <svg data-hf-id="hf-4au5" viewBox="0 0 24 32" aria-hidden="true"><path data-hf-id="hf-uomd" d="M2 2 L2 26 L8.4 20.2 L12.6 30 L16.8 28.2 L12.7 18.6 L21 18.6 Z" fill="#2C2C2A" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" /></svg>
+        </div>
+      </div>
+
+      <!-- Music starts on its first beat; UI sounds are mixed with their hits on the events (sfx.mjs --peak). -->
+      <audio data-hf-id="hf-b6rd" id="music" src="assets/music/track.wav" data-start="0" data-duration="15.6" data-media-start="0.064" data-volume="0.65" data-fade-out="0.8" data-track-index="10"></audio>
+      <audio data-hf-id="hf-y8hi" id="sfx" src="assets/sfx/mix.wav" data-start="0" data-duration="14.01" data-volume="0.6" data-track-index="11"></audio>
+    </div>
+
+    <script>
+      (function () {
+        var P = window.Physics;
+        var X = window.Proto;
+        var W = 1080;
+        var H = 1920;
+        var D = X.D;
+        var S = X.S;
+        var BEAT = X.BEAT;
+
+        function clamp01(v) {
+          return v < 0 ? 0 : v > 1 ? 1 : v;
+        }
+        function smooth(v) {
+          v = clamp01(v);
+          return v * v * (3 - 2 * v);
+        }
+        function inset(g, pad) {
+          return "inset(" + (g.t + pad) + "px " + (W - g.r + pad) + "px " + (H - g.b + pad) + "px " + (g.l + pad) + "px round " + Math.max(0, g.rad - pad) + "px)";
+        }
+        function colorTrack(states, key) {
+          return P.color(states.map(function (s) {
+            return { t: s.t, c: X.hex(s[key]) };
+          }), 22);
+        }
+        function $(id) {
+          return document.getElementById(id);
+        }
+
+        // ── tracks: everything below is a pure function of t ───────────────────────────────
+        var shellGeo = P.body(X.SHELL, { w: 12, z: 0.78, stretch: 0.05, vsat: 1500 });
+        var shellFill = colorTrack(X.SHELL, "fill");
+        var shellEdge = colorTrack(X.SHELL, "edge");
+        var pillGeo = P.body(X.PILL, { w: 15, z: 0.72, stretch: 0.22, vsat: 1400 });
+        var pillFill = colorTrack(X.PILL, "fill");
+        var pillEdge = colorTrack(X.PILL, "edge");
+        var cam = ["z", "x", "y"].map(function (k) {
+          return P.track(X.CAM[0][k], X.CAM.slice(1).map(function (c) {
+            return { t: c.t, v: c[k], w: 6.5, z: 0.92 };
+          }));
+        });
+        var trackColor = P.color([{ t: 0, c: X.hex("#D3D1C7") }, { t: BEAT[22] + 0.04, c: X.hex("#155B3F") }], 14);
+        var timeColor = P.color([{ t: 0, c: X.hex("#2C2C2A") }, { t: BEAT[3], c: X.hex("#8A8880") }], 14);
+
+        // Busy phone: each new message lands on top and pushes the others down one slot.
+        var NOTES = X.NOTES;
+        var noteY = [0, 1, 2, 3].map(function (i) {
+          var arrive = i === 0 ? S[4] : NOTES[i - 1];
+          var keys = [];
+          var y = 612;
+          if (i > 0) keys.push({ t: arrive, v: 612, w: 16, z: 0.78 });
+          NOTES.forEach(function (a) {
+            if (a > arrive + 1e-6) {
+              y += 128;
+              keys.push({ t: a, v: y, w: 14, z: 0.78 });
+            }
+          });
+          return { arrive: arrive, y: P.track(i === 0 ? 612 : 560, keys) };
+        });
+        var taskY = P.track(1150, NOTES.map(function (a, k) {
+          return { t: a, v: 1150 + 70 * (k + 1), w: 12, z: 0.8 };
+        }));
+
+        // The pill's faces: each one shows while its state lasts, with its own way in and out.
+        var FACES = [];
+        X.PILL.forEach(function (p, i) {
+          var next = X.PILL[i + 1];
+          if (!p.face) return;
+          var last = FACES[FACES.length - 1];
+          if (last && last.id === p.face && last.end === p.t) {
+            last.end = next ? next.t : D; // the same face carries over (dots → dying dots)
+            return;
+          }
+          FACES.push({ id: p.face, start: p.t, end: next ? next.t : D });
+        });
+
+        function vis(t, start, end) {
+          var vin = start <= 0 ? 1 : smooth((t - (start + 0.06)) / 0.22);
+          var vout = end >= D ? 1 : 1 - smooth((t - (end - 0.12)) / 0.14);
+          return { v: Math.min(vin, vout), vin: vin, vout: vout };
+        }
+        function show(el, t, start, end, lift) {
+          var s = vis(t, start, end);
+          el.style.opacity = String(s.v);
+          el.style.filter = s.v >= 0.999 ? "none" : "blur(" + ((1 - s.v) * 8).toFixed(2) + "px)";
+          if (lift) el.style.transform = "translateY(" + ((1 - s.vin) * 14 - (1 - s.vout) * 14).toFixed(2) + "px)";
+          return s.v;
+        }
+        function press(t) {
+          var k = 0;
+          X.TAPS.forEach(function (a) {
+            if (t >= a && t < a + 0.08) k = Math.max(k, (t - a) / 0.08);
+            else if (t >= a + 0.08 && t < a + 0.22) k = Math.max(k, 1 - P.step(t - a - 0.08, 22, 0.8));
+          });
+          X.HOLDS.forEach(function (h) {
+            if (t >= h[0] && t < h[1]) k = Math.max(k, clamp01((t - h[0]) / 0.07));
+            else if (t >= h[1] && t < h[1] + 0.2) k = Math.max(k, 1 - P.step(t - h[1], 22, 0.8));
+          });
+          return k;
+        }
+
+        var els = {
+          world: $("world"), shellEdge: $("shell-edge"), shellFill: $("shell-fill"), content: $("content"),
+          pillEdge: $("pill-edge"), pillFill: $("pill-fill"), cursor: $("cursor-arrow"),
+          st: [$("s1"), $("s2"), $("s3"), $("s4"), $("s5"), $("s6")],
+          clockT: $("s1-clock-t"), time: $("s1-time"), msg: $("s2-msg"), strip: $("s3-strip"),
+          arc: $("s4-arc"), unread: $("s5-n"), task: $("s5-task"), track: $("s6-track"), off: $("s6-off"), on: $("s6-on"),
+          notes: [$("s5-n0"), $("s5-n1"), $("s5-n2"), $("s5-n3")], count: $("f-count-n"), dots: $("f-dots").children,
+        };
+        var ARC = 2 * Math.PI * 196;
+        els.arc.style.strokeDasharray = ARC.toFixed(1);
+
+        function render(t) {
+          // Camera.
+          var z = cam[0](t);
+          var cx = cam[1](t);
+          var cy = cam[2](t);
+          els.world.style.transform = "translate(" + (540 - cx * z).toFixed(2) + "px, " + (880 - cy * z).toFixed(2) + "px) scale(" + z.toFixed(4) + ")";
+
+          // The shape, and the content that lives inside it.
+          var g = shellGeo(t);
+          els.shellEdge.style.clipPath = inset(g, 0);
+          els.shellEdge.style.backgroundColor = shellEdge(t);
+          els.shellFill.style.clipPath = inset(g, 3);
+          els.shellFill.style.backgroundColor = shellFill(t);
+          els.content.style.clipPath = inset(g, 3);
+          els.st.forEach(function (el, i) {
+            show(el, t, S[i], S[i + 1], true);
+          });
+
+          // State 1: the clock runs, and on the tap the appointment goes grey.
+          var minute = t < 0.3 ? 0 : Math.min(14, Math.floor((t - 0.3) / 0.1) + 1);
+          els.clockT.textContent = "10:" + (minute < 10 ? "0" : "") + minute;
+          els.time.style.color = timeColor(t);
+
+          // State 2: the message pops on the send tap.
+          var m = P.step(t - BEAT[5], 18, 0.7);
+          els.msg.style.opacity = String(clamp01((t - BEAT[5]) / 0.08));
+          els.msg.style.transform = "scale(" + (0.82 + 0.18 * m).toFixed(4) + ")";
+
+          // State 3: the weeks under the hand.
+          els.strip.style.transform = "translateX(" + X.stripX(t).toFixed(2) + "px)";
+          els.count.textContent = String(X.missedCount(t));
+
+          // State 4: holding the ring drains the hour.
+          var drain = clamp01((t - X.HOLDS[1][0]) / (X.HOLDS[1][1] - X.HOLDS[1][0]));
+          els.arc.style.strokeDashoffset = (ARC * drain).toFixed(1);
+
+          // State 5: messages pile up, the reminder task slips away.
+          var arrived = NOTES.filter(function (a) {
+            return t >= a;
+          }).length;
+          els.unread.textContent = String([4, 8, 12, 15][arrived]);
+          noteY.forEach(function (n, i) {
+            els.notes[i].style.top = "0px";
+            els.notes[i].style.transform = "translateY(" + n.y(t).toFixed(2) + "px)";
+            els.notes[i].style.opacity = String(i === 0 ? 1 : smooth((t - n.arrive) / 0.15));
+          });
+          els.task.style.transform = "translateY(" + taskY(t).toFixed(2) + "px)";
+          els.task.style.opacity = String(1 - 0.15 * arrived);
+
+          // State 6: the track goes green with the knob; the line underneath changes.
+          els.track.style.backgroundColor = trackColor(t);
+          var on = smooth((t - (BEAT[22] + 0.25)) / 0.2);
+          els.off.style.opacity = String(1 - on);
+          els.on.style.opacity = String(on);
+
+          // The pill: same element all along; a tap on the send button compresses it.
+          var pg = pillGeo(t);
+          var squeeze = t > BEAT[5] - 0.01 && t < BEAT[5] + 0.3 ? 0.06 * press(t) : 0;
+          if (squeeze > 0) {
+            var mx = (pg.l + pg.r) / 2;
+            var my = (pg.t + pg.b) / 2;
+            pg = { l: mx - (mx - pg.l) * (1 - squeeze), r: mx + (pg.r - mx) * (1 - squeeze), t: my - (my - pg.t) * (1 - squeeze), b: my + (pg.b - my) * (1 - squeeze), rad: pg.rad * (1 - squeeze) };
+          }
+          els.pillEdge.style.clipPath = inset(pg, 0);
+          els.pillEdge.style.backgroundColor = pillEdge(t);
+          els.pillFill.style.clipPath = inset(pg, 2);
+          els.pillFill.style.backgroundColor = pillFill(t);
+          var pcx = (pg.l + pg.r) / 2;
+          var pcy = (pg.t + pg.b) / 2;
+          FACES.forEach(function (f) {
+            var el = $("f-" + f.id);
+            var s = vis(t, f.start, f.end);
+            el.style.opacity = String(s.v);
+            el.style.filter = s.v >= 0.999 ? "none" : "blur(" + ((1 - s.v) * 6).toFixed(2) + "px)";
+            el.style.transform = "translate(" + pcx.toFixed(2) + "px, " + pcy.toFixed(2) + "px) translate(-50%, -50%)";
+          });
+          // "escribiendo…": the dots pulse, then die out and stay grey.
+          for (var d = 0; d < 3; d++) {
+            var alive = t < BEAT[7];
+            var pulse = 0.35 + 0.65 * Math.max(0, Math.sin((t - BEAT[6]) * Math.PI * 2 * 1.6 - d * 0.9));
+            els.dots[d].style.opacity = alive ? pulse.toFixed(3) : "0.45";
+            els.dots[d].style.backgroundColor = alive ? "#8A8880" : "#D3D1C7";
+          }
+
+          // The cursor rides the world through the camera, at a constant screen size.
+          var wx = X.curX(t);
+          var wy = X.curY(t);
+          var sx = 540 + (wx - cx) * z;
+          var sy = 880 + (wy - cy) * z;
+          els.cursor.style.transform = "translate(" + (sx - 3).toFixed(2) + "px, " + (sy - 3).toFixed(2) + "px) scale(" + (1 - 0.15 * press(t)).toFixed(4) + ")";
+          els.cursor.style.transformOrigin = "3px 3px";
+        }
+
+        var clock = { t: 0 };
+        var tl = gsap.timeline({ paused: true });
+        tl.fromTo(clock, { t: 0 }, { t: D, duration: D, ease: "none", onUpdate: function () { render(clock.t); } }, 0);
+        render(0);
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

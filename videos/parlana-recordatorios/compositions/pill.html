@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="pill-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #pill-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+          font-family: "Figtree", sans-serif;
+        }
+        #pill-world {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 1920px;
+          transform-origin: 0 0;
+        }
+        #pill-wrap {
+          position: absolute;
+          inset: 0;
+          filter: drop-shadow(0 10px 22px rgba(44, 44, 42, 0.16));
+        }
+        #pill-edge,
+        #pill-fill {
+          position: absolute;
+          inset: 0;
+        }
+        .face {
+          position: absolute;
+          left: 0;
+          top: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          white-space: nowrap;
+          font-weight: 700;
+          color: #f6f4ef;
+          opacity: 0;
+        }
+        .face svg {
+          width: 34px;
+          height: 34px;
+          fill: none;
+          stroke: currentColor;
+          stroke-width: 2;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+        #pf-pending { font-size: 30px; font-weight: 600; color: #5f5e58; }
+        #pf-missed { font-size: 46px; }
+        #pf-dots i { display: block; width: 14px; height: 14px; border-radius: 7px; background: #8a8880; }
+        #pf-count { font-size: 30px; font-weight: 600; }
+        #pf-lost { font-size: 34px; font-weight: 600; }
+        #pf-tick svg { width: 36px; height: 36px; stroke-width: 2.6; }
+        #pf-island { font-size: 30px; font-weight: 600; }
+        #pf-island i { display: block; width: 14px; height: 14px; border-radius: 7px; background: #f6f4ef; }
+        #pf-chipA { font-size: 28px; }
+        #pf-confirm { font-size: 32px; color: #155b3f; }
+        #pf-confirmed { font-size: 32px; }
+        #pf-coin { font-family: "Fraunces", serif; font-size: 62px; }
+        #pf-send { font-size: 30px; }
+        #pf-ok { font-size: 26px; }
+        #pf-moved { font-size: 24px; color: #2c2c2a; }
+        #pf-slot { font-size: 28px; color: #2c2c2a; }
+        #pf-slotPicked { font-size: 28px; }
+        #pf-booked { font-size: 30px; }
+        #pf-cta { font-size: 46px; }
+        #pf-cta svg { width: 46px; height: 46px; }
+        #pf-confirmada { font-size: 28px; }
+      </style>
+
+      <div data-hf-id="hf-qi1t" id="pill-root" data-composition-id="pill" data-start="0" data-duration="75.05" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-td7u" id="pill-world" data-layout-allow-overflow>
+          <div data-hf-id="hf-1l75" id="pill-wrap">
+            <div data-hf-id="hf-tgg2" id="pill-edge"></div>
+            <div data-hf-id="hf-uzha" id="pill-fill"></div>
+          </div>
+          <div data-hf-id="hf-xclf" id="pf-pending" class="face">Pendiente</div>
+          <div data-hf-id="hf-bql1" id="pf-missed" class="face">No llegó</div>
+          <div data-hf-id="hf-d8lk" id="pf-dots" class="face"><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i></div>
+          <div data-hf-id="hf-9h4e" id="pf-count" class="face">No llegó · <span data-hf-id="hf-fokc" id="pf-count-n">3</span></div>
+          <div data-hf-id="hf-b520" id="pf-lost" class="face">Ingreso perdido</div>
+          <div data-hf-id="hf-5iez" id="pf-tick" class="face"><svg data-hf-id="hf-35ls" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-s5bw" d="M5 12.5l4.5 4.5L19 7.5" /></svg></div>
+          <div data-hf-id="hf-dxux" id="pf-island" class="face"><i data-hf-id="hf-ylp6"></i>Atendiendo a Lucía</div>
+          <div data-hf-id="hf-6k4t" id="pf-chipA" class="face">Día anterior</div>
+          <div data-hf-id="hf-3z5j" id="pf-confirm" class="face">Confirmar</div>
+          <div data-hf-id="hf-t2o0" id="pf-confirmed" class="face">✓ Confirmada</div>
+          <div data-hf-id="hf-a69n" id="pf-coin" class="face">Bs 1</div>
+          <div data-hf-id="hf-rt7v" id="pf-send" class="face">Enviar <svg data-hf-id="hf-46qg" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-vlx4" d="M4 12h15" /><path data-hf-id="hf-fi8a" d="M13 6l6 6-6 6" /></svg></div>
+          <div data-hf-id="hf-4bsd" id="pf-ok" class="face">✓ Confirmada</div>
+          <div data-hf-id="hf-63oj" id="pf-moved" class="face">↻ Reprogramada</div>
+          <div data-hf-id="hf-ii6v" id="pf-slot" class="face">11:30</div>
+          <div data-hf-id="hf-h5iv" id="pf-slotPicked" class="face">11:30</div>
+          <div data-hf-id="hf-o5so" id="pf-booked" class="face">✓ Cita agendada · mañana 11:30</div>
+          <div data-hf-id="hf-jfc7" id="pf-cta" class="face"><svg data-hf-id="hf-2ztd" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-nkex" d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.1A8.5 8.5 0 1 1 21 12z" /></svg>Comenta CITAS</div>
+          <div data-hf-id="hf-p3az" id="pf-confirmada" class="face">✓ Confirmada</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var P = window.Physics;
+          var A = R.A;
+          var S = R.S;
+          var world = document.getElementById("pill-world");
+          var edge = document.getElementById("pill-edge");
+          var fill = document.getElementById("pill-fill");
+          var geo = P.body(R.PILL, { w: 15, z: 0.72, stretch: 0.22, vsat: 1400 });
+          var fillColor = R.colorTrack(R.PILL, "fill");
+          var edgeColor = R.colorTrack(R.PILL, "edge");
+          var dots = document.getElementById("pf-dots").children;
+          var countN = document.getElementById("pf-count-n");
+
+          // The faces: consecutive keys with the same face are one appearance.
+          var FACES = [];
+          R.PILL.forEach(function (p, i) {
+            if (!p.face) return;
+            var next = R.PILL[i + 1];
+            var end = next ? next.t : R.END;
+            var last = FACES[FACES.length - 1];
+            if (last && last.id === p.face && Math.abs(last.end - p.t) < 1e-6) {
+              last.end = end;
+              return;
+            }
+            FACES.push({ id: p.face, el: document.getElementById("pf-" + p.face), start: p.t, end: end });
+          });
+
+          // Taps compress the pill when the pill is what is tapped.
+          var PRESSED = [R.TAP.stamp, R.TAP.confirm, R.TAP.cta, R.TAP.carla, R.TAP.diego];
+          function selfPress(t) {
+            var k = 0;
+            R.AUTOSEND.forEach(function (a) {
+              if (t >= a && t < a + 0.06) k = Math.max(k, (t - a) / 0.06);
+              else if (t >= a + 0.06 && t < a + 0.24) k = Math.max(k, 1 - P.step(t - a - 0.06, 26, 0.8));
+            });
+            return k;
+          }
+
+          window.__timelines["pill"] = R.mountFull(function (t) {
+            world.style.transform = R.worldTransform(t);
+            var g = geo(t);
+            var k = 0;
+            PRESSED.forEach(function (a) {
+              if (t >= a - 0.01 && t < a + 0.35) k = Math.max(k, R.press(t));
+            });
+            k = Math.max(k, 0.8 * selfPress(t));
+            if (k > 0) {
+              var mx = (g.l + g.r) / 2;
+              var my = (g.t + g.b) / 2;
+              var f = 1 - 0.06 * k;
+              g = { l: mx - (mx - g.l) * f, r: mx + (g.r - mx) * f, t: my - (my - g.t) * f, b: my + (g.b - my) * f, rad: g.rad * f };
+            }
+            edge.style.clipPath = R.inset(g, 0);
+            edge.style.backgroundColor = edgeColor(t);
+            fill.style.clipPath = R.inset(g, 2);
+            fill.style.backgroundColor = fillColor(t);
+            var cx = (g.l + g.r) / 2;
+            var cy = (g.t + g.b) / 2;
+            var best = {};
+            FACES.forEach(function (f) {
+              var v = R.vis(t, f.start, f.end).v;
+              if (!(f.id in best) || v > best[f.id].v) best[f.id] = { v: v, el: f.el };
+            });
+            Object.keys(best).forEach(function (id) {
+              var b = best[id];
+              b.el.style.opacity = b.v.toFixed(3);
+              b.el.style.filter = b.v >= 0.999 ? "none" : "blur(" + ((1 - b.v) * 6).toFixed(2) + "px)";
+              b.el.style.transform = "translate(" + cx.toFixed(2) + "px, " + cy.toFixed(2) + "px) translate(-50%, -50%)";
+            });
+            countN.textContent = String(R.missedCount(t));
+            // "escribiendo…": Juan's dots die on "no contesta"; Parlana's stop when it answers.
+            var juan = t < A.contesta + 0.05;
+            var alive = t >= S.inbox ? t < R.beatNear(A.responder) : juan;
+            for (var d = 0; d < 3; d++) {
+              var pulse = 0.35 + 0.65 * Math.max(0, Math.sin(t * Math.PI * 2 * 1.6 - d * 0.9));
+              dots[d].style.opacity = alive ? pulse.toFixed(3) : "0.45";
+              dots[d].style.backgroundColor = alive ? (t >= S.inbox ? "#155B3F" : "#8A8880") : "#D3D1C7";
+            }
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

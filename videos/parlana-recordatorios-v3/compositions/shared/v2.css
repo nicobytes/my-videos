@@ -1,0 +1,142 @@
+/* Reel v2: shared look for the state compositions (each composition declares its own @font-face). */
+:root {
+  --canvas: #f6f4ef;
+  --ink: #2c2c2a;
+  --muted: #5f5e58;
+  --faint: #8a8880;
+  --line: #d3d1c7;
+  --line-soft: #e4e1d8;
+  --soft: #f1efe8;
+  --chat: #efeae2;
+  --neutral: #3c3b36;
+  --green: #155b3f;
+  --green-tint: #e7f0eb;
+}
+.world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1080px;
+  height: 1920px;
+  transform-origin: 0 0;
+}
+.clip-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1080px;
+  height: 1920px;
+}
+.st {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1080px;
+  height: 1920px;
+  opacity: 0;
+}
+.abs {
+  position: absolute;
+}
+.fr {
+  font-family: "Fraunces", serif;
+}
+.ico {
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 56px;
+  padding: 0 22px;
+  border-radius: 28px;
+  font-size: 26px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.chip--soft {
+  background: var(--soft);
+  border: 2px solid var(--line);
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+.chip--ink {
+  background: var(--ink);
+  color: var(--canvas);
+}
+.chip--green {
+  background: var(--green-tint);
+  color: var(--green);
+}
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  flex: none;
+}
+.chat-head {
+  left: 170px;
+  top: 450px;
+  width: 740px;
+  height: 128px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 36px;
+}
+.chat-head b {
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+}
+.chat-head span {
+  display: block;
+  font-size: 24px;
+  opacity: 0.8;
+}
+.bubble {
+  padding: 22px 26px 16px;
+  font-size: 34px;
+  line-height: 1.25;
+}
+.bubble small {
+  display: block;
+  margin-top: 8px;
+  text-align: right;
+  font-size: 22px;
+  color: var(--muted);
+}
+.bubble--in {
+  background: #ffffff;
+  border-radius: 8px 30px 30px 30px;
+  transform-origin: 0 0;
+}
+.bubble--out {
+  background: var(--green-tint);
+  border-radius: 30px 8px 30px 30px;
+  transform-origin: 100% 0;
+}
+.wa {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  background: var(--green);
+  color: var(--canvas);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}

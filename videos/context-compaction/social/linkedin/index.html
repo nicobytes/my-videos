@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1200, height=627" />
+    <style>
+      /* LinkedIn share image (1200×627, 1.91:1) for the context-compaction post:
+         the reel's paper-cut kit (cartulina #493A80, papel #F6F2E8, cinta negra,
+         acento #FFC72C). No face, by request. */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1200px;
+        height: 627px;
+        overflow: hidden;
+        background: #493a80;
+      }
+      #root {
+        position: relative;
+        width: 1200px;
+        height: 627px;
+        overflow: hidden;
+        background: #493a80 url("assets/cardboard.png") 0 -500px / 1200px 2133px;
+        font-family: "Montserrat", sans-serif;
+        color: #141218;
+      }
+      .paper {
+        background: #f6f2e8 url("assets/paper.png") 0 0 / 512px 512px;
+      }
+      .lift {
+        filter: drop-shadow(0 3px 0 rgba(20, 10, 40, 0.3)) drop-shadow(0 12px 18px rgba(20, 10, 40, 0.32));
+      }
+      .tape {
+        position: absolute;
+        display: inline-block;
+        padding: 0.12em 0.42em 0.02em;
+        background: #141218;
+        color: #fff;
+        font-family: "League Gothic", sans-serif;
+        line-height: 1;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        clip-path: polygon(0 0, 100% 0, 98.8% 16%, 100% 33%, 98.9% 50%, 100% 67%, 98.8% 84%, 100% 100%, 0 100%, 1.2% 84%, 0 67%, 1.1% 50%, 0 33%, 1.2% 16%);
+      }
+      .tape.yellow {
+        background: #ffc72c;
+        color: #141218;
+      }
+
+      /* ---- hook, across the top ---- */
+      #h1 { left: 34px; top: 30px; font-size: 76px; transform: rotate(-1.5deg); }
+      #h2 { left: 60px; top: 128px; font-size: 76px; transform: rotate(1deg); }
+      #h3 { left: 312px; top: 116px; font-size: 100px; transform: rotate(-2.5deg); }
+      #bill {
+        position: absolute;
+        left: 722px;
+        top: 128px;
+        width: 170px;
+        height: 111px;
+        transform: rotate(-9deg);
+      }
+
+      /* ---- ADK config, bottom left ---- */
+      #code-wrap {
+        position: absolute;
+        left: 34px;
+        top: 318px;
+        width: 520px;
+        height: 270px;
+        transform: rotate(-1.2deg);
+      }
+      #code {
+        position: absolute;
+        inset: 0;
+        padding: 44px 26px 0;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 500;
+        font-size: 27px;
+        line-height: 38px;
+        white-space: pre;
+        clip-path: polygon(0.4% 1.2%, 24% 0%, 61% 0.8%, 99.5% 0%, 100% 34%, 99.3% 71%, 100% 99.2%, 72% 100%, 38% 99.1%, 0% 100%, 0.7% 64%, 0% 30%);
+      }
+      #code .k { font-weight: 700; background: #ffc72c; padding: 0 4px; margin: 0 -4px; }
+      #code .p { color: #5b5670; }
+      #code .s { color: #493a80; }
+      #adk { left: 20px; top: -34px; font-size: 48px; transform: rotate(-2deg); }
+
+      /* ---- token chart, bottom right ---- */
+      #card-wrap {
+        position: absolute;
+        left: 590px;
+        top: 300px;
+        width: 576px;
+        height: 296px;
+        transform: rotate(1deg);
+      }
+      #card {
+        position: absolute;
+        inset: 0;
+        clip-path: polygon(0% 0.6%, 41% 0%, 77% 1%, 100% 0.2%, 99.4% 41%, 100% 78%, 99.6% 100%, 57% 99.3%, 19% 100%, 0.5% 99.4%, 0% 58%, 0.6% 22%);
+      }
+      #plot {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 576px;
+        height: 296px;
+        overflow: visible;
+      }
+      #card-title { left: 20px; top: -34px; font-size: 46px; transform: rotate(-2deg); }
+      #limit-tag { right: 16px; top: 26px; font-size: 36px; transform: rotate(2deg); }
+      #badge {
+        position: absolute;
+        left: 318px;
+        top: 104px;
+        padding: 8px 14px 8px 54px;
+        font-weight: 800;
+        font-size: 28px;
+        line-height: 1.05;
+        white-space: nowrap;
+        transform: rotate(3deg);
+      }
+      #badge small {
+        display: block;
+        font-weight: 700;
+        font-size: 21px;
+      }
+      #badge svg {
+        position: absolute;
+        left: 14px;
+        top: 9px;
+        width: 36px;
+        height: 46px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="linkedin" data-start="0" data-duration="1" data-width="1200" data-height="627" data-no-timeline>
+      <!-- Hook: the reel's first frame, as tape -->
+      <div class="lift">
+        <div id="h1" class="tape">Cómo evitar que tus agentes de IA</div>
+        <div id="h2" class="tape">te dejen</div>
+        <div id="h3" class="tape yellow">en quiebra</div>
+        <svg id="bill" viewBox="0 0 260 170" aria-hidden="true">
+          <path d="M18 70 C-6 40 6 8 42 14 C30 30 36 50 58 62 Z" fill="#fff" stroke="#141218" stroke-width="5" stroke-linejoin="round" />
+          <path d="M242 70 C266 40 254 8 218 14 C230 30 224 50 202 62 Z" fill="#fff" stroke="#141218" stroke-width="5" stroke-linejoin="round" />
+          <rect x="46" y="52" width="168" height="96" rx="6" fill="#8CC07A" stroke="#141218" stroke-width="5" />
+          <rect x="60" y="64" width="140" height="72" rx="4" fill="none" stroke="#141218" stroke-width="3" stroke-dasharray="7 6" />
+          <circle cx="130" cy="100" r="25" fill="#F6F2E8" stroke="#141218" stroke-width="4" />
+          <text x="130" y="114" text-anchor="middle" font-family="League Gothic" font-size="40" fill="#141218">$</text>
+        </svg>
+      </div>
+
+      <!-- The ADK config on paper -->
+      <div id="code-wrap" class="lift">
+        <div id="code" class="paper"><span class="k">EventsCompactionConfig</span>(
+    <span class="p">compaction_interval</span>=<span class="s">3</span>,
+    <span class="p">overlap_size</span>=<span class="s">1</span>,
+    <span class="p">summarizer</span>=my_summarizer,
+)</div>
+        <div id="adk" class="tape">Google ADK</div>
+      </div>
+
+      <!-- The token curve: climbs with every message, hits the limit, the summary drops it.
+           ILLUSTRATIVE values, same shape as the reel. -->
+      <div id="card-wrap" class="lift">
+        <div id="card" class="paper"></div>
+        <svg id="plot" viewBox="0 0 576 296" aria-hidden="true">
+          <path id="area" fill="#d8cff3" />
+          <line id="limit" x1="34" x2="550" stroke="#ffc72c" stroke-width="7" stroke-dasharray="3 13" stroke-linecap="round" />
+          <path id="line" fill="none" stroke="#141218" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" />
+          <circle id="tip" r="9" fill="#141218" stroke="#fff" stroke-width="4" />
+        </svg>
+        <div id="card-title" class="tape">Contexto (tokens)</div>
+        <div id="limit-tag" class="tape yellow">Límite 85 %</div>
+        <div id="badge" class="paper">
+          <svg viewBox="0 0 74 92" aria-hidden="true">
+            <path d="M60 4 C20 14 6 50 12 84 C40 70 64 40 60 4 Z" fill="#fff" stroke="#141218" stroke-width="5" stroke-linejoin="round" />
+            <path d="M12 84 L46 30" stroke="#141218" stroke-width="4" stroke-linecap="round" />
+          </svg>
+          Resumen<small>Gemini Flash</small>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Static geometry of the curve (no animation: this is a still).
+      (function () {
+        const P = { x0: 34, x1: 550, y0: 268, y1: 62 };
+        const X = (f) => P.x0 + (P.x1 - P.x0) * f;
+        const Y = (f) => P.y0 - (P.y0 - P.y1) * f;
+        const LIMIT = 0.85;
+        const steps = [
+          [0.0, 0.14], [0.05, 0.21], [0.1, 0.28], [0.15, 0.35], [0.2, 0.42], [0.25, 0.49],
+          [0.3, 0.56], [0.35, 0.63], [0.4, 0.7], [0.45, 0.77], [0.5, LIMIT],
+          [0.55, 0.18], [0.62, 0.22], [0.69, 0.26], [0.76, 0.3], [0.83, 0.34],
+        ];
+        let d = `M ${X(0)} ${Y(steps[0][1])}`;
+        for (const [x, v] of steps.slice(1)) d += ` H ${X(x)} V ${Y(v)}`;
+        d += ` H ${X(0.9)}`;
+        document.getElementById("line").setAttribute("d", d);
+        document.getElementById("area").setAttribute("d", `${d} V ${P.y0} H ${X(0)} Z`);
+        const lim = document.getElementById("limit");
+        lim.setAttribute("y1", Y(LIMIT));
+        lim.setAttribute("y2", Y(LIMIT));
+        const tip = document.getElementById("tip");
+        tip.setAttribute("cx", X(0.9));
+        tip.setAttribute("cy", Y(0.34));
+      })();
+    </script>
+  </body>
+</html>

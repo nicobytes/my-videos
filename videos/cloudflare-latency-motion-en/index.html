@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <title>Latencia en el edge</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/vendor/three-globe.bundle.js"></script>
+    <script src="assets/world.js"></script>
+    <script src="assets/network-data.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-400.woff2") format("woff2");
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-600.woff2") format("woff2");
+        font-weight: 600;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-800.woff2") format("woff2");
+        font-weight: 800;
+      }
+      :root {
+        --pin: #ff3d8b;
+        --ink: #f5f7ff;
+        --muted: #9aa8c7;
+        --panel: rgba(8, 13, 32, 0.8);
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+        font-family: "Inter", sans-serif;
+        color: var(--ink);
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+        background: #000;
+      }
+
+      /* ---------- shared globe-scene styling (parameterized by --accent) ---------- */
+      .scene-gcp {
+        --accent: #4d8ef7;
+        --accent-soft: #8fb6ff;
+      }
+      .scene-cf {
+        --accent: #f6821f;
+        --accent-soft: #ffa75a;
+      }
+      .scene-slot {
+        /* Overrides .clip's opaque black — these two globe scenes sit side by side
+           on the SAME master timeline as the talking-head videos (not nested
+           sub-compositions), so each must stay transparent outside its own
+           data-start/data-duration window or it would permanently cover whatever
+           DOM-order sibling sits underneath. */
+        background: transparent !important;
+      }
+      .scene-canvas {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        display: block;
+      }
+      .scene-hud {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      .scrim {
+        position: absolute;
+        left: 0;
+        right: 0;
+      }
+      .scrim-top {
+        top: 0;
+        height: 900px;
+        background: linear-gradient(180deg, rgba(4, 8, 22, 0.97) 0%, rgba(4, 8, 22, 0.9) 45%, rgba(4, 8, 22, 0.55) 72%, rgba(4, 8, 22, 0) 100%);
+        opacity: 0;
+      }
+      .scrim-end {
+        inset: 0;
+        background: linear-gradient(180deg, rgba(4, 8, 22, 0) 25%, rgba(4, 8, 22, 0.88) 50%, rgba(4, 8, 22, 0.97) 100%);
+        opacity: 0;
+      }
+      .head {
+        position: absolute;
+        left: 72px;
+        right: 150px;
+        top: 190px;
+        opacity: 0;
+      }
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .kicker .dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 18px var(--accent);
+      }
+      .title {
+        margin-top: 22px;
+        font-size: 92px;
+        line-height: 1.02;
+        font-weight: 800;
+        letter-spacing: -0.035em;
+      }
+      .title .accent {
+        display: block;
+        color: var(--accent-soft);
+      }
+      .sub {
+        margin-top: 26px;
+        font-size: 38px;
+        line-height: 1.3;
+        font-weight: 400;
+        color: #d4dcf2;
+        opacity: 0;
+      }
+      .sub b {
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .card {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        top: 1150px;
+        padding: 40px 44px 42px;
+        border-radius: 34px;
+        background: var(--panel);
+        border: 1.5px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        overflow: hidden;
+      }
+      .card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 10px;
+        background: var(--accent);
+      }
+      .route {
+        font-size: 36px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .route .arrow {
+        color: var(--muted);
+        padding: 0 10px;
+      }
+      .stats {
+        margin-top: 30px;
+        display: flex;
+        gap: 56px;
+      }
+      .stat .lbl {
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .stat .val {
+        margin-top: 8px;
+        font-size: 84px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+      .stat .val small {
+        font-size: 40px;
+        font-weight: 600;
+        letter-spacing: 0;
+        margin-left: 6px;
+        color: #c9d3ee;
+      }
+      .rtt {
+        color: var(--accent-soft);
+      }
+      .tag {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+      }
+      .tag-inner {
+        position: absolute;
+        white-space: nowrap;
+        padding: 12px 22px;
+        border-radius: 999px;
+        font-size: 30px;
+        font-weight: 600;
+        background: rgba(6, 10, 26, 0.86);
+        border: 1.5px solid rgba(255, 255, 255, 0.18);
+        opacity: 0;
+      }
+      .tag-inner em {
+        font-style: normal;
+        font-weight: 400;
+        color: var(--muted);
+        margin-left: 8px;
+      }
+      #tag-cbb-g .tag-inner,
+      #tag-cbb-c .tag-inner {
+        border-color: var(--pin);
+        left: 26px;
+        top: -24px;
+      }
+      #tag-bog-g .tag-inner {
+        border-color: var(--accent);
+        left: 26px;
+        top: -30px;
+      }
+      #tag-lpz-c .tag-inner {
+        border-color: var(--accent);
+        right: 26px;
+        top: -60px;
+      }
+      #end-c {
+        position: absolute;
+        left: 72px;
+        right: 72px;
+        top: 800px;
+        opacity: 0;
+      }
+      .end-title {
+        font-size: 128px;
+        font-weight: 800;
+        letter-spacing: -0.045em;
+        line-height: 0.95;
+      }
+      .end-title span {
+        color: var(--accent);
+      }
+      .end-sub {
+        margin-top: 18px;
+        font-size: 38px;
+        color: #d4dcf2;
+      }
+      .bars {
+        margin-top: 48px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      .bar-row .bar-lbl {
+        display: flex;
+        justify-content: space-between;
+        font-size: 32px;
+        font-weight: 600;
+      }
+      .bar-row .bar-lbl span:last-child {
+        font-variant-numeric: tabular-nums;
+      }
+      .bar-track {
+        margin-top: 14px;
+        height: 34px;
+        border-radius: 17px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+      }
+      .bar-fill {
+        height: 100%;
+        border-radius: 17px;
+        transform-origin: left center;
+      }
+      #bar-gcp-c {
+        width: 100%;
+        background: linear-gradient(90deg, #2f6fe0, #7aa9ff);
+      }
+      #bar-cf-c {
+        width: 9%;
+        background: linear-gradient(90deg, #e8680f, #ffab5e);
+      }
+      .foot {
+        margin-top: 40px;
+        font-size: 22px;
+        line-height: 1.45;
+        color: #7f8db0;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-nufb" id="root" data-composition-id="main" data-start="0" data-duration="163.70" data-width="1080" data-height="1920">
+      <!-- Frame 1 — Hook (talking head) -->
+      <video data-hf-id="hf-clli" id="th-1" class="clip" src="edge.mp4" data-start="0" data-duration="5.68" data-media-start="0" data-track-index="0" muted playsinline></video>
+
+      <!-- Frame 2a — El problema, parte 1 (talking head) -->
+      <video data-hf-id="hf-rn4x" id="th-2a" class="clip" src="edge.mp4" data-start="5.68" data-duration="1.32" data-media-start="5.68" data-track-index="0" muted playsinline></video>
+
+      <!-- Frame 2b — Card: cloud providers (AWS / Azure / Google Cloud) -->
+      <div data-hf-id="hf-yt9s" id="card-clouds" data-composition-id="card-clouds" data-composition-src="compositions/card-clouds.html" data-start="7.00" data-duration="5.60" data-track-index="0" data-width="1080" data-height="1920"></div>
+
+      <!-- Frame 2c — El problema, parte 2 (talking head) -->
+      <video data-hf-id="hf-kbbp" id="th-2c" class="clip" src="edge.mp4" data-start="12.60" data-duration="26.88" data-media-start="12.60" data-track-index="0" muted playsinline></video>
+
+      <!-- Frame 3 — Simulación Google Cloud (full-screen animation, plain clip — NOT a
+           data-composition-src sub-composition: HyperFrames' capture pipeline does not
+           composite a WebGL canvas mounted inside a dynamically-cloned sub-composition
+           (verified both in `snapshot` and in a real `render`), so this scene's three.js
+           globe lives directly on the master timeline instead. -->
+      <div data-hf-id="hf-u2c6" id="scene-gcp" class="clip scene-slot scene-gcp" data-start="39.48" data-duration="14.80" data-track-index="0">
+        <canvas data-hf-id="hf-oww8" id="globe-canvas-g" class="scene-canvas" width="1080" height="1920"></canvas>
+        <div data-hf-id="hf-meic" class="scene-hud">
+          <div data-hf-id="hf-ovog" id="scrim-top-g" class="scrim scrim-top"></div>
+          <div data-hf-id="hf-81vk" id="tag-cbb-g" class="tag" data-layout-allow-overlap="true"><div data-hf-id="hf-qhxq" class="tag-inner">Cochabamba<em data-hf-id="hf-shi6">tú</em></div></div>
+          <div data-hf-id="hf-09zr" id="tag-bog-g" class="tag" data-layout-allow-overlap="true"><div data-hf-id="hf-fiz5" class="tag-inner">Bogotá<em data-hf-id="hf-ayxp">edge de Google</em></div></div>
+
+          <div data-hf-id="hf-ghq9" id="h1-g" class="head">
+            <div data-hf-id="hf-e4jt" class="kicker"><span data-hf-id="hf-9gry" class="dot"></span>01 · Google Cloud</div>
+            <div data-hf-id="hf-leo5" class="title">42 regiones <span data-hf-id="hf-4p1m" class="accent">en el mundo</span></div>
+            <div data-hf-id="hf-ineu" id="h1-sub-g" class="sub">Desde <b data-hf-id="hf-spf0">Cochabamba</b>, el tráfico se enruta al edge de Google en <b data-hf-id="hf-y8bf">Bogotá</b>.</div>
+          </div>
+
+          <div data-hf-id="hf-edrz" id="card1-g" class="card">
+            <div data-hf-id="hf-qo1g" class="route">Cochabamba<span data-hf-id="hf-v68i" class="arrow">→</span>Bogotá</div>
+            <div data-hf-id="hf-rhep" class="stats">
+              <div data-hf-id="hf-xa0m" class="stat">
+                <div data-hf-id="hf-utyl" class="lbl">Distancia</div>
+                <div data-hf-id="hf-eyst" class="val"><span data-hf-id="hf-ku9l" id="km1-g">0</span><small data-hf-id="hf-qdyo">km</small></div>
+              </div>
+              <div data-hf-id="hf-tx7e" class="stat">
+                <div data-hf-id="hf-zt21" class="lbl">Ida y vuelta</div>
+                <div data-hf-id="hf-lbav" class="val rtt"><span data-hf-id="hf-isgh" id="ms1-g">0</span><small data-hf-id="hf-bg14">ms</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frame 4 — Giro: ¿y Cloudflare? (talking head) -->
+      <video data-hf-id="hf-qqph" id="th-4" class="clip" src="edge.mp4" data-start="54.28" data-duration="8.72" data-media-start="54.28" data-track-index="0" muted playsinline></video>
+
+      <!-- Frame 5 — Simulación Cloudflare + payoff 11× (full-screen animation, plain clip) -->
+      <div data-hf-id="hf-ff1w" id="scene-cf" class="clip scene-slot scene-cf" data-start="63.00" data-duration="12.52" data-track-index="0">
+        <canvas data-hf-id="hf-b7j8" id="globe-canvas-c" class="scene-canvas" width="1080" height="1920"></canvas>
+        <div data-hf-id="hf-ztvw" class="scene-hud">
+          <div data-hf-id="hf-c9ok" id="scrim-top-c" class="scrim scrim-top"></div>
+          <div data-hf-id="hf-ewpw" id="scrim-end-c" class="scrim scrim-end"></div>
+          <div data-hf-id="hf-vfvo" id="tag-cbb-c" class="tag" data-layout-allow-overlap="true"><div data-hf-id="hf-7ryq" class="tag-inner">Cochabamba<em data-hf-id="hf-9chu">tú</em></div></div>
+          <div data-hf-id="hf-ydqp" id="tag-lpz-c" class="tag" data-layout-allow-overlap="true"><div data-hf-id="hf-8vhj" class="tag-inner">La Paz<em data-hf-id="hf-y4ig">Cloudflare</em></div></div>
+
+          <div data-hf-id="hf-xb6m" id="h2-c" class="head">
+            <div data-hf-id="hf-591r" class="kicker"><span data-hf-id="hf-zcc2" class="dot"></span>02 · Cloudflare</div>
+            <div data-hf-id="hf-67ew" class="title">330+ ciudades <span data-hf-id="hf-ju7m" class="accent">en el edge</span></div>
+            <div data-hf-id="hf-c4m7" id="h2-sub-c" class="sub">Una de ellas es <b data-hf-id="hf-9x3p">La Paz</b>, al lado.</div>
+          </div>
+
+          <div data-hf-id="hf-79fc" id="card2-c" class="card">
+            <div data-hf-id="hf-p2r2" class="route">Cochabamba<span data-hf-id="hf-f1jq" class="arrow">→</span>La Paz</div>
+            <div data-hf-id="hf-q31x" class="stats">
+              <div data-hf-id="hf-ubif" class="stat">
+                <div data-hf-id="hf-un6p" class="lbl">Distancia</div>
+                <div data-hf-id="hf-qjj5" class="val"><span data-hf-id="hf-xibw" id="km2-c">0</span><small data-hf-id="hf-h0qw">km</small></div>
+              </div>
+              <div data-hf-id="hf-uptg" class="stat">
+                <div data-hf-id="hf-nhrh" class="lbl">Ida y vuelta</div>
+                <div data-hf-id="hf-80hj" class="val rtt"><span data-hf-id="hf-dy3u" id="ms2-c">0.0</span><small data-hf-id="hf-7rvk">ms</small></div>
+              </div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-aahc" id="end-c">
+            <div data-hf-id="hf-nom1" class="end-title"><span data-hf-id="hf-ctn0">11×</span> menos latencia</div>
+            <div data-hf-id="hf-hbj9" class="end-sub">Más puntos en la red. Viajes más cortos.</div>
+            <div data-hf-id="hf-umx2" class="bars">
+              <div data-hf-id="hf-vxho" class="bar-row">
+                <div data-hf-id="hf-qz4m" class="bar-lbl"><span data-hf-id="hf-6ybs">Google Cloud · Bogotá</span><span data-hf-id="hf-k6ev">39 ms</span></div>
+                <div data-hf-id="hf-2kxp" class="bar-track"><div data-hf-id="hf-bdgx" id="bar-gcp-c" class="bar-fill"></div></div>
+              </div>
+              <div data-hf-id="hf-x17o" class="bar-row">
+                <div data-hf-id="hf-p3qy" class="bar-lbl"><span data-hf-id="hf-zgqp">Cloudflare · La Paz</span><span data-hf-id="hf-pcr5">3.5 ms</span></div>
+                <div data-hf-id="hf-dok1" class="bar-track"><div data-hf-id="hf-s2jm" id="bar-cf-c" class="bar-fill"></div></div>
+              </div>
+            </div>
+            <div data-hf-id="hf-hfla" class="foot">
+              Ida y vuelta estimada por fibra: distancia del círculo máximo × factor de ruta 1.5 a 200.000 km/s.
+              La latencia real depende del proveedor de internet.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frame 6a1 — El twist: JS runtimes, previo al CDN (talking head) -->
+      <video data-hf-id="hf-g6bx" id="th-6a1" class="clip" src="edge.mp4" data-start="75.52" data-duration="21.20" data-media-start="75.52" data-track-index="0" muted playsinline></video>
+
+      <!-- Frame 6a2 — Card: CDN (Content Delivery Network) -->
+      <div data-hf-id="hf-cdm6" id="card-cdn" data-composition-id="card-cdn" data-composition-src="compositions/card-cdn.html" data-start="96.72" data-duration="3.24" data-track-index="0" data-width="1080" data-height="1920"></div>
+
+      <!-- Frame 6a3 — El twist: JS runtimes, hasta el grid de runtimes (talking head) -->
+      <video data-hf-id="hf-v3sv" id="th-6a3" class="clip" src="edge.mp4" data-start="99.96" data-duration="22.76" data-media-start="99.96" data-track-index="0" muted playsinline></video>
+
+      <!-- Frame 6b — Card: nuevos runtimes (Deno / Bun / WinterJS / Cloudflare Workers) -->
+      <div data-hf-id="hf-e2gv" id="card-runtimes" data-composition-id="card-runtimes" data-composition-src="compositions/card-runtimes.html" data-start="122.72" data-duration="4.88" data-track-index="0" data-width="1080" data-height="1920"></div>
+
+      <!-- Frame 6c — El twist: JS runtimes, parte 2 (talking head) -->
+      <video data-hf-id="hf-g7oi" id="th-6c" class="clip" src="edge.mp4" data-start="127.60" data-duration="7.60" data-media-start="127.60" data-track-index="0" muted playsinline></video>
+
+      <!-- Frame 7a — Ejemplo: Hono, intro (talking head) -->
+      <video data-hf-id="hf-fv3t" id="th-7a" class="clip" src="edge.mp4" data-start="135.20" data-duration="1.04" data-media-start="135.20" data-track-index="0" muted playsinline></video>
+
+      <!-- Frame 7b — Card: Hono + runtimes soportados -->
+      <div data-hf-id="hf-936b" id="card-hono" data-composition-id="card-hono" data-composition-src="compositions/card-hono.html" data-start="136.24" data-duration="5.00" data-track-index="0" data-width="1080" data-height="1920"></div>
+
+      <!-- Frame 7c — Ejemplo: Hono, resto (talking head) -->
+      <video data-hf-id="hf-s296" id="th-7c" class="clip" src="edge.mp4" data-start="141.24" data-duration="14.56" data-media-start="141.24" data-track-index="0" muted playsinline></video>
+
+      <!-- Frame 8 — CTA / cierre (talking head) -->
+      <video data-hf-id="hf-t5qq" id="th-8" class="clip" src="edge.mp4" data-start="155.80" data-duration="7.90" data-media-start="155.80" data-track-index="0" muted playsinline></video>
+
+      <!-- Voice-over: one unbroken track for the whole video, regardless of which
+           layer (talking head or animation) is visible at any given moment. -->
+      <audio data-hf-id="hf-ymen" id="vo" src="edge.mp4" data-start="0" data-duration="163.70" data-media-start="0" data-track-index="10"></audio>
+
+      <!-- Captions: karaoke-style word highlight (same visual style as
+           videos/gem_latest's caption-gradient-fill), spanning the whole
+           video as ONE sub-composition — it manages its own per-phrase
+           show/hide internally, so it's always "in window" for the host
+           (unlike the logo cards, which needed to self-blank). -->
+      <div data-hf-id="hf-89oy" id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="163.70" data-track-index="30" data-width="1080" data-height="1920"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+      window.__timelines["main"].seek(0);
+    </script>
+
+    <script>
+      /* ================= Scene: Google Cloud simulation (39.48s window, 14.8s long) ================= */
+      (function () {
+        const NET = window.NET;
+        const WORLD = window.WORLD;
+        const HOST_START = 39.48;
+        const DUR_NEW = 14.8;
+
+        const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+        const lerp = (a, b, t) => a + (b - a) * t;
+        const prog = (t, a, b) => clamp((t - a) / (b - a), 0, 1);
+        const ease = {
+          inOut: (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2),
+          inOutQuint: (x) => (x < 0.5 ? 16 * x ** 5 : 1 - Math.pow(-2 * x + 2, 5) / 2),
+          out: (x) => 1 - Math.pow(1 - x, 3),
+          outBack: (x) => {
+            const c1 = 2.2,
+              c3 = c1 + 1;
+            return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+          },
+          inOutSine: (x) => -(Math.cos(Math.PI * x) - 1) / 2,
+        };
+        function mulberry32(a) {
+          return function () {
+            a |= 0;
+            a = (a + 0x6d2b79f5) | 0;
+            let t = Math.imul(a ^ (a >>> 15), 1 | a);
+            t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+          };
+        }
+        const gcDeg = (a, b) => {
+          const r = Math.PI / 180;
+          const s =
+            Math.sin(((b[0] - a[0]) * r) / 2) ** 2 +
+            Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(((b[1] - a[1]) * r) / 2) ** 2;
+          return (2 * Math.asin(Math.sqrt(s))) / r;
+        };
+
+        // ---------- HUD timeline (GSAP), authored at the original absolute times ----------
+        const inner = gsap.timeline({ paused: true });
+        const IN = { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" };
+        inner.fromTo("#scrim-top-g", { opacity: 0 }, { opacity: 1, duration: 1.2, ease: "power2.inOut" }, 5.6);
+        inner.fromTo("#h1-g", { opacity: 0, y: 40 }, { ...IN }, 2.6);
+        inner.fromTo("#h1-sub-g", { opacity: 0, y: 24 }, { ...IN }, 7.4);
+        inner.fromTo("#card1-g", { opacity: 0, y: 80 }, { ...IN, duration: 0.8 }, 8.5);
+        inner.to(["#h1-g", "#card1-g"], { opacity: 0, y: -30, duration: 0.5, ease: "power2.in" }, 13.3);
+        const tagIn = (sel, at) =>
+          inner.fromTo(sel, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, at);
+        const tagOut = (sel, at) => inner.to(sel, { opacity: 0, duration: 0.35, ease: "power2.in" }, at);
+        tagIn("#tag-cbb-g .tag-inner", 7.5);
+        tagOut("#tag-cbb-g .tag-inner", 13.3);
+        tagIn("#tag-bog-g .tag-inner", 8.4);
+        tagOut("#tag-bog-g .tag-inner", 13.3);
+        const NATURAL = inner.duration();
+        const RATE = NATURAL / DUR_NEW;
+        inner.timeScale(RATE);
+        inner.seek(0);
+        // Registered for lint/tooling visibility; actually driven manually (see
+        // renderAt below) alongside the three.js camera, since both need the same
+        // HOST_START-relative local time and this scene is not its own composition.
+        // Nested into "main" (the only real data-composition-id on this page) so the
+        // runtime's own seeking of the root timeline drives it too; renderAt below
+        // also seeks it directly, which is fine — both land on the same local time.
+        const mainTl = window.__timelines["main"];
+        mainTl.add(inner, HOST_START);
+
+        // ---------- renderer / scene ----------
+        const W = 1080,
+          H = 1920;
+        const canvas = document.getElementById("globe-canvas-g");
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+        renderer.setPixelRatio(1);
+        renderer.setSize(W, H, false);
+        renderer.setClearColor(0x040816, 1);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(32, W / H, 0.5, 20000);
+        scene.add(camera);
+        scene.add(new THREE.AmbientLight(0xbfd4ff, 1.1));
+        const key = new THREE.DirectionalLight(0xffffff, 2.3);
+        key.position.set(-0.6, 0.9, 1);
+        camera.add(key);
+        const rim = new THREE.DirectionalLight(0x8fb0ff, 0.8);
+        rim.position.set(1, -0.4, -0.4);
+        camera.add(rim);
+
+        {
+          const rnd = mulberry32(7);
+          const N = 2600;
+          const pos = new Float32Array(N * 3);
+          const size = new Float32Array(N);
+          for (let i = 0; i < N; i++) {
+            const u = rnd() * 2 - 1,
+              th = rnd() * Math.PI * 2,
+              r = 5000 + rnd() * 3000;
+            const s = Math.sqrt(1 - u * u);
+            pos[i * 3] = r * s * Math.cos(th);
+            pos[i * 3 + 1] = r * u;
+            pos[i * 3 + 2] = r * s * Math.sin(th);
+            size[i] = 1.2 + Math.pow(rnd(), 3) * 3.4;
+          }
+          const g = new THREE.BufferGeometry();
+          g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+          g.setAttribute("aSize", new THREE.BufferAttribute(size, 1));
+          const m = new THREE.ShaderMaterial({
+            transparent: true,
+            depthWrite: false,
+            vertexShader: `attribute float aSize; void main(){ vec4 mv = modelViewMatrix*vec4(position,1.0); gl_PointSize = aSize; gl_Position = projectionMatrix*mv; }`,
+            fragmentShader: `void main(){ float d = length(gl_PointCoord-0.5)*2.0; if(d>1.0) discard; gl_FragColor = vec4(vec3(0.85,0.9,1.0), (1.0-d)*0.9); }`,
+          });
+          scene.add(new THREE.Points(g, m));
+        }
+
+        const globe = new ThreeGlobe({ animateIn: false })
+          .globeCurvatureResolution(8)
+          .globeMaterial(new THREE.MeshPhongMaterial({ color: 0x1f64cf, flatShading: true, shininess: 6, specular: 0x223355 }))
+          .showAtmosphere(true)
+          .atmosphereColor("#7cc0ff")
+          .atmosphereAltitude(0.16)
+          .polygonsTransitionDuration(0)
+          .polygonCapCurvatureResolution(6)
+          .polygonAltitude(0.009)
+          .polygonCapMaterial(new THREE.MeshLambertMaterial({ color: 0x52d06b, flatShading: true }))
+          .polygonSideMaterial(new THREE.MeshLambertMaterial({ color: 0x2c9447, side: THREE.DoubleSide }))
+          .polygonStrokeColor(() => false)
+          .polygonsData(WORLD.land.map((rings) => ({ type: "Feature", properties: {}, geometry: { type: "Polygon", coordinates: rings } })));
+        scene.add(globe);
+
+        const R = globe.getGlobeRadius();
+        const V = (lat, lng, alt = 0) => {
+          const c = globe.getCoords(lat, lng, alt);
+          return new THREE.Vector3(c.x, c.y, c.z);
+        };
+
+        function lineGeom(lines, alt) {
+          const arr = [];
+          for (const line of lines) {
+            for (let i = 0; i < line.length - 1; i++) {
+              const a = V(line[i][1], line[i][0], alt),
+                b = V(line[i + 1][1], line[i + 1][0], alt);
+              arr.push(a.x, a.y, a.z, b.x, b.y, b.z);
+            }
+          }
+          const g = new THREE.BufferGeometry();
+          g.setAttribute("position", new THREE.Float32BufferAttribute(arr, 3));
+          return g;
+        }
+        const borderMat = new THREE.LineBasicMaterial({ color: 0x0f4d24, transparent: true, opacity: 0 });
+        scene.add(new THREE.LineSegments(lineGeom(WORLD.borders, 0.0095), borderMat));
+
+        const dotVS = `
+          attribute float aScale; attribute float aAlpha; uniform float uSize; uniform float uZoom;
+          varying float vAlpha;
+          void main(){
+            vec4 mv = modelViewMatrix*vec4(position,1.0);
+            vAlpha = aAlpha;
+            gl_PointSize = uSize * aScale * uZoom;
+            gl_Position = projectionMatrix*mv;
+          }`;
+        const dotFS = `
+          uniform vec3 uColor; uniform vec3 uRing; varying float vAlpha;
+          void main(){
+            float d = length(gl_PointCoord-0.5)*2.0;
+            if(d>1.0 || vAlpha<0.001) discard;
+            vec3 col = uColor; float a = 0.0;
+            if(d<0.36){ col = uColor; a = 1.0; }
+            else if(d<0.5){ col = uRing; a = 1.0; }
+            else if(d<0.6){ col = vec3(0.03,0.05,0.12); a = 0.85; }
+            else { col = uColor; a = pow(1.0-(d-0.6)/0.4, 2.0)*0.45; }
+            gl_FragColor = vec4(col, a*vAlpha);
+          }`;
+        function makeDots(list, color, ring, size) {
+          const n = list.length;
+          const pos = new Float32Array(n * 3);
+          list.forEach((p, i) => {
+            const v = V(p[0], p[1], 0.016);
+            pos.set([v.x, v.y, v.z], i * 3);
+          });
+          const g = new THREE.BufferGeometry();
+          g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+          g.setAttribute("aScale", new THREE.BufferAttribute(new Float32Array(n), 1));
+          g.setAttribute("aAlpha", new THREE.BufferAttribute(new Float32Array(n), 1));
+          const m = new THREE.ShaderMaterial({
+            transparent: true,
+            depthWrite: false,
+            uniforms: { uSize: { value: size }, uZoom: { value: 1 }, uColor: { value: new THREE.Color(color) }, uRing: { value: new THREE.Color(ring) } },
+            vertexShader: dotVS,
+            fragmentShader: dotFS,
+          });
+          const pts = new THREE.Points(g, m);
+          pts.renderOrder = 5;
+          scene.add(pts);
+          return pts;
+        }
+        const gcpList = NET.gcp.map((r) => [r[1], r[2]]).concat([NET.bog]);
+        const gcpDots = makeDots(gcpList, 0xffffff, 0x4d8ef7, 38);
+
+        const order = (list, origin, t0, span) => {
+          const d = list.map((p) => gcDeg(origin, p));
+          const max = Math.max(...d);
+          return d.map((x) => t0 + (x / max) * span);
+        };
+        const gcpStart = order(gcpList, [0, -62], 2.5, 2.3);
+        gcpStart[gcpStart.length - 1] = 8.2;
+
+        const up = new THREE.Vector3(0, 1, 0);
+        function surfaceGroup(lat, lng, alt) {
+          const g = new THREE.Group();
+          const p = V(lat, lng, alt);
+          g.position.copy(p);
+          g.quaternion.setFromUnitVectors(up, p.clone().normalize());
+          scene.add(g);
+          return g;
+        }
+        const pin = surfaceGroup(NET.cbb[0], NET.cbb[1], 0.009);
+        {
+          const pinMat = new THREE.MeshStandardMaterial({ color: 0xff3d8b, roughness: 0.35, metalness: 0.1, flatShading: true });
+          const needle = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.02, 1.6, 8), new THREE.MeshStandardMaterial({ color: 0xdddddd, metalness: 0.6, roughness: 0.3 }));
+          needle.position.y = 0.8;
+          const body = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.5, 1.2, 12), pinMat);
+          body.position.y = 2.1;
+          const head = new THREE.Mesh(new THREE.SphereGeometry(0.62, 14, 10), pinMat);
+          head.position.y = 3.0;
+          const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.75, 0.22, 16), pinMat);
+          cap.position.y = 1.5;
+          pin.add(needle, cap, body, head);
+        }
+        function ring(color) {
+          const g = new THREE.Group();
+          const m1 = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false });
+          const m2 = m1.clone();
+          const r1 = new THREE.Mesh(new THREE.RingGeometry(0.78, 1, 48), m1);
+          const r2 = new THREE.Mesh(new THREE.RingGeometry(0.88, 1, 48), m2);
+          r1.rotation.x = r2.rotation.x = -Math.PI / 2;
+          g.add(r1, r2);
+          g.userData = { r1, r2 };
+          return g;
+        }
+        const bogRing = ring(0x7aa9ff);
+        surfaceGroup(NET.bog[0], NET.bog[1], 0.017).add(bogRing);
+        const cbbRing = ring(0xff3d8b);
+        surfaceGroup(NET.cbb[0], NET.cbb[1], 0.012).add(cbbRing);
+        function driveRing(rg, t, t0, size) {
+          const { r1, r2 } = rg.userData;
+          const local = t - t0;
+          [r1, r2].forEach((r, k) => {
+            const ph = local - k * 0.55;
+            if (ph < 0 || local > 6) {
+              r.material.opacity = 0;
+              return;
+            }
+            const f = (ph % 1.1) / 1.1;
+            r.scale.setScalar(size * (0.4 + f * 1.6));
+            r.material.opacity = (1 - f) * 0.9;
+          });
+        }
+
+        const glowTex = (() => {
+          const c = document.createElement("canvas");
+          c.width = c.height = 128;
+          const x = c.getContext("2d");
+          const gr = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+          gr.addColorStop(0, "rgba(255,255,255,1)");
+          gr.addColorStop(0.2, "rgba(255,255,255,0.9)");
+          gr.addColorStop(0.45, "rgba(255,255,255,0.25)");
+          gr.addColorStop(1, "rgba(255,255,255,0)");
+          x.fillStyle = gr;
+          x.fillRect(0, 0, 128, 128);
+          return new THREE.CanvasTexture(c);
+        })();
+        function makeArc(a, b, color, radius, heightK) {
+          const ang = gcDeg(a, b);
+          const N = 160;
+          const pts = [];
+          const va = V(a[0], a[1], 0).normalize(),
+            vb = V(b[0], b[1], 0).normalize();
+          const omega = Math.acos(clamp(va.dot(vb), -1, 1));
+          for (let i = 0; i <= N; i++) {
+            const s = i / N;
+            const p = va
+              .clone()
+              .multiplyScalar(Math.sin((1 - s) * omega) / Math.sin(omega))
+              .add(vb.clone().multiplyScalar(Math.sin(s * omega) / Math.sin(omega)));
+            const alt = 0.012 + heightK * (ang / 180) * Math.sin(Math.PI * s);
+            pts.push(p.normalize().multiplyScalar(R * (1 + alt)));
+          }
+          const curve = new THREE.CatmullRomCurve3(pts);
+          const TS = 240,
+            RS = 10;
+          const core = new THREE.Mesh(
+            new THREE.TubeGeometry(curve, TS, radius, RS, false),
+            new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1 })
+          );
+          const glow = new THREE.Mesh(
+            new THREE.TubeGeometry(curve, TS, radius * 3.2, RS, false),
+            new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.35, depthWrite: false })
+          );
+          scene.add(glow, core);
+          const packets = [];
+          for (let i = 0; i < 7; i++) {
+            const s = new THREE.Sprite(
+              new THREE.SpriteMaterial({ map: glowTex, color: i === 0 ? 0xffffff : color, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })
+            );
+            s.renderOrder = 10;
+            scene.add(s);
+            packets.push(s);
+          }
+          return { curve, core, glow, packets, TS, RS, radius };
+        }
+        const arc1 = makeArc(NET.cbb, NET.bog, 0x4d8ef7, 0.34, 2.6);
+        function driveArc(arc, drawP, alpha, packetU, packetOn, packetSize) {
+          const count = Math.floor(drawP * arc.TS) * arc.RS * 6;
+          arc.core.geometry.setDrawRange(0, count);
+          arc.glow.geometry.setDrawRange(0, count);
+          arc.core.visible = arc.glow.visible = count > 0 && alpha > 0.001;
+          arc.core.material.opacity = alpha;
+          arc.glow.material.opacity = 0.35 * alpha;
+          arc.packets.forEach((s, i) => {
+            const u = packetU - i * 0.018;
+            const on = packetOn && u >= 0 && u <= 1;
+            s.visible = on;
+            if (!on) return;
+            s.position.copy(arc.curve.getPointAt(clamp(u, 0, 1)));
+            const k = i === 0 ? 1 : 0.8 * (1 - i / arc.packets.length);
+            s.scale.setScalar(packetSize * (i === 0 ? 1.25 : k));
+            s.material.opacity = i === 0 ? 1 : 0.75 * (1 - i / arc.packets.length);
+          });
+        }
+        function tripU(t, t0, t1) {
+          const p = prog(t, t0, t1);
+          return { u: p < 0.5 ? ease.inOutSine(p * 2) : ease.inOutSine((1 - p) * 2), back: p >= 0.5, on: t >= t0 && t <= t1 };
+        }
+
+        const mid1 = [(NET.cbb[0] + NET.bog[0]) / 2 - 0.5, (NET.cbb[1] + NET.bog[1]) / 2];
+        const K = [
+          { t: 0.0, lat: 22, lng: -12, d: 1250 },
+          { t: 3.0, lat: 4, lng: -58, d: 760, e: "inOut" },
+          { t: 5.8, lat: -3, lng: -66, d: 730, e: "inOutSine" },
+          { t: 7.9, lat: mid1[0], lng: mid1[1], d: 380, e: "inOutQuint" },
+          { t: 12.9, lat: mid1[0] - 0.8, lng: mid1[1] + 1.0, d: 362, e: "inOutSine" },
+        ];
+        function camAt(t) {
+          let i = 0;
+          while (i < K.length - 2 && t > K[i + 1].t) i++;
+          const a = K[i],
+            b = K[i + 1];
+          const x = ease[b.e || "inOut"](prog(t, a.t, b.t));
+          let dl = b.lng - a.lng;
+          if (dl > 180) dl -= 360;
+          if (dl < -180) dl += 360;
+          const alt = Math.exp(lerp(Math.log(a.d - R), Math.log(b.d - R), x));
+          return { lat: lerp(a.lat, b.lat, x), lng: a.lng + dl * x, d: R + alt };
+        }
+
+        const el = (id) => document.getElementById(id);
+        const tags = [
+          { el: el("tag-cbb-g"), ll: NET.cbb, alt: 0.03 },
+          { el: el("tag-bog-g"), ll: NET.bog, alt: 0.02 },
+        ];
+        const km1 = el("km1-g"),
+          ms1 = el("ms1-g");
+        const fmt = (n) => Math.round(n).toLocaleString("en-US");
+
+        const tmp = new THREE.Vector3();
+        function renderAt(globalTime) {
+          const local = clamp(globalTime - HOST_START, 0, DUR_NEW);
+          const inWindow = globalTime >= HOST_START && globalTime <= HOST_START + DUR_NEW;
+          canvas.style.opacity = inWindow ? "1" : "0";
+          inner.seek(local);
+          const t = local * RATE;
+
+          const c = camAt(t);
+          const alt = c.d - R;
+          const tiltW = clamp(1 - alt / 400, 0, 1);
+          const tiltDeg = ((alt * Math.tan((28 * Math.PI) / 180)) / R) * (180 / Math.PI) * tiltW;
+          camera.position.copy(V(c.lat - tiltDeg, c.lng, c.d / R - 1));
+          camera.up.set(0, 1, 0);
+          camera.lookAt(V(c.lat, c.lng, 0));
+          camera.updateMatrixWorld();
+          const altNorm = (c.d - R) / 600;
+          const zoomK = clamp(Math.pow(1 / altNorm, 0.45), 1, 3.2);
+
+          borderMat.opacity = clamp(1.4 - altNorm * 2.2, 0, 0.55);
+
+          {
+            const sA = gcpDots.geometry.attributes.aScale,
+              aA = gcpDots.geometry.attributes.aAlpha;
+            for (let i = 0; i < gcpList.length; i++) {
+              const p = prog(t, gcpStart[i], gcpStart[i] + 0.5);
+              sA.array[i] = ease.outBack(p);
+              aA.array[i] = Math.min(1, p * 3);
+            }
+            sA.needsUpdate = aA.needsUpdate = true;
+            gcpDots.material.uniforms.uZoom.value = zoomK;
+          }
+
+          {
+            const p = prog(t, 7.3, 7.9);
+            const drop = ease.outBack(p);
+            const size = Math.max((c.d - R) / 95, 0.75);
+            pin.scale.setScalar(Math.max(0.0001, size * drop));
+            pin.visible = p > 0;
+          }
+          driveRing(cbbRing, t, 7.6, (c.d - R) / 55);
+          driveRing(bogRing, t, 8.3, (c.d - R) / 45);
+
+          {
+            const draw = ease.inOut(prog(t, 8.8, 10.0));
+            const fade = 1 - prog(t, 13.3, 14.2);
+            const trip = tripU(t, 10.0, 12.4);
+            driveArc(arc1, draw, fade, trip.u, trip.on, (c.d - R) / 26);
+            arc1.packets.forEach((s, i) => {
+              if (!s.visible) return;
+              const u = trip.back ? trip.u + i * 0.018 : trip.u - i * 0.018;
+              s.visible = u >= 0 && u <= 1;
+              if (s.visible) s.position.copy(arc1.curve.getPointAt(u));
+            });
+            km1.textContent = fmt(NET.km.bog * ease.out(prog(t, 8.8, 10.0)));
+            ms1.textContent = fmt(NET.rtt.bog * prog(t, 10.0, 12.4));
+          }
+
+          const camDir = camera.position.clone().normalize();
+          for (const tg of tags) {
+            const p = V(tg.ll[0], tg.ll[1], tg.alt);
+            const facing = p.clone().normalize().dot(camDir) > 0.2;
+            tmp.copy(p).project(camera);
+            const x = (tmp.x + 1) * 0.5 * W,
+              y = (1 - tmp.y) * 0.5 * H;
+            tg.el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+            tg.el.style.visibility = facing ? "visible" : "hidden";
+          }
+
+          renderer.render(scene, camera);
+        }
+
+        window.__hf = window.__hf || {};
+        window.__hf.buildReady = window.__hf.buildReady || {};
+        window.__hf.buildReady["edge-globe-gcp"] = new Promise((resolve) => {
+          const start = () => {
+            let tries = 0;
+            const wait = () => {
+              let meshes = 0;
+              globe.traverse((o) => {
+                if (o.isMesh) meshes++;
+              });
+              if (meshes >= WORLD.land.length || tries++ > 200) {
+                if (globe.pauseAnimation) globe.pauseAnimation();
+                renderAt(window.__hfThreeTime || 0);
+                renderer.compile(scene, camera);
+                renderAt(window.__hfThreeTime || 0);
+                resolve();
+              } else setTimeout(wait, 30);
+            };
+            wait();
+          };
+          setTimeout(start, 30);
+        });
+
+        window.addEventListener("hf-seek", (e) => renderAt(e.detail.time));
+        renderAt(window.__hfThreeTime || 0);
+      })();
+    </script>
+
+    <script>
+      /* ================= Scene: Cloudflare simulation + payoff (63.00s window, 12.52s long) ================= */
+      (function () {
+        const NET = window.NET;
+        const WORLD = window.WORLD;
+        const HOST_START = 63.0;
+        const DUR_NEW = 12.52;
+        const OFFSET = 14.8;
+
+        const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+        const lerp = (a, b, t) => a + (b - a) * t;
+        const prog = (t, a, b) => clamp((t - a) / (b - a), 0, 1);
+        const ease = {
+          inOut: (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2),
+          inOutQuint: (x) => (x < 0.5 ? 16 * x ** 5 : 1 - Math.pow(-2 * x + 2, 5) / 2),
+          out: (x) => 1 - Math.pow(1 - x, 3),
+          outBack: (x) => {
+            const c1 = 2.2,
+              c3 = c1 + 1;
+            return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+          },
+          inOutSine: (x) => -(Math.cos(Math.PI * x) - 1) / 2,
+        };
+        function mulberry32(a) {
+          return function () {
+            a |= 0;
+            a = (a + 0x6d2b79f5) | 0;
+            let t = Math.imul(a ^ (a >>> 15), 1 | a);
+            t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+          };
+        }
+        const gcDeg = (a, b) => {
+          const r = Math.PI / 180;
+          const s =
+            Math.sin(((b[0] - a[0]) * r) / 2) ** 2 +
+            Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(((b[1] - a[1]) * r) / 2) ** 2;
+          return (2 * Math.asin(Math.sqrt(s))) / r;
+        };
+
+        // ---------- HUD timeline (GSAP) — positions shifted so 0 aligns with this
+        // scene's own start (originally 14.8s into the 27s file it was extracted from) ----------
+        const inner = gsap.timeline({ paused: true });
+        const IN = { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" };
+        inner.fromTo("#scrim-top-c", { opacity: 0 }, { opacity: 1, duration: 0.8, ease: "power2.inOut" }, 0.2);
+        inner.to("#scrim-top-c", { opacity: 0, duration: 0.6, ease: "power2.inOut" }, 8.5);
+        inner.fromTo("#scrim-end-c", { opacity: 0 }, { opacity: 1, duration: 1, ease: "power2.inOut" }, 8.6);
+        inner.fromTo("#h2-c", { opacity: 0, y: 40 }, { ...IN }, 0.0);
+        inner.fromTo("#h2-sub-c", { opacity: 0, y: 24 }, { ...IN }, 4.1);
+        inner.fromTo("#card2-c", { opacity: 0, y: 80 }, { ...IN, duration: 0.8 }, 5.2);
+        inner.to(["#h2-c", "#card2-c"], { opacity: 0, y: -30, duration: 0.5, ease: "power2.in" }, 8.4);
+        inner.fromTo("#end-c", { opacity: 0, y: 60 }, { ...IN, duration: 0.8 }, 9.0);
+        inner.fromTo("#bar-gcp-c", { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: "power3.out" }, 9.6);
+        inner.fromTo("#bar-cf-c", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power3.out" }, 9.9);
+        const tagIn = (sel, at) =>
+          inner.fromTo(sel, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, at);
+        const tagOut = (sel, at) => inner.to(sel, { opacity: 0, duration: 0.35, ease: "power2.in" }, at);
+        tagIn("#tag-cbb-c .tag-inner", 4.2);
+        tagOut("#tag-cbb-c .tag-inner", 8.4);
+        tagIn("#tag-lpz-c .tag-inner", 5.0);
+        tagOut("#tag-lpz-c .tag-inner", 8.4);
+        const NATURAL = inner.duration();
+        const RATE = NATURAL / DUR_NEW;
+        inner.timeScale(RATE);
+        inner.seek(0);
+        const mainTl = window.__timelines["main"];
+        mainTl.add(inner, HOST_START);
+
+        // ---------- renderer / scene ----------
+        const W = 1080,
+          H = 1920;
+        const canvas = document.getElementById("globe-canvas-c");
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+        renderer.setPixelRatio(1);
+        renderer.setSize(W, H, false);
+        renderer.setClearColor(0x040816, 1);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(32, W / H, 0.5, 20000);
+        scene.add(camera);
+        scene.add(new THREE.AmbientLight(0xbfd4ff, 1.1));
+        const key = new THREE.DirectionalLight(0xffffff, 2.3);
+        key.position.set(-0.6, 0.9, 1);
+        camera.add(key);
+        const rim = new THREE.DirectionalLight(0x8fb0ff, 0.8);
+        rim.position.set(1, -0.4, -0.4);
+        camera.add(rim);
+
+        {
+          const rnd = mulberry32(7);
+          const N = 2600;
+          const pos = new Float32Array(N * 3);
+          const size = new Float32Array(N);
+          for (let i = 0; i < N; i++) {
+            const u = rnd() * 2 - 1,
+              th = rnd() * Math.PI * 2,
+              r = 5000 + rnd() * 3000;
+            const s = Math.sqrt(1 - u * u);
+            pos[i * 3] = r * s * Math.cos(th);
+            pos[i * 3 + 1] = r * u;
+            pos[i * 3 + 2] = r * s * Math.sin(th);
+            size[i] = 1.2 + Math.pow(rnd(), 3) * 3.4;
+          }
+          const g = new THREE.BufferGeometry();
+          g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+          g.setAttribute("aSize", new THREE.BufferAttribute(size, 1));
+          const m = new THREE.ShaderMaterial({
+            transparent: true,
+            depthWrite: false,
+            vertexShader: `attribute float aSize; void main(){ vec4 mv = modelViewMatrix*vec4(position,1.0); gl_PointSize = aSize; gl_Position = projectionMatrix*mv; }`,
+            fragmentShader: `void main(){ float d = length(gl_PointCoord-0.5)*2.0; if(d>1.0) discard; gl_FragColor = vec4(vec3(0.85,0.9,1.0), (1.0-d)*0.9); }`,
+          });
+          scene.add(new THREE.Points(g, m));
+        }
+
+        const globe = new ThreeGlobe({ animateIn: false })
+          .globeCurvatureResolution(8)
+          .globeMaterial(new THREE.MeshPhongMaterial({ color: 0x1f64cf, flatShading: true, shininess: 6, specular: 0x223355 }))
+          .showAtmosphere(true)
+          .atmosphereColor("#7cc0ff")
+          .atmosphereAltitude(0.16)
+          .polygonsTransitionDuration(0)
+          .polygonCapCurvatureResolution(6)
+          .polygonAltitude(0.009)
+          .polygonCapMaterial(new THREE.MeshLambertMaterial({ color: 0x52d06b, flatShading: true }))
+          .polygonSideMaterial(new THREE.MeshLambertMaterial({ color: 0x2c9447, side: THREE.DoubleSide }))
+          .polygonStrokeColor(() => false)
+          .polygonsData(WORLD.land.map((rings) => ({ type: "Feature", properties: {}, geometry: { type: "Polygon", coordinates: rings } })));
+        scene.add(globe);
+
+        const R = globe.getGlobeRadius();
+        const V = (lat, lng, alt = 0) => {
+          const c = globe.getCoords(lat, lng, alt);
+          return new THREE.Vector3(c.x, c.y, c.z);
+        };
+
+        function lineGeom(lines, alt) {
+          const arr = [];
+          for (const line of lines) {
+            for (let i = 0; i < line.length - 1; i++) {
+              const a = V(line[i][1], line[i][0], alt),
+                b = V(line[i + 1][1], line[i + 1][0], alt);
+              arr.push(a.x, a.y, a.z, b.x, b.y, b.z);
+            }
+          }
+          const g = new THREE.BufferGeometry();
+          g.setAttribute("position", new THREE.Float32BufferAttribute(arr, 3));
+          return g;
+        }
+        const borderMat = new THREE.LineBasicMaterial({ color: 0x0f4d24, transparent: true, opacity: 0 });
+        scene.add(new THREE.LineSegments(lineGeom(WORLD.borders, 0.0095), borderMat));
+        const boliviaMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
+        scene.add(new THREE.LineSegments(lineGeom(WORLD.bolivia, 0.0098), boliviaMat));
+
+        const dotVS = `
+          attribute float aScale; attribute float aAlpha; uniform float uSize; uniform float uZoom;
+          varying float vAlpha;
+          void main(){
+            vec4 mv = modelViewMatrix*vec4(position,1.0);
+            vAlpha = aAlpha;
+            gl_PointSize = uSize * aScale * uZoom;
+            gl_Position = projectionMatrix*mv;
+          }`;
+        const dotFS = `
+          uniform vec3 uColor; uniform vec3 uRing; varying float vAlpha;
+          void main(){
+            float d = length(gl_PointCoord-0.5)*2.0;
+            if(d>1.0 || vAlpha<0.001) discard;
+            vec3 col = uColor; float a = 0.0;
+            if(d<0.36){ col = uColor; a = 1.0; }
+            else if(d<0.5){ col = uRing; a = 1.0; }
+            else if(d<0.6){ col = vec3(0.03,0.05,0.12); a = 0.85; }
+            else { col = uColor; a = pow(1.0-(d-0.6)/0.4, 2.0)*0.45; }
+            gl_FragColor = vec4(col, a*vAlpha);
+          }`;
+        function makeDots(list, color, ring, size) {
+          const n = list.length;
+          const pos = new Float32Array(n * 3);
+          list.forEach((p, i) => {
+            const v = V(p[0], p[1], 0.016);
+            pos.set([v.x, v.y, v.z], i * 3);
+          });
+          const g = new THREE.BufferGeometry();
+          g.setAttribute("position", new THREE.BufferAttribute(pos, 3));
+          g.setAttribute("aScale", new THREE.BufferAttribute(new Float32Array(n), 1));
+          g.setAttribute("aAlpha", new THREE.BufferAttribute(new Float32Array(n), 1));
+          const m = new THREE.ShaderMaterial({
+            transparent: true,
+            depthWrite: false,
+            uniforms: { uSize: { value: size }, uZoom: { value: 1 }, uColor: { value: new THREE.Color(color) }, uRing: { value: new THREE.Color(ring) } },
+            vertexShader: dotVS,
+            fragmentShader: dotFS,
+          });
+          const pts = new THREE.Points(g, m);
+          pts.renderOrder = 5;
+          scene.add(pts);
+          return pts;
+        }
+        const cfDots = makeDots(NET.cf, 0xf6821f, 0xffffff, 30);
+
+        const order = (list, origin, t0, span) => {
+          const d = list.map((p) => gcDeg(origin, p));
+          const max = Math.max(...d);
+          return d.map((x) => t0 + (x / max) * span);
+        };
+        const cfStart = order(NET.cf, NET.cbb, 15.0, 2.6);
+
+        const up = new THREE.Vector3(0, 1, 0);
+        function surfaceGroup(lat, lng, alt) {
+          const g = new THREE.Group();
+          const p = V(lat, lng, alt);
+          g.position.copy(p);
+          g.quaternion.setFromUnitVectors(up, p.clone().normalize());
+          scene.add(g);
+          return g;
+        }
+        const pin = surfaceGroup(NET.cbb[0], NET.cbb[1], 0.009);
+        {
+          const pinMat = new THREE.MeshStandardMaterial({ color: 0xff3d8b, roughness: 0.35, metalness: 0.1, flatShading: true });
+          const needle = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.02, 1.6, 8), new THREE.MeshStandardMaterial({ color: 0xdddddd, metalness: 0.6, roughness: 0.3 }));
+          needle.position.y = 0.8;
+          const body = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.5, 1.2, 12), pinMat);
+          body.position.y = 2.1;
+          const head = new THREE.Mesh(new THREE.SphereGeometry(0.62, 14, 10), pinMat);
+          head.position.y = 3.0;
+          const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.75, 0.75, 0.22, 16), pinMat);
+          cap.position.y = 1.5;
+          pin.add(needle, cap, body, head);
+        }
+        function ring(color) {
+          const g = new THREE.Group();
+          const m1 = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false });
+          const m2 = m1.clone();
+          const r1 = new THREE.Mesh(new THREE.RingGeometry(0.78, 1, 48), m1);
+          const r2 = new THREE.Mesh(new THREE.RingGeometry(0.88, 1, 48), m2);
+          r1.rotation.x = r2.rotation.x = -Math.PI / 2;
+          g.add(r1, r2);
+          g.userData = { r1, r2 };
+          return g;
+        }
+        const lpzRing = ring(0xffa75a);
+        surfaceGroup(NET.lpz[0], NET.lpz[1], 0.017).add(lpzRing);
+        function driveRing(rg, t, t0, size) {
+          const { r1, r2 } = rg.userData;
+          const local = t - t0;
+          [r1, r2].forEach((r, k) => {
+            const ph = local - k * 0.55;
+            if (ph < 0 || local > 6) {
+              r.material.opacity = 0;
+              return;
+            }
+            const f = (ph % 1.1) / 1.1;
+            r.scale.setScalar(size * (0.4 + f * 1.6));
+            r.material.opacity = (1 - f) * 0.9;
+          });
+        }
+
+        const glowTex = (() => {
+          const c = document.createElement("canvas");
+          c.width = c.height = 128;
+          const x = c.getContext("2d");
+          const gr = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+          gr.addColorStop(0, "rgba(255,255,255,1)");
+          gr.addColorStop(0.2, "rgba(255,255,255,0.9)");
+          gr.addColorStop(0.45, "rgba(255,255,255,0.25)");
+          gr.addColorStop(1, "rgba(255,255,255,0)");
+          x.fillStyle = gr;
+          x.fillRect(0, 0, 128, 128);
+          return new THREE.CanvasTexture(c);
+        })();
+        function makeArc(a, b, color, radius, heightK) {
+          const ang = gcDeg(a, b);
+          const N = 160;
+          const pts = [];
+          const va = V(a[0], a[1], 0).normalize(),
+            vb = V(b[0], b[1], 0).normalize();
+          const omega = Math.acos(clamp(va.dot(vb), -1, 1));
+          for (let i = 0; i <= N; i++) {
+            const s = i / N;
+            const p = va
+              .clone()
+              .multiplyScalar(Math.sin((1 - s) * omega) / Math.sin(omega))
+              .add(vb.clone().multiplyScalar(Math.sin(s * omega) / Math.sin(omega)));
+            const alt = 0.012 + heightK * (ang / 180) * Math.sin(Math.PI * s);
+            pts.push(p.normalize().multiplyScalar(R * (1 + alt)));
+          }
+          const curve = new THREE.CatmullRomCurve3(pts);
+          const TS = 240,
+            RS = 10;
+          const core = new THREE.Mesh(
+            new THREE.TubeGeometry(curve, TS, radius, RS, false),
+            new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1 })
+          );
+          const glow = new THREE.Mesh(
+            new THREE.TubeGeometry(curve, TS, radius * 3.2, RS, false),
+            new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.35, depthWrite: false })
+          );
+          scene.add(glow, core);
+          const packets = [];
+          for (let i = 0; i < 7; i++) {
+            const s = new THREE.Sprite(
+              new THREE.SpriteMaterial({ map: glowTex, color: i === 0 ? 0xffffff : color, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })
+            );
+            s.renderOrder = 10;
+            scene.add(s);
+            packets.push(s);
+          }
+          return { curve, core, glow, packets, TS, RS, radius };
+        }
+        const arc2 = makeArc(NET.cbb, NET.lpz, 0xf6821f, 0.1, 5);
+        function driveArc(arc, drawP, alpha, packetU, packetOn, packetSize) {
+          const count = Math.floor(drawP * arc.TS) * arc.RS * 6;
+          arc.core.geometry.setDrawRange(0, count);
+          arc.glow.geometry.setDrawRange(0, count);
+          arc.core.visible = arc.glow.visible = count > 0 && alpha > 0.001;
+          arc.core.material.opacity = alpha;
+          arc.glow.material.opacity = 0.35 * alpha;
+          arc.packets.forEach((s, i) => {
+            const u = packetU - i * 0.03;
+            const on = packetOn && u >= 0 && u <= 1;
+            s.visible = on;
+            if (!on) return;
+            s.position.copy(arc.curve.getPointAt(clamp(u, 0, 1)));
+            const k = i === 0 ? 1 : 0.8 * (1 - i / arc.packets.length);
+            s.scale.setScalar(packetSize * (i === 0 ? 1.25 : k));
+            s.material.opacity = i === 0 ? 1 : 0.75 * (1 - i / arc.packets.length);
+          });
+        }
+        function tripU(t, t0, t1) {
+          const p = prog(t, t0, t1);
+          return { u: p < 0.5 ? ease.inOutSine(p * 2) : ease.inOutSine((1 - p) * 2), back: p >= 0.5, on: t >= t0 && t <= t1 };
+        }
+
+        const mid2 = [(NET.cbb[0] + NET.lpz[0]) / 2, (NET.cbb[1] + NET.lpz[1]) / 2];
+        const K = [
+          { t: 15.0, lat: -12, lng: -60, d: 780 },
+          { t: 17.9, lat: -15, lng: -63.5, d: 700, e: "inOutSine" },
+          { t: 20.0, lat: mid2[0] - 0.2, lng: mid2[1], d: 175, e: "inOutQuint" },
+          { t: 23.2, lat: mid2[0] - 0.25, lng: mid2[1] + 0.15, d: 166, e: "inOutSine" },
+          { t: 25.2, lat: -8, lng: -64, d: 560, e: "inOutQuint" },
+          { t: 27.0, lat: -7, lng: -60, d: 540, e: "inOutSine" },
+        ];
+        function camAt(t) {
+          let i = 0;
+          while (i < K.length - 2 && t > K[i + 1].t) i++;
+          const a = K[i],
+            b = K[i + 1];
+          const x = ease[b.e || "inOut"](prog(t, a.t, b.t));
+          let dl = b.lng - a.lng;
+          if (dl > 180) dl -= 360;
+          if (dl < -180) dl += 360;
+          const alt = Math.exp(lerp(Math.log(a.d - R), Math.log(b.d - R), x));
+          return { lat: lerp(a.lat, b.lat, x), lng: a.lng + dl * x, d: R + alt };
+        }
+
+        const el = (id) => document.getElementById(id);
+        const tags = [
+          { el: el("tag-cbb-c"), ll: NET.cbb, alt: 0.03 },
+          { el: el("tag-lpz-c"), ll: NET.lpz, alt: 0.02 },
+        ];
+        const km2 = el("km2-c"),
+          ms2 = el("ms2-c");
+        const fmt = (n) => Math.round(n).toLocaleString("en-US");
+
+        const tmp = new THREE.Vector3();
+        function renderAt(globalTime) {
+          const local = clamp(globalTime - HOST_START, 0, DUR_NEW);
+          const inWindow = globalTime >= HOST_START && globalTime <= HOST_START + DUR_NEW;
+          canvas.style.opacity = inWindow ? "1" : "0";
+          inner.seek(local);
+          const t = OFFSET + local * RATE;
+
+          const c = camAt(t);
+          const alt = c.d - R;
+          const tiltW = clamp(1 - alt / 400, 0, 1);
+          const tiltDeg = ((alt * Math.tan((28 * Math.PI) / 180)) / R) * (180 / Math.PI) * tiltW;
+          camera.position.copy(V(c.lat - tiltDeg, c.lng, c.d / R - 1));
+          camera.up.set(0, 1, 0);
+          camera.lookAt(V(c.lat, c.lng, 0));
+          camera.updateMatrixWorld();
+          const altNorm = (c.d - R) / 600;
+          const zoomK = clamp(Math.pow(1 / altNorm, 0.45), 1, 3.2);
+
+          borderMat.opacity = clamp(1.4 - altNorm * 2.2, 0, 0.55);
+          boliviaMat.opacity = 0.9 * prog(t, 18.6, 19.6) * (1 - prog(t, 23.3, 24.3)) * clamp(1.5 - altNorm * 2, 0, 1);
+
+          {
+            const sA = cfDots.geometry.attributes.aScale,
+              aA = cfDots.geometry.attributes.aAlpha;
+            for (let i = 0; i < NET.cf.length; i++) {
+              const p = prog(t, cfStart[i], cfStart[i] + 0.45);
+              sA.array[i] = ease.outBack(p);
+              aA.array[i] = Math.min(1, p * 3);
+            }
+            sA.needsUpdate = aA.needsUpdate = true;
+            cfDots.material.uniforms.uZoom.value = zoomK;
+          }
+
+          {
+            const size = Math.max((c.d - R) / 95, 0.75);
+            pin.scale.setScalar(size);
+            pin.visible = true;
+          }
+          driveRing(lpzRing, t, 19.7, (c.d - R) / 30);
+
+          {
+            const draw = ease.inOut(prog(t, 20.2, 20.9));
+            const fade = 1 - prog(t, 23.3, 24.2);
+            const trip = tripU(t, 20.9, 22.1);
+            driveArc(arc2, draw, fade, trip.u, trip.on, (c.d - R) / 24);
+            arc2.packets.forEach((s, i) => {
+              if (!s.visible) return;
+              const u = trip.back ? trip.u + i * 0.03 : trip.u - i * 0.03;
+              s.visible = u >= 0 && u <= 1;
+              if (s.visible) s.position.copy(arc2.curve.getPointAt(u));
+            });
+            km2.textContent = fmt(NET.km.lpz * ease.out(prog(t, 20.2, 20.9)));
+            ms2.textContent = (NET.rtt.lpz * prog(t, 20.9, 22.1)).toFixed(1);
+          }
+
+          const camDir = camera.position.clone().normalize();
+          for (const tg of tags) {
+            const p = V(tg.ll[0], tg.ll[1], tg.alt);
+            const facing = p.clone().normalize().dot(camDir) > 0.2;
+            tmp.copy(p).project(camera);
+            const x = (tmp.x + 1) * 0.5 * W,
+              y = (1 - tmp.y) * 0.5 * H;
+            tg.el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+            tg.el.style.visibility = facing ? "visible" : "hidden";
+          }
+
+          renderer.render(scene, camera);
+        }
+
+        window.__hf = window.__hf || {};
+        window.__hf.buildReady = window.__hf.buildReady || {};
+        window.__hf.buildReady["edge-globe-cf"] = new Promise((resolve) => {
+          const start = () => {
+            let tries = 0;
+            const wait = () => {
+              let meshes = 0;
+              globe.traverse((o) => {
+                if (o.isMesh) meshes++;
+              });
+              if (meshes >= WORLD.land.length || tries++ > 200) {
+                if (globe.pauseAnimation) globe.pauseAnimation();
+                renderAt(window.__hfThreeTime || 0);
+                renderer.compile(scene, camera);
+                renderAt(window.__hfThreeTime || 0);
+                resolve();
+              } else setTimeout(wait, 30);
+            };
+            wait();
+          };
+          setTimeout(start, 30);
+        });
+
+        window.addEventListener("hf-seek", (e) => renderAt(e.detail.time));
+        renderAt(window.__hfThreeTime || 0);
+      })();
+    </script>
+  </body>
+</html>

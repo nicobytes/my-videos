@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><meta charset="UTF-8"><link rel="stylesheet" href="compositions/shared/pixel.css"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jersey 10"; src: url("assets/fonts/jersey10-latin.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Plus Jakarta Sans"; src: url("assets/fonts/plusjakarta-latin.woff2") format("woff2"); font-weight: 200 800; }
+        #f02-root { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; background: #1e3a33; }
+        #f02-dots { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27120%27 height=%27120%27%3E%3Crect x=%2755%27 y=%2755%27 width=%2710%27 height=%2710%27 fill=%27%232c5048%27/%3E%3C/svg%3E"); }
+        #f02-mint { position: absolute; inset: 0; background: #e6f9ee; opacity: 0; }
+        #f02-phone { left: 190px; top: 200px; width: 700px; height: 1120px; }
+        #f02-list { position: absolute; left: 0; right: 0; top: 96px; }
+        #f02-badge { left: 790px; top: 140px; }
+        #f02-scan {
+          position: absolute; inset: 0; opacity: 0; pointer-events: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2710%27 height=%2720%27%3E%3Crect width=%2710%27 height=%2710%27 fill=%27%2300260f%27 fill-opacity=%270.35%27/%3E%3C/svg%3E");
+        }
+        #f02-rew { left: 60px; top: 70px; font-size: 80px; background: #f1efe8; color: #00260f; }
+        #f02-agent { left: 770px; top: 1110px; width: 264px; }
+        #f02-agent-h { left: 770px; top: 1110px; width: 264px; }
+      </style>
+
+      <div id="f02-root" data-composition-id="f02" data-start="0" data-duration="2.46" data-width="1080" data-height="1920">
+        <div id="f02-dots"></div>
+        <div id="f02-mint"></div>
+        <div id="f02-phone" class="phone notch">
+          <div class="screen">
+            <div class="wa-head"><div class="dot"></div>Spa Vale · Chats</div>
+            <div id="f02-list"></div>
+          </div>
+        </div>
+        <div id="f02-badge" class="badge notch">99+</div>
+        <img id="f02-agent" class="px" src="assets/sprites/agent.svg" alt="">
+        <img id="f02-agent-h" class="px" src="assets/sprites/agent-happy.svg" alt="">
+        <div id="f02-scan"></div>
+        <div id="f02-rew" class="tag notch">◀◀ REW</div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          var ROWS = [
+            ["Ana", "¿Cuánto cuesta el masaje?", 3, "#e8796a"], ["Carla", "Hola! info porfa", 2, "#8f9a45"],
+            ["Lucía", "¿Tienes turno hoy?", 4, "#ba7517"], ["Mariana", "¿Dónde quedan?", 1, "#5e3a4a"],
+            ["Sofi", "¿Aceptan QR?", 2, "#00bd4c"], ["Dani", "Holaaa", 5, "#7fb8e8"],
+            ["Paola", "¿Hay cupo el sábado?", 1, "#e8b04a"], ["Romi", "Precio?", 3, "#888780"],
+          ];
+          var REPLY = ["Bs 150, ¿te agendo?", "¡Hola! Te cuento…", "Sí, a las 15:30", "Av. Arce #123", "¡Sí, aceptamos QR!", "¡Hola! ¿En qué te ayudo?", "Sí, hay 10:00 y 11:00", "Bs 150 ✓"];
+          var list = document.getElementById("f02-list");
+          ROWS.forEach(function (r, i) {
+            var row = document.createElement("div");
+            row.className = "row";
+            row.innerHTML = '<div class="av" style="background:' + r[3] + '"></div><div class="tx"><span class="nm">' + r[0] +
+              '</span><span class="ms" id="f02-ms-' + i + '">' + r[1] + '</span></div>' +
+              '<div style="position:relative;width:60px;height:60px"><div class="un notch" id="f02-un-' + i + '" style="position:absolute;inset:0">' + r[2] +
+              '</div><div class="ok notch" id="f02-ok-' + i + '" style="position:absolute;inset:0;opacity:0;visibility:hidden">✓</div></div>';
+            list.appendChild(row);
+          });
+
+          // ◀◀ rewind: stepped jitter + scanlines (chromatic-glitch, stepped-ease form), 0–0.4s
+          tl.fromTo("#f02-scan", { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.05 }, 0.42);
+          tl.fromTo("#f02-rew", { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.05 }, 0.42);
+          tl.to("#f02-phone", { keyframes: [{ x: -24, y: 30, duration: 0.05 }, { x: 18, y: -20, duration: 0.05 }, { x: -12, y: 60, duration: 0.05 },
+            { x: 10, y: -40, duration: 0.05 }, { x: -6, y: 20, duration: 0.05 }, { x: 0, y: 0, duration: 0.05 }], ease: "none" }, 0);
+
+          // the agent arrives on "agente" (abs 3.40 → local 0.70): spring-pop, smooth settle
+          tl.fromTo("#f02-agent", { autoAlpha: 0, scale: 0, y: 60 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.3, ease: "power3.out" }, 0.66);
+          tl.set("#f02-agent-h", { autoAlpha: 0 }, 0);
+
+          // "empezó a responder por ella" (local 1.04 → 2.2): every chat flips to answered, top-down
+          ROWS.forEach(function (r, i) {
+            var t = 1.0 + i * 0.14;
+            tl.to("#f02-un-" + i, { autoAlpha: 0, duration: 0.01 }, t);
+            tl.fromTo("#f02-ok-" + i, { autoAlpha: 0, scale: 0.4 }, { autoAlpha: 1, scale: 1, duration: 0.16, ease: "steps(3)" }, t);
+            tl.set("#f02-ms-" + i, { textContent: REPLY[i], color: "#009a3e" }, t);
+          });
+          // unread badge drains to zero and turns green
+          var badge = document.getElementById("f02-badge"); var st = { v: 99 };
+          tl.to(st, { v: 0, duration: 1.1, ease: "power1.in", onUpdate: function () { badge.textContent = st.v >= 99 ? "99+" : Math.round(st.v); } }, 1.0);
+          tl.to(badge, { backgroundColor: "#00bd4c", color: "#00260f", duration: 0.05 }, 2.1);
+          tl.set(badge, { textContent: "✓" }, 2.12);
+          tl.to("#f02-mint", { opacity: 0.18, duration: 0.6, ease: "power2.out" }, 1.0);
+          tl.set("#f02-agent", { autoAlpha: 0 }, 1.6);
+          tl.set("#f02-agent-h", { autoAlpha: 1 }, 1.6);
+
+          window.__timelines["f02"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

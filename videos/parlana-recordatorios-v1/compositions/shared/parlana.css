@@ -1,0 +1,132 @@
+/* Shared tokens and UI pieces for parlana-recordatorios (values from frame.md).
+   Linked from each composition's <head>; the assembler hoists <link> tags.
+   Fonts: each file still declares its own @font-face (lint wants them in-file). */
+
+:root {
+  --canvas: #f6f4ef;
+  --cream: #f1efe8;
+  --surface: #ffffff;
+  --line: #d3d1c7;
+  --ink: #2c2c2a;
+  --muted: #5f5e58;
+  --green: #155b3f;
+  --green-deep: #0f422e;
+  --green-text: #145a41;
+  --green-tint: #e7f0eb;
+  --amber: #ba7517;
+  --shadow-lift: 0 24px 64px rgba(21, 91, 63, 0.14), 0 6px 16px rgba(21, 91, 63, 0.08);
+}
+
+.pr-display {
+  font-family: "Fraunces", serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.pr-ui {
+  font-family: "Figtree", sans-serif;
+}
+
+.pr-data {
+  font-family: "JetBrains Mono", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The single morphing object, in its light-surface form. */
+.pr-card {
+  position: absolute;
+  box-sizing: border-box;
+  background: var(--surface);
+  border: 3px solid var(--line);
+  border-radius: 36px;
+  box-shadow: var(--shadow-lift);
+}
+
+.pr-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 60px;
+  padding: 0 26px;
+  border-radius: 9999px;
+  box-sizing: border-box;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 30px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.pr-chip--neutral {
+  background: var(--cream);
+  color: var(--ink);
+  border: 2px solid var(--line);
+}
+
+.pr-chip--green {
+  background: var(--green-tint);
+  color: var(--green-text);
+}
+
+.pr-chip--ink {
+  background: var(--ink);
+  color: var(--canvas);
+}
+
+.pr-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: 9999px;
+  font-family: "Figtree", sans-serif;
+  font-weight: 700;
+}
+
+.pr-btn--primary {
+  background: var(--green);
+  color: var(--canvas);
+}
+
+.pr-btn--outline {
+  background: var(--surface);
+  color: var(--ink);
+  border: 3px solid var(--line);
+}
+
+/* Chat bubbles, rebuilt from Parlana's own chat mock on the blog. */
+.pr-bubble {
+  position: absolute;
+  box-sizing: border-box;
+  padding: 30px 36px 22px;
+  border-radius: 32px;
+  font-family: "Figtree", sans-serif;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 1.25;
+}
+
+.pr-bubble--in {
+  background: var(--surface);
+  color: var(--ink);
+  border: 2px solid var(--line);
+  border-top-left-radius: 10px;
+}
+
+.pr-bubble--out {
+  background: var(--green);
+  color: var(--canvas);
+  border-top-right-radius: 10px;
+}
+
+.pr-meta {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 28px;
+  font-weight: 500;
+}

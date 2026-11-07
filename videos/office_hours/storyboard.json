@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 3,
+  "composition": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "durationSeconds": 35.233,
+    "layout": "portrait",
+    "themeId": "nicobytes",
+    "seed": 42
+  },
+  "videoTrack": {
+    "sourcePath": "input-video.mp4",
+    "startSec": 0,
+    "endSec": 35.233,
+    "bounds": { "x": 0, "y": 0, "width": 1080, "height": 1920 }
+  },
+  "subtitles": { "enabled": true },
+  "cards": [
+    {
+      "id": "card-01",
+      "intent": "Hook — WhatsApp agents for companies",
+      "startSec": 0,
+      "endSec": 6.4,
+      "accentIndex": 0,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "OFFICE HOURS",
+        "title": "Agentes que viven en WhatsApp",
+        "detail": "Para diferentes empresas"
+      }
+    },
+    {
+      "id": "card-02",
+      "intent": "Chart reveal — messages per hour",
+      "startSec": 6.4,
+      "endSec": 9.52,
+      "accentIndex": 1,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "LA ESTADÍSTICA",
+        "title": "Mensajes por hora del día",
+        "detail": "Esto es lo vital"
+      }
+    },
+    {
+      "id": "card-03",
+      "intent": "Business hours vs after-hours peaks",
+      "startSec": 9.52,
+      "endSec": 19.0,
+      "accentIndex": 0,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "INSIGHT",
+        "title": "También responde cuando nadie atiende",
+        "stat": "208 @ 18h"
+      }
+    },
+    {
+      "id": "card-04",
+      "intent": "Night coverage + knowledge base",
+      "startSec": 19.0,
+      "endSec": 30.0,
+      "accentIndex": 1,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "MADRUGADA",
+        "title": "Base de conocimiento",
+        "steps": ["Responde", "Atiende", "Deja listo"]
+      }
+    },
+    {
+      "id": "card-05",
+      "intent": "Sales closes the deal in business hours",
+      "startSec": 30.0,
+      "endSec": 35.233,
+      "accentIndex": 0,
+      "zone": "video-overlay",
+      "contentHints": {
+        "kicker": "CIERRE",
+        "title": "Ventas toma la conversación",
+        "detail": "y cierra la venta"
+      }
+    }
+  ]
+}

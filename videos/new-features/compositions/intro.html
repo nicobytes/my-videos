@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        
+
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-300.woff2") format("woff2"); font-weight: 300; }
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-500.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-500.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-600.woff2") format("woff2"); font-weight: 600; }
+
+.lbl { font: 500 28px/1 "Jost"; letter-spacing: 0.16em; text-transform: uppercase; color: #5B4334; }
+.ttl { font: 500 64px/1.04 "Cormorant Garamond"; color: #312A23; letter-spacing: -0.01em; }
+.txt { font: 400 30px/1.42 "Jost"; color: #5B4334; }
+.meta { font: 400 28px/1.3 "Jost"; color: #8A7668; }
+.w { display: inline-block; }
+.stamp { display: inline-block; padding: 12px 22px 10px; border: 3px solid #5B4334; color: #5B4334;
+  font: 600 28px/1 "Jost"; letter-spacing: 0.14em; text-transform: uppercase; transform-origin: 0% 50%; }
+.stamp.ask { background: #A4583A; border-color: #A4583A; color: #FFFFFF; }
+.chip { font: 500 28px/1 "Jost"; letter-spacing: 0.04em; color: #5B4334; white-space: nowrap; }
+.chip.ask { color: #A4583A; font-weight: 600; }
+.chip .mk { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: currentColor; margin-right: 12px; transform: translateY(-2px); }
+
+        #root { position: absolute; inset: 0; }
+        #intro-panel { position: absolute; left: 1216px; top: 96px; width: 640px; }
+        #intro-mark { font: 300 46px/1 "Cormorant Garamond"; letter-spacing: 0.32em; color: #A4583A; }
+        #intro-sub { margin-top: 10px; font: 400 28px/1 "Jost"; letter-spacing: 0.32em; color: #5B4334; }
+        #intro-ttl { margin-top: 44px; }
+        #intro-meta { margin-top: 22px; }
+        #intro-list { margin-top: 40px; border-top: 2px solid #E4D6C6; }
+        #intro-list .ir { height: 50px; display: flex; align-items: center; border-bottom: 2px solid #E4D6C6;
+          font: 400 28px/1 "Jost"; color: #312A23; }
+        #intro-list .in { width: 46px; color: #8A7668; }
+      </style>
+      <div id="root" data-composition-id="intro" data-width="1920" data-height="1080">
+        <div id="intro-panel">
+          <div id="intro-mark">BE UNIQUE</div>
+          <div id="intro-sub">ESTÉTICA</div>
+          <div id="intro-ttl" class="ttl"><span class="w intro-tw">Pedidos</span> <span class="w intro-tw">de</span> <span class="w intro-tw">cambios</span> <span class="w intro-tw">para</span> <span class="w intro-tw">el</span> <span class="w intro-tw">sistema</span> <span class="w intro-tw">Sofi</span></div>
+          <div id="intro-meta" class="meta">19/10/2026 · Solicitado por Jose · 9 pedidos</div>
+          <div id="intro-list">
+            <div class="ir"><span class="in">1</span>Comprobante de pago</div>
+            <div class="ir"><span class="in">2</span>Editar citas en agenda</div>
+            <div class="ir"><span class="in">3</span>Agenda con datos restringidos</div>
+            <div class="ir"><span class="in">4</span>Sofi no está agendando bien</div>
+            <div class="ir"><span class="in">5</span>Ir a la conversación desde la agenda</div>
+            <div class="ir"><span class="in">6</span>Tiempo para enviar mensajes</div>
+            <div class="ir"><span class="in">7</span>Nueva cita en lugar de reagendar</div>
+            <div class="ir"><span class="in">8</span>Límite de fecha en agenda</div>
+            <div class="ir"><span class="in">9</span>Siguiente sesión o reagendar</div>
+          </div>
+        </div>
+      </div>
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        // Frame 0 is the thumbnail: camera, mark and title already set.
+        tl.fromTo("#intro-meta", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 0.75);
+        tl.fromTo("#intro-list", { clipPath: "inset(0% 0% 100% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.9, ease: "power3.inOut" }, 4.0);
+        tl.fromTo("#intro-list .ir", { color: "#8A7668" }, { color: "#312A23", duration: 0.2, stagger: 0.09, ease: "power2.out" }, 4.2);
+        window.__timelines["intro"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

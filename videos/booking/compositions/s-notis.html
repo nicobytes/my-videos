@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <style>
+@font-face { font-family: "Rubik"; src: url("fonts/Rubik-400-latin.woff2") format("woff2"); font-weight: 400; font-display: block; }
+@font-face { font-family: "Rubik"; src: url("fonts/Rubik-800-latin.woff2") format("woff2"); font-weight: 800; font-display: block; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/JetBrainsMono-700-latin.woff2") format("woff2"); font-weight: 700; font-display: block; }
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:transparent; }
+#s-notis-root {
+  --foam:#F3FBF8; --mist:#D5EDE6; --ink:#152A26; --night:#0B1A17;
+  --mango:#FF7A45; --lagoon:#1ECAD3; --butter:#FFE56A;
+  --sticker: 4px 4px 0 #152A26;
+  position:relative; width:1080px; height:1920px; overflow:hidden;
+  background: var(--foam); color: var(--ink);
+  font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
+  container-type: size;
+}
+.plate {
+  position:absolute; inset:0;
+  padding: 160px 48px 420px;
+  display:flex; flex-direction:column; align-items:stretch; gap: 20px;
+}
+.kicker {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 22px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  opacity:0;
+}
+.title {
+  font-size: 56px; font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; margin:0; opacity:0;
+}
+.title .slap {
+  background: linear-gradient(180deg, transparent 55%, #FFE56A 55%);
+}
+/* Stack geometry adapted from notification-pileup */
+.stack {
+  position:relative;
+  margin-top: 36px;
+  width: 100%;
+  height: 720px;
+}
+.notif {
+  position:absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  display:grid;
+  grid-template-columns: 96px minmax(0, 1fr) auto;
+  align-items:center;
+  gap: 20px;
+  padding: 28px 28px;
+  border-radius: 2rem;
+  background: #F3FBF8;
+  border: 3px solid #152A26;
+  box-shadow: 4px 4px 0 #152A26;
+  opacity:0;
+  will-change: transform, opacity;
+  transform-origin: 50% 20%;
+}
+.notif .icon {
+  width: 96px; height: 96px;
+  border-radius: 1.5rem;
+  display:grid; place-items:center;
+  font-size: 40px; font-weight: 800;
+  color: var(--ink);
+  border: 3px solid #152A26;
+  box-shadow: 3px 3px 0 #152A26;
+}
+.notif.n24 .icon { background: var(--lagoon); }
+.notif.n2h .icon { background: var(--mango); }
+.notif .copy { min-width:0; overflow:hidden; }
+.notif .ntitle {
+  font-size: 36px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.notif .nbody {
+  margin-top: 6px;
+  font-size: 26px; font-weight: 700; opacity: 0.72;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.notif .badge {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 22px; font-weight: 700; letter-spacing: 0.04em;
+  padding: 10px 16px; border-radius: 9999px;
+  background: var(--butter); border: 2px solid #152A26;
+  box-shadow: 2px 2px 0 #152A26;
+}
+.timeline-row {
+  display:flex; align-items:center; justify-content:center; gap: 20px;
+  margin-top: 28px; opacity:0;
+}
+.chip {
+  padding: 18px 28px; border-radius: 9999px; font-size: 32px; font-weight: 800;
+  box-shadow: var(--sticker); border: 3px solid #152A26;
+}
+.chip.a { background: var(--lagoon); }
+.chip.b { background: var(--mango); }
+.chip .butter {
+  background: linear-gradient(180deg, transparent 55%, #FFE56A 55%);
+  padding: 0 0.06em;
+}
+.arrow {
+  font-size: 36px; font-weight: 800; color: var(--ink);
+}
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-nca5" id="s-notis-root" data-composition-id="s-notis" data-start="0" data-duration="5.3" data-fps="24" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-cvqd" class="plate clip" id="snotis-plate" data-start="0" data-duration="5.3" data-track-index="0">
+        <div data-hf-id="hf-x3zk" class="kicker" id="sn-kicker">Notificaciones</div>
+        <h1 data-hf-id="hf-jeqm" class="title" id="sn-title">Te avisa a <span data-hf-id="hf-qk6z" class="slap">tiempo</span></h1>
+
+        <div data-hf-id="hf-tzhe" class="stack" id="sn-stack">
+          <!-- Arrivals inspired by notification-pileup: new card lands on top, pushes stack down -->
+          <div data-hf-id="hf-tl2m" class="notif n24" id="sn-n24" data-slot="0">
+            <div data-hf-id="hf-uanr" class="icon">24h</div>
+            <div data-hf-id="hf-bdx3" class="copy">
+              <div data-hf-id="hf-1aat" class="ntitle">Recordatorio</div>
+              <div data-hf-id="hf-ky47" class="nbody">Mañana tienes tu cita</div>
+            </div>
+            <div data-hf-id="hf-ll5x" class="badge">−24h</div>
+          </div>
+          <div data-hf-id="hf-w8wb" class="notif n2h" id="sn-n2h" data-slot="1">
+            <div data-hf-id="hf-wqsh" class="icon">2h</div>
+            <div data-hf-id="hf-r8s7" class="copy">
+              <div data-hf-id="hf-7kjd" class="ntitle">Recordatorio</div>
+              <div data-hf-id="hf-92d6" class="nbody">En 2 horas te esperamos</div>
+            </div>
+            <div data-hf-id="hf-qnqj" class="badge">−2h</div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-a4q4" class="timeline-row" id="sn-row">
+          <span data-hf-id="hf-esod" class="chip a" id="sn-chip-a"><span data-hf-id="hf-96iv" class="butter">24h</span> antes</span>
+          <span data-hf-id="hf-v68i" class="arrow">→</span>
+          <span data-hf-id="hf-qv4n" class="chip b" id="sn-chip-b"><span data-hf-id="hf-y7ap" class="butter">2h</span> antes</span>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        "use strict";
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+
+        var CARD_H = 168;
+        var GAP = 28;
+        var STEP = CARD_H + GAP;
+
+        var n24 = document.getElementById("sn-n24");
+        var n2h = document.getElementById("sn-n2h");
+
+        gsap.set(["#sn-kicker", "#sn-title", "#sn-row"], { opacity: 0 });
+        gsap.set([n24, n2h], { opacity: 0, y: -140, x: 0, scale: 0.94, rotation: 0 });
+
+        // Chrome
+        tl.fromTo("#sn-kicker", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.2, ease: "power2.out" }, 0.05);
+        tl.fromTo("#sn-title", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, 0.15);
+
+        /**
+         * Arrival recipe (notification-pileup): card lands at stack top (y=0),
+         * existing cards push down by STEP. Sync to parent 96s window:
+         *   +0.70 ≈ 96.7 “24 horas”
+         *   +1.65 ≈ 97.65 “2 horas”
+         */
+        function arrive(el, t, pushTargets) {
+          tl.fromTo(
+            el,
+            { opacity: 0, y: -160, scale: 0.9, rotation: -2 },
+            { opacity: 1, y: 0, scale: 1, rotation: 0, duration: 0.42, ease: "back.out(1.5)" },
+            t
+          );
+          if (pushTargets && pushTargets.length) {
+            tl.to(
+              pushTargets,
+              { y: "+=" + STEP, duration: 0.38, ease: "power2.out" },
+              t + 0.05
+            );
+          }
+        }
+
+        arrive(n24, 0.7, []);
+        arrive(n2h, 1.65, [n24]);
+
+        // Bottom chips summarize the two windows
+        tl.fromTo(
+          "#sn-row",
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" },
+          2.6
+        );
+        tl.fromTo(
+          "#sn-chip-a",
+          { scale: 0.92 },
+          { scale: 1.06, duration: 0.16, yoyo: true, repeat: 1, ease: "sine.inOut" },
+          3.0
+        );
+        tl.fromTo(
+          "#sn-chip-b",
+          { scale: 0.92 },
+          { scale: 1.06, duration: 0.16, yoyo: true, repeat: 1, ease: "sine.inOut" },
+          3.5
+        );
+
+        // Gentle hold breath on the stack
+        tl.to(
+          [n24, n2h],
+          { y: "+=6", duration: 0.55, yoyo: true, repeat: 1, ease: "sine.inOut" },
+          3.9
+        );
+
+        tl.seek(0);
+        window.__timelines["s-notis"] = tl;
+      })();
+    </script>
+  </body>
+</html>

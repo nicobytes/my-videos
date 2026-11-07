@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <style>
+      @font-face { font-family: "Inter"; src: url("fonts/Inter-400-latin.woff2") format("woff2"); font-weight: 400; font-display: block; }
+      @font-face { font-family: "Inter"; src: url("fonts/Inter-700-latin.woff2") format("woff2"); font-weight: 700; font-display: block; }
+      @font-face { font-family: "Caveat"; src: url("fonts/Caveat-700-latin.woff2") format("woff2"); font-weight: 700; font-display: block; }
+
+      :root {
+        --paper: #faf7f0; --ink: #161616; --muted: #5b5f66; --line: #e4ddcd;
+        --blue: #3b6fe0; --red: #e5484d; --amber: #f5a524; --green: #2f9e5a; --code: #15171c;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0d0d0f;
+        font-family: "Inter", ui-sans-serif, system-ui, sans-serif; }
+      #stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #0d0d0f; }
+
+      /* Reels safe zones: content y 250–1150 · captions y 1190–1360 · x 80–1000 */
+
+      /* ── talking head ── */
+      #video-wrap { position: absolute; inset: 0; overflow: hidden; transform-origin: 50% 40%; z-index: 1; }
+      #bg-video { width: 1080px; height: 1920px; object-fit: cover; display: block; }
+
+      /* ── chips over the video ── */
+      .chip { position: absolute; left: 80px; top: 270px; width: 920px; z-index: 3; opacity: 0; visibility: hidden;
+              background: var(--paper); border-radius: 30px; padding: 30px 40px 34px; box-shadow: 0 24px 60px rgba(0,0,0,.3); }
+      .chip .k { font-size: 24px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--red); }
+      .chip .t { font-size: 64px; font-weight: 700; line-height: 1.08; letter-spacing: -1.5px; color: var(--ink); margin-top: 12px; }
+      .chip .s { font-size: 36px; color: var(--muted); margin-top: 12px; }
+      .pill { display: inline-block; font-size: 30px; font-weight: 700; color: #fff; padding: 10px 22px; border-radius: 999px; }
+      .flow { display: flex; align-items: center; gap: 22px; margin-top: 24px; font-size: 42px; font-weight: 700; color: var(--ink); }
+      .flow .arr { font-size: 56px; color: var(--muted); }
+
+      /* ── full cards: one wipe panel, content choreographed inside ── */
+      .card { position: absolute; inset: 0; z-index: 2; background: var(--paper); opacity: 0; visibility: hidden;
+              clip-path: inset(100% 0 0 0); }
+      .card.dark { background: var(--code); color: #eef0f3; }
+      .lbl { position: absolute; left: 80px; top: 262px; font-size: 26px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--blue); }
+      .dark .lbl { color: #8ab4f8; }
+      .ttl { position: absolute; left: 80px; top: 310px; width: 920px; font-size: 96px; font-weight: 700; line-height: 1.04; letter-spacing: -2.5px; color: var(--ink); }
+      .dark .ttl { color: #fff; }
+      .ln { display: block; overflow: hidden; }
+      .ln > span { display: inline-block; }
+      .muted { color: var(--muted); }
+      .dark .muted { color: #9aa0a8; }
+
+      .shot { position: absolute; left: 80px; top: 480px; width: 920px; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.2); }
+      .shot img { display: block; width: 920px; }
+      .big { position: absolute; left: 80px; top: 520px; font-size: 230px; font-weight: 700; letter-spacing: -8px; line-height: 1; color: var(--red); }
+      .sub { position: absolute; left: 80px; width: 920px; font-size: 42px; color: var(--muted); }
+
+      .node { position: absolute; left: 80px; width: 920px; height: 118px; border-radius: 26px; background: #fff; border: 3px solid var(--line);
+              display: flex; align-items: center; padding: 0 36px; font-size: 44px; font-weight: 700; color: var(--ink); }
+      .node.dk { background: var(--ink); color: #fff; border-color: var(--ink); }
+      .node .tag { margin-left: auto; font-size: 30px; color: #fff; padding: 8px 18px; border-radius: 999px; }
+      .model { position: absolute; top: 760px; width: 440px; height: 170px; border-radius: 26px; background: #fff; border: 3px solid var(--line); padding: 26px 30px; }
+      .model b { display: block; font-size: 42px; color: var(--ink); }
+      .model span { display: block; font-size: 28px; color: var(--muted); margin-top: 8px; }
+      .model .bar { position: absolute; left: 30px; right: 30px; bottom: 22px; height: 14px; border-radius: 7px; background: var(--line); overflow: hidden; }
+      .model .bar i { display: block; height: 14px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); }
+      .hand { position: absolute; font-family: "Caveat", "Inter", cursive; font-size: 60px; font-weight: 700; color: var(--red); }
+
+      .doc { position: absolute; left: 80px; top: 740px; width: 920px; padding: 34px 40px; border-radius: 24px; background: #fff; border: 3px solid var(--line); }
+      .doc .p { font-family: "Consolas", ui-monospace, monospace; font-size: 26px; color: var(--muted); }
+      .doc .q { font-size: 38px; line-height: 1.4; color: var(--ink); margin-top: 14px; }
+      .exp { position: absolute; left: 80px; top: 470px; font-size: 40px; font-weight: 700; letter-spacing: 5px; color: #8a5a00; background: #fff3d0;
+             border: 4px solid var(--amber); border-radius: 14px; padding: 8px 22px; }
+      .big-mono { position: absolute; left: 80px; top: 580px; font-family: "Consolas", ui-monospace, monospace; font-size: 96px; font-weight: 700; color: var(--blue); }
+
+      .code { position: absolute; left: 80px; top: 470px; width: 920px; padding: 36px 42px; border-radius: 26px; background: var(--code);
+              font-family: "Consolas", ui-monospace, monospace; font-size: 37px; line-height: 1.62; color: #e6e8ec; white-space: pre; }
+      .code .l { display: block; }
+      .kw { color: #8ab4f8; } .st { color: #81c995; } .fn { color: #fdd663; }
+      .resp { position: absolute; left: 80px; top: 1000px; width: 920px; height: 112px; border-radius: 24px; background: #e4f3ea; border: 3px solid var(--green);
+              display: flex; align-items: center; padding: 0 34px; font-size: 40px; font-weight: 700; color: #1a6b3a; }
+
+      .opt { position: absolute; left: 80px; width: 920px; height: 210px; border-radius: 28px; background: #fff; border: 3px solid var(--line); padding: 34px 40px; }
+      .opt .pill { font-size: 30px; }
+      .opt .t2 { font-size: 46px; font-weight: 700; color: var(--ink); margin-top: 22px; }
+      .opt .t2 span { font-weight: 400; color: var(--muted); }
+
+      /* ── captions: Reels safe zone, always on top, never over card content ── */
+      #cap-box { position: absolute; left: 80px; top: 1190px; width: 920px; height: 170px; z-index: 5;
+                 display: flex; align-items: center; justify-content: center; pointer-events: none; }
+      #cap { font-size: 50px; font-weight: 700; line-height: 1.36; color: #fff; text-align: center; opacity: 0;
+             background: rgba(14,14,16,.84); padding: 10px 26px; border-radius: 18px; max-width: 920px; }
+    </style>
+  </head>
+  <body>
+    <div id="stage" data-composition-id="fallback-model-recut" data-start="0" data-duration="90.18" data-fps="30" data-width="1080" data-height="1920">
+
+      <div id="video-wrap" class="clip" data-start="0" data-duration="90.18" data-track-index="1">
+        <video id="bg-video" src="input-video.mp4" playsinline data-has-audio="true" data-start="0" data-duration="90.18" data-track-index="1"></video>
+      </div>
+
+      <!-- ═══ chips over the talking head ═══ -->
+      <div id="c0" class="chip clip" data-start="0" data-duration="5" data-track-index="3">
+        <div class="k">En producción</div>
+        <div class="t ln"><span>Google se está cayendo</span></div>
+      </div>
+      <div id="c1" class="chip clip" data-start="12.5" data-duration="7.1" data-track-index="3">
+        <div class="k">Resultado</div>
+        <div class="t ln"><span>Mis agentes se quedan mudos</span></div>
+        <div class="s">nadie responde</div>
+      </div>
+      <div id="c2" class="chip clip" data-start="24" data-duration="6.2" data-track-index="3">
+        <div class="k">La idea</div>
+        <div class="flow"><span class="pill" style="background: var(--blue)">Primario</span><span class="arr">→</span><span class="pill" style="background: var(--green)">Respaldo</span></div>
+        <div class="s">un modelo más bajito que no esté saturado</div>
+      </div>
+      <div id="c3" class="chip clip" data-start="32.2" data-duration="3.6" data-track-index="3">
+        <div class="t ln"><span>¿Cómo lo solucioné?</span></div>
+        <div class="s">un fallback del modelo</div>
+      </div>
+      <div id="c4" class="chip clip" data-start="51.9" data-duration="5.2" data-track-index="3">
+        <div class="flow" style="margin-top: 0"><span class="pill" style="background: var(--green)">LangChain</span><span class="s" style="margin: 0">trae esto nativo en el SDK</span></div>
+      </div>
+      <div id="c5" class="chip clip" data-start="78" data-duration="4" data-track-index="3">
+        <div class="t ln"><span>El agente no se queda mudo</span></div>
+        <div class="s">tarda un poco más, pero responde</div>
+      </div>
+
+      <!-- ═══ full cards (video hidden behind) ═══ -->
+      <section id="k1" class="card clip" data-start="5" data-duration="7.5" data-track-index="2">
+        <div class="lbl">El error que veo</div>
+        <div class="big">503</div>
+        <div class="ttl" style="top: 600px; font-size: 72px; color: var(--red); letter-spacing: -1px">UNAVAILABLE</div>
+        <div class="shot" style="top: 730px"><img src="503_error.jpeg" alt="Error 503 en la UI de ADK" /></div>
+        <div class="sub" style="top: 1040px">alta demanda · no responde directamente</div>
+      </section>
+
+      <section id="k2" class="card dark clip" data-start="19.7" data-duration="4.3" data-track-index="2">
+        <div class="lbl">La solución</div>
+        <div class="ttl" style="color: #fff">FallbackModel</div>
+        <img src="hero.png" alt="" style="position: absolute; left: 80px; top: 520px; width: 920px; border-radius: 24px" />
+        <div class="sub" style="top: 1040px; color: #9aa0a8">un plan B, no un reintento</div>
+      </section>
+
+      <section id="k3" class="card clip" data-start="36.1" data-duration="11.4" data-track-index="2">
+        <div class="lbl">Opción 1 · proveedor</div>
+        <div class="ttl">OpenRouter</div>
+        <div class="node" style="top: 470px">Tu agente</div>
+        <div class="node dk" style="top: 614px">OpenRouter<span class="tag" style="background: var(--blue)">enruta</span></div>
+        <div class="model" style="left: 80px">
+          <b>Modelo A</b><span>el que elegiste</span>
+          <i class="hand" style="position: absolute; right: 24px; top: 14px; font-size: 52px">503</i>
+          <div class="bar"><i style="background: var(--red)"></i></div>
+        </div>
+        <div class="model" style="left: 560px">
+          <b>Modelo B</b><span>otra compañía · más bajo</span>
+          <div class="bar"><i style="background: var(--amber)"></i></div>
+        </div>
+        <div class="hand" style="left: 580px; top: 968px">…y B también se satura</div>
+      </section>
+
+      <section id="k4" class="card clip" data-start="57" data-duration="9.1" data-track-index="2">
+        <div class="lbl">Opción 2 · nativo</div>
+        <div class="ttl">Google ADK</div>
+        <div class="exp">EXPERIMENTAL</div>
+        <div class="big-mono">FallbackModel</div>
+        <div class="doc">
+          <div class="p">adk-python · docs/guides/models/fallback_model</div>
+          <div class="q">“FallbackModel wraps an ordered list of models and moves to the next one when a call fails.”</div>
+        </div>
+        <div class="sub" style="top: 1000px; color: var(--green); font-weight: 700">Lo leí y lo implementé</div>
+      </section>
+
+      <section id="k5" class="card dark clip" data-start="66" data-duration="12" data-track-index="2">
+        <div class="lbl">Cómo funciona</div>
+        <div class="ttl" style="font-size: 84px">Modelo de respaldo</div>
+        <div class="code">
+          <span class="l"><span class="kw">from</span> google.adk.models <span class="kw">import</span> <span class="fn">FallbackModel</span></span>
+          <span class="l"> </span>
+          <span class="l">agent = <span class="fn">LlmAgent</span>(</span>
+          <span class="l">    model=<span class="fn">FallbackModel</span>(models=[</span>
+          <span class="l">        <span class="st">'gemini-3.1-pro-preview'</span>,</span>
+          <span class="l">        <span class="st">'gemini-3.5-flash'</span>,</span>
+          <span class="l">    ]),</span>
+          <span class="l">)</span>
+        </div>
+        <div class="resp">✓ Responde gemini-3.5-flash</div>
+      </section>
+
+      <section id="k6" class="card clip" data-start="82" data-duration="8.16" data-track-index="2">
+        <div class="lbl">Conclusión</div>
+        <div class="ttl" style="font-size: 110px">Usa un fallback</div>
+        <div class="opt" style="top: 560px"><span class="pill" style="background: var(--green)">Nativo</span><div class="t2">Google ADK, LangChain <span>· en tu framework</span></div></div>
+        <div class="opt" style="top: 820px"><span class="pill" style="background: var(--blue)">Proveedor</span><div class="t2">OpenRouter <span>· otro proveedor</span></div></div>
+      </section>
+
+      <!-- ═══ captions: Reels safe zone ═══ -->
+      <div id="cap-box" class="clip" data-start="0" data-duration="90.18" data-track-index="4">
+        <div id="cap"></div>
+      </div>
+
+      <script src="vendor/gsap.min.js"></script>
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          var EASE_OUT = "expo.out", EASE_IN = "power3.in";
+          var CAPS = /*CAPTIONS*/;
+
+          // ── chips: line mask reveal, then exit by sliding up ──
+          function chip(id, s, e) {
+            var el = "#" + id;
+            tl.set(el, { visibility: "visible" }, s);
+            tl.fromTo(el, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.55, ease: EASE_OUT }, s);
+            tl.fromTo(el + " .ln > span", { yPercent: 110 }, { yPercent: 0, duration: 0.6, ease: EASE_OUT, stagger: 0.05 }, s + 0.08);
+            tl.fromTo(el + " .s, " + el + " .flow", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, s + 0.3);
+            tl.to(el, { opacity: 0, y: -60, duration: 0.4, ease: EASE_IN }, e - 0.4);
+            tl.set(el, { visibility: "hidden" }, e);
+          }
+          chip("c0", 0, 5);
+          chip("c1", 12.5, 19.6);
+          chip("c2", 24, 30.2);
+          chip("c3", 32.2, 35.8);
+          chip("c4", 51.9, 57.1);
+          chip("c5", 78, 82);
+
+          // ── full cards: wipe UP in (entry from below), wipe UP out (exit) ──
+          // Vector law: exit and entry share the same upward axis, so the cut reads as one motion.
+          function card(id, s, e, lines) {
+            var el = "#" + id;
+            tl.set(el, { visibility: "visible", opacity: 1 }, s);
+            tl.fromTo(el, { clipPath: "inset(100% 0 0 0)" }, { clipPath: "inset(0% 0 0 0)", duration: 0.7, ease: "power4.inOut" }, s);
+            tl.fromTo("#video-wrap", { scale: 1, opacity: 1 }, { scale: 1.06, opacity: 0, duration: 0.5, ease: "power3.inOut" }, s);
+            // staggered content: every child rises from its own mask
+            tl.fromTo(el + " .lbl, " + el + " .ttl, " + el + " .big, " + el + " .big-mono, " + el + " .exp, " + el + " .sub, " + el + " .node, " + el + " .model, " + el + " .opt, " + el + " .doc, " + el + " .shot, " + el + " .code, " + el + " .resp, " + el + " img, " + el + " .hand",
+              { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 0.6, ease: EASE_OUT, stagger: 0.09 }, s + 0.25);
+            tl.to(el, { clipPath: "inset(0% 0 100% 0)", duration: 0.6, ease: "power4.in" }, e - 0.6);
+            tl.to("#video-wrap", { scale: 1, opacity: 1, duration: 0.5, ease: "power3.out" }, e - 0.2);
+            tl.set(el, { visibility: "hidden", opacity: 0 }, e);
+          }
+          card("k1", 5, 12.5);
+          card("k2", 19.7, 24);
+          card("k3", 36.1, 47.5);
+          card("k4", 57, 66.1);
+          card("k5", 66, 78);
+          card("k6", 82, 90.16);
+
+          // Bar fills (model load) and code lines: beat-timed, not idle
+          tl.fromTo("#k3 .model .bar i", { scaleX: 0 }, { scaleX: 1, duration: 1.4, ease: "power2.out", stagger: 0.25 }, 42.5);
+          tl.fromTo("#k5 .code .l", { opacity: 0 }, { opacity: 1, duration: 0.25, stagger: 0.18, ease: "none" }, 69);
+          tl.fromTo("#k5 .resp", { scale: 0.96, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.4)" }, 74.5);
+
+          // ── captions: phrase-level, timed from captions.srt ──
+          var cap = document.getElementById("cap");
+          CAPS.forEach(function (c) {
+            tl.set("#cap", { innerHTML: c.text }, c.s);
+            tl.fromTo("#cap", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, c.s);
+            tl.to("#cap", { opacity: 0, duration: 0.12, ease: "power1.in" }, c.e - 0.12);
+          });
+
+          window.__timelines = window.__timelines || {};
+          window.__timelines["fallback-model-recut"] = tl;
+        })();
+      </script>
+    </div>
+  </body>
+</html>

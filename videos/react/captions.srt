@@ -1,0 +1,208 @@
+1
+00:00:00,080 --> 00:00:01,840
+Te voy a enseñar los patrones más sencillos
+
+2
+00:00:01,840 --> 00:00:04,080
+pero poderosos de los agentes y este se
+
+3
+00:00:04,080 --> 00:00:07,040
+llama React y no es de React y es de
+
+4
+00:00:07,040 --> 00:00:08,120
+Reasoning and Active.
+
+5
+00:00:08,120 --> 00:00:09,880
+Lo que hace poderoso a este patrón es que
+
+6
+00:00:09,880 --> 00:00:11,120
+básicamente es un loop y ya se ha
+
+7
+00:00:11,120 --> 00:00:12,800
+demostrado que los son muy buenos para los
+
+8
+00:00:12,800 --> 00:00:14,640
+agentes porque básicamente tú le das un
+
+9
+00:00:14,640 --> 00:00:16,560
+objetivo y él se queda en ese loop hasta
+
+10
+00:00:16,560 --> 00:00:18,760
+que lo logre, hasta que resuelva esa tarea.
+
+11
+00:00:18,920 --> 00:00:20,640
+Pero literalmente tienen que tener unas
+
+12
+00:00:20,640 --> 00:00:23,120
+tools para poder salir al mundo exterior y
+
+13
+00:00:23,120 --> 00:00:25,360
+por ejemplo hacer conectarse con archivos,
+
+14
+00:00:25,360 --> 00:00:26,160
+bases de datos
+
+15
+00:00:26,400 --> 00:00:28,600
+a tu calendar, se necesita agendar una
+
+16
+00:00:28,600 --> 00:00:30,000
+cita, etcétera, como que le das unas
+
+17
+00:00:30,000 --> 00:00:32,320
+herramientas y él con esas herramientas
+
+18
+00:00:32,320 --> 00:00:33,000
+resuelve.
+
+19
+00:00:33,120 --> 00:00:35,640
+Ese nombre React literalmente es Reasoning.
+
+20
+00:00:35,640 --> 00:00:37,920
+Él empieza a razonar las herramientas que
+
+21
+00:00:37,920 --> 00:00:39,280
+tiene y el goal que tiene,
+
+22
+00:00:39,520 --> 00:00:41,280
+y luego actúa con esas herramientas.
+
+23
+00:00:41,280 --> 00:00:43,160
+Antes digamos que tú le propones un
+
+24
+00:00:43,160 --> 00:00:45,520
+objetivo a ese agente que es escribir un
+
+25
+00:00:45,520 --> 00:00:46,640
+correo o lo que sea,
+
+26
+00:00:46,880 --> 00:00:48,120
+él se queda en ese loop.
+
+27
+00:00:48,120 --> 00:00:49,600
+Obviamente con restricciones, hay
+
+28
+00:00:49,600 --> 00:00:51,840
+restricciones ya fijas, por ejemplo, no se
+
+29
+00:00:51,840 --> 00:00:54,160
+puede quedar infinito porque consume muchos
+
+30
+00:00:54,160 --> 00:00:54,600
+tokens.
+
+31
+00:00:54,600 --> 00:00:56,720
+Entonces tú le puedes dar como un límite
+
+32
+00:00:56,880 --> 00:01:00,200
+de, no sé, puede entrar y iterar unas 100
+
+33
+00:01:00,200 --> 00:01:02,280
+veces, unas 50 veces máximo, unas 10 veces
+
+34
+00:01:02,280 --> 00:01:02,920
+máximo.
+
+35
+00:01:03,040 --> 00:01:04,560
+si no se puede quedar infinito.
+
+36
+00:01:04,560 --> 00:01:06,480
+Sin embargo, la gente también decide cuándo
+
+37
+00:01:06,480 --> 00:01:07,720
+debe salir de este ciclo.
+
+38
+00:01:07,720 --> 00:01:09,600
+Puede ser porque ya terminó la tarea o
+
+39
+00:01:09,600 --> 00:01:11,680
+porque necesita más información de ti para
+
+40
+00:01:11,680 --> 00:01:13,440
+resolverla, porque puede que le hayas dado
+
+41
+00:01:13,440 --> 00:01:15,200
+una tarea muy ambigua.
+
+42
+00:01:15,360 --> 00:01:17,120
+Por ejemplo, agéndame una cita,
+
+43
+00:01:17,680 --> 00:01:19,640
+¿ok? Tiene acceso a tu calendario, tiene el
+
+44
+00:01:19,640 --> 00:01:21,440
+goal, pero no se sabe de qué, ni a qué
+
+45
+00:01:21,440 --> 00:01:23,560
+horas, ni por ejemplo para cuál
+
+46
+00:01:23,560 --> 00:01:24,960
+particularidad, etcétera.
+
+47
+00:01:24,960 --> 00:01:27,600
+Como que a veces puedes salir a ti,
+
+48
+00:01:27,600 --> 00:01:29,520
+digamos, para Para que por ejemplo le des
+
+49
+00:01:29,520 --> 00:01:31,800
+más especificaciones y luego volver y luego
+
+50
+00:01:31,800 --> 00:01:33,320
+se queda otra vez en ese loop hasta que
+
+51
+00:01:33,320 --> 00:01:34,480
+resuelva la tarea.
+
+52
+00:01:34,480 --> 00:01:36,480
+Y este es el patrón React en los agentes.
+

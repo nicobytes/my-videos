@@ -1,0 +1,2346 @@
+{
+  "text": "Te voy a mostrar cómo operamos la agenda de un negocio automatizada con AI en un agente que corre WhatsApp. Vamos a ver, para esta empresa se diseñó un agente que tiene una estructura, por ejemplo, primero se pide la locación, luego como que el nombre, luego el servicio, etc. Tiene una forma estructurada para poder hacer el agendamiento. Sin embargo, cualquier persona puede escribir y empezar a romper el flujo o brindar información, pero el agent siempre trata de incentivar hacia la reserva de una cita. ¿Qué servicio? Digamos de yo quiero limpieza facial, que ya me respondió y me dice que en la CD que elegí, hay ese servicio que no hay problema, que si quiero la cita de valoración, obviamente puedo hacer más preguntas como algo como debo ir. Aquí ya me respondió y me da información acerca del detalle del servicio. Nosotros con este agente mapeamos todos los servicios de esta empresa y ofrece toda la información respecto a él. Ahora vamos a agendar. Fíjate que acá le voy a hacer muy puntual y le voy a decir mira si quiero una cita para el lunes en la mañana tienes espacio. Entonces él automáticamente va a buscar en toda la agenda si el lunes en la mañana y él sabe el siguiente lunes cuál es el contexto, o sea, qué día es hoy para luego saber calcular qué día es a qué día se está refiriendo el cliente y calcular los celulares necesarios y a ver qué me ofrece. Aquí me responde, me dice: Oye, si tengo cita para el día 28, que sería el lunes al cual hago referencia. Me da una selección porque hay muchas horas disponibles, entonces pues yo puedo seleccionar rápidamente, le digo 10 de la mañana y vamos a ver qué pasa y listo. Ya tengo mi espacio separado, nuestro agent ya te envía que zona, el nombre, las indicaciones y la ubicación para que asistas a tu cita. Nuestro agente ya también cuenta con todo el flujo de lo que es cancelación, regeneramiento y envía notificaciones a los clientes 24 horas antes o 2 horas antes de su cita para que recuerden que pues el servicio los espera. Si estás interesado en montar este tipo de agentes para tu negocio, escríbeme en los comments y te envío toda la información.",
+  "language_code": "es",
+  "words": [
+    {
+      "text": "Te",
+      "start": 0.04,
+      "end": 0.218,
+      "type": "word"
+    },
+    {
+      "text": "voy",
+      "start": 0.218,
+      "end": 0.396,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 0.396,
+      "end": 0.573,
+      "type": "word"
+    },
+    {
+      "text": "mostrar",
+      "start": 0.573,
+      "end": 0.751,
+      "type": "word"
+    },
+    {
+      "text": "cómo",
+      "start": 0.751,
+      "end": 0.929,
+      "type": "word"
+    },
+    {
+      "text": "operamos",
+      "start": 0.929,
+      "end": 1.107,
+      "type": "word"
+    },
+    {
+      "text": "la",
+      "start": 1.107,
+      "end": 1.284,
+      "type": "word"
+    },
+    {
+      "text": "agenda",
+      "start": 1.284,
+      "end": 1.462,
+      "type": "word"
+    },
+    {
+      "text": "de",
+      "start": 1.462,
+      "end": 1.64,
+      "type": "word"
+    },
+    {
+      "text": "un",
+      "start": 1.64,
+      "end": 1.955,
+      "type": "word"
+    },
+    {
+      "text": "negocio",
+      "start": 1.955,
+      "end": 2.27,
+      "type": "word"
+    },
+    {
+      "text": "automatizada",
+      "start": 2.27,
+      "end": 2.585,
+      "type": "word"
+    },
+    {
+      "text": "con",
+      "start": 2.585,
+      "end": 2.9,
+      "type": "word"
+    },
+    {
+      "text": "AI",
+      "start": 2.9,
+      "end": 3.215,
+      "type": "word"
+    },
+    {
+      "text": "en",
+      "start": 3.215,
+      "end": 3.53,
+      "type": "word"
+    },
+    {
+      "text": "un",
+      "start": 3.53,
+      "end": 3.845,
+      "type": "word"
+    },
+    {
+      "text": "agente",
+      "start": 3.845,
+      "end": 4.16,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 4.16,
+      "end": 4.427,
+      "type": "word"
+    },
+    {
+      "text": "corre",
+      "start": 4.427,
+      "end": 4.693,
+      "type": "word"
+    },
+    {
+      "text": "WhatsApp.",
+      "start": 4.693,
+      "end": 4.96,
+      "type": "word"
+    },
+    {
+      "text": "Vamos",
+      "start": 4.96,
+      "end": 5.173,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 5.173,
+      "end": 5.387,
+      "type": "word"
+    },
+    {
+      "text": "ver,",
+      "start": 5.387,
+      "end": 5.6,
+      "type": "word"
+    },
+    {
+      "text": "para",
+      "start": 5.6,
+      "end": 5.813,
+      "type": "word"
+    },
+    {
+      "text": "esta",
+      "start": 5.813,
+      "end": 6.027,
+      "type": "word"
+    },
+    {
+      "text": "empresa",
+      "start": 6.027,
+      "end": 6.24,
+      "type": "word"
+    },
+    {
+      "text": "se",
+      "start": 6.24,
+      "end": 6.453,
+      "type": "word"
+    },
+    {
+      "text": "diseñó",
+      "start": 6.453,
+      "end": 6.667,
+      "type": "word"
+    },
+    {
+      "text": "un",
+      "start": 6.667,
+      "end": 6.88,
+      "type": "word"
+    },
+    {
+      "text": "agente",
+      "start": 6.88,
+      "end": 7.12,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 7.12,
+      "end": 7.36,
+      "type": "word"
+    },
+    {
+      "text": "tiene",
+      "start": 7.36,
+      "end": 7.6,
+      "type": "word"
+    },
+    {
+      "text": "una",
+      "start": 7.6,
+      "end": 7.84,
+      "type": "word"
+    },
+    {
+      "text": "estructura,",
+      "start": 7.84,
+      "end": 8.08,
+      "type": "word"
+    },
+    {
+      "text": "por",
+      "start": 8.08,
+      "end": 8.32,
+      "type": "word"
+    },
+    {
+      "text": "ejemplo,",
+      "start": 8.32,
+      "end": 8.686,
+      "type": "word"
+    },
+    {
+      "text": "primero",
+      "start": 8.686,
+      "end": 9.051,
+      "type": "word"
+    },
+    {
+      "text": "se",
+      "start": 9.051,
+      "end": 9.417,
+      "type": "word"
+    },
+    {
+      "text": "pide",
+      "start": 9.417,
+      "end": 9.783,
+      "type": "word"
+    },
+    {
+      "text": "la",
+      "start": 9.783,
+      "end": 10.149,
+      "type": "word"
+    },
+    {
+      "text": "locación,",
+      "start": 10.149,
+      "end": 10.514,
+      "type": "word"
+    },
+    {
+      "text": "luego",
+      "start": 10.514,
+      "end": 10.88,
+      "type": "word"
+    },
+    {
+      "text": "como",
+      "start": 10.88,
+      "end": 11.175,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 11.175,
+      "end": 11.47,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 11.47,
+      "end": 11.765,
+      "type": "word"
+    },
+    {
+      "text": "nombre,",
+      "start": 11.765,
+      "end": 12.06,
+      "type": "word"
+    },
+    {
+      "text": "luego",
+      "start": 12.06,
+      "end": 12.355,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 12.355,
+      "end": 12.65,
+      "type": "word"
+    },
+    {
+      "text": "servicio,",
+      "start": 12.65,
+      "end": 12.945,
+      "type": "word"
+    },
+    {
+      "text": "etc.",
+      "start": 12.945,
+      "end": 13.24,
+      "type": "word"
+    },
+    {
+      "text": "Tiene",
+      "start": 13.24,
+      "end": 13.5,
+      "type": "word"
+    },
+    {
+      "text": "una",
+      "start": 13.5,
+      "end": 13.76,
+      "type": "word"
+    },
+    {
+      "text": "forma",
+      "start": 14,
+      "end": 14.313,
+      "type": "word"
+    },
+    {
+      "text": "estructurada",
+      "start": 14.313,
+      "end": 14.627,
+      "type": "word"
+    },
+    {
+      "text": "para",
+      "start": 14.627,
+      "end": 14.94,
+      "type": "word"
+    },
+    {
+      "text": "poder",
+      "start": 14.94,
+      "end": 15.253,
+      "type": "word"
+    },
+    {
+      "text": "hacer",
+      "start": 15.253,
+      "end": 15.567,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 15.567,
+      "end": 15.88,
+      "type": "word"
+    },
+    {
+      "text": "agendamiento.",
+      "start": 15.88,
+      "end": 16.72,
+      "type": "word"
+    },
+    {
+      "text": "Sin",
+      "start": 16.72,
+      "end": 17.064,
+      "type": "word"
+    },
+    {
+      "text": "embargo,",
+      "start": 17.064,
+      "end": 17.408,
+      "type": "word"
+    },
+    {
+      "text": "cualquier",
+      "start": 17.408,
+      "end": 17.752,
+      "type": "word"
+    },
+    {
+      "text": "persona",
+      "start": 17.752,
+      "end": 18.096,
+      "type": "word"
+    },
+    {
+      "text": "puede",
+      "start": 18.096,
+      "end": 18.44,
+      "type": "word"
+    },
+    {
+      "text": "escribir",
+      "start": 18.44,
+      "end": 18.715,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 18.715,
+      "end": 18.99,
+      "type": "word"
+    },
+    {
+      "text": "empezar",
+      "start": 18.99,
+      "end": 19.265,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 19.265,
+      "end": 19.54,
+      "type": "word"
+    },
+    {
+      "text": "romper",
+      "start": 19.54,
+      "end": 19.815,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 19.815,
+      "end": 20.09,
+      "type": "word"
+    },
+    {
+      "text": "flujo",
+      "start": 20.09,
+      "end": 20.365,
+      "type": "word"
+    },
+    {
+      "text": "o",
+      "start": 20.365,
+      "end": 20.64,
+      "type": "word"
+    },
+    {
+      "text": "brindar",
+      "start": 20.64,
+      "end": 20.973,
+      "type": "word"
+    },
+    {
+      "text": "información,",
+      "start": 20.973,
+      "end": 21.307,
+      "type": "word"
+    },
+    {
+      "text": "pero",
+      "start": 21.307,
+      "end": 21.64,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 21.64,
+      "end": 21.973,
+      "type": "word"
+    },
+    {
+      "text": "agent",
+      "start": 21.973,
+      "end": 22.307,
+      "type": "word"
+    },
+    {
+      "text": "siempre",
+      "start": 22.307,
+      "end": 22.64,
+      "type": "word"
+    },
+    {
+      "text": "trata",
+      "start": 22.64,
+      "end": 23.062,
+      "type": "word"
+    },
+    {
+      "text": "de",
+      "start": 23.062,
+      "end": 23.484,
+      "type": "word"
+    },
+    {
+      "text": "incentivar",
+      "start": 23.484,
+      "end": 23.907,
+      "type": "word"
+    },
+    {
+      "text": "hacia",
+      "start": 23.907,
+      "end": 24.329,
+      "type": "word"
+    },
+    {
+      "text": "la",
+      "start": 24.329,
+      "end": 24.751,
+      "type": "word"
+    },
+    {
+      "text": "reserva",
+      "start": 24.751,
+      "end": 25.173,
+      "type": "word"
+    },
+    {
+      "text": "de",
+      "start": 25.173,
+      "end": 25.596,
+      "type": "word"
+    },
+    {
+      "text": "una",
+      "start": 25.596,
+      "end": 26.018,
+      "type": "word"
+    },
+    {
+      "text": "cita.",
+      "start": 26.018,
+      "end": 26.44,
+      "type": "word"
+    },
+    {
+      "text": "¿Qué",
+      "start": 26.96,
+      "end": 27.373,
+      "type": "word"
+    },
+    {
+      "text": "servicio?",
+      "start": 27.373,
+      "end": 27.787,
+      "type": "word"
+    },
+    {
+      "text": "Digamos",
+      "start": 27.787,
+      "end": 28.2,
+      "type": "word"
+    },
+    {
+      "text": "de",
+      "start": 28.2,
+      "end": 28.613,
+      "type": "word"
+    },
+    {
+      "text": "yo",
+      "start": 28.613,
+      "end": 29.027,
+      "type": "word"
+    },
+    {
+      "text": "quiero",
+      "start": 29.027,
+      "end": 29.44,
+      "type": "word"
+    },
+    {
+      "text": "limpieza",
+      "start": 29.52,
+      "end": 30.2,
+      "type": "word"
+    },
+    {
+      "text": "facial,",
+      "start": 30.2,
+      "end": 30.88,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 31.12,
+      "end": 31.269,
+      "type": "word"
+    },
+    {
+      "text": "ya",
+      "start": 31.269,
+      "end": 31.418,
+      "type": "word"
+    },
+    {
+      "text": "me",
+      "start": 31.418,
+      "end": 31.567,
+      "type": "word"
+    },
+    {
+      "text": "respondió",
+      "start": 31.567,
+      "end": 31.716,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 31.716,
+      "end": 31.865,
+      "type": "word"
+    },
+    {
+      "text": "me",
+      "start": 31.865,
+      "end": 32.015,
+      "type": "word"
+    },
+    {
+      "text": "dice",
+      "start": 32.015,
+      "end": 32.164,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 32.164,
+      "end": 32.313,
+      "type": "word"
+    },
+    {
+      "text": "en",
+      "start": 32.313,
+      "end": 32.462,
+      "type": "word"
+    },
+    {
+      "text": "la",
+      "start": 32.462,
+      "end": 32.611,
+      "type": "word"
+    },
+    {
+      "text": "CD",
+      "start": 32.611,
+      "end": 32.76,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 32.76,
+      "end": 32.94,
+      "type": "word"
+    },
+    {
+      "text": "elegí,",
+      "start": 32.94,
+      "end": 33.12,
+      "type": "word"
+    },
+    {
+      "text": "hay",
+      "start": 33.12,
+      "end": 33.3,
+      "type": "word"
+    },
+    {
+      "text": "ese",
+      "start": 33.3,
+      "end": 33.48,
+      "type": "word"
+    },
+    {
+      "text": "servicio",
+      "start": 33.48,
+      "end": 33.66,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 33.66,
+      "end": 33.84,
+      "type": "word"
+    },
+    {
+      "text": "no",
+      "start": 33.84,
+      "end": 34.02,
+      "type": "word"
+    },
+    {
+      "text": "hay",
+      "start": 34.02,
+      "end": 34.2,
+      "type": "word"
+    },
+    {
+      "text": "problema,",
+      "start": 34.2,
+      "end": 34.371,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 34.371,
+      "end": 34.543,
+      "type": "word"
+    },
+    {
+      "text": "si",
+      "start": 34.543,
+      "end": 34.714,
+      "type": "word"
+    },
+    {
+      "text": "quiero",
+      "start": 34.714,
+      "end": 34.886,
+      "type": "word"
+    },
+    {
+      "text": "la",
+      "start": 34.886,
+      "end": 35.057,
+      "type": "word"
+    },
+    {
+      "text": "cita",
+      "start": 35.057,
+      "end": 35.229,
+      "type": "word"
+    },
+    {
+      "text": "de",
+      "start": 35.229,
+      "end": 35.4,
+      "type": "word"
+    },
+    {
+      "text": "valoración,",
+      "start": 35.4,
+      "end": 35.776,
+      "type": "word"
+    },
+    {
+      "text": "obviamente",
+      "start": 35.776,
+      "end": 36.152,
+      "type": "word"
+    },
+    {
+      "text": "puedo",
+      "start": 36.152,
+      "end": 36.528,
+      "type": "word"
+    },
+    {
+      "text": "hacer",
+      "start": 36.528,
+      "end": 36.904,
+      "type": "word"
+    },
+    {
+      "text": "más",
+      "start": 36.904,
+      "end": 37.28,
+      "type": "word"
+    },
+    {
+      "text": "preguntas",
+      "start": 37.28,
+      "end": 37.8,
+      "type": "word"
+    },
+    {
+      "text": "como",
+      "start": 37.8,
+      "end": 38.32,
+      "type": "word"
+    },
+    {
+      "text": "algo",
+      "start": 38.32,
+      "end": 38.84,
+      "type": "word"
+    },
+    {
+      "text": "como",
+      "start": 38.84,
+      "end": 39.36,
+      "type": "word"
+    },
+    {
+      "text": "debo",
+      "start": 39.36,
+      "end": 39.88,
+      "type": "word"
+    },
+    {
+      "text": "ir.",
+      "start": 39.88,
+      "end": 40.4,
+      "type": "word"
+    },
+    {
+      "text": "Aquí",
+      "start": 40.4,
+      "end": 40.6,
+      "type": "word"
+    },
+    {
+      "text": "ya",
+      "start": 40.6,
+      "end": 40.8,
+      "type": "word"
+    },
+    {
+      "text": "me",
+      "start": 40.8,
+      "end": 41,
+      "type": "word"
+    },
+    {
+      "text": "respondió",
+      "start": 41,
+      "end": 41.2,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 41.2,
+      "end": 41.4,
+      "type": "word"
+    },
+    {
+      "text": "me",
+      "start": 41.4,
+      "end": 41.6,
+      "type": "word"
+    },
+    {
+      "text": "da",
+      "start": 41.6,
+      "end": 41.8,
+      "type": "word"
+    },
+    {
+      "text": "información",
+      "start": 41.8,
+      "end": 42,
+      "type": "word"
+    },
+    {
+      "text": "acerca",
+      "start": 42,
+      "end": 42.304,
+      "type": "word"
+    },
+    {
+      "text": "del",
+      "start": 42.304,
+      "end": 42.608,
+      "type": "word"
+    },
+    {
+      "text": "detalle",
+      "start": 42.608,
+      "end": 42.912,
+      "type": "word"
+    },
+    {
+      "text": "del",
+      "start": 42.912,
+      "end": 43.216,
+      "type": "word"
+    },
+    {
+      "text": "servicio.",
+      "start": 43.216,
+      "end": 43.52,
+      "type": "word"
+    },
+    {
+      "text": "Nosotros",
+      "start": 43.52,
+      "end": 43.817,
+      "type": "word"
+    },
+    {
+      "text": "con",
+      "start": 43.817,
+      "end": 44.114,
+      "type": "word"
+    },
+    {
+      "text": "este",
+      "start": 44.114,
+      "end": 44.411,
+      "type": "word"
+    },
+    {
+      "text": "agente",
+      "start": 44.411,
+      "end": 44.709,
+      "type": "word"
+    },
+    {
+      "text": "mapeamos",
+      "start": 44.709,
+      "end": 45.006,
+      "type": "word"
+    },
+    {
+      "text": "todos",
+      "start": 45.006,
+      "end": 45.303,
+      "type": "word"
+    },
+    {
+      "text": "los",
+      "start": 45.303,
+      "end": 45.6,
+      "type": "word"
+    },
+    {
+      "text": "servicios",
+      "start": 45.6,
+      "end": 45.85,
+      "type": "word"
+    },
+    {
+      "text": "de",
+      "start": 45.85,
+      "end": 46.1,
+      "type": "word"
+    },
+    {
+      "text": "esta",
+      "start": 46.1,
+      "end": 46.35,
+      "type": "word"
+    },
+    {
+      "text": "empresa",
+      "start": 46.35,
+      "end": 46.6,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 46.6,
+      "end": 46.85,
+      "type": "word"
+    },
+    {
+      "text": "ofrece",
+      "start": 46.85,
+      "end": 47.1,
+      "type": "word"
+    },
+    {
+      "text": "toda",
+      "start": 47.1,
+      "end": 47.35,
+      "type": "word"
+    },
+    {
+      "text": "la",
+      "start": 47.35,
+      "end": 47.6,
+      "type": "word"
+    },
+    {
+      "text": "información",
+      "start": 47.6,
+      "end": 47.9,
+      "type": "word"
+    },
+    {
+      "text": "respecto",
+      "start": 47.9,
+      "end": 48.2,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 48.2,
+      "end": 48.5,
+      "type": "word"
+    },
+    {
+      "text": "él.",
+      "start": 48.5,
+      "end": 48.8,
+      "type": "word"
+    },
+    {
+      "text": "Ahora",
+      "start": 48.8,
+      "end": 49.07,
+      "type": "word"
+    },
+    {
+      "text": "vamos",
+      "start": 49.07,
+      "end": 49.34,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 49.34,
+      "end": 49.61,
+      "type": "word"
+    },
+    {
+      "text": "agendar.",
+      "start": 49.61,
+      "end": 49.88,
+      "type": "word"
+    },
+    {
+      "text": "Fíjate",
+      "start": 49.88,
+      "end": 50.028,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 50.028,
+      "end": 50.176,
+      "type": "word"
+    },
+    {
+      "text": "acá",
+      "start": 50.176,
+      "end": 50.324,
+      "type": "word"
+    },
+    {
+      "text": "le",
+      "start": 50.324,
+      "end": 50.472,
+      "type": "word"
+    },
+    {
+      "text": "voy",
+      "start": 50.472,
+      "end": 50.62,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 50.62,
+      "end": 50.768,
+      "type": "word"
+    },
+    {
+      "text": "hacer",
+      "start": 50.768,
+      "end": 50.916,
+      "type": "word"
+    },
+    {
+      "text": "muy",
+      "start": 50.916,
+      "end": 51.064,
+      "type": "word"
+    },
+    {
+      "text": "puntual",
+      "start": 51.064,
+      "end": 51.212,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 51.212,
+      "end": 51.36,
+      "type": "word"
+    },
+    {
+      "text": "le",
+      "start": 51.36,
+      "end": 51.524,
+      "type": "word"
+    },
+    {
+      "text": "voy",
+      "start": 51.524,
+      "end": 51.688,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 51.688,
+      "end": 51.852,
+      "type": "word"
+    },
+    {
+      "text": "decir",
+      "start": 51.852,
+      "end": 52.016,
+      "type": "word"
+    },
+    {
+      "text": "mira",
+      "start": 52.016,
+      "end": 52.18,
+      "type": "word"
+    },
+    {
+      "text": "si",
+      "start": 52.18,
+      "end": 52.344,
+      "type": "word"
+    },
+    {
+      "text": "quiero",
+      "start": 52.344,
+      "end": 52.508,
+      "type": "word"
+    },
+    {
+      "text": "una",
+      "start": 52.508,
+      "end": 52.672,
+      "type": "word"
+    },
+    {
+      "text": "cita",
+      "start": 52.672,
+      "end": 52.836,
+      "type": "word"
+    },
+    {
+      "text": "para",
+      "start": 52.836,
+      "end": 53,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 53,
+      "end": 53.269,
+      "type": "word"
+    },
+    {
+      "text": "lunes",
+      "start": 53.269,
+      "end": 53.537,
+      "type": "word"
+    },
+    {
+      "text": "en",
+      "start": 53.537,
+      "end": 53.806,
+      "type": "word"
+    },
+    {
+      "text": "la",
+      "start": 53.806,
+      "end": 54.074,
+      "type": "word"
+    },
+    {
+      "text": "mañana",
+      "start": 54.074,
+      "end": 54.343,
+      "type": "word"
+    },
+    {
+      "text": "tienes",
+      "start": 54.343,
+      "end": 54.611,
+      "type": "word"
+    },
+    {
+      "text": "espacio.",
+      "start": 54.611,
+      "end": 54.88,
+      "type": "word"
+    },
+    {
+      "text": "Entonces",
+      "start": 55.28,
+      "end": 55.566,
+      "type": "word"
+    },
+    {
+      "text": "él",
+      "start": 55.566,
+      "end": 55.851,
+      "type": "word"
+    },
+    {
+      "text": "automáticamente",
+      "start": 55.851,
+      "end": 56.137,
+      "type": "word"
+    },
+    {
+      "text": "va",
+      "start": 56.137,
+      "end": 56.423,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 56.423,
+      "end": 56.709,
+      "type": "word"
+    },
+    {
+      "text": "buscar",
+      "start": 56.709,
+      "end": 56.994,
+      "type": "word"
+    },
+    {
+      "text": "en",
+      "start": 56.994,
+      "end": 57.28,
+      "type": "word"
+    },
+    {
+      "text": "toda",
+      "start": 57.28,
+      "end": 57.52,
+      "type": "word"
+    },
+    {
+      "text": "la",
+      "start": 57.52,
+      "end": 57.76,
+      "type": "word"
+    },
+    {
+      "text": "agenda",
+      "start": 57.76,
+      "end": 58,
+      "type": "word"
+    },
+    {
+      "text": "si",
+      "start": 58,
+      "end": 58.24,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 58.24,
+      "end": 58.48,
+      "type": "word"
+    },
+    {
+      "text": "lunes",
+      "start": 58.48,
+      "end": 58.72,
+      "type": "word"
+    },
+    {
+      "text": "en",
+      "start": 58.72,
+      "end": 58.96,
+      "type": "word"
+    },
+    {
+      "text": "la",
+      "start": 58.96,
+      "end": 59.2,
+      "type": "word"
+    },
+    {
+      "text": "mañana",
+      "start": 59.2,
+      "end": 59.44,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 59.44,
+      "end": 59.68,
+      "type": "word"
+    },
+    {
+      "text": "él",
+      "start": 59.68,
+      "end": 59.93,
+      "type": "word"
+    },
+    {
+      "text": "sabe",
+      "start": 59.93,
+      "end": 60.18,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 60.18,
+      "end": 60.43,
+      "type": "word"
+    },
+    {
+      "text": "siguiente",
+      "start": 60.43,
+      "end": 60.68,
+      "type": "word"
+    },
+    {
+      "text": "lunes",
+      "start": 60.68,
+      "end": 60.93,
+      "type": "word"
+    },
+    {
+      "text": "cuál",
+      "start": 60.93,
+      "end": 61.18,
+      "type": "word"
+    },
+    {
+      "text": "es",
+      "start": 61.18,
+      "end": 61.43,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 61.43,
+      "end": 61.68,
+      "type": "word"
+    },
+    {
+      "text": "contexto,",
+      "start": 61.68,
+      "end": 61.938,
+      "type": "word"
+    },
+    {
+      "text": "o",
+      "start": 61.938,
+      "end": 62.196,
+      "type": "word"
+    },
+    {
+      "text": "sea,",
+      "start": 62.196,
+      "end": 62.453,
+      "type": "word"
+    },
+    {
+      "text": "qué",
+      "start": 62.453,
+      "end": 62.711,
+      "type": "word"
+    },
+    {
+      "text": "día",
+      "start": 62.711,
+      "end": 62.969,
+      "type": "word"
+    },
+    {
+      "text": "es",
+      "start": 62.969,
+      "end": 63.227,
+      "type": "word"
+    },
+    {
+      "text": "hoy",
+      "start": 63.227,
+      "end": 63.484,
+      "type": "word"
+    },
+    {
+      "text": "para",
+      "start": 63.484,
+      "end": 63.742,
+      "type": "word"
+    },
+    {
+      "text": "luego",
+      "start": 63.742,
+      "end": 64,
+      "type": "word"
+    },
+    {
+      "text": "saber",
+      "start": 64,
+      "end": 64.268,
+      "type": "word"
+    },
+    {
+      "text": "calcular",
+      "start": 64.268,
+      "end": 64.536,
+      "type": "word"
+    },
+    {
+      "text": "qué",
+      "start": 64.536,
+      "end": 64.804,
+      "type": "word"
+    },
+    {
+      "text": "día",
+      "start": 64.804,
+      "end": 65.072,
+      "type": "word"
+    },
+    {
+      "text": "es",
+      "start": 65.072,
+      "end": 65.34,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 65.34,
+      "end": 65.608,
+      "type": "word"
+    },
+    {
+      "text": "qué",
+      "start": 65.608,
+      "end": 65.876,
+      "type": "word"
+    },
+    {
+      "text": "día",
+      "start": 65.876,
+      "end": 66.144,
+      "type": "word"
+    },
+    {
+      "text": "se",
+      "start": 66.144,
+      "end": 66.412,
+      "type": "word"
+    },
+    {
+      "text": "está",
+      "start": 66.412,
+      "end": 66.68,
+      "type": "word"
+    },
+    {
+      "text": "refiriendo",
+      "start": 66.68,
+      "end": 66.967,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 66.967,
+      "end": 67.253,
+      "type": "word"
+    },
+    {
+      "text": "cliente",
+      "start": 67.253,
+      "end": 67.54,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 67.54,
+      "end": 67.827,
+      "type": "word"
+    },
+    {
+      "text": "calcular",
+      "start": 67.827,
+      "end": 68.113,
+      "type": "word"
+    },
+    {
+      "text": "los",
+      "start": 68.113,
+      "end": 68.4,
+      "type": "word"
+    },
+    {
+      "text": "celulares",
+      "start": 68.4,
+      "end": 68.625,
+      "type": "word"
+    },
+    {
+      "text": "necesarios",
+      "start": 68.625,
+      "end": 68.85,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 68.85,
+      "end": 69.075,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 69.075,
+      "end": 69.3,
+      "type": "word"
+    },
+    {
+      "text": "ver",
+      "start": 69.3,
+      "end": 69.525,
+      "type": "word"
+    },
+    {
+      "text": "qué",
+      "start": 69.525,
+      "end": 69.75,
+      "type": "word"
+    },
+    {
+      "text": "me",
+      "start": 69.75,
+      "end": 69.975,
+      "type": "word"
+    },
+    {
+      "text": "ofrece.",
+      "start": 69.975,
+      "end": 70.2,
+      "type": "word"
+    },
+    {
+      "text": "Aquí",
+      "start": 70.32,
+      "end": 70.54,
+      "type": "word"
+    },
+    {
+      "text": "me",
+      "start": 70.54,
+      "end": 70.76,
+      "type": "word"
+    },
+    {
+      "text": "responde,",
+      "start": 70.76,
+      "end": 70.98,
+      "type": "word"
+    },
+    {
+      "text": "me",
+      "start": 70.98,
+      "end": 71.2,
+      "type": "word"
+    },
+    {
+      "text": "dice:",
+      "start": 71.2,
+      "end": 71.42,
+      "type": "word"
+    },
+    {
+      "text": "Oye,",
+      "start": 71.42,
+      "end": 71.64,
+      "type": "word"
+    },
+    {
+      "text": "si",
+      "start": 71.64,
+      "end": 71.86,
+      "type": "word"
+    },
+    {
+      "text": "tengo",
+      "start": 71.86,
+      "end": 72.08,
+      "type": "word"
+    },
+    {
+      "text": "cita",
+      "start": 72.08,
+      "end": 72.376,
+      "type": "word"
+    },
+    {
+      "text": "para",
+      "start": 72.376,
+      "end": 72.672,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 72.672,
+      "end": 72.968,
+      "type": "word"
+    },
+    {
+      "text": "día",
+      "start": 72.968,
+      "end": 73.264,
+      "type": "word"
+    },
+    {
+      "text": "28,",
+      "start": 73.264,
+      "end": 73.56,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 73.56,
+      "end": 73.856,
+      "type": "word"
+    },
+    {
+      "text": "sería",
+      "start": 73.856,
+      "end": 74.152,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 74.152,
+      "end": 74.448,
+      "type": "word"
+    },
+    {
+      "text": "lunes",
+      "start": 74.448,
+      "end": 74.744,
+      "type": "word"
+    },
+    {
+      "text": "al",
+      "start": 74.744,
+      "end": 75.04,
+      "type": "word"
+    },
+    {
+      "text": "cual",
+      "start": 75.04,
+      "end": 75.4,
+      "type": "word"
+    },
+    {
+      "text": "hago",
+      "start": 75.4,
+      "end": 75.76,
+      "type": "word"
+    },
+    {
+      "text": "referencia.",
+      "start": 75.76,
+      "end": 76.12,
+      "type": "word"
+    },
+    {
+      "text": "Me",
+      "start": 76.28,
+      "end": 76.525,
+      "type": "word"
+    },
+    {
+      "text": "da",
+      "start": 76.525,
+      "end": 76.77,
+      "type": "word"
+    },
+    {
+      "text": "una",
+      "start": 76.77,
+      "end": 77.015,
+      "type": "word"
+    },
+    {
+      "text": "selección",
+      "start": 77.015,
+      "end": 77.26,
+      "type": "word"
+    },
+    {
+      "text": "porque",
+      "start": 77.26,
+      "end": 77.505,
+      "type": "word"
+    },
+    {
+      "text": "hay",
+      "start": 77.505,
+      "end": 77.75,
+      "type": "word"
+    },
+    {
+      "text": "muchas",
+      "start": 77.75,
+      "end": 77.995,
+      "type": "word"
+    },
+    {
+      "text": "horas",
+      "start": 77.995,
+      "end": 78.24,
+      "type": "word"
+    },
+    {
+      "text": "disponibles,",
+      "start": 78.24,
+      "end": 78.552,
+      "type": "word"
+    },
+    {
+      "text": "entonces",
+      "start": 78.552,
+      "end": 78.864,
+      "type": "word"
+    },
+    {
+      "text": "pues",
+      "start": 78.864,
+      "end": 79.176,
+      "type": "word"
+    },
+    {
+      "text": "yo",
+      "start": 79.176,
+      "end": 79.488,
+      "type": "word"
+    },
+    {
+      "text": "puedo",
+      "start": 79.488,
+      "end": 79.8,
+      "type": "word"
+    },
+    {
+      "text": "seleccionar",
+      "start": 79.8,
+      "end": 80.074,
+      "type": "word"
+    },
+    {
+      "text": "rápidamente,",
+      "start": 80.074,
+      "end": 80.349,
+      "type": "word"
+    },
+    {
+      "text": "le",
+      "start": 80.349,
+      "end": 80.623,
+      "type": "word"
+    },
+    {
+      "text": "digo",
+      "start": 80.623,
+      "end": 80.897,
+      "type": "word"
+    },
+    {
+      "text": "10",
+      "start": 80.897,
+      "end": 81.171,
+      "type": "word"
+    },
+    {
+      "text": "de",
+      "start": 81.171,
+      "end": 81.446,
+      "type": "word"
+    },
+    {
+      "text": "la",
+      "start": 81.446,
+      "end": 81.72,
+      "type": "word"
+    },
+    {
+      "text": "mañana",
+      "start": 81.72,
+      "end": 81.947,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 81.947,
+      "end": 82.173,
+      "type": "word"
+    },
+    {
+      "text": "vamos",
+      "start": 82.173,
+      "end": 82.4,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 82.4,
+      "end": 82.627,
+      "type": "word"
+    },
+    {
+      "text": "ver",
+      "start": 82.627,
+      "end": 82.853,
+      "type": "word"
+    },
+    {
+      "text": "qué",
+      "start": 82.853,
+      "end": 83.08,
+      "type": "word"
+    },
+    {
+      "text": "pasa",
+      "start": 83.08,
+      "end": 83.307,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 83.307,
+      "end": 83.533,
+      "type": "word"
+    },
+    {
+      "text": "listo.",
+      "start": 83.533,
+      "end": 83.76,
+      "type": "word"
+    },
+    {
+      "text": "Ya",
+      "start": 83.76,
+      "end": 84.029,
+      "type": "word"
+    },
+    {
+      "text": "tengo",
+      "start": 84.029,
+      "end": 84.297,
+      "type": "word"
+    },
+    {
+      "text": "mi",
+      "start": 84.297,
+      "end": 84.566,
+      "type": "word"
+    },
+    {
+      "text": "espacio",
+      "start": 84.566,
+      "end": 84.834,
+      "type": "word"
+    },
+    {
+      "text": "separado,",
+      "start": 84.834,
+      "end": 85.103,
+      "type": "word"
+    },
+    {
+      "text": "nuestro",
+      "start": 85.103,
+      "end": 85.371,
+      "type": "word"
+    },
+    {
+      "text": "agent",
+      "start": 85.371,
+      "end": 85.64,
+      "type": "word"
+    },
+    {
+      "text": "ya",
+      "start": 85.64,
+      "end": 85.84,
+      "type": "word"
+    },
+    {
+      "text": "te",
+      "start": 85.84,
+      "end": 86.04,
+      "type": "word"
+    },
+    {
+      "text": "envía",
+      "start": 86.04,
+      "end": 86.24,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 86.64,
+      "end": 87.035,
+      "type": "word"
+    },
+    {
+      "text": "zona,",
+      "start": 87.035,
+      "end": 87.43,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 87.43,
+      "end": 87.825,
+      "type": "word"
+    },
+    {
+      "text": "nombre,",
+      "start": 87.825,
+      "end": 88.22,
+      "type": "word"
+    },
+    {
+      "text": "las",
+      "start": 88.22,
+      "end": 88.615,
+      "type": "word"
+    },
+    {
+      "text": "indicaciones",
+      "start": 88.615,
+      "end": 89.01,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 89.01,
+      "end": 89.405,
+      "type": "word"
+    },
+    {
+      "text": "la",
+      "start": 89.405,
+      "end": 89.8,
+      "type": "word"
+    },
+    {
+      "text": "ubicación",
+      "start": 89.8,
+      "end": 90.023,
+      "type": "word"
+    },
+    {
+      "text": "para",
+      "start": 90.023,
+      "end": 90.246,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 90.246,
+      "end": 90.469,
+      "type": "word"
+    },
+    {
+      "text": "asistas",
+      "start": 90.469,
+      "end": 90.691,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 90.691,
+      "end": 90.914,
+      "type": "word"
+    },
+    {
+      "text": "tu",
+      "start": 90.914,
+      "end": 91.137,
+      "type": "word"
+    },
+    {
+      "text": "cita.",
+      "start": 91.137,
+      "end": 91.36,
+      "type": "word"
+    },
+    {
+      "text": "Nuestro",
+      "start": 91.36,
+      "end": 91.571,
+      "type": "word"
+    },
+    {
+      "text": "agente",
+      "start": 91.571,
+      "end": 91.783,
+      "type": "word"
+    },
+    {
+      "text": "ya",
+      "start": 91.783,
+      "end": 91.994,
+      "type": "word"
+    },
+    {
+      "text": "también",
+      "start": 91.994,
+      "end": 92.206,
+      "type": "word"
+    },
+    {
+      "text": "cuenta",
+      "start": 92.206,
+      "end": 92.417,
+      "type": "word"
+    },
+    {
+      "text": "con",
+      "start": 92.417,
+      "end": 92.629,
+      "type": "word"
+    },
+    {
+      "text": "todo",
+      "start": 92.629,
+      "end": 92.84,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 92.84,
+      "end": 93.029,
+      "type": "word"
+    },
+    {
+      "text": "flujo",
+      "start": 93.029,
+      "end": 93.217,
+      "type": "word"
+    },
+    {
+      "text": "de",
+      "start": 93.217,
+      "end": 93.406,
+      "type": "word"
+    },
+    {
+      "text": "lo",
+      "start": 93.406,
+      "end": 93.594,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 93.594,
+      "end": 93.783,
+      "type": "word"
+    },
+    {
+      "text": "es",
+      "start": 93.783,
+      "end": 93.971,
+      "type": "word"
+    },
+    {
+      "text": "cancelación,",
+      "start": 93.971,
+      "end": 94.16,
+      "type": "word"
+    },
+    {
+      "text": "regeneramiento",
+      "start": 94.16,
+      "end": 94.54,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 94.54,
+      "end": 94.92,
+      "type": "word"
+    },
+    {
+      "text": "envía",
+      "start": 94.92,
+      "end": 95.3,
+      "type": "word"
+    },
+    {
+      "text": "notificaciones",
+      "start": 95.3,
+      "end": 95.68,
+      "type": "word"
+    },
+    {
+      "text": "a",
+      "start": 95.68,
+      "end": 96.06,
+      "type": "word"
+    },
+    {
+      "text": "los",
+      "start": 96.06,
+      "end": 96.44,
+      "type": "word"
+    },
+    {
+      "text": "clientes",
+      "start": 96.44,
+      "end": 96.676,
+      "type": "word"
+    },
+    {
+      "text": "24",
+      "start": 96.676,
+      "end": 96.911,
+      "type": "word"
+    },
+    {
+      "text": "horas",
+      "start": 96.911,
+      "end": 97.147,
+      "type": "word"
+    },
+    {
+      "text": "antes",
+      "start": 97.147,
+      "end": 97.382,
+      "type": "word"
+    },
+    {
+      "text": "o",
+      "start": 97.382,
+      "end": 97.618,
+      "type": "word"
+    },
+    {
+      "text": "2",
+      "start": 97.618,
+      "end": 97.853,
+      "type": "word"
+    },
+    {
+      "text": "horas",
+      "start": 97.853,
+      "end": 98.089,
+      "type": "word"
+    },
+    {
+      "text": "antes",
+      "start": 98.089,
+      "end": 98.324,
+      "type": "word"
+    },
+    {
+      "text": "de",
+      "start": 98.324,
+      "end": 98.56,
+      "type": "word"
+    },
+    {
+      "text": "su",
+      "start": 98.56,
+      "end": 98.785,
+      "type": "word"
+    },
+    {
+      "text": "cita",
+      "start": 98.785,
+      "end": 99.01,
+      "type": "word"
+    },
+    {
+      "text": "para",
+      "start": 99.01,
+      "end": 99.235,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 99.235,
+      "end": 99.46,
+      "type": "word"
+    },
+    {
+      "text": "recuerden",
+      "start": 99.46,
+      "end": 99.685,
+      "type": "word"
+    },
+    {
+      "text": "que",
+      "start": 99.685,
+      "end": 99.91,
+      "type": "word"
+    },
+    {
+      "text": "pues",
+      "start": 99.91,
+      "end": 100.135,
+      "type": "word"
+    },
+    {
+      "text": "el",
+      "start": 100.135,
+      "end": 100.36,
+      "type": "word"
+    },
+    {
+      "text": "servicio",
+      "start": 100.36,
+      "end": 100.667,
+      "type": "word"
+    },
+    {
+      "text": "los",
+      "start": 100.667,
+      "end": 100.973,
+      "type": "word"
+    },
+    {
+      "text": "espera.",
+      "start": 100.973,
+      "end": 101.28,
+      "type": "word"
+    },
+    {
+      "text": "Si",
+      "start": 101.28,
+      "end": 101.47,
+      "type": "word"
+    },
+    {
+      "text": "estás",
+      "start": 101.47,
+      "end": 101.66,
+      "type": "word"
+    },
+    {
+      "text": "interesado",
+      "start": 101.66,
+      "end": 101.85,
+      "type": "word"
+    },
+    {
+      "text": "en",
+      "start": 101.85,
+      "end": 102.04,
+      "type": "word"
+    },
+    {
+      "text": "montar",
+      "start": 102.04,
+      "end": 102.23,
+      "type": "word"
+    },
+    {
+      "text": "este",
+      "start": 102.23,
+      "end": 102.42,
+      "type": "word"
+    },
+    {
+      "text": "tipo",
+      "start": 102.42,
+      "end": 102.61,
+      "type": "word"
+    },
+    {
+      "text": "de",
+      "start": 102.61,
+      "end": 102.8,
+      "type": "word"
+    },
+    {
+      "text": "agentes",
+      "start": 102.8,
+      "end": 103.011,
+      "type": "word"
+    },
+    {
+      "text": "para",
+      "start": 103.011,
+      "end": 103.223,
+      "type": "word"
+    },
+    {
+      "text": "tu",
+      "start": 103.223,
+      "end": 103.434,
+      "type": "word"
+    },
+    {
+      "text": "negocio,",
+      "start": 103.434,
+      "end": 103.646,
+      "type": "word"
+    },
+    {
+      "text": "escríbeme",
+      "start": 103.646,
+      "end": 103.857,
+      "type": "word"
+    },
+    {
+      "text": "en",
+      "start": 103.857,
+      "end": 104.069,
+      "type": "word"
+    },
+    {
+      "text": "los",
+      "start": 104.069,
+      "end": 104.28,
+      "type": "word"
+    },
+    {
+      "text": "comments",
+      "start": 104.28,
+      "end": 104.514,
+      "type": "word"
+    },
+    {
+      "text": "y",
+      "start": 104.514,
+      "end": 104.749,
+      "type": "word"
+    },
+    {
+      "text": "te",
+      "start": 104.749,
+      "end": 104.983,
+      "type": "word"
+    },
+    {
+      "text": "envío",
+      "start": 104.983,
+      "end": 105.217,
+      "type": "word"
+    },
+    {
+      "text": "toda",
+      "start": 105.217,
+      "end": 105.451,
+      "type": "word"
+    },
+    {
+      "text": "la",
+      "start": 105.451,
+      "end": 105.686,
+      "type": "word"
+    },
+    {
+      "text": "información.",
+      "start": 105.686,
+      "end": 105.92,
+      "type": "word"
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <style>
+@font-face { font-family: "Rubik"; src: url("fonts/Rubik-400-latin.woff2") format("woff2"); font-weight: 400; font-display: block; }
+@font-face { font-family: "Rubik"; src: url("fonts/Rubik-800-latin.woff2") format("woff2"); font-weight: 800; font-display: block; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/JetBrainsMono-700-latin.woff2") format("woff2"); font-weight: 700; font-display: block; }
+* { box-sizing: border-box; }
+html, body {
+  margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#0B1A17;
+  font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
+}
+#stage { position:relative; width:100%; height:100%; overflow:hidden; background:#0B1A17; }
+.video-wrapper {
+  position:absolute; left:0; top:0; width:1080px; height:1920px;
+  overflow:hidden; z-index:1; opacity:1; pointer-events:none;
+}
+.video-wrapper video { width:100%; height:100%; object-fit:cover; display:block; }
+.card-host { position:absolute; pointer-events:none; overflow:hidden; z-index:3; }
+.card-host .card { position:relative; width:100%; height:100%; overflow:hidden; }
+.clip { position:absolute; }
+.caption-host {
+  position:absolute; left:0; top:0; width:1080px; height:1920px;
+  z-index:50; pointer-events:none; overflow:hidden;
+}
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-nxsw" id="stage" data-composition-id="main" data-start="0" data-duration="106.02" data-fps="24" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-dltv" class="video-wrapper" id="video-wrap">
+        <video data-hf-id="hf-kxe9" id="a-roll" class="clip" src="source.mp4" muted playsinline data-start="0" data-duration="106.02" data-track-index="1"></video>
+      </div>
+      <audio data-hf-id="hf-uoaw" id="a-roll-audio" src="source.mp4" data-start="0" data-duration="106.02" data-track-index="10" data-volume="1"></audio>
+
+      <!-- S2 Flow 8–15s (inline punch) -->
+      <div data-hf-id="hf-jpg0" class="card-host clip" data-card-id="s2-flow" id="host-s2-flow" data-start="8" data-duration="7" data-track-index="3" style="left:0;top:0;width:1080px;height:1920px;">
+        <div data-hf-id="hf-1ldk" class="card" data-card-id="s2-flow">
+          <style>
+            .card[data-card-id="s2-flow"] .root {
+              --foam:#F3FBF8; --mist:#D5EDE6; --ink:#152A26;
+              --mango:#FF7A45; --lagoon:#1ECAD3; --butter:#FFE56A;
+              --sticker: 4px 4px 0 #152A26;
+              width:100%; height:100%; box-sizing:border-box;
+              padding: 180px 56px 420px;
+              display:flex; flex-direction:column; justify-content:center; gap: 24px;
+              background: var(--foam); color: var(--ink);
+              font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
+            }
+            .card[data-card-id="s2-flow"] .kicker {
+              font-family: "JetBrains Mono", ui-monospace, monospace;
+              font-size: 24px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+              opacity:0;
+            }
+            .card[data-card-id="s2-flow"] .title {
+              font-size: 64px; font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; margin:0; opacity:0;
+            }
+            .card[data-card-id="s2-flow"] .flow {
+              display:flex; flex-direction:column; gap: 18px; margin-top: 16px;
+            }
+            .card[data-card-id="s2-flow"] .step {
+              display:flex; align-items:center; gap: 24px;
+              padding: 32px 36px; border-radius: 2rem; box-shadow: var(--sticker);
+              opacity:0; font-size: 48px; font-weight: 800;
+            }
+            .card[data-card-id="s2-flow"] .step .n {
+              font-family: "JetBrains Mono", ui-monospace, monospace;
+              font-size: 28px; font-weight: 700; letter-spacing: 0.04em;
+              opacity: 0.75;
+            }
+            .card[data-card-id="s2-flow"] .step.a { background: var(--mist); }
+            .card[data-card-id="s2-flow"] .step.b { background: var(--lagoon); }
+            .card[data-card-id="s2-flow"] .step.c { background: var(--mango); }
+            .card[data-card-id="s2-flow"] .arrow {
+              font-size: 36px; font-weight: 800; color: var(--ink); opacity:0; padding-left: 18px;
+            }
+            .card[data-card-id="s2-flow"] .tagline {
+              align-self:flex-start; margin-top: 12px; opacity:0;
+              padding: 18px 28px; border-radius: 9999px; font-size: 32px; font-weight: 800;
+              background: var(--butter); box-shadow: var(--sticker);
+            }
+          </style>
+          <div data-hf-id="hf-iz4w" class="root">
+            <div data-hf-id="hf-a61m" class="kicker" id="s2-kicker">Flujo</div>
+            <h1 data-hf-id="hf-g7g3" class="title" id="s2-title">Paso a paso</h1>
+            <div data-hf-id="hf-ck2w" class="flow">
+              <div data-hf-id="hf-5u20" class="step a" id="s2-a"><span data-hf-id="hf-kp5a" class="n">01</span>Locación</div>
+              <div data-hf-id="hf-xmhq" class="arrow" id="s2-arr1">↓</div>
+              <div data-hf-id="hf-l8dl" class="step b" id="s2-b"><span data-hf-id="hf-l3gb" class="n">02</span>Nombre</div>
+              <div data-hf-id="hf-q4vv" class="arrow" id="s2-arr2">↓</div>
+              <div data-hf-id="hf-psgs" class="step c" id="s2-c"><span data-hf-id="hf-lhrc" class="n">03</span>Servicio</div>
+            </div>
+            <div data-hf-id="hf-eivo" class="tagline" id="s2-tag">forma estructurada</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S-KB 45–49s: motion-graphics subcomposition (svg-path-draw brain + feed chips) -->
+      <div data-hf-id="hf-rq20" class="card-host clip" data-card-id="s-kb" id="host-s-kb" data-composition-id="s-kb" data-composition-src="compositions/s-kb.html" data-start="45" data-duration="4" data-width="1080" data-height="1920" data-track-index="3" style="left:0;top:0;width:1080px;height:1920px;opacity:0;"></div>
+
+      <!-- S-Notis 96–101.3s (1:36+): 24h / 2h notification arrivals -->
+      <div data-hf-id="hf-29m8" class="card-host clip" data-card-id="s-notis" id="host-s-notis" data-composition-id="s-notis" data-composition-src="compositions/s-notis.html" data-start="96" data-duration="5.3" data-width="1080" data-height="1920" data-track-index="3" style="left:0;top:0;width:1080px;height:1920px;opacity:0;"></div>
+
+      <div data-hf-id="hf-s4io" id="caption-gradient-fill-host" class="caption-host clip" data-composition-id="caption-gradient-fill" data-composition-src="compositions/caption-gradient-fill.html" data-track-kind="captions" data-start="0" data-duration="106.02" data-width="1080" data-height="1920" data-track-index="50"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        gsap.set("#video-wrap", { x: 0, y: 0, scale: 1, opacity: 1, zIndex: 1 });
+        gsap.set("#caption-gradient-fill-host", { opacity: 1, zIndex: 50 });
+        gsap.set(".card-host .card", { opacity: 0 });
+        gsap.set("#host-s-kb", { opacity: 0 });
+        gsap.set("#host-s-notis", { opacity: 0 });
+
+        /** Punch: hide a-roll. Target .card when present, else the host (mounted compositions). */
+        function showCard(id, tIn, tOut) {
+          var host = '.card-host[data-card-id="' + id + '"]';
+          var cardSel = host + " .card";
+          var target = document.querySelector(cardSel) ? cardSel : host;
+          gsap.set(target, { opacity: 0 });
+          tl.to("#video-wrap", { opacity: 0, duration: 0.22, ease: "power2.inOut" }, tIn);
+          tl.fromTo(
+            target,
+            { opacity: 0, scale: 1.02 },
+            { opacity: 1, scale: 1, duration: 0.28, ease: "power2.out" },
+            tIn
+          );
+          tl.to(target, { opacity: 0, duration: 0.2, ease: "power2.in" }, tOut - 0.2);
+          tl.to("#video-wrap", { opacity: 1, duration: 0.22, ease: "power2.inOut" }, tOut - 0.2);
+          tl.set(target, { opacity: 0 }, tOut);
+        }
+
+        function slap(sel, t, opts) {
+          opts = opts || {};
+          tl.fromTo(
+            sel,
+            { opacity: 0, scale: opts.fromScale || 0.9, y: opts.y != null ? opts.y : 14 },
+            { opacity: 1, scale: 1, y: 0, duration: opts.dur || 0.28, ease: opts.ease || "back.out(1.4)" },
+            t
+          );
+        }
+
+        function pulse(sel, t) {
+          tl.to(sel, {
+            outline: "6px solid rgba(255,122,69,0.45)",
+            outlineOffset: "6px",
+            duration: 0.18,
+            ease: "power2.out"
+          }, t);
+          tl.to(sel, {
+            outline: "6px solid rgba(255,122,69,0)",
+            outlineOffset: "6px",
+            duration: 0.35,
+            ease: "power2.in"
+          }, t + 0.35);
+        }
+
+        // ── s2-flow 8.0 → 15.0
+        showCard("s2-flow", 8.0, 15.0);
+        slap("#s2-kicker", 8.15, { y: 8, fromScale: 1, ease: "power2.out", dur: 0.22 });
+        slap("#s2-title", 8.3, { y: 14, fromScale: 1, ease: "power2.out", dur: 0.28 });
+        slap("#s2-a", 8.7, { fromScale: 0.92 });
+        pulse("#s2-a", 9.5);
+        slap("#s2-arr1", 10.4, { fromScale: 1, y: -8, ease: "power2.out", dur: 0.18 });
+        slap("#s2-b", 10.7, { fromScale: 0.92 });
+        pulse("#s2-b", 11.8);
+        slap("#s2-arr2", 12.0, { fromScale: 1, y: -8, ease: "power2.out", dur: 0.18 });
+        slap("#s2-c", 12.2, { fromScale: 0.92 });
+        pulse("#s2-c", 12.7);
+        slap("#s2-tag", 13.4, { fromScale: 0.94, y: 10 });
+
+        // ── s-kb 45.0 → 49.0 — motion lives in compositions/s-kb.html (motion-graphics)
+        showCard("s-kb", 45.0, 49.0);
+
+        // ── s-notis 96.0 → 101.3 — 24h / 2h notifications (notification-pileup craft)
+        showCard("s-notis", 96.0, 101.3);
+
+        tl.seek(0);
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

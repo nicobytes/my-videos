@@ -1,0 +1,30 @@
+{
+ "file": "b-tension-a-calido-s2.wav",
+ "model": "facebook/musicgen-stereo-large",
+ "license": "CC-BY-NC-4.0 (model weights)",
+ "sections": [
+  {
+   "at": 0.0,
+   "prompt": "minimal tense underscore, ticking clock percussion, low muted synth pulse, sparse piano notes, suspense, 100 bpm, understated"
+  },
+  {
+   "at": 15.6,
+   "prompt": "warm minimal background underscore, soft felt piano chords, gentle plucked synth, light shaker, soft kick, hopeful and calm, 100 bpm, clean modern production, understated"
+  }
+ ],
+ "seed": 2,
+ "duration_s": 54.0,
+ "sample_rate": 48000,
+ "channels": 2,
+ "guidance": 3.0,
+ "temperature": 1.0,
+ "top_k": 250,
+ "window_s": 30.0,
+ "context_s": 10.0,
+ "device": "NVIDIA GeForce RTX 3090",
+ "dtype": "float16",
+ "torch": "2.14.1+cu130",
+ "transformers": "5.20.1",
+ "elapsed_s": 179.7,
+ "vram_peak_gb": 8.7
+}

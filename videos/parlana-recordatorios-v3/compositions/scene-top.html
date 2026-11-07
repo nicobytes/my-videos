@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="scene-top-template">
+      <style>
+        #scene-top-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        #scene-top-canvas {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 1920px;
+          display: block;
+        }
+      </style>
+
+      <!-- The thread (MOTION.md): the status pill as one 3D token for the whole reel. It sits over the states' content,
+           so its shadow falls on that content, kept inside the slab's top face. -->
+      <div data-hf-id="hf-4nb3" id="scene-top-root" data-composition-id="scene-top" data-start="0" data-duration="75.05" data-width="1080" data-height="1920">
+        <canvas data-hf-id="hf-4kp5" id="scene-top-canvas" data-layout-allow-occlusion width="1080" height="1920"></canvas>
+      </div>
+
+      <script type="module">
+        import * as THREE from "three";
+        import { makeRenderer, makeCamera, applyView, makeSlabGroup, applyTilt, addLights, Body, SoftShadow, inset, mount } from "./compositions/shared/scene3d.js";
+
+        const R = window.Reel;
+        const renderer = makeRenderer(document.getElementById("scene-top-canvas"));
+        const scene = new THREE.Scene();
+        const camera = makeCamera();
+        addLights(scene);
+        const slabGroup = makeSlabGroup(scene);
+        const token = new Body(slabGroup, R.PILL_D, 3);
+        const onSlab = new SoftShadow(slabGroup, R.SLAB_TOP + 0.5);
+        const fill = R.colorTrack(R.PILL, "fill");
+        const edge = R.colorTrack(R.PILL, "edge");
+
+        function render(t) {
+          applyView(camera, t);
+          applyTilt(slabGroup, t);
+          const p = R.pill(t);
+          token.update(p.g, p.base, fill(t), edge(t), { depth: p.depth, bevel: p.bevel, model: p.model, litCap: p.round > 0.02 });
+          onSlab.update(p.g, R.shadowOf(p.lift + p.depth / 2), inset(R.shell(t), R.BEVEL));
+          renderer.render(scene, camera);
+        }
+        mount("scene-top", render);
+      </script>
+    </template>
+  </body>
+</html>

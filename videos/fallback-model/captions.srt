@@ -1,0 +1,204 @@
+1
+00:00:00,080 --> 00:00:01,680
+Los modelos de Google se han estado cayendo
+
+2
+00:00:01,680 --> 00:00:03,280
+y eso me afecta directamente a algunos
+
+3
+00:00:03,280 --> 00:00:05,000
+agentes que tengo corriendo en producción.
+
+4
+00:00:05,000 --> 00:00:07,280
+Miren, este es el error, es un 503 en el
+
+5
+00:00:07,280 --> 00:00:09,400
+cual me dice este modelo está teniendo una
+
+6
+00:00:09,400 --> 00:00:11,760
+alta demanda entonces no responde
+
+7
+00:00:11,760 --> 00:00:12,480
+directamente.
+
+8
+00:00:12,480 --> 00:00:13,480
+Y esto ya me ha estado pasando
+
+9
+00:00:13,480 --> 00:00:14,880
+frecuentemente en donde estos modelos
+
+10
+00:00:14,880 --> 00:00:16,320
+tienen un pico de alta demanda
+
+11
+00:00:16,560 --> 00:00:18,640
+y por ende mis agentes se quedan mudos,
+
+12
+00:00:18,640 --> 00:00:19,560
+nadie responde.
+
+13
+00:00:19,680 --> 00:00:21,680
+Ahora yo tenía una forma en la cual si no
+
+14
+00:00:21,680 --> 00:00:23,160
+responde, si tenía este tipo de error
+
+15
+00:00:23,160 --> 00:00:25,000
+responde después del segundo, después de
+
+16
+00:00:25,000 --> 00:00:26,760
+los 3 segundos pero aún así seguía el pico
+
+17
+00:00:26,760 --> 00:00:28,560
+de demanda y eso puede empeorarlo
+
+18
+00:00:28,840 --> 00:00:30,560
+Porque pues seguimos haciendo reintentos y
+
+19
+00:00:30,560 --> 00:00:32,120
+se sigue saturando el servicio.
+
+20
+00:00:32,240 --> 00:00:34,240
+¿Cómo lo solucioné? Haciendo un fallback
+
+21
+00:00:34,240 --> 00:00:34,880
+del modelo.
+
+22
+00:00:34,880 --> 00:00:36,080
+Hay varias formas de hacerlo.
+
+23
+00:00:36,080 --> 00:00:37,600
+Por ejemplo, si utilizas cosas como Open
+
+24
+00:00:37,600 --> 00:00:39,480
+Router, él automáticamente tiene como un
+
+25
+00:00:39,480 --> 00:00:41,520
+fallback, que es que si este modelo no
+
+26
+00:00:41,520 --> 00:00:43,280
+responde, entonces apunta a otro, de otra
+
+27
+00:00:43,280 --> 00:00:45,920
+compañía, de otro modelo más bajo.
+
+28
+00:00:45,920 --> 00:00:48,600
+Pero entonces le pasa el problema a otro si
+
+29
+00:00:48,600 --> 00:00:50,320
+es que alguien está teniendo problemas.
+
+30
+00:00:50,320 --> 00:00:51,960
+Eso en el caso de Open Router, pero yo ya
+
+31
+00:00:51,960 --> 00:00:53,520
+he trabajado con otros frameworks como
+
+32
+00:00:53,520 --> 00:00:55,680
+launchain y ellos nativamente tienen esto
+
+33
+00:00:55,680 --> 00:00:56,560
+dentro del SDK.
+
+34
+00:00:57,080 --> 00:00:58,760
+revisando más a fondo en el Google ADK, que
+
+35
+00:00:58,760 --> 00:01:00,800
+es el que yo utilizo, ellos ya tienen esto,
+
+36
+00:01:00,800 --> 00:01:02,480
+solo que está en modo experimental, pero ya
+
+37
+00:01:02,480 --> 00:01:03,880
+tienen un fallback model.
+
+38
+00:01:03,880 --> 00:01:05,480
+Entonces me leí esta documentación y lo
+
+39
+00:01:05,480 --> 00:01:06,040
+implementé.
+
+40
+00:01:06,040 --> 00:01:07,880
+Básicamente lo que hace es, si alguno de
+
+41
+00:01:07,880 --> 00:01:09,680
+estos modelos está en alta demanda, lo
+
+42
+00:01:09,680 --> 00:01:11,720
+pasa, escogemos un modelo un poquito más
+
+43
+00:01:11,720 --> 00:01:14,320
+bajito, uno que no esté como saturado y
+
+44
+00:01:14,320 --> 00:01:16,120
+entonces él va a ser el que va a responder.
+
+45
+00:01:16,400 --> 00:01:18,320
+Entonces con esto el agent no se queda
+
+46
+00:01:18,320 --> 00:01:19,960
+mudo, tal vez dure un ratito más la
+
+47
+00:01:19,960 --> 00:01:21,720
+respuesta, pero tiene una respuesta.
+
+48
+00:01:21,760 --> 00:01:23,480
+Y eso está pasando muy frecuente, así que
+
+49
+00:01:23,480 --> 00:01:25,600
+les recomiendo mucho usar este fallback, ya
+
+50
+00:01:25,600 --> 00:01:28,200
+sea nativo en el que estén usando o por
+
+51
+00:01:28,200 --> 00:01:30,160
+alguna otra proveedor como el Open Router.
+

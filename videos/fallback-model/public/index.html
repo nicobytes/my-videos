@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <style>
+@font-face { font-family: "Inter"; src: url("fonts/Inter-400-latin.woff2") format("woff2"); font-weight: 400; font-display: block; }
+@font-face { font-family: "Inter"; src: url("fonts/Inter-700-latin.woff2") format("woff2"); font-weight: 700; font-display: block; }
+@font-face { font-family: "Caveat"; src: url("fonts/Caveat-700-latin.woff2") format("woff2"); font-weight: 700; font-display: block; }
+
+:root {
+  --paper: #faf7f0; --ink: #161616; --muted: #5b5f66; --line: #e4ddcd;
+  --blue: #3b6fe0; --red: #e5484d; --amber: #f5a524; --green: #2f9e5a; --code: #15171c;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0d0d0f;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif; }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #0d0d0f; }
+
+/* Reels safe zones — card content: y 240–1160 (the .view) · captions: y 1190–1360 · x 80–1000 */
+
+/* ── talking head: wrap = opacity, zoom = camera scale ── */
+#video-wrap { position: absolute; inset: 0; overflow: hidden; z-index: 1; }
+#video-zoom { position: absolute; inset: 0; transform-origin: 50% 38%; }
+#bg-video { width: 1080px; height: 1920px; object-fit: cover; display: block; }
+
+/* ── chips over the talking head (top safe band, above the face) ── */
+.chip { position: absolute; left: 80px; top: 270px; width: 920px; z-index: 3; opacity: 0; visibility: hidden;
+  background: var(--paper); border-radius: 30px; padding: 30px 40px 34px; box-shadow: 0 24px 60px rgba(0,0,0,.3); }
+.chip .k { font-size: 24px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--red); }
+.chip .t { font-size: 64px; font-weight: 700; line-height: 1.08; letter-spacing: -1.5px; color: var(--ink); margin-top: 12px; }
+.chip .s { font-size: 36px; color: var(--muted); margin-top: 12px; }
+.pill { display: inline-block; font-size: 30px; font-weight: 700; color: #fff; padding: 10px 22px; border-radius: 999px; }
+.ln { display: block; overflow: hidden; padding-bottom: 6px; }
+.ln > span { display: inline-block; }
+
+/* ── full cards: wipe panel + camera viewport clipped to the safe zone ── */
+.card { position: absolute; inset: 0; z-index: 2; background: var(--paper); visibility: hidden; clip-path: inset(100% 0 0 0); }
+.card.dark { background: var(--code); color: #eef0f3; }
+.view { position: absolute; left: 0; top: 240px; width: 1080px; height: 920px; overflow: hidden; }
+.cam { position: absolute; left: 0; top: 0; width: 1080px; height: 920px; transform-origin: 0 0; }
+.cam > * { position: absolute; }
+[data-at] { opacity: 0; }
+
+.lbl { left: 80px; top: 22px; font-size: 26px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--blue); }
+.dark .lbl { color: #8ab4f8; }
+.ttl { left: 80px; top: 64px; width: 920px; font-size: 96px; font-weight: 700; line-height: 1.04; letter-spacing: -2.5px; color: var(--ink); }
+.dark .ttl { color: #fff; }
+.sub { left: 80px; width: 920px; font-size: 40px; color: var(--muted); }
+.dark .sub { color: #9aa0a8; }
+
+/* k1 · 503 */
+.big { left: 74px; top: 60px; font-size: 240px; font-weight: 700; letter-spacing: -10px; line-height: 1; color: var(--red); }
+.unav { left: 80px; top: 300px; font-size: 64px; font-weight: 700; letter-spacing: 2px; color: var(--ink); }
+.shot { left: 80px; top: 400px; width: 920px; border-radius: 22px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.22); }
+.shot img { display: block; width: 920px; }
+.focus { border: 5px solid var(--red); border-radius: 18px; box-shadow: 0 0 0 9999px rgba(250,247,240,.0); }
+
+/* k2 · retries */
+.row { left: 80px; width: 920px; height: 96px; border-radius: 24px; background: #fff; border: 3px solid var(--line);
+  display: flex; align-items: center; padding: 0 30px; font-size: 40px; font-weight: 700; color: var(--ink); }
+.row em { font-style: normal; font-weight: 400; color: var(--muted); margin-left: 16px; }
+.bad { margin-left: auto; font-size: 30px; font-weight: 700; color: #fff; background: var(--red); padding: 8px 18px; border-radius: 999px; }
+.meter-l { left: 80px; font-size: 34px; color: var(--muted); }
+.meter { left: 80px; width: 920px; height: 48px; border-radius: 24px; background: var(--line); overflow: hidden; }
+.meter i { display: block; width: 920px; height: 48px; background: var(--green); transform-origin: 0 50%; }
+.stamp { font-size: 64px; font-weight: 700; letter-spacing: 6px; color: var(--red); border: 7px solid var(--red); border-radius: 16px; padding: 4px 26px; }
+
+/* k3 · OpenRouter */
+.node { left: 80px; width: 920px; height: 112px; border-radius: 26px; background: #fff; border: 3px solid var(--line);
+  display: flex; align-items: center; padding: 0 36px; font-size: 44px; font-weight: 700; color: var(--ink); }
+.node.dk { background: var(--ink); color: #fff; border-color: var(--ink); }
+.model { top: 600px; width: 440px; height: 170px; border-radius: 26px; background: #fff; border: 3px solid var(--line); padding: 26px 30px; }
+.model b { display: block; font-size: 42px; color: var(--ink); }
+.model span { display: block; font-size: 28px; color: var(--muted); margin-top: 8px; }
+.model .bar { position: absolute; left: 30px; right: 30px; bottom: 22px; height: 14px; border-radius: 7px; background: var(--line); overflow: hidden; }
+.model .bar i { display: block; height: 14px; width: 100%; background: var(--red); transform-origin: 0 50%; }
+.model .bad { position: absolute; right: 22px; top: 24px; margin: 0; }
+.wires { left: 0; top: 0; width: 1080px; height: 920px; overflow: visible; }
+.wires path { fill: none; stroke-width: 6; stroke-linecap: round; }
+.hand { font-family: "Caveat", "Inter", cursive; font-size: 62px; font-weight: 700; color: var(--red); }
+
+/* k2b / k4 */
+.hero { left: 80px; top: 220px; width: 920px; border-radius: 24px; }
+.exp { left: 80px; top: 214px; font-size: 40px; font-weight: 700; letter-spacing: 5px; color: #8a5a00; background: #fff3d0;
+  border: 4px solid var(--amber); border-radius: 14px; padding: 8px 22px; }
+.mono { font-family: "Consolas", "JetBrains Mono", ui-monospace, monospace; }
+.bigmono { left: 80px; top: 320px; font-size: 92px; font-weight: 700; color: var(--blue); white-space: pre; }
+.caret { display: inline-block; width: 8px; height: 84px; background: var(--blue); vertical-align: -10px; margin-left: 6px; }
+.doc { left: 80px; top: 470px; width: 920px; padding: 32px 40px; border-radius: 24px; background: #fff; border: 3px solid var(--line); }
+.doc .p { font-size: 26px; color: var(--muted); }
+.doc .q { font-size: 38px; line-height: 1.4; color: var(--ink); margin-top: 14px; }
+.ok { left: 80px; top: 780px; font-size: 40px; font-weight: 700; color: var(--green); }
+
+/* k5 · code */
+.code { left: 80px; top: 200px; width: 920px; padding: 30px 40px; border-radius: 26px; background: #0e1014; border: 2px solid #262a33;
+  font-size: 34px; line-height: 56px; color: #e6e8ec; }
+.code .l { display: block; position: relative; height: 56px; white-space: pre; }
+.code .ty { display: inline-block; clip-path: inset(0 100% 0 0); }
+.kw { color: #8ab4f8; } .st { color: #81c995; } .fn { color: #fdd663; }
+.mark { position: relative; display: inline-block; }
+.mark .strike { position: absolute; left: -4px; right: -4px; top: 50%; height: 5px; margin-top: -2px; background: var(--red); border-radius: 3px; transform-origin: 0 50%; }
+.mark .hl { position: absolute; left: -10px; right: -10px; top: 2px; bottom: 2px; background: rgba(47,158,90,.35); border-radius: 10px; transform-origin: 0 50%; z-index: -1; }
+.t503 { display: inline-block; font-family: "Inter", sans-serif; font-size: 26px; font-weight: 700; color: #fff; background: var(--red); padding: 2px 14px; border-radius: 999px; margin-left: 14px; vertical-align: 4px; opacity: 0; }
+.resp { left: 80px; top: 760px; width: 920px; height: 110px; border-radius: 24px; background: #e4f3ea; border: 3px solid var(--green);
+  display: flex; align-items: center; padding: 0 34px; font-size: 40px; font-weight: 700; color: #1a6b3a; }
+
+/* k6 */
+.opt { left: 80px; width: 920px; height: 210px; border-radius: 28px; background: #fff; border: 3px solid var(--line); padding: 34px 40px; }
+.opt .t2 { font-size: 46px; font-weight: 700; color: var(--ink); margin-top: 22px; }
+.opt .t2 span { font-weight: 400; color: var(--muted); }
+
+/* ── captions: Reels safe zone, always on top ── */
+#cap-box { position: absolute; left: 80px; top: 1190px; width: 920px; height: 170px; z-index: 5;
+  display: flex; align-items: center; justify-content: center; pointer-events: none; }
+#cap { font-size: 50px; font-weight: 700; line-height: 1.36; color: #fff; text-align: center; opacity: 0;
+  background: rgba(14,14,16,.86); padding: 10px 26px; border-radius: 18px; max-width: 920px; }
+
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-88v7" id="stage" data-composition-id="fallback-model-recut" data-start="0" data-duration="90.18" data-fps="30" data-width="1080" data-height="1920">
+<div data-hf-id="hf-qv93" id="video-wrap"><div data-hf-id="hf-7jk6" id="video-zoom">
+  <video data-hf-id="hf-tf1t" id="bg-video" src="input-video.mp4" playsinline data-has-audio="true" data-start="0" data-duration="90.18" data-track-index="1"></video>
+</div></div>
+
+<!-- ═══ chips over the talking head ═══ -->
+<div data-hf-id="hf-tgpx" id="c0" class="chip clip" data-start="0" data-duration="5" data-track-index="3">
+  <div data-hf-id="hf-5erk" class="k">En producción</div>
+  <div data-hf-id="hf-b7em" class="t ln"><span data-hf-id="hf-lrlo">Google se está cayendo</span></div>
+</div>
+<div data-hf-id="hf-ox5q" id="c1a" class="chip clip" data-start="12.48" data-duration="4.1" data-track-index="3">
+  <div data-hf-id="hf-rdxz" class="k" style="color: var(--blue)">Cada vez más seguido</div>
+  <div data-hf-id="hf-e7fm" class="t ln"><span data-hf-id="hf-gad4">Picos de alta demanda</span></div>
+</div>
+<div data-hf-id="hf-lvpr" id="c1b" class="chip clip" data-start="16.56" data-duration="3.12" data-track-index="3">
+  <div data-hf-id="hf-6pbc" class="k">Resultado</div>
+  <div data-hf-id="hf-elqn" class="t ln"><span data-hf-id="hf-rn9t">Mis agentes se quedan mudos</span></div>
+  <div data-hf-id="hf-ntks" class="s">nadie responde</div>
+</div>
+<div data-hf-id="hf-bedo" id="c3" class="chip clip" data-start="32.24" data-duration="1.56" data-track-index="3">
+  <div data-hf-id="hf-f01o" class="t ln"><span data-hf-id="hf-0rq7">¿Cómo lo solucioné?</span></div>
+</div>
+<div data-hf-id="hf-8afn" id="c4" class="chip clip" data-start="50.32" data-duration="6.76" data-track-index="3">
+  <div data-hf-id="hf-vh87" class="t ln" style="font-size: 44px"><span data-hf-id="hf-rcz0"><span data-hf-id="hf-kpjz" class="pill" style="background: var(--blue)">OpenRouter</span> fallback del proveedor</span></div>
+  <div data-hf-id="hf-542j" class="t ln" id="c4-r2" style="font-size: 44px; margin-top: 18px"><span data-hf-id="hf-m22c"><span data-hf-id="hf-7140" class="pill" style="background: var(--green)">LangChain</span> nativo en el SDK</span></div>
+</div>
+<div data-hf-id="hf-s8to" id="c5" class="chip clip" data-start="76.4" data-duration="5.36" data-track-index="3">
+  <div data-hf-id="hf-fecp" class="t ln"><span data-hf-id="hf-3w06">El agente no se queda mudo</span></div>
+  <div data-hf-id="hf-n3ee" class="s" id="c5-s">tarda un poco más, <b data-hf-id="hf-vj92" style="color: var(--green)">pero responde</b></div>
+</div>
+
+<!-- ═══ k1 · el error 503 (5.00–12.48) ═══ -->
+<section data-hf-id="hf-d42g" id="k1" class="card clip" data-start="5" data-duration="7.48" data-track-index="2">
+  <div data-hf-id="hf-z18r" class="view"><div data-hf-id="hf-12x1" class="cam">
+    <div data-hf-id="hf-wknm" class="lbl">El error que veo</div>
+    <div data-hf-id="hf-g0h9" class="big" data-at="6.6">503</div>
+    <div data-hf-id="hf-meym" class="unav" data-at="6.9">UNAVAILABLE</div>
+    <div data-hf-id="hf-4j1d" class="shot" data-at="5.3"><img data-hf-id="hf-cp2a" src="503_error.jpeg" alt="Error 503 en la UI de ADK"></div>
+    <div data-hf-id="hf-q9ar" id="k1-focus" class="focus" data-at="9.5" style="left: 194px; top: 530px; width: 392px; height: 142px"></div>
+  </div></div>
+</section>
+
+<!-- ═══ k2 · mi solución anterior: reintentar (19.68–32.24) ═══ -->
+<section data-hf-id="hf-xokd" id="k2" class="card clip" data-start="19.68" data-duration="12.56" data-track-index="2">
+  <div data-hf-id="hf-2kx7" class="view"><div data-hf-id="hf-wcpl" class="cam">
+    <div data-hf-id="hf-z3fy" class="lbl" style="color: var(--red)">Lo que yo hacía</div>
+    <div data-hf-id="hf-a8xv" class="ttl ln" style="font-size: 84px"><span data-hf-id="hf-fujt">Reintentar al mismo modelo</span></div>
+    <div data-hf-id="hf-gyfb" class="row" data-at="21.7" style="top: 280px">Intento <span data-hf-id="hf-9yaw" class="bad">503</span></div>
+    <div data-hf-id="hf-xdy3" class="row" data-at="24.1" style="top: 392px">Reintento<em data-hf-id="hf-6nne">+1 s</em> <span data-hf-id="hf-bjds" class="bad">503</span></div>
+    <div data-hf-id="hf-i70o" class="row" data-at="25.2" style="top: 504px">Reintento<em data-hf-id="hf-nt0k">+3 s</em> <span data-hf-id="hf-acgp" class="bad">503</span></div>
+    <div data-hf-id="hf-se04" class="meter-l" data-at="25.9" style="top: 632px">Carga del servicio</div>
+    <div data-hf-id="hf-uoq3" class="meter" data-at="25.9" style="top: 686px"><i data-hf-id="hf-kpvw" id="k2-fill"></i></div>
+    <div data-hf-id="hf-cb8n" id="k2-stamp" class="stamp" style="left: 470px; top: 770px; opacity: 0">SATURADO</div>
+  </div></div>
+</section>
+
+<!-- ═══ k2b · la solución (33.80–36.08) ═══ -->
+<section data-hf-id="hf-8edl" id="k2b" class="card dark clip" data-start="33.8" data-duration="2.28" data-track-index="2">
+  <div data-hf-id="hf-26m6" class="view"><div data-hf-id="hf-xjmo" class="cam">
+    <div data-hf-id="hf-oi70" class="lbl" style="color: #81c995">La solución</div>
+    <div data-hf-id="hf-qdha" class="ttl ln"><span data-hf-id="hf-0gl8">Fallback de modelo</span></div>
+    <img data-hf-id="hf-d6w8" class="hero" src="hero.png" alt="">
+    <div data-hf-id="hf-6a9z" class="sub" style="top: 720px">si un modelo falla, responde otro</div>
+  </div></div>
+</section>
+
+<!-- ═══ k3 · OpenRouter (36.08–50.32) ═══ -->
+<section data-hf-id="hf-puha" id="k3" class="card clip" data-start="36.08" data-duration="14.24" data-track-index="2">
+  <div data-hf-id="hf-1sb5" class="view"><div data-hf-id="hf-x5bn" class="cam">
+    <div data-hf-id="hf-ht0o" class="lbl">Opción 1 · proveedor</div>
+    <div data-hf-id="hf-h2ua" class="ttl ln"><span data-hf-id="hf-y1z0">OpenRouter</span></div>
+    <svg data-hf-id="hf-rcrw" class="wires" viewBox="0 0 1080 920">
+      <path data-hf-id="hf-jyf6" id="w0" d="M540 332 L540 380" stroke="#c9c1ad" />
+      <path data-hf-id="hf-afa7" id="wa" d="M540 492 C540 552 300 540 300 600" stroke="#c9c1ad" />
+      <path data-hf-id="hf-pbex" id="wb" d="M540 492 C540 552 780 540 780 600" stroke="#2f9e5a" />
+    </svg>
+    <div data-hf-id="hf-kta7" class="node" data-at="36.3" style="top: 220px">Tu agente</div>
+    <div data-hf-id="hf-2gpn" class="node dk" data-at="37.6" style="top: 380px">OpenRouter</div>
+    <div data-hf-id="hf-4k0p" id="k3-a" class="model" data-at="39.6" style="left: 80px"><b data-hf-id="hf-uluc">Modelo A</b><span data-hf-id="hf-tw5t">el que elegiste</span><span data-hf-id="hf-7np9" id="k3-a503" class="bad" style="opacity: 0">503</span><div data-hf-id="hf-ufsv" class="bar"><i data-hf-id="hf-wt6k"></i></div></div>
+    <div data-hf-id="hf-uzix" id="k3-b" class="model" data-at="42.2" style="left: 560px"><b data-hf-id="hf-tex9">Modelo B</b><span data-hf-id="hf-m0pi">otra compañía · más bajo</span><div data-hf-id="hf-c51b" class="bar"><i data-hf-id="hf-ut6d" id="k3-bfill"></i></div></div>
+    <div data-hf-id="hf-oxzj" class="hand" data-at="48.6" style="left: 560px; top: 800px">…y B se satura</div>
+  </div></div>
+</section>
+
+<!-- ═══ k4 · Google ADK (57.08–66.04) ═══ -->
+<section data-hf-id="hf-ll3o" id="k4" class="card clip" data-start="57.08" data-duration="8.96" data-track-index="2">
+  <div data-hf-id="hf-1e04" class="view"><div data-hf-id="hf-v5si" class="cam">
+    <div data-hf-id="hf-8of4" class="lbl">Opción 2 · nativo</div>
+    <div data-hf-id="hf-hh5b" class="ttl ln"><span data-hf-id="hf-dxew">Google ADK</span></div>
+    <div data-hf-id="hf-qmyt" id="k4-exp" class="exp" style="opacity: 0">EXPERIMENTAL</div>
+    <div data-hf-id="hf-s59t" id="k4-fbm" class="bigmono mono"><span data-hf-id="hf-k011">F</span><span data-hf-id="hf-zhz4">a</span><span data-hf-id="hf-ubzr">l</span><span data-hf-id="hf-jm0n">l</span><span data-hf-id="hf-yb21">b</span><span data-hf-id="hf-wqew">a</span><span data-hf-id="hf-ypd2">c</span><span data-hf-id="hf-viwu">k</span><span data-hf-id="hf-i0hw">M</span><span data-hf-id="hf-txoq">o</span><span data-hf-id="hf-xifz">d</span><span data-hf-id="hf-xwr0">e</span><span data-hf-id="hf-j7pm">l</span><i data-hf-id="hf-ougp" class="caret"></i></div>
+    <div data-hf-id="hf-nhuh" class="doc" data-at="64.0"><div data-hf-id="hf-e5zy" class="p mono">adk-python · docs/guides/models/fallback_model</div><div data-hf-id="hf-xfft" class="q">“FallbackModel wraps an ordered list of models and moves to the next one when a call fails.”</div></div>
+    <div data-hf-id="hf-3ddw" class="ok" data-at="65.4">✓ Lo leí y lo implementé</div>
+  </div></div>
+</section>
+
+<!-- ═══ k5 · cómo funciona (66.04–76.40) ═══ -->
+<section data-hf-id="hf-cjru" id="k5" class="card dark clip" data-start="66.04" data-duration="10.36" data-track-index="2">
+  <div data-hf-id="hf-0zp3" class="view"><div data-hf-id="hf-urhh" class="cam">
+    <div data-hf-id="hf-nobk" class="lbl" style="color: #81c995">Cómo funciona</div>
+    <div data-hf-id="hf-idkz" class="ttl ln" style="font-size: 84px"><span data-hf-id="hf-ndg8">Modelo de respaldo</span></div>
+    <div data-hf-id="hf-h2z4" class="code mono">
+<span data-hf-id="hf-e457" class="l"><span data-hf-id="hf-1pxt" class="ty"><span data-hf-id="hf-n65j" class="kw">from</span> google.adk.models <span data-hf-id="hf-iusy" class="kw">import</span> <span data-hf-id="hf-zsoo" class="fn">FallbackModel</span></span></span>
+<span data-hf-id="hf-5ut7" class="l"><span data-hf-id="hf-402o" class="ty"> </span></span>
+<span data-hf-id="hf-5gi6" class="l"><span data-hf-id="hf-2q1u" class="ty">agent = <span data-hf-id="hf-uahl" class="fn">LlmAgent</span>(</span></span>
+<span data-hf-id="hf-5275" class="l"><span data-hf-id="hf-n0he" class="ty">    model=<span data-hf-id="hf-kogg" class="fn">FallbackModel</span>(models=[</span></span>
+<span data-hf-id="hf-4nw4" class="l"><span data-hf-id="hf-zdt0" class="ty">        <span data-hf-id="hf-0fiq" class="mark st">'gemini-3.1-pro-preview'<i data-hf-id="hf-7qtu" class="strike"></i></span>,</span><span data-hf-id="hf-fj22" id="k5-503" class="t503">503</span></span>
+<span data-hf-id="hf-49l3" class="l"><span data-hf-id="hf-mjbw" class="ty">        <span data-hf-id="hf-kkpa" class="mark st">'gemini-3.5-flash'<i data-hf-id="hf-18w0" class="hl"></i></span>,</span></span>
+<span data-hf-id="hf-3va2" class="l"><span data-hf-id="hf-rgvm" class="ty">    ]),</span></span>
+<span data-hf-id="hf-3gz1" class="l"><span data-hf-id="hf-0kq3" class="ty">)</span></span>
+    </div>
+    <div data-hf-id="hf-iovy" id="k5-resp" class="resp" style="opacity: 0">✓ Responde gemini-3.5-flash</div>
+  </div></div>
+</section>
+
+<!-- ═══ k6 · conclusión (81.76–90.18) ═══ -->
+<section data-hf-id="hf-6xrp" id="k6" class="card clip" data-start="81.76" data-duration="8.42" data-track-index="2">
+  <div data-hf-id="hf-0le2" class="view"><div data-hf-id="hf-vyek" class="cam">
+    <div data-hf-id="hf-qhmh" class="lbl" data-at="81.9" style="color: var(--red)">Pasa muy seguido</div>
+    <div data-hf-id="hf-m2yn" class="ttl ln" style="font-size: 110px"><span data-hf-id="hf-acln" id="k6-t" style="opacity: 0">Usa un fallback</span></div>
+    <div data-hf-id="hf-9j68" class="opt" data-at="85.6" style="top: 260px"><span data-hf-id="hf-q9im" class="pill" style="background: var(--green)">Nativo</span><div data-hf-id="hf-tzkk" class="t2">Google ADK, LangChain <span data-hf-id="hf-ioz0">· en tu framework</span></div></div>
+    <div data-hf-id="hf-zoiy" class="opt" data-at="88.2" style="top: 500px"><span data-hf-id="hf-969g" class="pill" style="background: var(--blue)">Proveedor</span><div data-hf-id="hf-xwiv" class="t2">OpenRouter <span data-hf-id="hf-awds">· otro proveedor</span></div></div>
+  </div></div>
+</section>
+
+<!-- ═══ captions: Reels safe zone ═══ -->
+<div data-hf-id="hf-5ep7" id="cap-box"><div data-hf-id="hf-un0f" id="cap"></div></div>
+
+      <script src="vendor/gsap.min.js"></script>
+      <script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+  var CAPS = [{"s":0.08,"e":1.68,"text":"Los modelos de Google se han estado cayendo"},{"s":1.68,"e":3.28,"text":"y eso me afecta directamente a algunos"},{"s":3.28,"e":5,"text":"agentes que tengo corriendo en producción."},{"s":5,"e":7.28,"text":"Miren, este es el error, es un 503 en el"},{"s":7.28,"e":9.4,"text":"cual me dice este modelo está teniendo una"},{"s":9.4,"e":11.76,"text":"alta demanda entonces no responde"},{"s":11.76,"e":12.48,"text":"directamente."},{"s":12.48,"e":13.48,"text":"Y esto ya me ha estado pasando"},{"s":13.48,"e":14.88,"text":"frecuentemente en donde estos modelos"},{"s":14.88,"e":16.32,"text":"tienen un pico de alta demanda"},{"s":16.56,"e":18.64,"text":"y por ende mis agentes se quedan mudos,"},{"s":18.64,"e":19.56,"text":"nadie responde."},{"s":19.68,"e":21.68,"text":"Ahora yo tenía una forma en la cual si no"},{"s":21.68,"e":23.16,"text":"responde, si tenía este tipo de error"},{"s":23.16,"e":25,"text":"responde después del segundo, después de"},{"s":25,"e":26.76,"text":"los 3 segundos pero aún así seguía el pico"},{"s":26.76,"e":28.56,"text":"de demanda y eso puede empeorarlo"},{"s":28.84,"e":30.56,"text":"Porque pues seguimos haciendo reintentos y"},{"s":30.56,"e":32.12,"text":"se sigue saturando el servicio."},{"s":32.24,"e":34.24,"text":"¿Cómo lo solucioné? Haciendo un fallback"},{"s":34.24,"e":34.88,"text":"del modelo."},{"s":34.88,"e":36.08,"text":"Hay varias formas de hacerlo."},{"s":36.08,"e":37.6,"text":"Por ejemplo, si utilizas cosas como Open"},{"s":37.6,"e":39.48,"text":"Router, él automáticamente tiene como un"},{"s":39.48,"e":41.52,"text":"fallback, que es que si este modelo no"},{"s":41.52,"e":43.28,"text":"responde, entonces apunta a otro, de otra"},{"s":43.28,"e":45.92,"text":"compañía, de otro modelo más bajo."},{"s":45.92,"e":48.6,"text":"Pero entonces le pasa el problema a otro si"},{"s":48.6,"e":50.32,"text":"es que alguien está teniendo problemas."},{"s":50.32,"e":51.96,"text":"Eso en el caso de Open Router, pero yo ya"},{"s":51.96,"e":53.52,"text":"he trabajado con otros frameworks como"},{"s":53.52,"e":55.68,"text":"launchain y ellos nativamente tienen esto"},{"s":55.68,"e":56.56,"text":"dentro del SDK."},{"s":57.08,"e":58.76,"text":"revisando más a fondo en el Google ADK, que"},{"s":58.76,"e":60.8,"text":"es el que yo utilizo, ellos ya tienen esto,"},{"s":60.8,"e":62.48,"text":"solo que está en modo experimental, pero ya"},{"s":62.48,"e":63.88,"text":"tienen un fallback model."},{"s":63.88,"e":65.48,"text":"Entonces me leí esta documentación y lo"},{"s":65.48,"e":66.04,"text":"implementé."},{"s":66.04,"e":67.88,"text":"Básicamente lo que hace es, si alguno de"},{"s":67.88,"e":69.68,"text":"estos modelos está en alta demanda, lo"},{"s":69.68,"e":71.72,"text":"pasa, escogemos un modelo un poquito más"},{"s":71.72,"e":74.32,"text":"bajito, uno que no esté como saturado y"},{"s":74.32,"e":76.12,"text":"entonces él va a ser el que va a responder."},{"s":76.4,"e":78.32,"text":"Entonces con esto el agent no se queda"},{"s":78.32,"e":79.96,"text":"mudo, tal vez dure un ratito más la"},{"s":79.96,"e":81.72,"text":"respuesta, pero tiene una respuesta."},{"s":81.76,"e":83.48,"text":"Y eso está pasando muy frecuente, así que"},{"s":83.48,"e":85.6,"text":"les recomiendo mucho usar este fallback, ya"},{"s":85.6,"e":88.2,"text":"sea nativo en el que estén usando o por"},{"s":88.2,"e":90.16,"text":"alguna otra proveedor como el Open Router."}];
+  var $ = function (s) { return document.querySelector(s); };
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  var IR = { immediateRender: false };
+  function o(a, b) { for (var k in b) a[k] = b[k]; return a; }
+
+  // Camera helper: scale the .cam (origin 0 0) so content point (cx,cy) lands on view point (tx,ty)
+  function cam(card, t, s, cx, cy, tx, ty, d, ease) {
+    tl.to("#" + card + " .cam", { scale: s, x: tx - s * cx, y: ty - s * cy, duration: d, ease: ease || "power3.inOut" }, t);
+  }
+  function shake(sel, t, amp) {
+    [-1, 1, -0.6, 0.4, 0].forEach(function (k, i) { tl.to(sel, { x: k * amp, duration: 1 / 30, ease: "none" }, t + i / 30); });
+  }
+  function vzoom(t, from, to, d, ease) {
+    tl.fromTo("#video-zoom", { scale: from }, o({ scale: to, duration: d, ease: ease || "power1.inOut" }, IR), t);
+  }
+
+  // ── Cards: wipe up in (camera arrives pulling back), wipe up out (camera keeps rising) ──
+  // Vector law: every card seam moves on the same upward axis, cut mid-motion on both sides.
+  var CARDS = [
+    ["k1", 5.0, 12.48, 1.07], ["k2", 19.68, 32.24, 1.14], ["k2b", 33.8, 36.08, 1.1],
+    ["k3", 36.08, 50.32, null], ["k4", 57.08, 66.04, 1.16], ["k5", 66.04, 76.4, null], ["k6", 81.76, 90.18, 1.13]
+  ];
+  CARDS.forEach(function (c, i) {
+    var id = c[0], s = c[1], e = c[2], el = "#" + id;
+    var next = CARDS[i + 1], toCard = next && Math.abs(next[1] - e) < 0.01;
+    tl.set(el, { visibility: "visible" }, s);
+    tl.fromTo(el, { clipPath: "inset(100% 0% 0% 0%)" }, o({ clipPath: "inset(0% 0% 0% 0%)", duration: 0.75, ease: "power4.inOut" }, IR), s);
+    tl.fromTo(el + " .cam", { scale: 1.12, x: 540 - 1.12 * 540, y: 460 - 1.12 * 460 + 120 }, o({ scale: 1, x: 0, y: 0, duration: 1.1, ease: "expo.out" }, IR), s + 0.05);
+    if (c[3] !== null) {
+      // the talking head pushes forward into the card, then drops out
+      vzoom(s, c[3], c[3] + 0.18, 0.7, "power2.in");
+      tl.fromTo("#video-wrap", { opacity: 1 }, o({ opacity: 0, duration: 0.4, ease: "power2.in" }, IR), s + 0.3);
+    }
+    tl.fromTo(el + " .lbl:not([data-at])", { opacity: 0, x: 40 }, o({ opacity: 1, x: 0, duration: 0.6, ease: "expo.out" }, IR), s + 0.3);
+    tl.fromTo(el + " .ttl.ln > span:not([id])", { yPercent: 115 }, o({ yPercent: 0, duration: 0.8, ease: "expo.out" }, IR), s + 0.38);
+
+    if (e >= 90) return;
+    var out = e - 0.35;
+    tl.to(el, { clipPath: "inset(0% 0% 100% 0%)", duration: 0.7, ease: "power4.inOut" }, out);
+    tl.to(el + " .view", { y: -160, duration: 0.7, ease: "power4.in" }, out);
+    if (!toCard) {
+      tl.fromTo("#video-wrap", { opacity: 0 }, o({ opacity: 1, duration: 0.2, ease: "none" }, IR), out);
+      vzoom(out, 1.14, 1.0, 1.0, "expo.out");
+    }
+    tl.set(el, { visibility: "hidden" }, e + 0.4);
+  });
+
+  tl.set("#k2-fill, #k3-a .bar i, #k3-bfill, #k5 .strike, #k5 .hl", { scaleX: 0, transformOrigin: "0% 50%" }, 0);
+
+  // ── Staged reveals: each [data-at] element lands on its word ──
+  $$("[data-at]").forEach(function (n) {
+    var t = parseFloat(n.getAttribute("data-at"));
+    if (n.classList.contains("big")) {
+      tl.fromTo(n, { opacity: 0, scale: 1.5, transformOrigin: "0% 80%" }, o({ opacity: 1, scale: 1, duration: 0.42, ease: "power4.in" }, IR), t);
+    } else if (n.classList.contains("unav")) {
+      tl.fromTo(n, { opacity: 0, x: -60, scaleX: 1.15, transformOrigin: "0% 50%" }, o({ opacity: 1, x: 0, scaleX: 1, duration: 0.7, ease: "expo.out" }, IR), t);
+    } else if (n.classList.contains("row") || n.classList.contains("opt") || n.classList.contains("node") || n.classList.contains("model")) {
+      tl.fromTo(n, { opacity: 0, x: 90 }, o({ opacity: 1, x: 0, duration: 0.65, ease: "expo.out" }, IR), t);
+    } else if (n.classList.contains("focus")) {
+      tl.fromTo(n, { opacity: 0, scale: 1.25 }, o({ opacity: 1, scale: 1, duration: 0.5, ease: "expo.out" }, IR), t);
+    } else {
+      tl.fromTo(n, { opacity: 0, y: 46 }, o({ opacity: 1, y: 0, duration: 0.7, ease: "expo.out" }, IR), t);
+    }
+  });
+
+  // ── k1 · 503: slam, then the camera dives into the error block ──
+  shake("#k1 .view", 7.02, 12);
+  cam("k1", 9.6, 1.62, 390, 601, 540, 470, 1.4);
+
+  // ── k2 · reintentos: each retry fails, the service saturates ──
+  $$("#k2 .row .bad").forEach(function (b, i) {
+    var t = [21.7, 24.1, 25.2][i] + 0.35;
+    tl.fromTo(b, { scale: 0.3, opacity: 0 }, o({ scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.2)" }, IR), t);
+    shake(b.parentNode, t + 0.05, 7);
+  });
+  [[26.1, 0.3, "#2f9e5a"], [27.6, 0.52, "#f5a524"], [28.9, 0.76, "#f08a24"], [30.6, 1, "#e5484d"]].forEach(function (s) {
+    tl.to("#k2-fill", { scaleX: s[1], backgroundColor: s[2], duration: 0.5, ease: "power2.out" }, s[0]);
+  });
+  cam("k2", 28.8, 1.16, 540, 650, 540, 500, 1.3);
+  tl.fromTo("#k2-stamp", { opacity: 0, scale: 1.9, rotation: -16 }, o({ opacity: 1, scale: 1, rotation: -6, duration: 0.26, ease: "power4.in" }, IR), 31.0);
+  shake("#k2 .view", 31.26, 16);
+
+  // ── k2b · la solución: hero lands, camera drifts in ──
+  tl.fromTo("#k2b .hero", { opacity: 0, scale: 0.9, y: 50 }, o({ opacity: 1, scale: 1, y: 0, duration: 0.9, ease: "expo.out" }, IR), 34.0);
+  tl.fromTo("#k2b .sub", { opacity: 0, y: 30 }, o({ opacity: 1, y: 0, duration: 0.6, ease: "expo.out" }, IR), 34.6);
+  cam("k2b", 34.9, 1.05, 540, 440, 540, 440, 1.2, "power1.inOut");
+
+  // ── k3 · OpenRouter: wires draw, A fails, B takes over, then B saturates ──
+  ["#w0", "#wa", "#wb"].forEach(function (id, i) {
+    var p = $(id), L = p.getTotalLength();
+    tl.set(p, { strokeDasharray: L, strokeDashoffset: L }, 0);
+    tl.to(p, { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" }, [37.2, 39.4, 42.0][i]);
+  });
+  tl.to("#k3-a", { borderColor: "#e5484d", backgroundColor: "#fdecec", duration: 0.25 }, 41.5);
+  tl.to("#wa", { stroke: "#e5484d", duration: 0.25 }, 41.5);
+  tl.fromTo("#k3-a503", { opacity: 0, scale: 0.3 }, o({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.2)" }, IR), 41.55);
+  tl.to("#k3-a .bar i", { scaleX: 1, duration: 0.5, ease: "power2.out" }, 41.5);
+  shake("#k3-a", 41.6, 8);
+  cam("k3", 45.9, 1.3, 780, 685, 600, 520, 1.3);
+  tl.to("#k3-bfill", { scaleX: 1, duration: 1.6, ease: "power1.in" }, 46.3);
+  tl.to("#k3-b", { borderColor: "#e5484d", duration: 0.3 }, 47.8);
+
+  // ── k4 · ADK: experimental stamp slams, the class name types itself ──
+  tl.fromTo("#k4-exp", { opacity: 0, scale: 1.7, rotation: 6 }, o({ opacity: 1, scale: 1, rotation: -4, duration: 0.26, ease: "power4.in" }, IR), 61.5);
+  shake("#k4 .view", 61.76, 10);
+  var chars = $$("#k4-fbm > span");
+  tl.set(chars, { opacity: 0 }, 0);
+  tl.set("#k4-fbm .caret", { opacity: 0 }, 0);
+  tl.set("#k4-fbm .caret", { opacity: 1 }, 62.9);
+  tl.to(chars, { opacity: 1, duration: 0.01, stagger: 0.045 }, 63.0);
+  tl.set("#k4-fbm .caret", { opacity: 0 }, 64.0);
+  cam("k4", 63.0, 1.06, 540, 400, 540, 400, 1.2, "power2.out");
+  cam("k4", 64.0, 1.0, 0, 0, 0, 0, 1.0, "power2.inOut");
+
+  // ── k5 · code: types in, camera dives to the failing model, pans to the backup ──
+  tl.fromTo("#k5 .code", { opacity: 0, y: 60 }, o({ opacity: 1, y: 0, duration: 0.7, ease: "expo.out" }, IR), 66.3);
+  tl.fromTo("#k5 .code .ty", { clipPath: "inset(0% 100% 0% 0%)" }, o({ clipPath: "inset(0% 0% 0% 0%)", duration: 0.34, ease: "steps(14)", stagger: 0.22 }, IR), 66.45);
+  cam("k5", 68.6, 1.3, 500, 482, 540, 420, 0.9);
+  tl.to("#k5 .strike", { scaleX: 1, duration: 0.35, ease: "power3.inOut" }, 69.0);
+  tl.fromTo("#k5-503", { opacity: 0, scale: 0.3 }, o({ opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.2)" }, IR), 69.25);
+  shake("#k5 .code .l:nth-child(5)", 69.3, 8);
+  cam("k5", 70.1, 1.3, 500, 538, 540, 420, 0.75);
+  tl.to("#k5 .hl", { scaleX: 1, duration: 0.45, ease: "power3.out" }, 71.6);
+  cam("k5", 73.7, 1.0, 0, 0, 0, 0, 0.9);
+  tl.fromTo("#k5-resp", { opacity: 0, y: 50, scale: 0.95 }, o({ opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "expo.out" }, IR), 75.0);
+
+  // ── k6 · conclusión: title lands on "usar este fallback", camera keeps pushing ──
+  tl.fromTo("#k6-t", { opacity: 0, yPercent: 115 }, o({ opacity: 1, yPercent: 0, duration: 0.85, ease: "expo.out" }, IR), 83.6);
+  cam("k6", 82.2, 1.05, 540, 400, 540, 400, 7.8, "power1.inOut");
+
+  // ── Chips over the talking head ──
+  function chip(id, s, e, extra) {
+    var el = "#" + id;
+    tl.set(el, { visibility: "visible" }, s);
+    tl.fromTo(el, { opacity: 0, y: 50, scale: 0.96 }, o({ opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "expo.out" }, IR), s);
+    tl.fromTo(el + " > .ln > span", { yPercent: 115 }, o({ yPercent: 0, duration: 0.75, ease: "expo.out", stagger: 0.12 }, IR), s + 0.08);
+    (extra || []).forEach(function (x) {
+      tl.fromTo(x[0], { opacity: 0, y: 18 }, o({ opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, IR), x[1]);
+    });
+    tl.to(el, { opacity: 0, y: -50, duration: 0.32, ease: "power3.in" }, e - 0.32);
+    tl.set(el, { visibility: "hidden" }, e);
+  }
+  chip("c0", 0.05, 5.0);
+  chip("c1a", 12.6, 16.5);
+  chip("c1b", 16.56, 19.68, [["#c1b .s", 18.64]]);
+  chip("c3", 32.3, 33.8);
+  chip("c4", 50.5, 57.08);
+  tl.set("#c4-r2", { opacity: 0 }, 0);
+  tl.fromTo("#c4-r2", { opacity: 0, y: 18 }, o({ opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, IR), 53.5);
+  chip("c5", 76.5, 81.76, [["#c5-s", 78.4]]);
+
+  // ── Talking-head camera: slow pushes, punch-ins on the key words ──
+  vzoom(0, 1.0, 1.07, 5.0);
+  vzoom(13.2, 1.0, 1.04, 4.8);
+  vzoom(18.1, 1.04, 1.14, 0.45, "expo.out");
+  vzoom(32.5, 1.0, 1.1, 0.45, "expo.out");
+  vzoom(51.0, 1.0, 1.05, 2.5);
+  vzoom(53.55, 1.05, 1.13, 0.45, "expo.out");
+  vzoom(54.2, 1.13, 1.16, 2.8);
+  vzoom(77.2, 1.0, 1.04, 2.7);
+  vzoom(80.0, 1.04, 1.13, 0.45, "expo.out");
+
+  // ── Captions (phrase-level from captions.srt) ──
+  CAPS.forEach(function (c) {
+    tl.set("#cap", { innerHTML: c.text }, c.s);
+    tl.fromTo("#cap", { opacity: 0, y: 10 }, o({ opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, IR), c.s);
+    tl.to("#cap", { opacity: 0, duration: 0.1, ease: "power1.in" }, c.e - 0.1);
+  });
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines["fallback-model-recut"] = tl;
+})();
+
+      </script>
+    </div>
+  </body>
+</html>

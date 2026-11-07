@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1080">
+    <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/Inter-400-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/Inter-700-latin.woff2") format("woff2");
+        font-weight: 700;
+        font-display: block;
+      }
+      :root {
+        --teal: #075e54;
+        --green: #25d366;
+        --ink: #111111;
+        --paper: #ffffff;
+        --mint: #e7fbef;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+        font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+      }
+      #stage {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+      }
+      #frame {
+        position: absolute;
+        inset: 0;
+      }
+      /* Top panel ground: white with two faint mint blooms so it never reads as "nothing loaded" */
+      #B00_panel {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 960px;
+        background:
+          radial-gradient(520px 420px at 8% 6%, var(--mint), rgba(231, 251, 239, 0) 70%),
+          radial-gradient(560px 460px at 96% 92%, var(--mint), rgba(231, 251, 239, 0) 70%),
+          var(--paper);
+      }
+      /* Presenter: full frame for the hook, then the bottom half (split) */
+      #video-wrap {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+      #video-punch {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 75%;
+      }
+      #bg-video {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+        display: block;
+      }
+      /* Seam shadow so the split reads as two frames */
+      #seam {
+        position: absolute;
+        left: 0;
+        top: 960px;
+        width: 1080px;
+        height: 18px;
+        background: linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0));
+        opacity: 0;
+      }
+      .brush-layer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        pointer-events: none;
+      }
+      .scene {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+      /* Captions: y≈1420 during the full-frame hook, then they ride the seam (centre y=960) */
+      #caps {
+        position: absolute;
+        left: 0;
+        top: 1420px;
+        width: 1080px;
+        height: 92px;
+      }
+      .cap {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 92px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .pill {
+        background: var(--teal);
+        color: #fff;
+        font-size: 50px;
+        font-weight: 700;
+        line-height: 1;
+        padding: 20px 38px;
+        border-radius: 999px;
+        white-space: nowrap;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-stof" id="stage" data-composition-id="whatsapp-tips-overlay" data-start="0" data-duration="48.28" data-width="1080" data-height="1920">
+      <audio data-hf-id="hf-cutu" id="B00_audio_mix" src="mix.m4a" data-start="0" data-duration="48.28" data-track-index="9"></audio>
+      <div data-hf-id="hf-xfzw" id="frame">
+        <div data-hf-id="hf-31bm" id="B00_panel"></div>
+
+        <div data-hf-id="hf-qv93" id="video-wrap">
+          <div data-hf-id="hf-88mh" id="video-punch">
+            <video data-hf-id="hf-08gv" id="bg-video" src="input-video.mp4" muted playsinline data-start="0" data-duration="48.28" data-track-index="0"></video>
+          </div>
+        </div>
+        <div data-hf-id="hf-f66z" id="seam"></div>
+
+        <canvas data-hf-id="hf-ytkw" id="brush-under" class="brush-layer" aria-hidden="true" data-layout-ignore="true" data-layout-allow-occlusion="true" width="1080" height="1920" style="z-index: 2; visibility: hidden"></canvas>
+
+        <!-- Scenes: one sub-composition per beat group, each its own paused timeline -->
+        <div data-hf-id="hf-54xx" id="B01_hook" class="scene clip" data-composition-id="B01_hook" data-composition-src="compositions/B01_hook.html" data-start="0" data-duration="1.9" data-track-index="2" data-width="1080" data-height="1920" style="z-index: 3"></div>
+        <div data-hf-id="hf-f5in" id="B02_three" class="scene clip" data-composition-id="B02_three" data-composition-src="compositions/B02_three.html" data-start="1.8" data-duration="4.8" data-track-index="3" data-width="1080" data-height="1920" style="z-index: 3"></div>
+        <div data-hf-id="hf-nqjg" id="B04_tiers" class="scene clip" data-composition-id="B04_tiers" data-composition-src="compositions/B04_tiers.html" data-start="6.6" data-duration="34.16" data-track-index="2" data-width="1080" data-height="1920" style="z-index: 3"></div>
+        <div data-hf-id="hf-yeq0" id="B07_cta" class="scene clip" data-composition-id="B07_cta" data-composition-src="compositions/B07_cta.html" data-start="40.76" data-duration="7.52" data-track-index="3" data-width="1080" data-height="1920" style="z-index: 3"></div>
+
+        <canvas data-hf-id="hf-dw9e" id="brush-over" class="brush-layer" aria-hidden="true" data-layout-ignore="true" data-layout-allow-occlusion="true" width="1080" height="1920" style="z-index: 4; visibility: hidden"></canvas>
+
+        <div data-hf-id="hf-hvx2" id="caps" style="z-index: 5">
+          <!-- Captions: chunks of 2–3 words from captions.srt -->
+          <div data-hf-id="hf-w2g6" id="cap-0" class="cap clip" data-start="0.080" data-duration="0.860" data-track-index="5"><span data-hf-id="hf-1cb1" class="pill">¿Usas WhatsApp para</span></div>
+          <div data-hf-id="hf-vxye" id="cap-1" class="cap clip" data-start="0.940" data-duration="0.860" data-track-index="5"><span data-hf-id="hf-3vjk" class="pill">tener tus clientes?</span></div>
+          <div data-hf-id="hf-h3nc" id="cap-2" class="cap clip" data-start="1.800" data-duration="1.220" data-track-index="5"><span data-hf-id="hf-awgt" class="pill">¿Sabías que existen</span></div>
+          <div data-hf-id="hf-2q3i" id="cap-3" class="cap clip" data-start="3.020" data-duration="0.574" data-track-index="5"><span data-hf-id="hf-d2w9" class="pill">3 tipos de</span></div>
+          <div data-hf-id="hf-w3kd" id="cap-4" class="cap clip" data-start="3.594" data-duration="0.646" data-track-index="5"><span data-hf-id="hf-bvjp" class="pill">WhatsApp y</span></div>
+          <div data-hf-id="hf-vdwa" id="cap-5" class="cap clip" data-start="4.240" data-duration="0.959" data-track-index="5"><span data-hf-id="hf-vob9" class="pill">no todos sirven</span></div>
+          <div data-hf-id="hf-53ic" id="cap-6" class="cap clip" data-start="5.199" data-duration="0.664" data-track-index="5"><span data-hf-id="hf-bagg" class="pill">igual para</span></div>
+          <div data-hf-id="hf-s5g5" id="cap-7" class="cap clip" data-start="5.862" data-duration="0.737" data-track-index="5"><span data-hf-id="hf-k16c" class="pill">tu negocio?</span></div>
+          <div data-hf-id="hf-otbz" id="cap-8" class="cap clip" data-start="6.600" data-duration="1.084" data-track-index="5"><span data-hf-id="hf-z5tb" class="pill">WhatsApp normal es</span></div>
+          <div data-hf-id="hf-c2jn" id="cap-9" class="cap clip" data-start="7.684" data-duration="0.474" data-track-index="5"><span data-hf-id="hf-7jgf" class="pill">el que la</span></div>
+          <div data-hf-id="hf-207j" id="cap-10" class="cap clip" data-start="8.159" data-duration="0.881" data-track-index="5"><span data-hf-id="hf-v6za" class="pill">mayoría usamos</span></div>
+          <div data-hf-id="hf-c8gq" id="cap-11" class="cap clip" data-start="9.040" data-duration="0.843" data-track-index="5"><span data-hf-id="hf-b5is" class="pill">para hablar con</span></div>
+          <div data-hf-id="hf-jcno" id="cap-12" class="cap clip" data-start="9.883" data-duration="1.103" data-track-index="5"><span data-hf-id="hf-0od3" class="pill">nuestras familias,</span></div>
+          <div data-hf-id="hf-xf3p" id="cap-13" class="cap clip" data-start="10.986" data-duration="0.454" data-track-index="5"><span data-hf-id="hf-gcst" class="pill">amigos o</span></div>
+          <div data-hf-id="hf-bqlq" id="cap-14" class="cap clip" data-start="11.440" data-duration="0.856" data-track-index="5"><span data-hf-id="hf-xvdu" class="pill">grupos, y aunque</span></div>
+          <div data-hf-id="hf-qsxa" id="cap-15" class="cap clip" data-start="12.296" data-duration="1.344" data-track-index="5"><span data-hf-id="hf-2ue9" class="pill">muchos negocios empiezan</span></div>
+          <div data-hf-id="hf-p9ne" id="cap-16" class="cap clip" data-start="13.640" data-duration="0.627" data-track-index="5"><span data-hf-id="hf-gsrt" class="pill">por ahí, se</span></div>
+          <div data-hf-id="hf-013t" id="cap-17" class="cap clip" data-start="14.267" data-duration="0.766" data-track-index="5"><span data-hf-id="hf-1ahv" class="pill">queda a veces</span></div>
+          <div data-hf-id="hf-4jgv" id="cap-18" class="cap clip" data-start="15.034" data-duration="0.766" data-track-index="5"><span data-hf-id="hf-384p" class="pill">corto cuando</span></div>
+          <div data-hf-id="hf-jkei" id="cap-19" class="cap clip" data-start="15.800" data-duration="1.032" data-track-index="5"><span data-hf-id="hf-ckmb" class="pill">empiezas a recibir</span></div>
+          <div data-hf-id="hf-wwq5" id="cap-20" class="cap clip" data-start="16.832" data-duration="0.968" data-track-index="5"><span data-hf-id="hf-ws10" class="pill">muchos clientes.</span></div>
+          <div data-hf-id="hf-2lfc" id="cap-21" class="cap clip" data-start="17.800" data-duration="1.189" data-track-index="5"><span data-hf-id="hf-pevy" class="pill">WhatsApp Business, perfecto</span></div>
+          <div data-hf-id="hf-lawu" id="cap-22" class="cap clip" data-start="18.989" data-duration="0.571" data-track-index="5"><span data-hf-id="hf-6kak" class="pill">para aquellos</span></div>
+          <div data-hf-id="hf-no6k" id="cap-23" class="cap clip" data-start="19.560" data-duration="1.461" data-track-index="5"><span data-hf-id="hf-iaou" class="pill">negocios que reciben</span></div>
+          <div data-hf-id="hf-08vg" id="cap-24" class="cap clip" data-start="21.021" data-duration="0.406" data-track-index="5"><span data-hf-id="hf-v6m7" class="pill">de 10 a</span></div>
+          <div data-hf-id="hf-k45u" id="cap-25" class="cap clip" data-start="21.426" data-duration="0.974" data-track-index="5"><span data-hf-id="hf-kkff" class="pill">50 clientes en</span></div>
+          <div data-hf-id="hf-z2xi" id="cap-26" class="cap clip" data-start="22.400" data-duration="0.640" data-track-index="5"><span data-hf-id="hf-j1vx" class="pill">un día.</span></div>
+          <div data-hf-id="hf-juob" id="cap-27" class="cap clip" data-start="23.400" data-duration="0.883" data-track-index="5"><span data-hf-id="hf-77ym" class="pill">Aquellos negocios que</span></div>
+          <div data-hf-id="hf-gdit" id="cap-28" class="cap clip" data-start="24.283" data-duration="0.837" data-track-index="5"><span data-hf-id="hf-abhf" class="pill">quieren implementar</span></div>
+          <div data-hf-id="hf-7ts7" id="cap-29" class="cap clip" data-start="25.120" data-duration="1.092" data-track-index="5"><span data-hf-id="hf-8y6v" class="pill">un catálogo, tener</span></div>
+          <div data-hf-id="hf-p68f" id="cap-30" class="cap clip" data-start="26.212" data-duration="1.228" data-track-index="5"><span data-hf-id="hf-be2n" class="pill">respuestas rápidas,</span></div>
+          <div data-hf-id="hf-whzs" id="cap-31" class="cap clip" data-start="27.440" data-duration="1.343" data-track-index="5"><span data-hf-id="hf-s3xz" class="pill">mensajes automáticos para</span></div>
+          <div data-hf-id="hf-hap9" id="cap-32" class="cap clip" data-start="28.783" data-duration="0.817" data-track-index="5"><span data-hf-id="hf-cr2v" class="pill">ahorrar tiempo.</span></div>
+          <div data-hf-id="hf-0i98" id="cap-33" class="cap clip" data-start="29.600" data-duration="1.213" data-track-index="5"><span data-hf-id="hf-9dgw" class="pill">WhatsApp Business API,</span></div>
+          <div data-hf-id="hf-v80b" id="cap-34" class="cap clip" data-start="30.813" data-duration="0.667" data-track-index="5"><span data-hf-id="hf-inq0" class="pill">pensado para</span></div>
+          <div data-hf-id="hf-ov4r" id="cap-35" class="cap clip" data-start="31.480" data-duration="1.224" data-track-index="5"><span data-hf-id="hf-k1f2" class="pill">aquellos negocios que</span></div>
+          <div data-hf-id="hf-a3j0" id="cap-36" class="cap clip" data-start="32.704" data-duration="0.838" data-track-index="5"><span data-hf-id="hf-1vdh" class="pill">buscan atender</span></div>
+          <div data-hf-id="hf-xcz6" id="cap-37" class="cap clip" data-start="33.542" data-duration="0.258" data-track-index="5"><span data-hf-id="hf-7s8w" class="pill">a más</span></div>
+          <div data-hf-id="hf-4exs" id="cap-38" class="cap clip" data-start="33.800" data-duration="1.093" data-track-index="5"><span data-hf-id="hf-3h8f" class="pill">de 50 clientes</span></div>
+          <div data-hf-id="hf-wupl" id="cap-39" class="cap clip" data-start="34.893" data-duration="0.547" data-track-index="5"><span data-hf-id="hf-kjjx" class="pill">al día,</span></div>
+          <div data-hf-id="hf-s9t8" id="cap-40" class="cap clip" data-start="35.680" data-duration="1.520" data-track-index="5"><span data-hf-id="hf-8y8j" class="pill">automatizar procesos</span></div>
+          <div data-hf-id="hf-sc3t" id="cap-41" class="cap clip" data-start="37.520" data-duration="1.387" data-track-index="5"><span data-hf-id="hf-j0kr" class="pill">o implementar inteligencia</span></div>
+          <div data-hf-id="hf-qvr5" id="cap-42" class="cap clip" data-start="38.907" data-duration="0.693" data-track-index="5"><span data-hf-id="hf-sqcb" class="pill">artificial en</span></div>
+          <div data-hf-id="hf-8juz" id="cap-43" class="cap clip" data-start="39.600" data-duration="1.160" data-track-index="5"><span data-hf-id="hf-0wtn" class="pill">sus conversaciones.</span></div>
+          <div data-hf-id="hf-npva" id="cap-44" class="cap clip" data-start="40.760" data-duration="1.020" data-track-index="5"><span data-hf-id="hf-v2jp" class="pill">Síguenos si quieres</span></div>
+          <div data-hf-id="hf-p4du" id="cap-45" class="cap clip" data-start="41.780" data-duration="0.780" data-track-index="5"><span data-hf-id="hf-d78z" class="pill">saber más sobre</span></div>
+          <div data-hf-id="hf-a5rh" id="cap-46" class="cap clip" data-start="42.560" data-duration="0.787" data-track-index="5"><span data-hf-id="hf-i77p" class="pill">WhatsApp y cómo</span></div>
+          <div data-hf-id="hf-e8ou" id="cap-47" class="cap clip" data-start="43.347" data-duration="0.848" data-track-index="5"><span data-hf-id="hf-9kbx" class="pill">aprovecharlo en</span></div>
+          <div data-hf-id="hf-aymc" id="cap-48" class="cap clip" data-start="44.195" data-duration="0.605" data-track-index="5"><span data-hf-id="hf-p75p" class="pill">tu negocio,</span></div>
+          <div data-hf-id="hf-1sx5" id="cap-49" class="cap clip" data-start="44.960" data-duration="1.086" data-track-index="5"><span data-hf-id="hf-yr6s" class="pill">y cuéntanos cuál</span></div>
+          <div data-hf-id="hf-903s" id="cap-50" class="cap clip" data-start="46.046" data-duration="0.621" data-track-index="5"><span data-hf-id="hf-po8o" class="pill">de estos 3</span></div>
+          <div data-hf-id="hf-uit1" id="cap-51" class="cap clip" data-start="46.667" data-duration="0.853" data-track-index="5"><span data-hf-id="hf-yesi" class="pill">estás usando</span></div>
+          <div data-hf-id="hf-9he6" id="cap-52" class="cap clip" data-start="47.520" data-duration="0.720" data-track-index="5"><span data-hf-id="hf-7dox" class="pill">actualmente.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="vendor/gsap.min.js"></script>
+    <script src="vendor/brush.js"></script>
+    <script>
+      // Beats + brush engine live in this ONE inline script (inlined by gen.mjs) so their order never
+      // depends on how the renderer schedules external vs inline scripts.
+      window.__BEATS = {"_note":"Single source of truth for every visual hit (compositions) and sound hit (mix). Absolute seconds. Word times come from the SRT cue bounds + per-word interpolation.","source":"fixed.mp4","srt":"fixed.srt","duration":48.28,"hook":{"words":[0.08,0.33,0.74,0.94,1.19,1.34],"hit":1.7,"exit":1.45},"split":{"start":1.45,"land":1.8},"three":{"slam":1.8,"ticks":[1.8,1.95,2.1],"circle":[2.1,2.6],"labels":1.95},"phrase":{"morphOut":3.84,"land":4.24,"igual":5.2},"wipe1":{"head":[6.25,6.6],"tail":[6.6,6.95]},"tier1":{"start":6.6,"rows":[8.16,10.4,10.99,11.44],"negocio":12.66,"flood":[13.64,15],"floodRows":[13.7,13.95,14.15,14.32,14.47,14.6,14.72,14.83],"corto":15.03,"end":17.8},"morph2":{"head":[17.35,17.6],"tail":[17.6,17.85],"swap":17.6,"land":17.8},"tier2":{"perfecto":18.61,"count":[21,22.2],"chips":[25.26,26.21,27.44],"tiempo":28.6,"statExit":24.85,"phone":{"enter":25,"catalog":25.26,"quick":26.21,"slash":26.4,"pick":26.85,"auto":27.44,"autoIn":27.75,"autoReply":28.15,"exit":29.3}},"morph3":{"head":[29.3,29.55],"tail":[29.55,29.8],"swap":29.55,"land":29.6},"tier3":{"pensado":30.81,"masde50":33.9,"flow":[35.68,36.9],"ai":38.21,"end":40.76,"statBack":30.9,"aiExit":37.35,"aiPhone":{"enter":37.45,"in1":37.75,"typing":38,"ai1":38.45,"in2":39.05,"ai2":39.75},"aiChips":[38.21,38.6,39]},"wipe2":{"head":[40.41,40.76],"tail":[40.76,41.11]},"cta":{"start":40.76,"follow":40.88,"press":41.6,"subline":42.56,"question":44.96,"lockup":45.2,"badges":[45.3,45.42,45.54],"underline":45.74,"circles":[46.25,46.42,46.59]},"punches":[1.8,6.6,17.8,29.6,45.2],"sfx":[{"t":1.45,"type":"whoosh","gain":0.6},{"t":1.8,"type":"bass","gain":0.8},{"t":1.95,"type":"tick","gain":0.5},{"t":2.1,"type":"tick","gain":0.5},{"t":2.1,"type":"swish","gain":0.35},{"t":5.2,"type":"swish","gain":0.35},{"t":6.25,"type":"whoosh","gain":0.6},{"t":8.16,"type":"pop","gain":0.5},{"t":10.4,"type":"pop","gain":0.5},{"t":10.99,"type":"pop","gain":0.5},{"t":11.44,"type":"pop","gain":0.5},{"t":12.66,"type":"pop","gain":0.5},{"t":13.7,"type":"pop","gain":0.3},{"t":13.95,"type":"pop","gain":0.3},{"t":14.15,"type":"pop","gain":0.3},{"t":14.32,"type":"pop","gain":0.3},{"t":14.47,"type":"pop","gain":0.3},{"t":14.6,"type":"pop","gain":0.3},{"t":14.72,"type":"pop","gain":0.3},{"t":14.83,"type":"pop","gain":0.3},{"t":15.03,"type":"bass","gain":0.6},{"t":15.03,"type":"swish","gain":0.4},{"t":17.35,"type":"whoosh","gain":0.5},{"t":21.15,"type":"tick","gain":0.4},{"t":21.3,"type":"tick","gain":0.4},{"t":21.45,"type":"tick","gain":0.4},{"t":21.6,"type":"tick","gain":0.4},{"t":21.75,"type":"tick","gain":0.4},{"t":21.9,"type":"tick","gain":0.4},{"t":22.05,"type":"tick","gain":0.4},{"t":22.2,"type":"tick","gain":0.4},{"t":25.26,"type":"pop","gain":0.5},{"t":26.21,"type":"pop","gain":0.5},{"t":26.4,"type":"tick","gain":0.4},{"t":26.85,"type":"pop","gain":0.45},{"t":27.44,"type":"pop","gain":0.5},{"t":27.75,"type":"pop","gain":0.4},{"t":28.15,"type":"pop","gain":0.45},{"t":28.6,"type":"pop","gain":0.4},{"t":29.3,"type":"whoosh","gain":0.5},{"t":30.9,"type":"swish","gain":0.3},{"t":33.9,"type":"bass","gain":0.5},{"t":37.35,"type":"swish","gain":0.3},{"t":37.75,"type":"pop","gain":0.4},{"t":38.21,"type":"ding","gain":0.6},{"t":38.45,"type":"pop","gain":0.45},{"t":38.6,"type":"pop","gain":0.3},{"t":39,"type":"pop","gain":0.3},{"t":39.05,"type":"pop","gain":0.4},{"t":39.75,"type":"pop","gain":0.5},{"t":40.41,"type":"whoosh","gain":0.6},{"t":41.6,"type":"pop","gain":0.6},{"t":45.2,"type":"bass","gain":0.8},{"t":45.3,"type":"pop","gain":0.4},{"t":45.42,"type":"pop","gain":0.4},{"t":45.54,"type":"pop","gain":0.4},{"t":45.74,"type":"swish","gain":0.35}]};
+      /* p5.brush accent layer — seek-safe and deterministic.
+ *
+ * Every stroke is data: { id, layer, kind, brush, color, weight, pts | arc | rect, head:[t0,t1], tail?:[t2,t3], until? }.
+ * A stroke draws on along its path during `head`, and (optionally) retracts from its start during `tail`,
+ * which is how the panel wipes read as a brush sweeping across. `until` hard-cuts a held stroke at a scene change.
+ *
+ * renderBrush(t) is a pure function of t: each stroke reseeds the RNG from its own id, so one stroke's
+ * progress never changes another stroke's texture (shared-RNG flicker found in the spike).
+ * Drawing happens on one off-DOM WebGL2 OffscreenCanvas and is blitted into two visible 2D canvases:
+ * #brush-under (behind the scene content) and #brush-over (on top of it).
+ */
+(function () {
+  var B = window.__BEATS;
+  var W = 1080, H = 1920;
+
+  var TEAL = "#075E54", GREEN = "#25D366", INK = "#111111", PARLANA = "#00BD4C", TRACK = "#CFE0DC";
+
+  function lerp(a, b, k) { return a + (b - a) * k; }
+  function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function easeOut(x) { return 1 - Math.pow(1 - x, 3); }
+  function easeInOut(x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+  function prog(t, span, ease) { return span ? (ease || easeInOut)(clamp01((t - span[0]) / (span[1] - span[0]))) : 0; }
+  function hash(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+
+  // A gently waved horizontal band from x0 to x1 at y (hand-drawn, not ruler-straight)
+  function band(x0, x1, y, amp, n) {
+    var pts = [];
+    n = n || 6;
+    for (var i = 0; i <= n; i++) {
+      var k = i / n;
+      pts.push([lerp(x0, x1, k), y + Math.sin(k * Math.PI * 1.6 + y * 0.01) * amp]);
+    }
+    return pts;
+  }
+  function shift(span, d) { return [span[0] + d, span[1] + d]; }
+
+  // ---------- Stroke list (absolute seconds from beats.json; coordinates in the 1080×1920 frame) ----------
+  var S = [];
+
+  // T1 — split opens: three marker bands sweep across the new top panel, then retract
+  [["#E7FBEF", 230], ["#BDF0D1", 480], ["#E7FBEF", 730]].forEach(function (c, i) {
+    S.push({ id: "t1-band-" + i, layer: "over", kind: "path", brush: "marker", color: c[0], weight: 40,
+      pts: band(-60, 1140, c[1], 18), head: shift([B.split.start, B.split.land - 0.1], i * 0.05),
+      tail: shift([B.split.land - 0.1, B.split.land + 0.18], i * 0.05) });
+  });
+
+  // B02 — charcoal ring around the big "3"; it unwinds as the 3 morphs into the phrase
+  S.push({ id: "three-ring", layer: "over", kind: "arc", brush: "charcoal", color: TEAL, weight: 2.5,
+    arc: { x: 540, y: 430, r: 236, start: -Math.PI * 0.62, sweep: Math.PI * 2 * 0.96 },
+    head: B.three.circle, tail: [B.phrase.morphOut, B.phrase.morphOut + 0.3] });
+
+  // B03 — marker swipe under "igual"
+  S.push({ id: "igual-under", layer: "under", kind: "path", brush: "marker", color: GREEN, weight: 9,
+    pts: band(262, 818, 545, 5, 4), head: [B.phrase.igual, B.phrase.igual + 0.35], until: B.wipe1.head[1] });
+
+  // T2 — four teal/green bands cover the panel, the scene swaps underneath, bands retract to reveal tier 1
+  [[TEAL, 150], [GREEN, 360], [TEAL, 570], [GREEN, 780]].forEach(function (c, i) {
+    S.push({ id: "w1-band-" + i, layer: "over", kind: "path", brush: "marker", color: c[0], weight: 40,
+      pts: band(-60, 1140, c[1], 16), head: shift(B.wipe1.head, i * 0.04 - 0.12), tail: shift(B.wipe1.tail, i * 0.04) });
+  });
+
+  // B04 — "se queda corto": charcoal ring around the 99+ unread pill
+  S.push({ id: "corto-ring", layer: "over", kind: "arc", brush: "charcoal", color: INK, weight: 2.5,
+    arc: { x: 912, y: 318, r: 74, start: -Math.PI * 0.7, sweep: Math.PI * 2 * 0.95 },
+    head: [B.tier1.corto, B.tier1.corto + 0.32], until: B.morph2.head[0] + 0.1 });
+
+  // Morphs — one marker band sweeps over the tier header while badge + title swap underneath
+  [["m2", B.morph2], ["m3", B.morph3]].forEach(function (m) {
+    S.push({ id: m[0] + "-band", layer: "over", kind: "path", brush: "marker", color: TEAL, weight: 30,
+      pts: band(20, 1060, 172, 10, 5), head: m[1].head, tail: m[1].tail });
+  });
+
+  // B05 — progress track + painted bar that steps 10 → 50 in sync with the counter, then overflows at "más de 50"
+  var BAR_Y = 650, BAR_X0 = 65, BAR_X1 = 1015;
+  S.push({ id: "bar-track", layer: "under", kind: "path", brush: "pen", color: TRACK, weight: 1.5,
+    pts: [[BAR_X0, BAR_Y], [BAR_X1, BAR_Y]], head: [B.tier2.count[0], B.tier2.count[0] + 0.3], until: B.tier2.statExit });
+  S.push({ id: "bar-fill", layer: "under", kind: "path", brush: "marker", color: GREEN, weight: 7,
+    pts: band(BAR_X0, BAR_X1, BAR_Y, 3, 6),
+    headFn: function (t) {
+      var c = B.tier2.count;
+      if (t < c[0]) return 0;
+      var n = Math.min(8, Math.floor((t - c[0]) / ((c[1] - c[0]) / 8) + 1e-6));
+      return (10 + 5 * n) / 50;
+    }, head: [B.tier2.count[0], B.tier2.count[1]], tail: [B.tier2.statExit, B.tier2.statExit + 0.25] });
+  // tier 3: the counter comes back with a freshly painted full bar
+  S.push({ id: "bar3-track", layer: "under", kind: "path", brush: "pen", color: TRACK, weight: 1.5,
+    pts: [[BAR_X0, BAR_Y], [BAR_X1, BAR_Y]], head: [B.tier3.statBack, B.tier3.statBack + 0.3], until: B.tier3.aiExit });
+  S.push({ id: "bar3-fill", layer: "under", kind: "path", brush: "marker", color: GREEN, weight: 7,
+    pts: band(BAR_X0, BAR_X1, BAR_Y, 3, 6), head: [B.tier3.statBack + 0.05, B.tier3.statBack + 0.5], tail: [B.tier3.aiExit, B.tier3.aiExit + 0.25] });
+  S.push({ id: "bar-plus", layer: "under", kind: "path", brush: "marker", color: GREEN, weight: 7,
+    pts: band(BAR_X1 - 6, 1120, BAR_Y, 3, 3), head: [B.tier3.masde50, B.tier3.masde50 + 0.25], tail: [B.tier3.aiExit, B.tier3.aiExit + 0.2] });
+
+  // Pen check-marks land in each feature chip's icon slot as the feature is named
+  [[100, 328], [100, 424], [100, 520]].forEach(function (p, i) {
+    var t = B.tier2.chips[i] + 0.12;
+    S.push({ id: "chk-" + i, layer: "over", kind: "path", brush: "pen", color: TEAL, weight: 3.2,
+      pts: [[p[0] - 15, p[1] + 1], [p[0] - 4, p[1] + 13], [p[0] + 17, p[1] - 14]], head: [t, t + 0.22], until: B.morph3.head[0] });
+  });
+  // "ahorrar tiempo" — pen ring around the clock
+  S.push({ id: "tiempo-ring", layer: "over", kind: "arc", brush: "pen", color: TEAL, weight: 2.4,
+    arc: { x: 105, y: 630, r: 56, start: -Math.PI * 0.6, sweep: Math.PI * 2 * 0.95 },
+    head: [B.tier2.tiempo + 0.15, B.tier2.tiempo + 0.5], until: B.morph3.head[0] });
+
+  // B06 — bot-flow connections drawn in pen between the four nodes, then the AI spark sprays out
+  var NODE_Y = 730, NODES = [140, 400, 660, 920];
+  for (var k = 0; k < 3; k++) {
+    var x0 = NODES[k] + 52, x1 = NODES[k + 1] - 52, step = (B.tier3.flow[1] - B.tier3.flow[0]) / 3;
+    S.push({ id: "flow-" + k, layer: "under", kind: "path", brush: "pen", color: TEAL, weight: 3,
+      pts: [[x0, NODE_Y], [lerp(x0, x1, 0.5), NODE_Y - 18], [x1, NODE_Y]],
+      head: [B.tier3.flow[0] + k * step, B.tier3.flow[0] + (k + 1) * step], until: B.tier3.aiExit });
+  }
+  for (var r = 0; r < 8; r++) {
+    var a = (r / 8) * Math.PI * 2 + 0.2;
+    S.push({ id: "spark-" + r, layer: "over", kind: "path", brush: "spray", color: GREEN, weight: 2.4,
+      pts: [[105 + Math.cos(a) * 52, 330 + Math.sin(a) * 52], [105 + Math.cos(a) * 92, 330 + Math.sin(a) * 92]],
+      head: [B.tier3.ai + r * 0.015, B.tier3.ai + 0.24 + r * 0.015], until: B.wipe2.head[0] + 0.2 });
+  }
+
+  // AI chips get the same pen check-mark as the tier-2 features
+  [[100, 438], [100, 534], [100, 630]].forEach(function (p, i) {
+    var t = B.tier3.aiChips[i] + 0.12;
+    S.push({ id: "aichk-" + i, layer: "over", kind: "path", brush: "pen", color: TEAL, weight: 3.2,
+      pts: [[p[0] - 15, p[1] + 1], [p[0] - 4, p[1] + 13], [p[0] + 17, p[1] - 14]], head: [t, t + 0.22], until: B.wipe2.head[0] + 0.2 });
+  });
+
+  // T3 — panel wipe into the CTA (green/teal, mirrors T2)
+  [[GREEN, 150], [TEAL, 360], [GREEN, 570], [TEAL, 780]].forEach(function (c, i) {
+    S.push({ id: "w2-band-" + i, layer: "over", kind: "path", brush: "marker", color: c[0], weight: 40,
+      pts: band(-60, 1140, c[1], 16), head: shift(B.wipe2.head, i * 0.04 - 0.12), tail: shift(B.wipe2.tail, i * 0.04) });
+  });
+
+  // B08 — soft Parlana-green swash behind the lockup, underline under "Cuál de estos 3", rings around 1 · 2 · 3
+  S.push({ id: "lockup-wash", layer: "under", kind: "fill", color: PARLANA, alpha: 34,
+    rect: [175, 112, 730, 156], head: [B.cta.lockup - 0.05, B.cta.lockup + 0.4] });
+  S.push({ id: "cual-under", layer: "under", kind: "path", brush: "marker", color: GREEN, weight: 7,
+    pts: band(236, 842, 368, 4, 5), head: [B.cta.underline, B.cta.underline + 0.42] });
+  [300, 540, 780].forEach(function (x, i) {
+    S.push({ id: "badge-ring-" + i, layer: "over", kind: "arc", brush: "marker", color: GREEN, weight: 2.2,
+      arc: { x: x, y: 662, r: 90, start: -Math.PI * 0.55, sweep: Math.PI * 2 * 0.97 },
+      head: [B.cta.circles[i], B.cta.circles[i] + 0.34] });
+  });
+
+  // ---------- Partial path by arc length: the visible segment between fractions a and b ----------
+  function segment(pts, a, b) {
+    var L = [0], i;
+    for (i = 1; i < pts.length; i++) L.push(L[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    var total = L[L.length - 1];
+    function at(d) {
+      for (var j = 1; j < pts.length; j++) {
+        if (L[j] >= d) {
+          var k = (d - L[j - 1]) / (L[j] - L[j - 1] || 1);
+          return [lerp(pts[j - 1][0], pts[j][0], k), lerp(pts[j - 1][1], pts[j][1], k)];
+        }
+      }
+      return pts[pts.length - 1];
+    }
+    var da = a * total, db = b * total, out = [at(da)];
+    for (i = 1; i < pts.length - 1; i++) if (L[i] > da && L[i] < db) out.push(pts[i]);
+    out.push(at(db));
+    return out;
+  }
+
+  // Visible window [a, b] of a stroke at time t, or null when it is not on screen
+  function windowOf(s, t) {
+    if (t < s.head[0]) return null;
+    if (s.until !== undefined && t >= s.until) return null;
+    if (s.tail && t >= s.tail[1]) return null;
+    var b = s.headFn ? s.headFn(t) : prog(t, s.head);
+    var a = s.tail ? prog(t, s.tail) : 0;
+    if (b - a < 0.004) return null;
+    return [a, b];
+  }
+
+  function drawStroke(s, w) {
+    brush.seed(hash(s.id));
+    brush.noiseSeed(hash(s.id) ^ 0x9e3779b9);
+    if (s.kind === "fill") {
+      brush.noStroke();
+      brush.fill(s.color, Math.round(s.alpha * w[1]));
+      brush.fillBleed(0.18, "out");
+      brush.rect(s.rect[0], s.rect[1], s.rect[2], s.rect[3]);
+      brush.noFill();
+      return;
+    }
+    brush.set(s.brush, s.color, s.weight);
+    if (s.kind === "arc") {
+      var c = s.arc;
+      brush.arc(c.x, c.y, c.r, c.start + c.sweep * w[0], c.start + c.sweep * w[1]);
+      return;
+    }
+    var seg = segment(s.pts, w[0], w[1]);
+    if (seg.length === 2) brush.line(seg[0][0], seg[0][1], seg[1][0], seg[1][1]);
+    else brush.spline(seg, 0.5);
+  }
+
+  // ---------- Runtime: one off-DOM WebGL2 target, blitted into the two visible 2D layers ----------
+  var off = new OffscreenCanvas(W, H);
+  brush.load(off);
+  brush.scaleBrushes(4);
+  // brush.clear() leaves (1,1,1,0): an invalid premultiplied pixel that headless Chrome composites as
+  // additive white over everything below. Clear the GL buffer to true transparent after it.
+  var gl = off.getContext("webgl2");
+  var views = {
+    under: document.getElementById("brush-under").getContext("2d"),
+    over: document.getElementById("brush-over").getContext("2d"),
+  };
+  var lastKey = { under: null, over: null };
+
+  function renderLayer(layer, t) {
+    var active = [], key = "";
+    for (var i = 0; i < S.length; i++) {
+      if (S[i].layer !== layer) continue;
+      var w = windowOf(S[i], t);
+      if (!w) continue;
+      active.push([S[i], w]);
+      key += S[i].id + ":" + w[0].toFixed(3) + "-" + w[1].toFixed(3) + ";";
+    }
+    if (key === lastKey[layer]) return; // nothing moved on this layer since the last frame
+    lastKey[layer] = key;
+    var view = views[layer];
+    view.clearRect(0, 0, W, H);
+    // an empty layer is hidden, so it never sits over the scene as an (audited) canvas
+    view.canvas.style.visibility = active.length ? "visible" : "hidden";
+    if (!active.length) return;
+    brush.clear();
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    brush.push();
+    brush.translate(-W / 2, -H / 2);
+    for (var j = 0; j < active.length; j++) drawStroke(active[j][0], active[j][1]);
+    brush.pop();
+    brush.render();
+    view.drawImage(off, 0, 0);
+  }
+
+  window.__renderBrush = function (t) {
+    renderLayer("under", t);
+    renderLayer("over", t);
+  };
+})();
+
+      (function () {
+        var B = window.__BEATS;
+        var tl = gsap.timeline({ paused: true });
+
+        // ── T1 SPLIT 1.45 → 1.80: presenter drops to the bottom half, framed on face + hands ──
+        var s0 = B.split.start, dur = B.split.land - B.split.start;
+        // clip the top half away and slide the footage down so source y≈300–1260 fills the bottom half
+        tl.fromTo("#video-wrap", { clipPath: "inset(0px 0px 0px 0px)" }, { clipPath: "inset(960px 0px 0px 0px)", duration: dur, ease: "power3.inOut" }, s0);
+        tl.fromTo("#bg-video", { y: 0 }, { y: 660, duration: dur, ease: "power3.inOut" }, s0);
+        tl.fromTo("#caps", { y: 0 }, { y: 914 - 1420, duration: dur, ease: "power3.inOut" }, s0);
+        tl.fromTo("#seam", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, B.split.land);
+
+        // ── Beat punch-ins on the presenter (4%, settling back) ──
+        B.punches.forEach(function (t) {
+          tl.fromTo("#video-punch", { scale: 1.04 }, { scale: 1, duration: 0.35, ease: "expo.out", immediateRender: false }, t);
+        });
+
+        // ── "se queda corto": ONE 6-frame shake of the whole frame ──
+        [-12, 12, -9, 9, -5, 0].forEach(function (x, i) {
+          tl.to("#frame", { x: x, duration: 1 / 30, ease: "none" }, B.tier1.corto + i / 30);
+        });
+
+        // ── p5.brush layer: redrawn from timeline time on every seek ──
+        var clock = { t: 0 };
+        tl.to(clock, { t: B.duration, duration: B.duration, ease: "none", onUpdate: function () { window.__renderBrush(clock.t); } }, 0);
+        // hf-seek fires on every seek even when GSAP callbacks are suppressed (audits, scrubbing)
+        window.addEventListener("hf-seek", function (e) { window.__renderBrush(e.detail.time); });
+        window.__renderBrush(0);
+
+        window.__timelines["whatsapp-tips-overlay"] = tl;
+      })();
+    </script>
+  </body>
+</html>

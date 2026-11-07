@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <style>
+      @font-face { font-family: "Inter"; src: url("fonts/Inter-700-latin.woff2") format("woff2"); font-weight: 700; font-display: block; }
+      @font-face { font-family: "Inter"; src: url("fonts/Inter-400-latin.woff2") format("woff2"); font-weight: 400; font-display: block; }
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body {
+        width: 1080px; height: 1920px; margin: 0; overflow: hidden; background: transparent;
+      }
+      #gradient-fill {
+        pointer-events: none; position: relative;
+        width: 1080px; height: 1920px; overflow: hidden; background: transparent;
+      }
+      #gr-container {
+        position: absolute; inset: 0; z-index: 50; pointer-events: none;
+      }
+      .gr-group {
+        position: absolute;
+        left: 50%;
+        bottom: 320px;
+        transform: translateX(-50%);
+        width: max-content;
+        max-width: 920px;
+        display: flex; flex-wrap: wrap;
+        align-items: flex-end; justify-content: center;
+        gap: 8px 12px;
+        padding: 20px 32px;
+        border-radius: 18px;
+        background: #18181b;
+        box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+        opacity: 0; visibility: hidden;
+      }
+      .gr-word {
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 56px;
+        display: inline-block;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        padding-bottom: 0.02em;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        background-size: 350% 100%;
+        background-position: 100% 0;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-cza4" id="gradient-fill" data-composition-id="caption-gradient-fill" data-timeline-locked="" data-start="0" data-duration="63.033" data-fps="30" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-gjh8" id="gr-container"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var WORDS = [{"text":"Hablemos","start":0.08,"end":0.4},{"text":"sobre","start":0.4,"end":0.72},{"text":"los","start":0.72,"end":1.04},{"text":"effects","start":1.04,"end":1.36},{"text":"en","start":1.36,"end":1.68},{"text":"Angular.","start":1.68,"end":2},{"text":"Básicamente","start":2,"end":2.32},{"text":"deberíamos","start":2.32,"end":2.64},{"text":"tratar","start":2.64,"end":2.96},{"text":"de","start":2.96,"end":3.28},{"text":"evitarlos","start":3.28,"end":3.6},{"text":"a","start":3.6,"end":3.8},{"text":"toda","start":3.8,"end":4},{"text":"costa","start":4,"end":4.2},{"text":"y","start":4.2,"end":4.4},{"text":"Angular","start":4.4,"end":4.6},{"text":"ha","start":4.6,"end":4.8},{"text":"hecho","start":4.8,"end":5},{"text":"mucho","start":5,"end":5.2},{"text":"buen","start":5.2,"end":5.4},{"text":"trabajo","start":5.4,"end":5.74},{"text":"para","start":5.74,"end":6.08},{"text":"mecanismos","start":6.64,"end":7.14},{"text":"para","start":7.14,"end":7.64},{"text":"poder","start":7.64,"end":8.14},{"text":"evitarlos.","start":8.14,"end":8.64},{"text":"Sin","start":8.64,"end":8.84},{"text":"embargo,","start":8.84,"end":9.04},{"text":"pues","start":9.36,"end":9.543},{"text":"a","start":9.543,"end":9.726},{"text":"veces","start":9.726,"end":9.909},{"text":"hay","start":9.909,"end":10.091},{"text":"que","start":10.091,"end":10.274},{"text":"utilizarlos","start":10.274,"end":10.457},{"text":"para","start":10.457,"end":10.64},{"text":"analytics,","start":10.64,"end":11.11},{"text":"logging,","start":11.11,"end":11.58},{"text":"debugging,","start":11.58,"end":12.05},{"text":"manipulación","start":12.05,"end":12.52},{"text":"del","start":12.52,"end":12.933},{"text":"DOM,","start":12.933,"end":13.347},{"text":"etcétera.","start":13.347,"end":13.76},{"text":"Hay","start":13.84,"end":14.05},{"text":"una","start":14.05,"end":14.26},{"text":"forma","start":14.26,"end":14.47},{"text":"mucho","start":14.47,"end":14.68},{"text":"más","start":14.68,"end":14.89},{"text":"limpia","start":14.89,"end":15.1},{"text":"de","start":15.1,"end":15.31},{"text":"escribir","start":15.31,"end":15.52},{"text":"estos","start":15.52,"end":15.729},{"text":"effects","start":15.729,"end":15.938},{"text":"a","start":15.938,"end":16.147},{"text":"mi","start":16.147,"end":16.356},{"text":"parecer","start":16.356,"end":16.564},{"text":"y","start":16.564,"end":16.773},{"text":"es","start":16.773,"end":16.982},{"text":"con","start":16.982,"end":17.191},{"text":"esta","start":17.191,"end":17.4},{"text":"alternativa","start":17.4,"end":17.91},{"text":"que","start":17.91,"end":18.42},{"text":"tiene","start":18.42,"end":18.93},{"text":"en","start":18.93,"end":19.44},{"text":"su","start":19.68,"end":20.027},{"text":"paquete","start":20.027,"end":20.373},{"text":"que","start":20.373,"end":20.72},{"text":"se","start":20.72,"end":21.067},{"text":"llama","start":21.067,"end":21.413},{"text":"signalMethod.","start":21.413,"end":21.76},{"text":"Tiene","start":22.24,"end":22.47},{"text":"3","start":22.47,"end":22.7},{"text":"ventajas","start":22.7,"end":22.93},{"text":"sobre","start":22.93,"end":23.16},{"text":"el","start":23.16,"end":23.39},{"text":"efecto","start":23.39,"end":23.62},{"text":"normal","start":23.62,"end":23.85},{"text":"de","start":23.85,"end":24.08},{"text":"Angular.","start":24.08,"end":24.56},{"text":"La","start":24.56,"end":24.848},{"text":"primera","start":24.848,"end":25.136},{"text":"es","start":25.136,"end":25.424},{"text":"flexible","start":25.424,"end":25.712},{"text":"inputs.","start":25.712,"end":26},{"text":"Yo","start":26,"end":26.366},{"text":"puedo","start":26.366,"end":26.731},{"text":"enviarle","start":26.731,"end":27.097},{"text":"un","start":27.097,"end":27.463},{"text":"signal","start":27.463,"end":27.829},{"text":"o","start":27.829,"end":28.194},{"text":"simplemente","start":28.194,"end":28.56},{"text":"un","start":28.56,"end":28.84},{"text":"valor","start":28.84,"end":29.12},{"text":"y","start":29.36,"end":29.604},{"text":"él","start":29.604,"end":29.849},{"text":"va","start":29.849,"end":30.093},{"text":"a","start":30.093,"end":30.338},{"text":"suscribirse","start":30.338,"end":30.582},{"text":"y","start":30.582,"end":30.827},{"text":"ejecutar","start":30.827,"end":31.071},{"text":"esa","start":31.071,"end":31.316},{"text":"lógica","start":31.316,"end":31.56},{"text":"de","start":31.56,"end":31.82},{"text":"negocio","start":31.82,"end":32.08},{"text":"aparte","start":32.4,"end":32.674},{"text":"como","start":32.674,"end":32.949},{"text":"si","start":32.949,"end":33.223},{"text":"fuera","start":33.223,"end":33.497},{"text":"programación","start":33.497,"end":33.771},{"text":"en","start":33.771,"end":34.046},{"text":"la","start":34.046,"end":34.32},{"text":"entrada","start":34.32,"end":34.56},{"text":"objetos,","start":34.56,"end":34.8},{"text":"lo","start":34.8,"end":35.04},{"text":"cual","start":35.04,"end":35.28},{"text":"lo","start":35.28,"end":35.52},{"text":"hace","start":35.52,"end":35.76},{"text":"grande","start":35.76,"end":36},{"text":"para","start":36,"end":36.164},{"text":"el","start":36.164,"end":36.328},{"text":"unit","start":36.328,"end":36.492},{"text":"test","start":36.492,"end":36.656},{"text":"y","start":36.656,"end":36.82},{"text":"tengo","start":36.82,"end":36.984},{"text":"que","start":36.984,"end":37.148},{"text":"pelear","start":37.148,"end":37.312},{"text":"con","start":37.312,"end":37.476},{"text":"el","start":37.476,"end":37.64},{"text":"constructor,","start":37.64,"end":38.15},{"text":"inyectables","start":38.15,"end":38.66},{"text":"y","start":38.66,"end":39.17},{"text":"demás.","start":39.17,"end":39.68},{"text":"Tiene","start":39.68,"end":40.16},{"text":"automáticamente","start":40.16,"end":40.64},{"text":"el","start":40.64,"end":41.12},{"text":"implicit","start":41.12,"end":41.6},{"text":"un","start":41.6,"end":42.08},{"text":"untracked.","start":42.08,"end":42.52},{"text":"Entonces","start":42.52,"end":42.77},{"text":"yo","start":42.77,"end":43.02},{"text":"no","start":43.02,"end":43.27},{"text":"me","start":43.27,"end":43.52},{"text":"tengo","start":43.52,"end":43.77},{"text":"que","start":43.77,"end":44.02},{"text":"recordar","start":44.02,"end":44.27},{"text":"cuándo","start":44.27,"end":44.52},{"text":"poner","start":44.52,"end":44.87},{"text":"untracked","start":44.87,"end":45.22},{"text":"o","start":45.22,"end":45.57},{"text":"no","start":45.57,"end":45.92},{"text":"para","start":46.4,"end":46.92},{"text":"evitar","start":46.92,"end":47.44},{"text":"memory","start":47.68,"end":48.06},{"text":"leaks.","start":48.06,"end":48.44},{"text":"Eso","start":48.44,"end":48.65},{"text":"ya","start":48.65,"end":48.86},{"text":"lo","start":48.86,"end":49.07},{"text":"hace.","start":49.07,"end":49.28},{"text":"De","start":49.6,"end":49.744},{"text":"por","start":49.744,"end":49.888},{"text":"sí,","start":49.888,"end":50.032},{"text":"eso","start":50.032,"end":50.176},{"text":"ya","start":50.176,"end":50.32},{"text":"me","start":50.56,"end":50.807},{"text":"ahorra","start":50.807,"end":51.053},{"text":"un","start":51.053,"end":51.3},{"text":"montón","start":51.3,"end":51.547},{"text":"de","start":51.547,"end":51.793},{"text":"pensamiento","start":51.793,"end":52.04},{"text":"cognitivo","start":52.04,"end":52.309},{"text":"de","start":52.309,"end":52.577},{"text":"cuándo","start":52.577,"end":52.846},{"text":"usar","start":52.846,"end":53.114},{"text":"untracked","start":53.114,"end":53.383},{"text":"o","start":53.383,"end":53.651},{"text":"no.","start":53.651,"end":53.92},{"text":"Simplemente","start":53.92,"end":54.2},{"text":"uso","start":54.2,"end":54.48},{"text":"signalMethod","start":54.48,"end":54.76},{"text":"y","start":54.76,"end":55.04},{"text":"ya","start":55.04,"end":55.32},{"text":"y","start":55.32,"end":55.6},{"text":"se","start":55.6,"end":55.88},{"text":"ve","start":55.88,"end":56.16},{"text":"mucho","start":56.16,"end":56.453},{"text":"más","start":56.453,"end":56.747},{"text":"limpio,","start":56.747,"end":57.04},{"text":"declarativo","start":57.04,"end":57.333},{"text":"y","start":57.333,"end":57.627},{"text":"es","start":57.627,"end":57.92},{"text":"inyectable.","start":57.92,"end":58.267},{"text":"Así","start":58.267,"end":58.613},{"text":"que","start":58.613,"end":58.96},{"text":"te","start":59.28,"end":59.566},{"text":"recomiendo","start":59.566,"end":59.851},{"text":"usarlo","start":59.851,"end":60.137},{"text":"si","start":60.137,"end":60.423},{"text":"utilizas","start":60.423,"end":60.709},{"text":"el","start":60.709,"end":60.994},{"text":"paquete","start":60.994,"end":61.28},{"text":"de","start":61.44,"end":61.947},{"text":"NgRx","start":61.947,"end":62.453},{"text":"Signals.","start":62.453,"end":62.96}];
+        var GROUPS = [{"wordStart":0,"wordEnd":5,"start":0.08,"end":2},{"wordStart":6,"wordEnd":10,"start":2,"end":3.6},{"wordStart":11,"wordEnd":19,"start":3.6,"end":5.4},{"wordStart":20,"wordEnd":21,"start":5.4,"end":6.08},{"wordStart":22,"wordEnd":25,"start":6.64,"end":8.64},{"wordStart":26,"wordEnd":27,"start":8.64,"end":9.04},{"wordStart":28,"wordEnd":34,"start":9.36,"end":10.64},{"wordStart":35,"wordEnd":38,"start":10.64,"end":12.52},{"wordStart":39,"wordEnd":41,"start":12.52,"end":13.76},{"wordStart":42,"wordEnd":49,"start":13.84,"end":15.52},{"wordStart":50,"wordEnd":58,"start":15.52,"end":17.4},{"wordStart":59,"wordEnd":62,"start":17.4,"end":19.44},{"wordStart":63,"wordEnd":68,"start":19.68,"end":21.76},{"wordStart":69,"wordEnd":76,"start":22.24,"end":24.08},{"wordStart":77,"wordEnd":77,"start":24.08,"end":24.56},{"wordStart":78,"wordEnd":82,"start":24.56,"end":26},{"wordStart":83,"wordEnd":89,"start":26,"end":28.56},{"wordStart":90,"wordEnd":91,"start":28.56,"end":29.12},{"wordStart":92,"wordEnd":100,"start":29.36,"end":31.56},{"wordStart":101,"wordEnd":102,"start":31.56,"end":32.08},{"wordStart":103,"wordEnd":109,"start":32.4,"end":34.32},{"wordStart":110,"wordEnd":116,"start":34.32,"end":36},{"wordStart":117,"wordEnd":126,"start":36,"end":37.64},{"wordStart":127,"wordEnd":130,"start":37.64,"end":39.68},{"wordStart":131,"wordEnd":135,"start":39.68,"end":42.08},{"wordStart":136,"wordEnd":136,"start":42.08,"end":42.52},{"wordStart":137,"wordEnd":144,"start":42.52,"end":44.52},{"wordStart":145,"wordEnd":148,"start":44.52,"end":45.92},{"wordStart":149,"wordEnd":150,"start":46.4,"end":47.44},{"wordStart":151,"wordEnd":152,"start":47.68,"end":48.44},{"wordStart":153,"wordEnd":156,"start":48.44,"end":49.28},{"wordStart":157,"wordEnd":161,"start":49.6,"end":50.32},{"wordStart":162,"wordEnd":167,"start":50.56,"end":52.04},{"wordStart":168,"wordEnd":174,"start":52.04,"end":53.92},{"wordStart":175,"wordEnd":182,"start":53.92,"end":56.16},{"wordStart":183,"wordEnd":188,"start":56.16,"end":57.92},{"wordStart":189,"wordEnd":191,"start":57.92,"end":58.96},{"wordStart":192,"wordEnd":198,"start":59.28,"end":61.28},{"wordStart":199,"wordEnd":201,"start":61.44,"end":62.96}];
+        var BRAND_GRAD = "linear-gradient(90deg, #06b6d4 0%, #10b981 18%, #06b6d4 36%, #fafafa 50%, #fafafa 100%)";
+        var MAX_W = 920;
+        var BASE_SIZE = 56;
+
+        var _fitCanvas = document.createElement("canvas");
+        var _fitCtx = _fitCanvas.getContext("2d");
+        function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+          var size = baseFontSize;
+          var minSize = Math.floor(baseFontSize * 0.6);
+          while (size > minSize) {
+            _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+            if (_fitCtx.measureText(text).width <= maxWidth) return size;
+            size -= 2;
+          }
+          return minSize;
+        }
+
+        var container = document.getElementById("gr-container");
+        var tl = gsap.timeline({ paused: true });
+
+        GROUPS.forEach(function (g, gi) {
+          var groupWords = WORDS.slice(g.wordStart, g.wordEnd + 1);
+          var groupText = groupWords.map(function (w) { return w.text; }).join(" ");
+          var fontSize = fitFontSize(groupText, BASE_SIZE, "700", "Inter, sans-serif", MAX_W);
+          var grp = document.createElement("div");
+          grp.className = "gr-group";
+          grp.id = "gr-grp-" + gi;
+
+          groupWords.forEach(function (w, i) {
+            var wi = g.wordStart + i;
+            var span = document.createElement("span");
+            span.className = "gr-word";
+            span.id = "gr-w-" + wi;
+            span.textContent = w.text;
+            span.style.fontSize = fontSize + "px";
+            span.style.background = BRAND_GRAD;
+            span.style.backgroundSize = "350% 100%";
+            span.style.backgroundPosition = "100% 0";
+            span.style.webkitBackgroundClip = "text";
+            span.style.backgroundClip = "text";
+            grp.appendChild(span);
+          });
+
+          container.appendChild(grp);
+
+          tl.set(grp, { visibility: "visible", opacity: 1 }, g.start);
+
+          var lastWordEnd = groupWords[groupWords.length - 1].end;
+          var nextStart = gi < GROUPS.length - 1 ? GROUPS[gi + 1].start : lastWordEnd + 0.45;
+          var gap = nextStart - lastWordEnd;
+          var fadeDur = Math.min(0.22, Math.max(0.08, gap * 0.75));
+          var fadeStart = nextStart - fadeDur;
+          var groupEnd = nextStart;
+
+          groupWords.forEach(function (w, i) {
+            var wi = g.wordStart + i;
+            var el = document.getElementById("gr-w-" + wi);
+            var dur = Math.max(0.08, w.end - w.start);
+
+            // Keep upcoming words hidden at full size — avoids tiny unreadables
+            tl.set(el, { opacity: 0, scale: 1, y: 18, backgroundPosition: "100% 0" }, g.start);
+            tl.fromTo(
+              el,
+              { opacity: 0, y: 18, scale: 0.92 },
+              { opacity: 1, y: 0, scale: 1.04, duration: 0.32, ease: "elastic.out(1, 0.6)" },
+              w.start
+            );
+            tl.fromTo(
+              el,
+              { backgroundPosition: "45% 0" },
+              { backgroundPosition: "0% 0", duration: dur, ease: "none" },
+              w.start
+            );
+            tl.set(el, { backgroundPosition: "100% 0" }, w.end);
+            tl.to(el, { scale: 1, duration: 0.12, ease: "power2.out" }, w.end);
+          });
+
+          tl.to(grp, { opacity: 0, duration: fadeDur }, fadeStart);
+          tl.set(grp, { visibility: "hidden" }, groupEnd);
+        });
+
+        window.__timelines["caption-gradient-fill"] = tl;
+      })();
+    </script>
+  </body>
+</html>

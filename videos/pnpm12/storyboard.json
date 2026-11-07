@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 3,
+  "composition": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "durationSeconds": 57.9,
+    "layout": "portrait",
+    "themeId": "noir",
+    "seed": 12,
+    "visual": {
+      "ratio": "9:16",
+      "layoutRecipe": "fullscreen-opaque-cards",
+      "style": "terminal",
+      "styleGroup": "clinical",
+      "frame": "clean",
+      "cardCount": 8,
+      "cleanGaps": true,
+      "captions": true
+    }
+  },
+  "videoTrack": {
+    "sourcePath": "input-video.mp4",
+    "startSec": 0,
+    "endSec": 57.9,
+    "bounds": { "x": 0, "y": 0, "width": 1080, "height": 1920 }
+  },
+  "subtitles": { "enabled": true, "source": "captions.srt" },
+  "cards": [
+    {
+      "id": "card-01",
+      "intent": "Hook: pnpm 12 replaces two tools — opaque fullscreen",
+      "startSec": 2.8,
+      "endSec": 7.2,
+      "accentIndex": 0,
+      "zone": "fullscreen",
+      "transition": "fade",
+      "contentHints": {
+        "kicker": "$ takeaway --hook",
+        "title": "pnpm 12 = nvm + npm",
+        "detail": "Una sola herramienta. Confías en pnpm."
+      }
+    },
+    {
+      "id": "card-02",
+      "intent": "NVM pain — opaque fullscreen with logo",
+      "startSec": 9.4,
+      "endSec": 14.8,
+      "accentIndex": 1,
+      "zone": "fullscreen",
+      "transition": "fade",
+      "contentHints": {
+        "kicker": "TOOL #1 · REPLACE",
+        "title": "Node Version Manager",
+        "detail": "Proyectos distintos → versiones distintas → dolor",
+        "image": "assets/logo-nvm.png"
+      }
+    },
+    {
+      "id": "card-03",
+      "intent": "Runtime set command — opaque fullscreen",
+      "startSec": 18.5,
+      "endSec": 24.2,
+      "accentIndex": 0,
+      "zone": "fullscreen",
+      "transition": "fade",
+      "contentHints": {
+        "kicker": "RUNTIME · GLOBAL",
+        "code": "pnpm runtime set node lts -g"
+      }
+    },
+    {
+      "id": "card-04",
+      "intent": "Project-aware / package.json — opaque fullscreen",
+      "startSec": 26.8,
+      "endSec": 31.8,
+      "accentIndex": 3,
+      "zone": "fullscreen",
+      "transition": "fade",
+      "contentHints": {
+        "kicker": "PROJECT-AWARE BINS",
+        "title": "devEngines en package.json",
+        "code": "{\n  \"devEngines\": {\n    \"runtime\": {\n      \"name\": \"node\",\n      \"version\": \"^22.0.0\",\n      \"onFail\": \"download\"\n    }\n  }\n}"
+      }
+    },
+    {
+      "id": "card-05",
+      "intent": "npm pain — opaque fullscreen",
+      "startSec": 34.2,
+      "endSec": 40.0,
+      "accentIndex": 1,
+      "zone": "fullscreen",
+      "transition": "fade",
+      "contentHints": {
+        "kicker": "TOOL #2 · REPLACE",
+        "title": "npm",
+        "image": "assets/logo-npm.png"
+      }
+    },
+    {
+      "id": "card-06",
+      "intent": "Rust rewrite claim — opaque fullscreen",
+      "startSec": 42.0,
+      "endSec": 46.2,
+      "accentIndex": 2,
+      "zone": "fullscreen",
+      "transition": "fade",
+      "contentHints": {
+        "kicker": "$ why pnpm",
+        "title": "Rust · seguro · rapidísimo"
+      }
+    },
+    {
+      "id": "card-07",
+      "intent": "Perf chart proof — opaque fullscreen",
+      "startSec": 47.5,
+      "endSec": 51.8,
+      "accentIndex": 0,
+      "zone": "fullscreen",
+      "transition": "fade",
+      "contentHints": {
+        "kicker": "BENCH · CLEAN INSTALL",
+        "title": "14× más rápido que npm",
+        "chart": "html-bars: npm 45.5s → pnpm12+pnpr 3.31s"
+      }
+    },
+    {
+      "id": "card-08",
+      "intent": "Landing — only pnpm remains",
+      "startSec": 53.5,
+      "endSec": 57.9,
+      "accentIndex": 0,
+      "zone": "fullscreen",
+      "transition": "fade",
+      "contentHints": {
+        "kicker": "$ uninstall --done",
+        "title": "Solo pnpm"
+      }
+    }
+  ]
+}

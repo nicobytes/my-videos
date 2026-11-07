@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/parlana.css" />
+  </head>
+  <body>
+    <template id="f03-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #f03-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #f03-stat {
+          position: absolute;
+          left: 110px;
+          top: 290px;
+          font-size: 150px;
+          color: var(--ink);
+        }
+        #f03-sub {
+          position: absolute;
+          left: 110px;
+          top: 462px;
+          font-size: 50px;
+          font-weight: 600;
+          color: var(--muted);
+        }
+        #f03-src {
+          position: absolute;
+          left: 110px;
+          top: 556px;
+        }
+        /* The surface is painted by the shell track; this frame carries only content. */
+        #f03-card {
+          left: 110px;
+          top: 660px;
+          width: 860px;
+          height: 760px;
+          overflow: hidden;
+          background: transparent;
+          border-color: transparent;
+          box-shadow: none;
+        }
+        #f03-content {
+          display: flex;
+          flex-direction: column;
+        }
+        #f03-head {
+          flex: none;
+          height: 116px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 48px;
+          border-bottom: 2px solid var(--line);
+        }
+        #f03-title {
+          font-size: 44px;
+          font-weight: 700;
+          color: var(--ink);
+        }
+        #f03-day {
+          font-size: 30px;
+          color: var(--muted);
+        }
+        .f03-row {
+          height: 126px;
+          display: flex;
+          align-items: center;
+          gap: 34px;
+          padding: 0 48px;
+          border-bottom: 2px solid var(--line);
+        }
+        .f03-row:last-child {
+          border-bottom: 0;
+        }
+        .f03-hour {
+          width: 130px;
+          font-size: 38px;
+          font-weight: 500;
+          color: var(--ink);
+        }
+        .f03-name {
+          flex: 1;
+          font-size: 44px;
+          font-weight: 600;
+          color: var(--ink);
+        }
+        .f03-chip--pending {
+          background: var(--surface);
+          color: var(--muted);
+          border: 2px solid var(--line);
+        }
+        /* Two states of the same status slot; the flip swaps them. */
+        .f03-status {
+          display: inline-grid;
+          justify-items: end;
+        }
+        .f03-status > .pr-chip {
+          grid-area: 1 / 1;
+        }
+        #f03-miss {
+          opacity: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-1gcf" id="f03-root" data-composition-id="f03" data-start="0" data-duration="4.95" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-izbx" id="f03-stat" class="pr-display">1 de cada 5</div>
+        <div data-hf-id="hf-ojuw" id="f03-sub" class="pr-ui">citas termina así</div>
+        <span data-hf-id="hf-jpmz" id="f03-src" class="pr-chip pr-chip--neutral">BMJ Open · 2016</span>
+
+        <div data-hf-id="hf-m7fb" id="f03-card" class="pr-card">
+          <div data-hf-id="hf-cdzu" id="f03-content">
+            <div data-hf-id="hf-zm2f" id="f03-head" class="pr-ui">
+              <span data-hf-id="hf-iapl" id="f03-title">Agenda de hoy</span>
+              <span data-hf-id="hf-oyk6" id="f03-day" class="pr-data">Martes</span>
+            </div>
+            <div data-hf-id="hf-v2n3" class="f03-row pr-ui"><span data-hf-id="hf-rwuh" class="f03-hour pr-data">09:00</span><span data-hf-id="hf-oerz" class="f03-name">Lucía Rojas</span><span data-hf-id="hf-frpc" class="pr-chip pr-chip--neutral">Atendida</span></div>
+            <div data-hf-id="hf-ma91" class="f03-row pr-ui" id="f03-juan"><span data-hf-id="hf-rtlg" class="f03-hour pr-data" id="f03-juan-hour">10:00</span><span data-hf-id="hf-nacq" class="f03-name" id="f03-juan-name">Juan Pérez</span><span data-hf-id="hf-i04h" class="f03-status"><span data-hf-id="hf-waj2" class="pr-chip f03-chip--pending" id="f03-pend">Pendiente</span><span data-hf-id="hf-fefd" class="pr-chip pr-chip--ink" id="f03-miss">No llegó</span></span></div>
+            <div data-hf-id="hf-p5zz" class="f03-row pr-ui"><span data-hf-id="hf-s60i" class="f03-hour pr-data">11:00</span><span data-hf-id="hf-3ybr" class="f03-name">Carla Vargas</span><span data-hf-id="hf-fh6j" class="pr-chip f03-chip--pending">Pendiente</span></div>
+            <div data-hf-id="hf-oroy" class="f03-row pr-ui"><span data-hf-id="hf-a0f2" class="f03-hour pr-data">15:00</span><span data-hf-id="hf-1of5" class="f03-name">Diego Flores</span><span data-hf-id="hf-za0r" class="pr-chip f03-chip--pending">Pendiente</span></div>
+            <div data-hf-id="hf-oddx" class="f03-row pr-ui"><span data-hf-id="hf-q7nl" class="f03-hour pr-data">16:00</span><span data-hf-id="hf-31p5" class="f03-name">Sofía Mamani</span><span data-hf-id="hf-yvpq" class="pr-chip f03-chip--pending">Pendiente</span></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          // VO cues, frame-local seconds (from assets/vo/transcript.json):
+          // "Y no es la primera vez, en muchos consultorios, una de cada 5 citas termina así."
+          var CUE = { head: 0.3, rows: 0.42, flip: 1.1, stat: 2.72, sub: 3.56, src: 3.9, out: 4.77 };
+          var tl = gsap.timeline({ paused: true });
+
+          // The day's agenda assembles row by row (grid-card-assemble; group lands inside ~0.3s).
+          tl.fromTo("#f03-head", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.head);
+          gsap.utils.toArray("#f03-content .f03-row").forEach(function (row, i) {
+            tl.fromTo(row, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, CUE.rows + i * 0.06);
+          });
+
+          // Live status flip: Juan's slot goes from "Pendiente" to "No llegó".
+          tl.fromTo("#f03-juan", { backgroundColor: "rgba(241, 239, 232, 0)" }, { backgroundColor: "rgba(241, 239, 232, 1)", duration: 0.2, ease: "power2.out" }, CUE.flip);
+          tl.fromTo(["#f03-juan-hour", "#f03-juan-name"], { color: "#2c2c2a" }, { color: "#5f5e58", duration: 0.2, ease: "power2.out" }, CUE.flip);
+          tl.fromTo("#f03-pend", { opacity: 1 }, { opacity: 0, duration: 0.12, ease: "power2.in" }, CUE.flip);
+          tl.fromTo("#f03-miss", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.28, ease: "power3.out" }, CUE.flip + 0.08);
+
+          // The pattern lands on its spoken cue, in the back half of the frame.
+          tl.fromTo("#f03-stat", { opacity: 0, y: 24, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.34, ease: "power3.out" }, CUE.stat);
+          tl.fromTo("#f03-sub", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.sub);
+          tl.fromTo("#f03-src", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, CUE.src);
+
+          tl.fromTo(["#f03-content", "#f03-stat", "#f03-sub", "#f03-src"], { y: 0, filter: "blur(0px)" }, { opacity: 0, y: -18, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, CUE.out);
+
+          window.__timelines["f03"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

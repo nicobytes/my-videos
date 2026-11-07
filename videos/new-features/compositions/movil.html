@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        
+
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-300.woff2") format("woff2"); font-weight: 300; }
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-500.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-500.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-600.woff2") format("woff2"); font-weight: 600; }
+
+.lbl { font: 500 28px/1 "Jost"; letter-spacing: 0.16em; text-transform: uppercase; color: #5B4334; }
+.ttl { font: 500 64px/1.04 "Cormorant Garamond"; color: #312A23; letter-spacing: -0.01em; }
+.txt { font: 400 30px/1.42 "Jost"; color: #5B4334; }
+.meta { font: 400 28px/1.3 "Jost"; color: #8A7668; }
+.w { display: inline-block; }
+.stamp { display: inline-block; padding: 12px 22px 10px; border: 3px solid #5B4334; color: #5B4334;
+  font: 600 28px/1 "Jost"; letter-spacing: 0.14em; text-transform: uppercase; transform-origin: 0% 50%; }
+.stamp.ask { background: #A4583A; border-color: #A4583A; color: #FFFFFF; }
+.chip { font: 500 28px/1 "Jost"; letter-spacing: 0.04em; color: #5B4334; white-space: nowrap; }
+.chip.ask { color: #A4583A; font-weight: 600; }
+.chip .mk { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: currentColor; margin-right: 12px; transform: translateY(-2px); }
+
+        #root { position: absolute; inset: 0; }
+        .mcap { position: absolute; left: 72px; top: 300px; width: 420px; display: flex; flex-direction: column; gap: 26px; align-items: flex-start; }
+        .mcap .ttl { font-size: 54px; }
+      </style>
+      <div id="root" data-composition-id="movil" data-width="1920" data-height="1080">
+        <div id="movil-cap">
+        <div id="movil-a" class="mcap">
+          <div id="movil-al" class="lbl">Pedido 5 · En el celular</div>
+          <div id="movil-at" class="ttl"><span class="w movil-aw">«Ver</span> <span class="w movil-aw">detalles»</span> <span class="w movil-aw">y</span> <span class="w movil-aw">la</span> <span class="w movil-aw">conversación,</span> <span class="w movil-aw">también</span> <span class="w movil-aw">en</span> <span class="w movil-aw">la</span> <span class="w movil-aw">app</span></div>
+        </div>
+        <div id="movil-b" class="mcap">
+          <span id="movil-bc" class="stamp ask" style="transform: rotate(-3deg)">Nuevo</span>
+          <div id="movil-bt" class="ttl"><span class="w movil-bw">Crear</span> <span class="w movil-bw">citas</span> <span class="w movil-bw">desde</span> <span class="w movil-bw">la</span> <span class="w movil-bw">app</span> <span class="w movil-bw">móvil</span></div>
+          <div id="movil-bb" class="txt">La misma interfaz de la web: cliente, servicio, sede y horario.</div>
+        </div>
+        </div>
+      </div>
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#movil-al", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 0.75);
+        tl.fromTo(".movil-aw", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.067, ease: "power4.out" }, 0.9);
+        tl.fromTo("#movil-a", { opacity: 1 }, { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power2.in" }, 29.727);
+        tl.fromTo("#movil-b", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 29.927);
+        tl.fromTo("#movil-bc", { opacity: 0, scale: 1.35, rotation: -7 }, { opacity: 1, scale: 1, rotation: -3, duration: 0.22, ease: "expo.out" }, 29.927);
+        tl.fromTo(".movil-bw", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.067, ease: "power4.out" }, 30.177);
+        tl.fromTo("#movil-bb", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 30.627);
+        tl.set("#movil-cap", { opacity: 0 }, 35.166);
+        tl.set("#movil-cap", { opacity: 1 }, 44.366);
+        window.__timelines["movil"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

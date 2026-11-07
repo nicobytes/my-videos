@@ -1,0 +1,46 @@
+{
+ "file": "track-s3.wav",
+ "model": "facebook/musicgen-stereo-large",
+ "license": "CC-BY-NC-4.0 (model weights)",
+ "sections": [
+  {
+   "at": 0.0,
+   "prompt": "minimal electronic pulse, muted plucked synth, soft ticking hi-hat, low warm synth bass, uneasy and curious, no vocals, 96 BPM"
+  },
+  {
+   "at": 18.0,
+   "prompt": "same electronic groove building tension, rising synth arpeggio, more percussion, urgent, no vocals, 96 BPM"
+  },
+  {
+   "at": 33.0,
+   "prompt": "pulled back thinking groove, light plucked synth, airy pad, curious and focused, no vocals, 96 BPM"
+  },
+  {
+   "at": 50.0,
+   "prompt": "steady kick returns, rising arpeggio building momentum toward a release, no vocals, 96 BPM"
+  },
+  {
+   "at": 66.0,
+   "prompt": "bright uplifting release, warm synth chords, confident groove, no vocals, 96 BPM"
+  },
+  {
+   "at": 82.0,
+   "prompt": "warm positive resolution, relaxed groove, satisfied ending, no vocals, 96 BPM"
+  }
+ ],
+ "seed": 3,
+ "duration_s": 94.0,
+ "sample_rate": 48000,
+ "channels": 2,
+ "guidance": 3.0,
+ "temperature": 1.0,
+ "top_k": 250,
+ "window_s": 30.0,
+ "context_s": 10.0,
+ "device": "NVIDIA GeForce RTX 3090",
+ "dtype": "float16",
+ "torch": "2.14.1+cu130",
+ "transformers": "5.20.1",
+ "elapsed_s": 315.5,
+ "vram_peak_gb": 8.6
+}

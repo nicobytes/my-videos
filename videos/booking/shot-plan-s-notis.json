@@ -1,0 +1,41 @@
+{
+  "category": "kinetic-type",
+  "duration_s": 5.3,
+  "fps": 24,
+  "canvas": { "w": 1080, "h": 1920, "aspect": "9:16" },
+  "style": "FRAME foam plate — notification banners arrive and stack (catalog notification-pileup / notification-cascade craft)",
+  "palette": ["#F3FBF8", "#152A26", "#1ECAD3", "#FF7A45", "#FFE56A", "#D5EDE6"],
+  "font": "Rubik",
+  "beats": [0.7, 1.6, 3.2],
+  "export": "mp4",
+  "asset_needs": [],
+  "block": "notification-pileup",
+  "customize": {
+    "count": 2,
+    "cards": [
+      { "title": "Cita · 24h antes", "body": "Mañana te esperamos", "tone": "lagoon" },
+      { "title": "Cita · 2h antes", "body": "En 2 horas es tu cita", "tone": "mango" }
+    ],
+    "kicker": "Notificaciones",
+    "title": "Te avisa a tiempo"
+  },
+  "content": {
+    "scenes": [
+      {
+        "id": "notis",
+        "start": 0,
+        "end": 5.3,
+        "text": "envía notificaciones 24h / 2h antes",
+        "motion": "notification stack arrive + push",
+        "beats": [0.7, 1.6]
+      }
+    ],
+    "shot_brief": "Two reminder notifications drop onto a foam plate and stack: first 24h (sync ~96.7s), then 2h (sync ~97.6s). Captions stay on the parent booking timeline.",
+    "mount": {
+      "parent": "videos/booking",
+      "host_id": "s-notis",
+      "global_in": 96.0,
+      "global_out": 101.3
+    }
+  }
+}

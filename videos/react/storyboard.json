@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 3,
+  "composition": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "durationSeconds": 96.533,
+    "layout": "portrait",
+    "themeId": "clinical",
+    "seed": 42
+  },
+  "videoTrack": {
+    "sourcePath": "assets/tiktok.mp4",
+    "startSec": 0,
+    "endSec": 96.533,
+    "bounds": {
+      "x": 0,
+      "y": 0,
+      "width": 1080,
+      "height": 1920
+    }
+  },
+  "subtitles": {
+    "enabled": true,
+    "mode": "rail",
+    "safeZone": {
+      "bottom": 380,
+      "left": 80,
+      "right": 80,
+      "top": 160
+    },
+    "note": "Captions only during footage windows; IG Reels safe rail"
+  },
+  "cards": [
+    {
+      "id": "card-02",
+      "intent": "Es un loop — Thinking hub + goal",
+      "startSec": 9.88,
+      "endSec": 15.2,
+      "accentIndex": 0,
+      "zone": "fullscreen",
+      "transition": "wipe",
+      "contentHints": {
+        "kicker": "EL PODER DEL PATRÓN",
+        "title": "Es un loop",
+        "detail": "Le das un objetivo y se queda en el loop hasta resolver"
+      }
+    },
+    {
+      "id": "card-03",
+      "intent": "Tools al mundo exterior",
+      "startSec": 18.92,
+      "endSec": 29.5,
+      "accentIndex": 1,
+      "zone": "fullscreen",
+      "transition": "wipe",
+      "contentHints": {
+        "kicker": "MUNDO EXTERIOR",
+        "title": "Necesita tools",
+        "chips": [
+          "archivos",
+          "bases de datos",
+          "calendar",
+          "agendar cita"
+        ]
+      }
+    },
+    {
+      "id": "card-04",
+      "intent": "Reasoning + Acting — build diagrama ReAct",
+      "startSec": 33.12,
+      "endSec": 39.8,
+      "accentIndex": 2,
+      "zone": "fullscreen",
+      "transition": "wipe",
+      "contentHints": {
+        "kicker": "ReAct",
+        "title": "Reasoning → Acting",
+        "query": "escribir un correo"
+      }
+    },
+    {
+      "id": "card-04b",
+      "intent": "No infinito — max iterations",
+      "startSec": 42.8,
+      "endSec": 47.5,
+      "accentIndex": 3,
+      "zone": "fullscreen",
+      "transition": "wipe",
+      "contentHints": {
+        "kicker": "RESTRICCIONES",
+        "title": "No se queda infinito",
+        "counts": [
+          100,
+          50,
+          10
+        ]
+      }
+    },
+    {
+      "id": "card-05a",
+      "intent": "Cuándo sale — Finish o Ask human",
+      "startSec": 50.8,
+      "endSec": 54.5,
+      "accentIndex": 4,
+      "zone": "fullscreen",
+      "transition": "wipe",
+      "contentHints": {
+        "kicker": "SALIDA",
+        "branches": [
+          "Terminó la tarea",
+          "Necesita más info de ti"
+        ]
+      }
+    },
+    {
+      "id": "card-05",
+      "intent": "Walkthrough agéndame una cita",
+      "startSec": 54.6,
+      "endSec": 61.8,
+      "accentIndex": 0,
+      "zone": "fullscreen",
+      "transition": "wipe",
+      "contentHints": {
+        "query": "agéndame una cita",
+        "missing": [
+          "qué",
+          "hora",
+          "detalle"
+        ],
+        "payoff": "Answer"
+      }
+    },
+    {
+      "id": "card-06",
+      "intent": "card-05",
+      "startSec": 65.5,
+      "endSec": 71.8,
+      "accentIndex": 1,
+      "zone": "fullscreen",
+      "transition": "wipe",
+      "contentHints": {}
+    },
+    {
+      "id": "card-07",
+      "intent": "card-06",
+      "startSec": 75.36,
+      "endSec": 82,
+      "accentIndex": 2,
+      "zone": "fullscreen",
+      "transition": "wipe",
+      "contentHints": {}
+    },
+    {
+      "id": "card-08",
+      "intent": "card-07",
+      "startSec": 85.5,
+      "endSec": 91.8,
+      "accentIndex": 3,
+      "zone": "fullscreen",
+      "transition": "wipe",
+      "contentHints": {}
+    }
+  ],
+  "notes": "Interleaved punches: face fills gaps. Captions on footage only."
+}

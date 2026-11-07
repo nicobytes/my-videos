@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jersey 10"; src: url("assets/fonts/jersey10-latin.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Plus Jakarta Sans"; src: url("assets/fonts/plusjakarta-latin.woff2") format("woff2"); font-weight: 200 800; }
+        #f03-root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: #f1efe8;
+          image-rendering: pixelated;
+        }
+        #f03-root .px { position: absolute; display: block; image-rendering: pixelated; }
+        #f03-bg { left: 0; top: 0; width: 1080px; height: 1920px; }
+
+        /* pixel panel: hard ink border with notched (stepped) corners */
+        .f03-panel {
+          position: absolute;
+          background: #ffffff;
+          border: 10px solid #00260f;
+          clip-path: polygon(10px 0, calc(100% - 10px) 0, calc(100% - 10px) 10px, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 10px calc(100% - 10px), 0 calc(100% - 10px), 0 10px, 10px 10px);
+          font-family: "Jersey 10", monospace;
+          color: #00260f;
+        }
+        #f03-phone { left: 270px; top: 236px; width: 540px; height: 724px; padding: 0; background: #2c2c2a; }
+        #f03-screen { position: absolute; left: 20px; top: 50px; right: 20px; bottom: 50px; background: #ffffff; }
+        .f03-post-head { display: flex; align-items: center; gap: 16px; padding: 14px 20px; font-size: 44px; }
+        .f03-avatar { width: 50px; height: 50px; background: #00bd4c; border: 5px solid #00260f; }
+        .f03-post-img { position: relative; height: 330px; background: #e6f9ee; border-top: 5px solid #00260f; border-bottom: 5px solid #00260f; }
+        .f03-post-img .tag {
+          position: absolute; right: 20px; top: 20px; background: #ba7517; color: #ffffff; font-size: 72px; padding: 0 16px; border: 5px solid #00260f;
+        }
+        .f03-post-txt { padding: 14px 22px 0; font-size: 46px; line-height: 1; }
+        #f03-boost {
+          position: absolute; left: 40px; right: 40px; bottom: 26px; height: 92px;
+          background: #00bd4c; border: 6px solid #00260f; color: #00260f;
+          display: flex; align-items: center; justify-content: center; font-size: 60px;
+        }
+        #f03-sign {
+          left: 340px; top: 70px; width: 400px; height: 130px; display: flex; align-items: center; justify-content: center;
+          background: #00bd4c; font-size: 76px; color: #ffffff;
+        }
+        #f03-live {
+          position: absolute; left: 40px; right: 40px; bottom: 26px; height: 92px; background: #00260f; color: #00bd4c;
+          display: flex; align-items: center; justify-content: center; font-size: 60px; opacity: 0; visibility: hidden;
+        }
+        .f03-coin { opacity: 0; visibility: hidden; }
+        #f03-cap {
+          position: absolute; left: 80px; right: 80px; bottom: 360px; display: flex; justify-content: center;
+        }
+        #f03-cap span {
+          display: block; background: #00260f; color: #f1efe8; padding: 18px 34px;
+          font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 50px; line-height: 1.15; text-align: center;
+          clip-path: polygon(8px 0, calc(100% - 8px) 0, calc(100% - 8px) 8px, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 8px calc(100% - 8px), 0 calc(100% - 8px), 0 8px, 8px 8px);
+        }
+      </style>
+
+      <div id="f03-root" data-composition-id="f03" data-start="0" data-duration="4.68" data-width="1080" data-height="1920">
+        <img id="f03-bg" class="px" src="assets/sprites/bg-spa.svg" alt="">
+        <div id="f03-sign" class="f03-panel">Spa Vale</div>
+        <img class="px" src="assets/sprites/towels.svg" style="left: 650px; top: 610px; width: 140px;" alt="">
+        <img class="px" src="assets/sprites/candle-1.svg" style="left: 840px; top: 590px; width: 70px;" alt="">
+        <img class="px" src="assets/sprites/candle-2.svg" style="left: 920px; top: 590px; width: 70px;" alt="">
+        <img class="px" src="assets/sprites/plant.svg" style="left: 60px; top: 1170px; width: 196px;" alt="">
+        <img class="px" src="assets/sprites/plant.svg" style="left: 850px; top: 1210px; width: 168px;" alt="">
+        <img id="f03-vale-a" class="px" src="assets/sprites/vale-phone-smile.svg" style="left: 386px; top: 972px; width: 308px;" alt="">
+        <img id="f03-vale-b" class="px" src="assets/sprites/vale-phone-blink.svg" style="left: 386px; top: 972px; width: 308px; visibility: hidden;" alt="">
+        <img id="f03-vale-c" class="px" src="assets/sprites/vale-phone-happy.svg" style="left: 386px; top: 972px; width: 308px; visibility: hidden;" alt="">
+
+        <img class="px" src="assets/sprites/counter.svg" style="left: 190px; top: 1372px; width: 700px;" alt="">
+
+        <div id="f03-phone" class="f03-panel">
+          <div id="f03-screen">
+            <div class="f03-post-head"><div class="f03-avatar"></div>spa.vale</div>
+            <div class="f03-post-img">
+              <img class="px" src="assets/sprites/bed-client.svg" style="left: 30px; top: 150px; width: 440px;" alt="">
+              <img class="px" src="assets/sprites/candle-1.svg" style="left: 40px; top: 30px; width: 56px;" alt="">
+              <div class="tag">−20%</div>
+            </div>
+            <div class="f03-post-txt">Masaje relajante</div>
+            <div id="f03-boost">Promocionar</div>
+            <div id="f03-live">¡Anuncio activo!</div>
+          </div>
+        </div>
+
+        <img id="f03-ig" class="px" src="assets/sprites/ig.svg" style="left: 90px; top: 300px; width: 132px;" alt="">
+        <img id="f03-fb" class="px" src="assets/sprites/fb.svg" style="left: 860px; top: 250px; width: 132px;" alt="">
+        <img id="f03-c0" class="px f03-coin" src="assets/sprites/coin-1.svg" alt="">
+        <img id="f03-c1" class="px f03-coin" src="assets/sprites/coin-2.svg" alt="">
+        <img id="f03-c2" class="px f03-coin" src="assets/sprites/coin-1.svg" alt="">
+        <img id="f03-c3" class="px f03-coin" src="assets/sprites/coin-1.svg" alt="">
+        <img id="f03-c4" class="px f03-coin" src="assets/sprites/coin-2.svg" alt="">
+        <img id="f03-c5" class="px f03-coin" src="assets/sprites/coin-1.svg" alt="">
+        <img id="f03-h0" class="px" src="assets/sprites/heart.svg" style="left: 300px; top: 900px; width: 70px; visibility: hidden;" alt="">
+        <img id="f03-h1" class="px" src="assets/sprites/heart.svg" style="left: 720px; top: 880px; width: 56px; visibility: hidden;" alt="">
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          // local anchors (abs − 5.16): spa 1.21 · lanza 1.44 · anuncio 2.18 · Instagram 2.67 · Facebook 3.20 · funciona 4.03
+          tl.fromTo("#f03-sign", { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 1.0);
+          // blink (2-frame sprite swap)
+          [[0.7, 0.85], [3.5, 3.62]].forEach(function (b) {
+            tl.set("#f03-vale-b", { visibility: "visible" }, b[0]); tl.set("#f03-vale-a", { visibility: "hidden" }, b[0]);
+            tl.set("#f03-vale-b", { visibility: "hidden" }, b[1]); tl.set("#f03-vale-a", { visibility: "visible" }, b[1]);
+          });
+          // the ad grows out of the phone in her hands (anchored spring-pop)
+          tl.fromTo("#f03-phone", { autoAlpha: 0, scale: 0.08, y: 470 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.42, ease: "power3.out" }, 1.4);
+          // tap "Promocionar" on "anuncio" — press-release spring
+          tl.to("#f03-boost", { keyframes: [{ scale: 0.9, backgroundColor: "#009a3e", duration: 0.08 }, { scale: 1, backgroundColor: "#00bd4c", duration: 0.2, ease: "power3.out" }] }, 2.15);
+          // coins burst from the button toward Instagram, then Facebook
+          var FROM = [508, 796];
+          var TARGETS = [[120, 330], [150, 360], [100, 380], [880, 280], [910, 310], [860, 330]];
+          document.querySelectorAll(".f03-coin").forEach(function (c, i) {
+            gsap.set(c, { left: FROM[0], top: FROM[1], width: 64 });
+            var at = (i < 3 ? 2.25 : 2.75) + (i % 3) * 0.1;
+            var dx = TARGETS[i][0] - FROM[0], dy = TARGETS[i][1] - FROM[1];
+            tl.fromTo(c, { autoAlpha: 0, x: 0, y: 0 }, { keyframes: [
+              { autoAlpha: 1, x: dx * 0.45, y: dy * 0.45 - 140, duration: 0.22, ease: "power2.out" },
+              { x: dx, y: dy, duration: 0.24, ease: "power2.in" },
+              { autoAlpha: 0, duration: 0.05 }] }, at);
+          });
+          tl.fromTo("#f03-ig", { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.28, ease: "power3.out" }, 2.62);
+          tl.fromTo("#f03-fb", { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.28, ease: "power3.out" }, 3.15);
+          tl.to("#f03-ig", { keyframes: [{ scale: 1.2, duration: 0.08 }, { scale: 1, duration: 0.16 }] }, 2.75);
+          tl.to("#f03-fb", { keyframes: [{ scale: 1.2, duration: 0.08 }, { scale: 1, duration: 0.16 }] }, 3.3);
+          // "…y funciona": ad goes live, Vale lights up, two hearts pop
+          tl.fromTo("#f03-live", { autoAlpha: 0, scale: 0.5 }, { autoAlpha: 1, scale: 1, duration: 0.2, ease: "steps(3)" }, 3.95);
+          tl.set("#f03-vale-c", { visibility: "visible" }, 4.0); tl.set("#f03-vale-a", { visibility: "hidden" }, 4.0);
+          tl.fromTo("#f03-h0", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: -60, duration: 0.5, ease: "steps(5)" }, 4.05);
+          tl.fromTo("#f03-h1", { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: -80, duration: 0.5, ease: "steps(5)" }, 4.15);
+          window.__timelines["f03"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

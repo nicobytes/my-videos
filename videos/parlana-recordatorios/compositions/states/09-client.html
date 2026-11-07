@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/v2.css" />
+  </head>
+  <body>
+    <template id="c09-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #c09-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Figtree", sans-serif;
+          color: #2c2c2a;
+        }
+        #c09-head { background: #155b3f; color: #f6f4ef; }
+        #c09-head .avatar { background: rgba(246, 244, 239, 0.2); color: #f6f4ef; }
+        #c09-rem { left: 214px; top: 616px; width: 560px; }
+        #c09-resch { left: 546px; top: 790px; width: 318px; height: 84px; border-radius: 42px; background: #ffffff; border: 2px solid #d3d1c7; color: #155b3f; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; opacity: 0; }
+        #c09-ans { left: 554px; top: 920px; width: 310px; }
+      </style>
+
+      <!-- 9 · Client's WhatsApp: the reminder arrives; 'Confirmar' (the pill) is tapped → '✓ Confirmada'. -->
+      <div data-hf-id="hf-7z0s" id="c09-root" data-composition-id="c09" data-start="0" data-duration="3.56" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-oedg" id="c09-world" class="world" data-layout-allow-overflow>
+          <div data-hf-id="hf-tijt" id="c09-clip" class="clip-layer">
+            <div data-hf-id="hf-kxet" id="c09-st" class="st">
+              <div data-hf-id="hf-ziym" id="c09-head" class="abs chat-head"><div data-hf-id="hf-wpd9" class="avatar">T</div><div data-hf-id="hf-yeow"><b data-hf-id="hf-feuv">Tu consultorio</b><span data-hf-id="hf-p7yv">en línea</span></div></div>
+              <div data-hf-id="hf-092k" id="c09-rem" class="abs bubble bubble--in">Recordatorio: tu cita es mañana, martes, a las 10:00.<small data-hf-id="hf-xe3p">18:00</small></div>
+              <div data-hf-id="hf-iorg" id="c09-resch" class="abs">Reprogramar</div>
+              <div data-hf-id="hf-zkf1" id="c09-ans" class="abs bubble bubble--out">Confirmo ✓<small data-hf-id="hf-4jkb">18:02 ✓✓</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var P = window.Physics;
+          var A = R.A;
+          var S = R.S;
+          function $(id) {
+            return document.getElementById("c09-" + id);
+          }
+          var st = $("st");
+          var rem = $("rem");
+          var resch = $("resch");
+          var ans = $("ans");
+          window.__timelines["c09"] = R.mountState("client", $("root"), $("world"), $("clip"), function (t, span) {
+            R.apply(st, t, span[0], span[1]);
+            R.pop(rem, t, R.beatNear(A.recuerde));
+            R.pop(resch, t, R.beatNear(A.recuerde) + 0.5);
+            if (t > R.TAP.confirm) resch.style.opacity = (1 - 0.55 * R.smooth((t - R.TAP.confirm) / 0.3)).toFixed(3);
+            R.pop(ans, t, R.TAP.confirm + 0.35);
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

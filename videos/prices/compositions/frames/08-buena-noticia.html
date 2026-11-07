@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: #0f1a14;
+        }
+        .footage-label {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 160px;
+          text-align: center;
+          font-family: "Nunito", sans-serif;
+          font-size: 22px;
+          color: rgba(237, 239, 230, 0.35);
+        }
+        .sky-zone {
+          position: absolute;
+          top: 130px;
+          left: 65px;
+          right: 65px;
+          height: 610px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .ticket-green {
+          background: #075e54; /* {colors.ledger-green} — WhatsApp's own dark teal, the relief beat */
+          color: #edefe6;
+          padding: 36px 56px;
+          border: 1px solid #edefe6;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+        }
+        .ticket-green .num {
+          font-family: "Nunito", sans-serif;
+          font-weight: 900;
+          font-size: 180px;
+          line-height: 0.85;
+          font-variant-numeric: tabular-nums;
+        }
+        .ticket-green .claim {
+          font-family: "Nunito", sans-serif;
+          font-weight: 900;
+          font-size: 56px;
+          line-height: 0.95;
+        }
+        .ticket-green .unit {
+          font-family: "Nunito", sans-serif;
+          font-weight: 700;
+          font-size: 24px;
+        }
+      </style>
+      <div data-hf-id="hf-xvzx" id="root" data-composition-id="frame-08" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-yb1m" class="sky-zone">
+          <div data-hf-id="hf-jlry" class="ticket-green">
+            <div data-hf-id="hf-v3j8" class="num">$0</div>
+            <div data-hf-id="hf-68dp" class="claim">Click-to-WhatsApp Ads</div>
+            <div data-hf-id="hf-kwkh" class="unit">ventana de 72 horas — sigue gratis</div>
+          </div>
+        </div>
+        <div data-hf-id="hf-e0hi" class="footage-label">metraje — precios.mp4 (sin tocar)</div>
+      </div>
+      <script>
+        window.__timelines = window.__timelines || {};
+        window.__timelines["frame-08"] = gsap.timeline({ paused: true });
+      </script>
+    </template>
+  </body>
+</html>

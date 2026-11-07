@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="cursor-template">
+      <style>
+        #cursor-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        /* Screen-space arrow (constant size); it rides the world through the camera. Tip at (3, 3). */
+        #cursor-arrow {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 40px;
+          height: 54px;
+          transform-origin: 3px 3px;
+          filter: drop-shadow(0 4px 6px rgba(44, 44, 42, 0.25));
+        }
+        #cursor-arrow svg {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      </style>
+
+      <div data-hf-id="hf-56gl" id="cursor-root" data-composition-id="cursor" data-start="0" data-duration="75.05" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-k396" id="cursor-arrow" data-layout-allow-overflow>
+          <svg data-hf-id="hf-4au5" viewBox="0 0 24 32" aria-hidden="true"><path data-hf-id="hf-uomd" d="M2 2 L2 26 L8.4 20.2 L12.6 30 L16.8 28.2 L12.7 18.6 L21 18.6 Z" fill="#2C2C2A" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" /></svg>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var arrow = document.getElementById("cursor-arrow");
+          window.__timelines["cursor"] = R.mountFull(function (t) {
+            var p = R.toScreen(t, R.curX(t), R.curY(t));
+            arrow.style.transform = "translate(" + (p.x - 3).toFixed(2) + "px, " + (p.y - 3).toFixed(2) + "px) scale(" + (1 - 0.15 * R.press(t)).toFixed(4) + ")";
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

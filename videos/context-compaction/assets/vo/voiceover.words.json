@@ -1,0 +1,1652 @@
+[
+{
+"text": "Así",
+"start": 0.2,
+"end": 0.368,
+"id": "v0"
+},
+{
+"text": "que",
+"start": 0.368,
+"end": 0.536,
+"id": "v1"
+},
+{
+"text": "me",
+"start": 0.536,
+"end": 0.648,
+"id": "v2"
+},
+{
+"text": "puse",
+"start": 0.648,
+"end": 0.871,
+"id": "v3"
+},
+{
+"text": "a",
+"start": 0.871,
+"end": 0.927,
+"id": "v4"
+},
+{
+"text": "ver",
+"start": 0.927,
+"end": 1.095,
+"id": "v5"
+},
+{
+"text": "mi",
+"start": 1.095,
+"end": 1.207,
+"id": "v6"
+},
+{
+"text": "Google",
+"start": 1.207,
+"end": 1.543,
+"id": "v7"
+},
+{
+"text": "Cloud",
+"start": 1.543,
+"end": 1.823,
+"id": "v8"
+},
+{
+"text": "Console",
+"start": 1.823,
+"end": 2.214,
+"id": "v9"
+},
+{
+"text": "y",
+"start": 2.214,
+"end": 2.27,
+"id": "v10"
+},
+{
+"text": "realmente",
+"start": 2.27,
+"end": 2.774,
+"id": "v11"
+},
+{
+"text": "los",
+"start": 2.774,
+"end": 2.942,
+"id": "v12"
+},
+{
+"text": "costos",
+"start": 2.942,
+"end": 3.277,
+"id": "v13"
+},
+{
+"text": "estaban",
+"start": 3.277,
+"end": 3.669,
+"id": "v14"
+},
+{
+"text": "bastante",
+"start": 3.669,
+"end": 4.116,
+"id": "v15"
+},
+{
+"text": "elevados.",
+"start": 4.116,
+"end": 4.62,
+"id": "v16"
+},
+{
+"text": "¿Y",
+"start": 4.76,
+"end": 4.868,
+"id": "v17"
+},
+{
+"text": "esto",
+"start": 4.868,
+"end": 5.084,
+"id": "v18"
+},
+{
+"text": "por",
+"start": 5.084,
+"end": 5.246,
+"id": "v19"
+},
+{
+"text": "qué?",
+"start": 5.246,
+"end": 5.461,
+"id": "v20"
+},
+{
+"text": "Porque",
+"start": 5.461,
+"end": 5.785,
+"id": "v21"
+},
+{
+"text": "a",
+"start": 5.785,
+"end": 5.839,
+"id": "v22"
+},
+{
+"text": "medida",
+"start": 5.839,
+"end": 6.163,
+"id": "v23"
+},
+{
+"text": "que",
+"start": 6.163,
+"end": 6.325,
+"id": "v24"
+},
+{
+"text": "un",
+"start": 6.325,
+"end": 6.433,
+"id": "v25"
+},
+{
+"text": "usuario",
+"start": 6.433,
+"end": 6.81,
+"id": "v26"
+},
+{
+"text": "chatea",
+"start": 6.81,
+"end": 7.134,
+"id": "v27"
+},
+{
+"text": "con",
+"start": 7.134,
+"end": 7.296,
+"id": "v28"
+},
+{
+"text": "mi",
+"start": 7.296,
+"end": 7.404,
+"id": "v29"
+},
+{
+"text": "bot,",
+"start": 7.404,
+"end": 7.62,
+"id": "v30"
+},
+{
+"text": "mi",
+"start": 7.62,
+"end": 7.727,
+"id": "v31"
+},
+{
+"text": "agente",
+"start": 7.727,
+"end": 8.051,
+"id": "v32"
+},
+{
+"text": "de",
+"start": 8.051,
+"end": 8.159,
+"id": "v33"
+},
+{
+"text": "inteligencia",
+"start": 8.159,
+"end": 8.807,
+"id": "v34"
+},
+{
+"text": "artificial,",
+"start": 8.807,
+"end": 9.4,
+"id": "v35"
+},
+{
+"text": "el",
+"start": 9.8,
+"end": 9.943,
+"id": "v36"
+},
+{
+"text": "historial",
+"start": 9.943,
+"end": 10.589,
+"id": "v37"
+},
+{
+"text": "crece.",
+"start": 10.589,
+"end": 11.019,
+"id": "v38"
+},
+{
+"text": "Y",
+"start": 11.019,
+"end": 11.091,
+"id": "v39"
+},
+{
+"text": "si",
+"start": 11.091,
+"end": 11.234,
+"id": "v40"
+},
+{
+"text": "tu",
+"start": 11.234,
+"end": 11.378,
+"id": "v41"
+},
+{
+"text": "agente",
+"start": 11.378,
+"end": 11.808,
+"id": "v42"
+},
+{
+"text": "usa",
+"start": 11.808,
+"end": 12.023,
+"id": "v43"
+},
+{
+"text": "herramientas,",
+"start": 12.023,
+"end": 12.956,
+"id": "v44"
+},
+{
+"text": "skills,",
+"start": 12.956,
+"end": 13.458,
+"id": "v45"
+},
+{
+"text": "el",
+"start": 13.458,
+"end": 13.601,
+"id": "v46"
+},
+{
+"text": "tamaño",
+"start": 13.601,
+"end": 14.032,
+"id": "v47"
+},
+{
+"text": "del",
+"start": 14.032,
+"end": 14.247,
+"id": "v48"
+},
+{
+"text": "contexto",
+"start": 14.247,
+"end": 14.821,
+"id": "v49"
+},
+{
+"text": "va",
+"start": 14.821,
+"end": 14.964,
+"id": "v50"
+},
+{
+"text": "y",
+"start": 14.964,
+"end": 15.036,
+"id": "v51"
+},
+{
+"text": "va",
+"start": 15.036,
+"end": 15.179,
+"id": "v52"
+},
+{
+"text": "y",
+"start": 15.179,
+"end": 15.251,
+"id": "v53"
+},
+{
+"text": "va",
+"start": 15.251,
+"end": 15.394,
+"id": "v54"
+},
+{
+"text": "en",
+"start": 15.394,
+"end": 15.538,
+"id": "v55"
+},
+{
+"text": "aumento",
+"start": 15.538,
+"end": 16.04,
+"id": "v56"
+},
+{
+"text": "y",
+"start": 16.04,
+"end": 16.107,
+"id": "v57"
+},
+{
+"text": "pues",
+"start": 16.107,
+"end": 16.376,
+"id": "v58"
+},
+{
+"text": "en",
+"start": 16.376,
+"end": 16.51,
+"id": "v59"
+},
+{
+"text": "algún",
+"start": 16.51,
+"end": 16.847,
+"id": "v60"
+},
+{
+"text": "momento",
+"start": 16.847,
+"end": 17.317,
+"id": "v61"
+},
+{
+"text": "va",
+"start": 17.317,
+"end": 17.451,
+"id": "v62"
+},
+{
+"text": "a",
+"start": 17.451,
+"end": 17.519,
+"id": "v63"
+},
+{
+"text": "explotar.",
+"start": 17.519,
+"end": 18.124,
+"id": "v64"
+},
+{
+"text": "Más",
+"start": 18.124,
+"end": 18.325,
+"id": "v65"
+},
+{
+"text": "contexto",
+"start": 18.325,
+"end": 18.863,
+"id": "v66"
+},
+{
+"text": "significa",
+"start": 18.863,
+"end": 19.468,
+"id": "v67"
+},
+{
+"text": "más",
+"start": 19.468,
+"end": 19.67,
+"id": "v68"
+},
+{
+"text": "tokens.",
+"start": 19.67,
+"end": 20.14,
+"id": "v69"
+},
+{
+"text": "Y",
+"start": 20.32,
+"end": 20.392,
+"id": "v70"
+},
+{
+"text": "la",
+"start": 20.392,
+"end": 20.536,
+"id": "v71"
+},
+{
+"text": "factura",
+"start": 20.536,
+"end": 21.039,
+"id": "v72"
+},
+{
+"text": "de",
+"start": 21.039,
+"end": 21.183,
+"id": "v73"
+},
+{
+"text": "mi",
+"start": 21.183,
+"end": 21.326,
+"id": "v74"
+},
+{
+"text": "API",
+"start": 21.326,
+"end": 21.542,
+"id": "v75"
+},
+{
+"text": "se",
+"start": 21.542,
+"end": 21.686,
+"id": "v76"
+},
+{
+"text": "dispara",
+"start": 21.686,
+"end": 22.189,
+"id": "v77"
+},
+{
+"text": "y",
+"start": 22.189,
+"end": 22.261,
+"id": "v78"
+},
+{
+"text": "va",
+"start": 22.261,
+"end": 22.405,
+"id": "v79"
+},
+{
+"text": "aumentando.",
+"start": 22.405,
+"end": 23.196,
+"id": "v80"
+},
+{
+"text": "Me",
+"start": 23.196,
+"end": 23.339,
+"id": "v81"
+},
+{
+"text": "pasó",
+"start": 23.339,
+"end": 23.627,
+"id": "v82"
+},
+{
+"text": "exactamente",
+"start": 23.627,
+"end": 24.418,
+"id": "v83"
+},
+{
+"text": "eso",
+"start": 24.418,
+"end": 24.634,
+"id": "v84"
+},
+{
+"text": "con",
+"start": 24.634,
+"end": 24.849,
+"id": "v85"
+},
+{
+"text": "mis",
+"start": 24.849,
+"end": 25.065,
+"id": "v86"
+},
+{
+"text": "agentes.",
+"start": 25.065,
+"end": 25.64,
+"id": "v87"
+},
+{
+"text": "Así",
+"start": 25.84,
+"end": 26.019,
+"id": "v88"
+},
+{
+"text": "que",
+"start": 26.019,
+"end": 26.198,
+"id": "v89"
+},
+{
+"text": "buscando",
+"start": 26.198,
+"end": 26.676,
+"id": "v90"
+},
+{
+"text": "y",
+"start": 26.676,
+"end": 26.736,
+"id": "v91"
+},
+{
+"text": "demás,",
+"start": 26.736,
+"end": 27.094,
+"id": "v92"
+},
+{
+"text": "hay",
+"start": 27.094,
+"end": 27.273,
+"id": "v93"
+},
+{
+"text": "una",
+"start": 27.273,
+"end": 27.452,
+"id": "v94"
+},
+{
+"text": "práctica",
+"start": 27.452,
+"end": 27.93,
+"id": "v95"
+},
+{
+"text": "en",
+"start": 27.93,
+"end": 28.049,
+"id": "v96"
+},
+{
+"text": "lo",
+"start": 28.049,
+"end": 28.169,
+"id": "v97"
+},
+{
+"text": "que",
+"start": 28.169,
+"end": 28.348,
+"id": "v98"
+},
+{
+"text": "se",
+"start": 28.348,
+"end": 28.467,
+"id": "v99"
+},
+{
+"text": "llama",
+"start": 28.467,
+"end": 28.766,
+"id": "v100"
+},
+{
+"text": "ingeniería",
+"start": 28.766,
+"end": 29.363,
+"id": "v101"
+},
+{
+"text": "de",
+"start": 29.363,
+"end": 29.483,
+"id": "v102"
+},
+{
+"text": "contexto,",
+"start": 29.483,
+"end": 30.02,
+"id": "v103"
+},
+{
+"text": "que",
+"start": 30.24,
+"end": 30.498,
+"id": "v104"
+},
+{
+"text": "es",
+"start": 30.498,
+"end": 30.67,
+"id": "v105"
+},
+{
+"text": "justamente",
+"start": 30.67,
+"end": 31.531,
+"id": "v106"
+},
+{
+"text": "compactarlo",
+"start": 31.531,
+"end": 32.479,
+"id": "v107"
+},
+{
+"text": "para",
+"start": 32.479,
+"end": 32.823,
+"id": "v108"
+},
+{
+"text": "que",
+"start": 32.823,
+"end": 33.081,
+"id": "v109"
+},
+{
+"text": "no",
+"start": 33.081,
+"end": 33.253,
+"id": "v110"
+},
+{
+"text": "sea",
+"start": 33.253,
+"end": 33.512,
+"id": "v111"
+},
+{
+"text": "tan",
+"start": 33.512,
+"end": 33.77,
+"id": "v112"
+},
+{
+"text": "grande,",
+"start": 33.77,
+"end": 34.373,
+"id": "v113"
+},
+{
+"text": "ahorrando",
+"start": 34.373,
+"end": 35.148,
+"id": "v114"
+},
+{
+"text": "todas",
+"start": 35.148,
+"end": 35.578,
+"id": "v115"
+},
+{
+"text": "las",
+"start": 35.578,
+"end": 35.836,
+"id": "v116"
+},
+{
+"text": "llamadas",
+"start": 35.836,
+"end": 36.525,
+"id": "v117"
+},
+{
+"text": "de",
+"start": 36.525,
+"end": 36.697,
+"id": "v118"
+},
+{
+"text": "skills,",
+"start": 36.697,
+"end": 37.3,
+"id": "v119"
+},
+{
+"text": "quitando",
+"start": 37.44,
+"end": 37.862,
+"id": "v120"
+},
+{
+"text": "toda",
+"start": 37.862,
+"end": 38.073,
+"id": "v121"
+},
+{
+"text": "la",
+"start": 38.073,
+"end": 38.178,
+"id": "v122"
+},
+{
+"text": "información",
+"start": 38.178,
+"end": 38.758,
+"id": "v123"
+},
+{
+"text": "vieja,",
+"start": 38.758,
+"end": 39.074,
+"id": "v124"
+},
+{
+"text": "lo",
+"start": 39.074,
+"end": 39.179,
+"id": "v125"
+},
+{
+"text": "va",
+"start": 39.179,
+"end": 39.285,
+"id": "v126"
+},
+{
+"text": "compactando,",
+"start": 39.285,
+"end": 39.917,
+"id": "v127"
+},
+{
+"text": "también",
+"start": 39.917,
+"end": 40.286,
+"id": "v128"
+},
+{
+"text": "lo",
+"start": 40.286,
+"end": 40.392,
+"id": "v129"
+},
+{
+"text": "va",
+"start": 40.392,
+"end": 40.497,
+"id": "v130"
+},
+{
+"text": "sumarizando",
+"start": 40.497,
+"end": 41.077,
+"id": "v131"
+},
+{
+"text": "y",
+"start": 41.077,
+"end": 41.13,
+"id": "v132"
+},
+{
+"text": "eso",
+"start": 41.13,
+"end": 41.288,
+"id": "v133"
+},
+{
+"text": "hace",
+"start": 41.288,
+"end": 41.499,
+"id": "v134"
+},
+{
+"text": "que",
+"start": 41.499,
+"end": 41.657,
+"id": "v135"
+},
+{
+"text": "quede",
+"start": 41.657,
+"end": 41.92,
+"id": "v136"
+},
+{
+"text": "más",
+"start": 41.92,
+"end": 42.078,
+"id": "v137"
+},
+{
+"text": "liviano.",
+"start": 42.078,
+"end": 42.5,
+"id": "v138"
+},
+{
+"text": "¿Cómo",
+"start": 43.36,
+"end": 43.649,
+"id": "v139"
+},
+{
+"text": "funciona?",
+"start": 43.649,
+"end": 44.17,
+"id": "v140"
+},
+{
+"text": "Cuando",
+"start": 44.17,
+"end": 44.517,
+"id": "v141"
+},
+{
+"text": "la",
+"start": 44.517,
+"end": 44.633,
+"id": "v142"
+},
+{
+"text": "conversación",
+"start": 44.633,
+"end": 45.328,
+"id": "v143"
+},
+{
+"text": "alcanza",
+"start": 45.328,
+"end": 45.733,
+"id": "v144"
+},
+{
+"text": "un",
+"start": 45.733,
+"end": 45.849,
+"id": "v145"
+},
+{
+"text": "límite",
+"start": 45.849,
+"end": 46.196,
+"id": "v146"
+},
+{
+"text": "de",
+"start": 46.196,
+"end": 46.311,
+"id": "v147"
+},
+{
+"text": "tokens,",
+"start": 46.311,
+"end": 46.717,
+"id": "v148"
+},
+{
+"text": "entra",
+"start": 46.717,
+"end": 47.006,
+"id": "v149"
+},
+{
+"text": "en",
+"start": 47.006,
+"end": 47.122,
+"id": "v150"
+},
+{
+"text": "acción",
+"start": 47.122,
+"end": 47.469,
+"id": "v151"
+},
+{
+"text": "un",
+"start": 47.469,
+"end": 47.585,
+"id": "v152"
+},
+{
+"text": "modelo",
+"start": 47.585,
+"end": 47.932,
+"id": "v153"
+},
+{
+"text": "un",
+"start": 47.932,
+"end": 48.048,
+"id": "v154"
+},
+{
+"text": "poco",
+"start": 48.048,
+"end": 48.279,
+"id": "v155"
+},
+{
+"text": "más",
+"start": 48.279,
+"end": 48.453,
+"id": "v156"
+},
+{
+"text": "ligero",
+"start": 48.453,
+"end": 48.8,
+"id": "v157"
+},
+{
+"text": "que",
+"start": 48.8,
+"end": 48.966,
+"id": "v158"
+},
+{
+"text": "lo",
+"start": 48.966,
+"end": 49.077,
+"id": "v159"
+},
+{
+"text": "que",
+"start": 49.077,
+"end": 49.244,
+"id": "v160"
+},
+{
+"text": "hace",
+"start": 49.244,
+"end": 49.465,
+"id": "v161"
+},
+{
+"text": "es",
+"start": 49.465,
+"end": 49.576,
+"id": "v162"
+},
+{
+"text": "resumir",
+"start": 49.576,
+"end": 49.964,
+"id": "v163"
+},
+{
+"text": "todos",
+"start": 49.964,
+"end": 50.242,
+"id": "v164"
+},
+{
+"text": "los",
+"start": 50.242,
+"end": 50.408,
+"id": "v165"
+},
+{
+"text": "eventos",
+"start": 50.408,
+"end": 50.796,
+"id": "v166"
+},
+{
+"text": "y",
+"start": 50.796,
+"end": 50.851,
+"id": "v167"
+},
+{
+"text": "todas",
+"start": 50.851,
+"end": 51.129,
+"id": "v168"
+},
+{
+"text": "las",
+"start": 51.129,
+"end": 51.295,
+"id": "v169"
+},
+{
+"text": "partes",
+"start": 51.295,
+"end": 51.628,
+"id": "v170"
+},
+{
+"text": "importantes",
+"start": 51.628,
+"end": 52.237,
+"id": "v171"
+},
+{
+"text": "de",
+"start": 52.237,
+"end": 52.348,
+"id": "v172"
+},
+{
+"text": "la",
+"start": 52.348,
+"end": 52.459,
+"id": "v173"
+},
+{
+"text": "conversación.",
+"start": 52.459,
+"end": 53.18,
+"id": "v174"
+},
+{
+"text": "Esto",
+"start": 53.32,
+"end": 53.59,
+"id": "v175"
+},
+{
+"text": "es",
+"start": 53.59,
+"end": 53.725,
+"id": "v176"
+},
+{
+"text": "importante",
+"start": 53.725,
+"end": 54.401,
+"id": "v177"
+},
+{
+"text": "porque",
+"start": 54.401,
+"end": 54.806,
+"id": "v178"
+},
+{
+"text": "con",
+"start": 54.806,
+"end": 55.009,
+"id": "v179"
+},
+{
+"text": "esto",
+"start": 55.009,
+"end": 55.279,
+"id": "v180"
+},
+{
+"text": "el",
+"start": 55.279,
+"end": 55.415,
+"id": "v181"
+},
+{
+"text": "bot...",
+"start": 55.415,
+"end": 55.82,
+"id": "v182"
+},
+{
+"text": "No",
+"start": 55.82,
+"end": 55.929,
+"id": "v183"
+},
+{
+"text": "pierde",
+"start": 55.929,
+"end": 56.257,
+"id": "v184"
+},
+{
+"text": "memoria",
+"start": 56.257,
+"end": 56.64,
+"id": "v185"
+},
+{
+"text": "de",
+"start": 56.64,
+"end": 56.749,
+"id": "v186"
+},
+{
+"text": "lo",
+"start": 56.749,
+"end": 56.858,
+"id": "v187"
+},
+{
+"text": "que",
+"start": 56.858,
+"end": 57.022,
+"id": "v188"
+},
+{
+"text": "le",
+"start": 57.022,
+"end": 57.131,
+"id": "v189"
+},
+{
+"text": "estaban",
+"start": 57.131,
+"end": 57.514,
+"id": "v190"
+},
+{
+"text": "hablando,",
+"start": 57.514,
+"end": 58.005,
+"id": "v191"
+},
+{
+"text": "pero",
+"start": 58.005,
+"end": 58.224,
+"id": "v192"
+},
+{
+"text": "sí",
+"start": 58.224,
+"end": 58.333,
+"id": "v193"
+},
+{
+"text": "reduces",
+"start": 58.333,
+"end": 58.716,
+"id": "v194"
+},
+{
+"text": "drásticamente",
+"start": 58.716,
+"end": 59.426,
+"id": "v195"
+},
+{
+"text": "la",
+"start": 59.426,
+"end": 59.535,
+"id": "v196"
+},
+{
+"text": "carga",
+"start": 59.535,
+"end": 59.808,
+"id": "v197"
+},
+{
+"text": "de",
+"start": 59.808,
+"end": 59.918,
+"id": "v198"
+},
+{
+"text": "tokens.",
+"start": 59.918,
+"end": 60.3,
+"id": "v199"
+},
+{
+"text": "Esto",
+"start": 60.58,
+"end": 60.809,
+"id": "v200"
+},
+{
+"text": "ya",
+"start": 60.809,
+"end": 60.923,
+"id": "v201"
+},
+{
+"text": "por",
+"start": 60.923,
+"end": 61.095,
+"id": "v202"
+},
+{
+"text": "defecto",
+"start": 61.095,
+"end": 61.495,
+"id": "v203"
+},
+{
+"text": "lo",
+"start": 61.495,
+"end": 61.609,
+"id": "v204"
+},
+{
+"text": "tienen",
+"start": 61.609,
+"end": 61.952,
+"id": "v205"
+},
+{
+"text": "habilitados",
+"start": 61.952,
+"end": 62.581,
+"id": "v206"
+},
+{
+"text": "varios",
+"start": 62.581,
+"end": 62.924,
+"id": "v207"
+},
+{
+"text": "frameworks.",
+"start": 62.924,
+"end": 63.553,
+"id": "v208"
+},
+{
+"text": "En",
+"start": 63.553,
+"end": 63.668,
+"id": "v209"
+},
+{
+"text": "el",
+"start": 63.668,
+"end": 63.782,
+"id": "v210"
+},
+{
+"text": "Google",
+"start": 63.782,
+"end": 64.125,
+"id": "v211"
+},
+{
+"text": "ADK",
+"start": 64.125,
+"end": 64.297,
+"id": "v212"
+},
+{
+"text": "tú",
+"start": 64.297,
+"end": 64.411,
+"id": "v213"
+},
+{
+"text": "lo",
+"start": 64.411,
+"end": 64.525,
+"id": "v214"
+},
+{
+"text": "habilitas",
+"start": 64.525,
+"end": 65.04,
+"id": "v215"
+},
+{
+"text": "utilizando",
+"start": 65.04,
+"end": 65.84,
+"id": "v216"
+},
+{
+"text": "EventsCompactionConfig",
+"start": 65.84,
+"end": 67.68,
+"id": "v217"
+},
+{
+"text": "y",
+"start": 67.68,
+"end": 67.76,
+"id": "v218"
+},
+{
+"text": "el",
+"start": 67.76,
+"end": 67.92,
+"id": "v219"
+},
+{
+"text": "LlmEventSummarizer.",
+"start": 67.92,
+"end": 69.44,
+"id": "v220"
+},
+{
+"text": "Le",
+"start": 69.66,
+"end": 69.775,
+"id": "v221"
+},
+{
+"text": "mandas",
+"start": 69.775,
+"end": 70.119,
+"id": "v222"
+},
+{
+"text": "tu",
+"start": 70.119,
+"end": 70.234,
+"id": "v223"
+},
+{
+"text": "configuración,",
+"start": 70.234,
+"end": 71.038,
+"id": "v224"
+},
+{
+"text": "tu",
+"start": 71.038,
+"end": 71.152,
+"id": "v225"
+},
+{
+"text": "modelo",
+"start": 71.152,
+"end": 71.497,
+"id": "v226"
+},
+{
+"text": "y",
+"start": 71.497,
+"end": 71.554,
+"id": "v227"
+},
+{
+"text": "tu",
+"start": 71.554,
+"end": 71.669,
+"id": "v228"
+},
+{
+"text": "umbral",
+"start": 71.669,
+"end": 72.014,
+"id": "v229"
+},
+{
+"text": "y",
+"start": 72.014,
+"end": 72.071,
+"id": "v230"
+},
+{
+"text": "él",
+"start": 72.071,
+"end": 72.186,
+"id": "v231"
+},
+{
+"text": "va",
+"start": 72.186,
+"end": 72.301,
+"id": "v232"
+},
+{
+"text": "a",
+"start": 72.301,
+"end": 72.358,
+"id": "v233"
+},
+{
+"text": "hacer",
+"start": 72.358,
+"end": 72.645,
+"id": "v234"
+},
+{
+"text": "esto",
+"start": 72.645,
+"end": 72.875,
+"id": "v235"
+},
+{
+"text": "automáticamente",
+"start": 72.875,
+"end": 73.736,
+"id": "v236"
+},
+{
+"text": "por",
+"start": 73.736,
+"end": 73.908,
+"id": "v237"
+},
+{
+"text": "ti.",
+"start": 73.908,
+"end": 74.08,
+"id": "v238"
+},
+{
+"text": "Así",
+"start": 75.42,
+"end": 75.571,
+"id": "v239"
+},
+{
+"text": "que",
+"start": 75.571,
+"end": 75.722,
+"id": "v240"
+},
+{
+"text": "luego",
+"start": 75.722,
+"end": 75.974,
+"id": "v241"
+},
+{
+"text": "de",
+"start": 75.974,
+"end": 76.075,
+"id": "v242"
+},
+{
+"text": "implementar",
+"start": 76.075,
+"end": 76.63,
+"id": "v243"
+},
+{
+"text": "esta",
+"start": 76.63,
+"end": 76.831,
+"id": "v244"
+},
+{
+"text": "mejora,",
+"start": 76.831,
+"end": 77.184,
+"id": "v245"
+},
+{
+"text": "fui",
+"start": 77.184,
+"end": 77.336,
+"id": "v246"
+},
+{
+"text": "viendo",
+"start": 77.336,
+"end": 77.638,
+"id": "v247"
+},
+{
+"text": "los",
+"start": 77.638,
+"end": 77.789,
+"id": "v248"
+},
+{
+"text": "logs",
+"start": 77.789,
+"end": 77.991,
+"id": "v249"
+},
+{
+"text": "de",
+"start": 77.991,
+"end": 78.092,
+"id": "v250"
+},
+{
+"text": "facturación",
+"start": 78.092,
+"end": 78.646,
+"id": "v251"
+},
+{
+"text": "desde",
+"start": 78.646,
+"end": 78.898,
+"id": "v252"
+},
+{
+"text": "que",
+"start": 78.898,
+"end": 79.049,
+"id": "v253"
+},
+{
+"text": "implementé",
+"start": 79.049,
+"end": 79.553,
+"id": "v254"
+},
+{
+"text": "este",
+"start": 79.553,
+"end": 79.755,
+"id": "v255"
+},
+{
+"text": "nuevo",
+"start": 79.755,
+"end": 80.007,
+"id": "v256"
+},
+{
+"text": "release",
+"start": 80.007,
+"end": 80.36,
+"id": "v257"
+},
+{
+"text": "y",
+"start": 80.36,
+"end": 80.42,
+"id": "v258"
+},
+{
+"text": "las",
+"start": 80.42,
+"end": 80.601,
+"id": "v259"
+},
+{
+"text": "conversaciones",
+"start": 80.601,
+"end": 81.444,
+"id": "v260"
+},
+{
+"text": "siguen",
+"start": 81.444,
+"end": 81.806,
+"id": "v261"
+},
+{
+"text": "manteniendo",
+"start": 81.806,
+"end": 82.468,
+"id": "v262"
+},
+{
+"text": "calidad,",
+"start": 82.468,
+"end": 82.95,
+"id": "v263"
+},
+{
+"text": "pero",
+"start": 82.95,
+"end": 83.191,
+"id": "v264"
+},
+{
+"text": "mi",
+"start": 83.191,
+"end": 83.312,
+"id": "v265"
+},
+{
+"text": "facturación",
+"start": 83.312,
+"end": 83.974,
+"id": "v266"
+},
+{
+"text": "ha",
+"start": 83.974,
+"end": 84.095,
+"id": "v267"
+},
+{
+"text": "bajado",
+"start": 84.095,
+"end": 84.456,
+"id": "v268"
+},
+{
+"text": "y",
+"start": 84.456,
+"end": 84.516,
+"id": "v269"
+},
+{
+"text": "ya",
+"start": 84.516,
+"end": 84.637,
+"id": "v270"
+},
+{
+"text": "no",
+"start": 84.637,
+"end": 84.757,
+"id": "v271"
+},
+{
+"text": "está",
+"start": 84.757,
+"end": 84.998,
+"id": "v272"
+},
+{
+"text": "en",
+"start": 84.998,
+"end": 85.119,
+"id": "v273"
+},
+{
+"text": "alta.",
+"start": 85.119,
+"end": 85.42,
+"id": "v274"
+}
+]

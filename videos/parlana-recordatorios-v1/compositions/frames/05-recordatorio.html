@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/parlana.css" />
+  </head>
+  <body>
+    <template id="f05-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #f05-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        /* Parlana's own chat mock from the blog, rebuilt at video scale.
+           The phone frame surface is painted by the shell track. */
+        #f05-phone {
+          position: absolute;
+          left: 140px;
+          top: 420px;
+          width: 800px;
+          height: 940px;
+          padding: 14px;
+          box-sizing: border-box;
+          border: 3px solid transparent;
+        }
+        #f05-screen {
+          width: 100%;
+          height: 100%;
+          border-radius: 40px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          background: #efeae2;
+        }
+        #f05-head {
+          flex: none;
+          height: 150px;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          padding: 0 34px;
+          background: var(--green);
+        }
+        #f05-avatar {
+          width: 84px;
+          height: 84px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.18);
+          color: #ffffff;
+          font-size: 40px;
+          font-weight: 700;
+        }
+        #f05-name {
+          color: #ffffff;
+          font-size: 44px;
+          font-weight: 600;
+          line-height: 1.1;
+        }
+        #f05-status {
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 30px;
+          font-weight: 400;
+        }
+        #f05-body {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          padding: 56px 36px;
+        }
+        #f05-msg {
+          position: relative;
+          width: 600px;
+          transform-origin: 100% 100%;
+        }
+        #f05-msg .pr-meta {
+          color: rgba(255, 255, 255, 0.72);
+        }
+        #f05-replies {
+          width: 600px;
+          margin-top: 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+        .f05-reply {
+          height: 96px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 26px;
+          background: var(--surface);
+          color: var(--green);
+          font-size: 40px;
+          font-weight: 700;
+        }
+      </style>
+
+      <div data-hf-id="hf-ccla" id="f05-root" data-composition-id="f05" data-start="0" data-duration="2.4" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-va4j" id="f05-phone">
+          <div data-hf-id="hf-cv2l" id="f05-screen">
+            <div data-hf-id="hf-tm9t" id="f05-head" class="pr-ui">
+              <div data-hf-id="hf-18hq" id="f05-avatar">T</div>
+              <div data-hf-id="hf-yeow">
+                <div data-hf-id="hf-r7ma" id="f05-name">Tu consultorio</div>
+                <div data-hf-id="hf-zha5" id="f05-status">en línea</div>
+              </div>
+            </div>
+            <div data-hf-id="hf-u80v" id="f05-body" class="pr-ui">
+              <div data-hf-id="hf-h2j5" id="f05-msg" class="pr-bubble pr-bubble--out">
+                Recordatorio: tu cita es mañana a las 10:00.
+                <div data-hf-id="hf-g8w5" class="pr-meta">18:00</div>
+              </div>
+              <div data-hf-id="hf-07h7" id="f05-replies">
+                <div data-hf-id="hf-373h" class="f05-reply" id="f05-confirm">Confirmar</div>
+                <div data-hf-id="hf-vosh" class="f05-reply" id="f05-change">Cambiar hora</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          // VO cues, frame-local seconds (from assets/vo/transcript.json):
+          // "La solución es simple, un recordatorio por WhatsApp el día antes."
+          // No exit: frame 6 continues this same chat from this frame's last state.
+          var CUE = { screen: 0.3, msg: 1.1, replies: 1.75, hover: 2.15 };
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#f05-screen", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.screen);
+
+          // The reminder arrives (chat-message's measured arrival from the sender's corner).
+          tl.fromTo("#f05-msg", { opacity: 0, scale: 0.75 }, { opacity: 1, scale: 1, duration: 0.12, ease: "power2.out" }, CUE.msg);
+
+          // Quick replies: "confirmar o cambiar la hora en el mismo chat".
+          ["#f05-confirm", "#f05-change"].forEach(function (sel, i) {
+            tl.fromTo(sel, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.32, ease: "power3.out" }, CUE.replies + i * 0.08);
+          });
+
+          // The cursor arrives on "Confirmar": hover state.
+          tl.fromTo("#f05-confirm", { backgroundColor: "#ffffff" }, { backgroundColor: "#e7f0eb", duration: 0.15, ease: "power2.out" }, CUE.hover);
+
+          window.__timelines["f05"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

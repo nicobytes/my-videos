@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1080" />
+    <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/Inter-400-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/Inter-700-latin.woff2") format("woff2");
+        font-weight: 700;
+        font-display: block;
+      }
+      :root {
+        --teal: #075e54;
+        --green: #25d366;
+        --ink: #111111;
+        --paper: #ffffff;
+        --mint: #e7fbef;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+        font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+      }
+      #stage {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+      }
+      #frame {
+        position: absolute;
+        inset: 0;
+      }
+      /* Top panel ground: white with two faint mint blooms so it never reads as "nothing loaded" */
+      #B00_panel {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 960px;
+        background:
+          radial-gradient(520px 420px at 8% 6%, var(--mint), rgba(231, 251, 239, 0) 70%),
+          radial-gradient(560px 460px at 96% 92%, var(--mint), rgba(231, 251, 239, 0) 70%),
+          var(--paper);
+      }
+      /* Presenter: full frame for the hook, then the bottom half (split) */
+      #video-wrap {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+      #video-punch {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 75%;
+      }
+      #bg-video {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+        display: block;
+      }
+      /* Seam shadow so the split reads as two frames */
+      #seam {
+        position: absolute;
+        left: 0;
+        top: 960px;
+        width: 1080px;
+        height: 18px;
+        background: linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0));
+        opacity: 0;
+      }
+      .brush-layer {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+        pointer-events: none;
+      }
+      .scene {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+      /* Captions: y≈1420 during the full-frame hook, then they ride the seam (centre y=960) */
+      #caps {
+        position: absolute;
+        left: 0;
+        top: 1420px;
+        width: 1080px;
+        height: 92px;
+      }
+      .cap {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 92px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .pill {
+        background: var(--teal);
+        color: #fff;
+        font-size: 50px;
+        font-weight: 700;
+        line-height: 1;
+        padding: 20px 38px;
+        border-radius: 999px;
+        white-space: nowrap;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="stage"
+      data-composition-id="whatsapp-tips-overlay"
+      data-start="0"
+      data-duration="__DUR__"
+      data-width="1080"
+      data-height="1920"
+    >
+      <audio id="B00_audio_mix" src="mix.m4a" data-start="0" data-duration="__DUR__" data-track-index="9"></audio>
+      <div id="frame">
+        <div id="B00_panel"></div>
+
+        <div id="video-wrap">
+          <div id="video-punch">
+            <video
+              id="bg-video"
+              src="input-video.mp4"
+              muted
+              playsinline
+              data-start="0"
+              data-duration="__DUR__"
+              data-track-index="0"
+            ></video>
+          </div>
+        </div>
+        <div id="seam"></div>
+
+        <canvas id="brush-under" class="brush-layer" aria-hidden="true" data-layout-ignore="true" data-layout-allow-occlusion="true" width="1080" height="1920" style="z-index: 2; visibility: hidden"></canvas>
+
+        <!-- Scenes: one sub-composition per beat group, each its own paused timeline -->
+        <div
+          id="B01_hook"
+          class="scene clip"
+          data-composition-id="B01_hook"
+          data-composition-src="compositions/B01_hook.html"
+          data-start="0"
+          data-duration="1.9"
+          data-track-index="2"
+          data-width="1080"
+          data-height="1920"
+          style="z-index: 3"
+        ></div>
+        <div
+          id="B02_three"
+          class="scene clip"
+          data-composition-id="B02_three"
+          data-composition-src="compositions/B02_three.html"
+          data-start="1.8"
+          data-duration="4.8"
+          data-track-index="3"
+          data-width="1080"
+          data-height="1920"
+          style="z-index: 3"
+        ></div>
+        <div
+          id="B04_tiers"
+          class="scene clip"
+          data-composition-id="B04_tiers"
+          data-composition-src="compositions/B04_tiers.html"
+          data-start="__B04_START__"
+          data-duration="__B04_DUR__"
+          data-track-index="2"
+          data-width="1080"
+          data-height="1920"
+          style="z-index: 3"
+        ></div>
+        <div
+          id="B07_cta"
+          class="scene clip"
+          data-composition-id="B07_cta"
+          data-composition-src="compositions/B07_cta.html"
+          data-start="__B07_START__"
+          data-duration="__B07_DUR__"
+          data-track-index="3"
+          data-width="1080"
+          data-height="1920"
+          style="z-index: 3"
+        ></div>
+
+        <canvas id="brush-over" class="brush-layer" aria-hidden="true" data-layout-ignore="true" data-layout-allow-occlusion="true" width="1080" height="1920" style="z-index: 4; visibility: hidden"></canvas>
+
+        <div id="caps" style="z-index: 5">
+          <!--CAPTIONS-->
+        </div>
+      </div>
+    </div>
+
+    <script src="vendor/gsap.min.js"></script>
+    <script src="vendor/brush.js"></script>
+    <script>
+      // Beats + brush engine live in this ONE inline script (inlined by gen.mjs) so their order never
+      // depends on how the renderer schedules external vs inline scripts.
+      window.__BEATS = /*BEATS*/;
+      /*BRUSH_LAYER*/
+      (function () {
+        var B = window.__BEATS;
+        var tl = gsap.timeline({ paused: true });
+
+        // ── T1 SPLIT 1.45 → 1.80: presenter drops to the bottom half, framed on face + hands ──
+        var s0 = B.split.start, dur = B.split.land - B.split.start;
+        // clip the top half away and slide the footage down so source y≈300–1260 fills the bottom half
+        tl.fromTo("#video-wrap", { clipPath: "inset(0px 0px 0px 0px)" }, { clipPath: "inset(960px 0px 0px 0px)", duration: dur, ease: "power3.inOut" }, s0);
+        tl.fromTo("#bg-video", { y: 0 }, { y: 660, duration: dur, ease: "power3.inOut" }, s0);
+        tl.fromTo("#caps", { y: 0 }, { y: 914 - 1420, duration: dur, ease: "power3.inOut" }, s0);
+        tl.fromTo("#seam", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, B.split.land);
+
+        // ── Beat punch-ins on the presenter (4%, settling back) ──
+        B.punches.forEach(function (t) {
+          tl.fromTo("#video-punch", { scale: 1.04 }, { scale: 1, duration: 0.35, ease: "expo.out", immediateRender: false }, t);
+        });
+
+        // ── "se queda corto": ONE 6-frame shake of the whole frame ──
+        [-12, 12, -9, 9, -5, 0].forEach(function (x, i) {
+          tl.to("#frame", { x: x, duration: 1 / 30, ease: "none" }, B.tier1.corto + i / 30);
+        });
+
+        // ── p5.brush layer: redrawn from timeline time on every seek ──
+        var clock = { t: 0 };
+        tl.to(clock, { t: B.duration, duration: B.duration, ease: "none", onUpdate: function () { window.__renderBrush(clock.t); } }, 0);
+        // hf-seek fires on every seek even when GSAP callbacks are suppressed (audits, scrubbing)
+        window.addEventListener("hf-seek", function (e) { window.__renderBrush(e.detail.time); });
+        window.__renderBrush(0);
+
+        window.__timelines["whatsapp-tips-overlay"] = tl;
+      })();
+    </script>
+  </body>
+</html>

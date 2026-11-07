@@ -1,0 +1,99 @@
+1
+00:00:00,080 --> 00:00:02,320
+¿Cómo se utiliza el más reciente modelo de
+
+2
+00:00:02,320 --> 00:00:03,960
+frontera de la familia de Google en
+
+3
+00:00:03,960 --> 00:00:06,000
+nuestros agentes? Fíjate en este código,
+
+4
+00:00:06,160 --> 00:00:09,040
+normalmente en nuestros agentes tenemos una
+
+5
+00:00:09,040 --> 00:00:10,720
+ID del modelo, normalmente aquí le pones
+
+6
+00:00:10,720 --> 00:00:12,880
+3.8, 3 puntos, lo que sea, sus
+
+7
+00:00:12,880 --> 00:00:14,360
+metaparámetros, etcétera.
+
+8
+00:00:14,560 --> 00:00:15,040
+Pero
+
+9
+00:00:15,280 --> 00:00:17,040
+Google tiene un placeholder muy interesante
+
+10
+00:00:17,040 --> 00:00:18,560
+que se llama gemini-flash-
+
+11
+00:00:18,880 --> 00:00:20,760
+latest y así por modelo.
+
+12
+00:00:20,760 --> 00:00:22,440
+Entonces en la familia de flash, pues te va
+
+13
+00:00:22,440 --> 00:00:24,360
+a traer el modelo más reciente, el de
+
+14
+00:00:24,360 --> 00:00:26,400
+frontera que tenga en automático.
+
+15
+00:00:26,640 --> 00:00:28,400
+¿Qué significa eso? Que si Google hoy llega
+
+16
+00:00:28,400 --> 00:00:29,840
+a lanzar el 3.4,
+
+17
+00:00:30,080 --> 00:00:31,440
+el 3.5…
+
+18
+00:00:31,680 --> 00:00:33,520
+No tienes que hacer ningún deploy a tus
+
+19
+00:00:33,520 --> 00:00:36,480
+agentes o a tu sistema, simplemente ya
+
+20
+00:00:36,480 --> 00:00:38,400
+los agentes empiezan a operar con el
+
+21
+00:00:38,400 --> 00:00:40,320
+modelo de frontera de Google en automático
+
+22
+00:00:40,320 --> 00:00:41,680
+sin hacer ningún deploy.
+
+23
+00:00:41,680 --> 00:00:44,120
+Así que si quieres montar este tipo de
+
+24
+00:00:44,120 --> 00:00:45,720
+agentes usando WhatsApp, escríbeme, yo
+
+25
+00:00:45,720 --> 00:00:46,960
+tengo una plataforma para esto.

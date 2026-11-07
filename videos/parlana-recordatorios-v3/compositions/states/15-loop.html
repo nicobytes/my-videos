@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/v2.css" />
+  </head>
+  <body>
+    <template id="c15-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #c15-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Figtree", sans-serif;
+          color: #2c2c2a;
+        }
+        #c15-day { left: 196px; top: 656px; }
+        #c15-clock { left: 704px; top: 656px; width: 180px; justify-content: center; font-size: 28px; }
+        #c15-time { left: 188px; top: 722px; font-weight: 700; font-size: 228px; line-height: 1; }
+        #c15-what { left: 196px; top: 970px; font-size: 54px; font-weight: 700; }
+        #c15-who { left: 196px; top: 1040px; font-size: 42px; font-weight: 500; color: #5f5e58; }
+        #c15-room { left: 196px; top: 1098px; display: flex; align-items: center; gap: 12px; font-size: 28px; color: #155b3f; font-weight: 600; }
+      </style>
+
+      <!-- 15 · Loop: the 10:00 card again, same geometry and camera as frame 1, now '✓ Confirmada'. -->
+      <div data-hf-id="hf-lb03" id="c15-root" data-composition-id="c15" data-start="0" data-duration="1.35" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-hqi3" id="c15-world" class="world" data-layout-allow-overflow>
+          <div data-hf-id="hf-i4ws" id="c15-clip" class="clip-layer">
+            <div data-hf-id="hf-vp90" id="c15-st" class="st">
+              <div data-hf-id="hf-7bs9" id="c15-day" class="abs chip chip--soft">MARTES · HOY</div>
+              <div data-hf-id="hf-zu31" id="c15-clock" class="abs chip chip--ink"><svg data-hf-id="hf-t6g8" class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle data-hf-id="hf-1iwn" cx="12" cy="12" r="9" /><path data-hf-id="hf-8ge0" d="M12 7v5l3.5 2" /></svg>10:00</div>
+              <div data-hf-id="hf-064c" id="c15-time" class="abs fr">10:00</div>
+              <div data-hf-id="hf-gqfp" id="c15-what" class="abs">Consulta</div>
+              <div data-hf-id="hf-u392" id="c15-who" class="abs">Juan Pérez</div>
+              <div data-hf-id="hf-7mo5" id="c15-room" class="abs"><svg data-hf-id="hf-bbvk" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-s5bw" d="M5 12.5l4.5 4.5L19 7.5" /></svg>Confirmó por WhatsApp</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var P = window.Physics;
+          var A = R.A;
+          var S = R.S;
+          function $(id) {
+            return document.getElementById("c15-" + id);
+          }
+          var st = $("st");
+          window.__timelines["c15"] = R.mountState("loop", $("root"), $("world"), $("clip"), function (t, span) {
+            R.apply(st, t, span[0], span[1]);
+
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

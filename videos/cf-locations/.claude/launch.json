@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "studio",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "hyperframes@0.8.138", "preview", "--port", "3002", "--no-open"],
+      "port": 3002
+    }
+  ]
+}

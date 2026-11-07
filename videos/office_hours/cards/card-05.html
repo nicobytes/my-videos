@@ -1,0 +1,40 @@
+
+<div class="card" data-card-id="card-05">
+  <style>
+    .card[data-card-id="card-05"] .root {
+      --ink:#fafafa; --muted:#d4d4d8; --cyan:#67e8f9; --emerald:#34d399;
+      width:100%; height:100%; box-sizing:border-box; padding: 160px 120px 380px 48px;
+      display:flex; flex-direction:column; justify-content:center; align-items:stretch; gap: 20px;
+      background: #18181b;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: var(--ink); text-align:center;
+    }
+    .card[data-card-id="card-05"] .kicker {
+      font-size: 22px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--cyan); opacity:0;
+    }
+    .card[data-card-id="card-05"] .flow {
+      display:flex; justify-content:center; align-items:center; gap: 12px; flex-wrap:wrap; opacity:0;
+    }
+    .card[data-card-id="card-05"] .chip {
+      padding: 16px 24px; border-radius: 999px; font-size: 28px; font-weight: 700;
+      background: #27272a; border: 1px solid rgba(255,255,255,0.08);
+    }
+    .card[data-card-id="card-05"] .chip.ok {
+      background: linear-gradient(135deg, var(--cyan), var(--emerald)); color:#18181b; border:none;
+    }
+    .card[data-card-id="card-05"] .arrow { font-size: 28px; color: var(--muted); }
+    .card[data-card-id="card-05"] .title {
+      font-size: 58px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin: 12px 0 0; opacity:0;
+    }
+    .card[data-card-id="card-05"] .title em { font-style:normal; color: var(--emerald); }
+  </style>
+  <div class="root">
+    <div class="kicker" id="card-05-kicker" data-anim="fade-in" data-anim-at="0.2" data-anim-duration="0.3">Cierre</div>
+    <div class="flow" id="card-05-flow" data-anim="fade-in" data-anim-at="0.45" data-anim-duration="0.4">
+      <span class="chip">Agente</span><span class="arrow">→</span>
+      <span class="chip">Ventas</span><span class="arrow">→</span>
+      <span class="chip ok">Cierre</span>
+    </div>
+    <h2 class="title" id="card-05-title" data-anim="fade-in" data-anim-at="0.85" data-anim-duration="0.4">Y <em>cierra la venta</em></h2>
+  </div>
+</div>

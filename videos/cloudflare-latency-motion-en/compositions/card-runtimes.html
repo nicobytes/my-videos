@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-400.woff2") format("woff2");
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-600.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-800.woff2") format("woff2");
+          font-weight: 800;
+        }
+        :root {
+          --accent: #52d06b;
+          --accent-soft: #8fe6a0;
+          --ink: #f5f7ff;
+          --muted: #9aa8c7;
+          --panel: rgba(8, 13, 32, 0.8);
+        }
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        #root {
+          position: relative;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          font-family: "Inter", sans-serif;
+          color: var(--ink);
+          background:
+            radial-gradient(900px 700px at 20% 18%, rgba(56, 150, 90, 0.28), transparent 70%),
+            radial-gradient(800px 900px at 85% 80%, rgba(120, 50, 170, 0.2), transparent 70%),
+            radial-gradient(1200px 1200px at 50% 50%, #0a1433, #040816 75%);
+        }
+        .head {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 190px;
+          opacity: 0;
+        }
+        .kicker {
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          font-size: 30px;
+          font-weight: 600;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--muted);
+        }
+        .kicker .dot {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: var(--accent);
+          box-shadow: 0 0 18px var(--accent);
+        }
+        .title {
+          margin-top: 22px;
+          font-size: 80px;
+          line-height: 1.05;
+          font-weight: 800;
+          letter-spacing: -0.035em;
+        }
+        .title .accent {
+          color: var(--accent-soft);
+        }
+        .grid {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 620px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 32px;
+        }
+        .chip {
+          height: 340px;
+          border-radius: 34px;
+          background: #f7f4ef;
+          border: 1.5px solid rgba(0, 0, 0, 0.06);
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 24px;
+          opacity: 0;
+        }
+        .chip img {
+          height: 130px;
+          width: auto;
+        }
+        .chip .name {
+          font-size: 34px;
+          font-weight: 600;
+          color: #1c2433;
+        }
+      </style>
+
+      <div data-hf-id="hf-5am7" id="root" data-composition-id="card-runtimes" data-width="1080" data-height="1920" data-duration="4.88">
+        <div data-hf-id="hf-xa8y" id="head" class="head">
+          <div data-hf-id="hf-jf4g" class="kicker"><span data-hf-id="hf-9gry" class="dot"></span>Nuevos runtimes</div>
+          <div data-hf-id="hf-0a9l" class="title">Livianos. <span data-hf-id="hf-99uc" class="accent">Modernos.</span></div>
+        </div>
+
+        <div data-hf-id="hf-kxq8" class="grid">
+          <div data-hf-id="hf-e8gn" id="chip-deno" class="chip"><img data-hf-id="hf-4mnk" src="assets/logos/deno.png" alt="Deno"><div data-hf-id="hf-uhbx" class="name">Deno</div></div>
+          <div data-hf-id="hf-2vjm" id="chip-bun" class="chip"><img data-hf-id="hf-gc6y" src="assets/logos/bun.png" alt="Bun"><div data-hf-id="hf-ddlq" class="name">Bun</div></div>
+          <div data-hf-id="hf-ppnh" id="chip-winterjs" class="chip"><img data-hf-id="hf-d3ao" src="assets/logos/winterjs-icon.png" alt="WinterJS"><div data-hf-id="hf-w1nj" class="name">WinterJS</div></div>
+          <div data-hf-id="hf-iiuv" id="chip-cfw" class="chip"><img data-hf-id="hf-hjkl" src="assets/logos/cloudflare-workers-icon.png" alt="Cloudflare Workers"><div data-hf-id="hf-4att" class="name">Cloudflare Workers</div></div>
+        </div>
+
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const IN = { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" };
+        const CHIP_IN = { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" };
+
+        tl.fromTo("#head", { opacity: 0, y: 40 }, { ...IN }, 0.08);
+        tl.fromTo("#chip-deno", { opacity: 0, scale: 0.82, y: 20 }, { ...CHIP_IN, y: 0 }, 0.4);
+        tl.fromTo("#chip-bun", { opacity: 0, scale: 0.82, y: 20 }, { ...CHIP_IN, y: 0 }, 0.52);
+        tl.fromTo("#chip-winterjs", { opacity: 0, scale: 0.82, y: 20 }, { ...CHIP_IN, y: 0 }, 0.64);
+        tl.fromTo("#chip-cfw", { opacity: 0, scale: 0.82, y: 20 }, { ...CHIP_IN, y: 0 }, 0.76);
+
+        window.__timelines["card-runtimes"] = tl;
+        tl.seek(0);
+
+        // Drive from the HOST's global hf-seek time ourselves and self-blank
+        // outside this clip's own window — see card-clouds.html for why.
+        const HOST_START = 122.72;
+        const DURATION = 4.88;
+        const root = document.querySelector('[data-composition-id="card-runtimes"]');
+        function renderAt(globalTime) {
+          const inWindow = globalTime >= HOST_START && globalTime <= HOST_START + DURATION;
+          root.style.opacity = inWindow ? "1" : "0";
+          const local = Math.min(DURATION, Math.max(0, globalTime - HOST_START));
+          tl.seek(local);
+        }
+        window.addEventListener("hf-seek", (e) => renderAt(e.detail.time));
+        renderAt(window.__hfThreeTime || 0);
+      </script>
+    </template>
+  </body>
+</html>

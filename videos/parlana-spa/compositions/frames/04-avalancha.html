@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><meta charset="UTF-8"><link rel="stylesheet" href="compositions/shared/pixel.css"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jersey 10"; src: url("assets/fonts/jersey10-latin.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Plus Jakarta Sans"; src: url("assets/fonts/plusjakarta-latin.woff2") format("woff2"); font-weight: 200 800; }
+        #f04-root { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; background: #f1efe8; }
+        #f04-cam { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+        #f04-clock { left: 375px; top: 24px; width: 330px; height: 150px; display: flex; align-items: center; justify-content: center; font-size: 120px; background: #00260f; color: #00bd4c; border-color: #00260f; }
+        #f04-badge { left: 790px; top: 470px; min-width: 96px; height: 96px; font-size: 70px; }
+        .f04-rain { font-size: 44px; }
+        .f04-big { font-size: 66px; }
+      </style>
+
+      <div id="f04-root" data-composition-id="f04" data-start="0" data-duration="6.4" data-width="1080" data-height="1920">
+        <div id="f04-cam">
+          <img class="px" src="assets/sprites/bg-spa.svg" style="left: 0; top: 0; width: 1080px;" alt="">
+          <img class="px" src="assets/sprites/towels.svg" style="left: 640px; top: 610px; width: 140px;" alt="">
+          <img id="f04-phone" class="px" src="assets/sprites/phone-small.svg" style="left: 820px; top: 540px; width: 100px;" alt="">
+          <img class="px" src="assets/sprites/candle-1.svg" style="left: 930px; top: 590px; width: 60px;" alt="">
+          <img class="px" src="assets/sprites/plant.svg" style="left: 40px; top: 1150px; width: 196px;" alt="">
+          <img id="f04-vale" class="px" src="assets/sprites/vale-idle.svg" style="left: 386px; top: 760px; width: 308px;" alt="">
+          <img id="f04-vale-w" class="px" src="assets/sprites/vale-worried.svg" style="left: 386px; top: 760px; width: 308px; visibility: hidden;" alt="">
+          <img id="f04-vale-wb" class="px" src="assets/sprites/vale-worried-blink.svg" style="left: 386px; top: 760px; width: 308px; visibility: hidden;" alt="">
+          <img class="px" src="assets/sprites/bed-client.svg" style="left: 232px; top: 1090px; width: 616px;" alt="">
+          <div id="f04-badge" class="badge notch">3</div>
+        </div>
+        <div id="f04-clock" class="panel notch">09:00</div>
+        <div id="f04-rain"></div>
+        <div id="f04-q1" class="bub notch f04-big" style="left: 70px; top: 330px;">¿Cuánto cuesta?</div>
+        <div id="f04-q2" class="bub notch f04-big" style="left: 420px; top: 470px;">¿Tienes turno hoy?</div>
+        <div id="f04-q3" class="bub notch f04-big" style="left: 40px; top: 620px;">¿Dónde quedan?</div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          // local anchors (abs − 9.84): llegan 0 · ¿Cuánto 1.12 · ¿Tienes 1.84 · ¿Dónde 2.73 · Pero 3.40 · clienta 4.87 · no puede contestar 5.28
+          // waterfall-entry: small leads rain in, positions baked (deterministic)
+          var RAIN = [["Hola!", 640, 300], ["Info?", 850, 760], ["Buenas", 470, 250], ["¿Precio?", 780, 230], ["Holaaa", 40, 520],
+            ["¿Cupo?", 820, 380], ["Hola", 60, 260], ["¿QR?", 40, 820], ["Info pls", 820, 900], ["¿Sábado?", 760, 1010],
+            ["¿Precio?", 700, 640], ["Hola!!", 300, 230]];
+          var rain = document.getElementById("f04-rain");
+          RAIN.forEach(function (r, i) {
+            var b = document.createElement("div");
+            b.className = "bub notch f04-rain"; b.textContent = r[0];
+            b.style.left = r[1] + "px"; b.style.top = r[2] + "px";
+            rain.appendChild(b);
+            var at = i < 6 ? 0.05 + i * 0.12 : 3.45 + (i - 6) * 0.3; // first burst on "llegan", second wave under "pero mientras…"
+            tl.fromTo(b, { autoAlpha: 0, y: -120, rotation: 0 }, { autoAlpha: 1, y: 0, rotation: (i % 2 ? 4 : -4), duration: 0.2, ease: "steps(4)" }, at);
+          });
+          // the three spoken questions land big on their words
+          [["#f04-q1", 1.08, -3], ["#f04-q2", 1.8, 3], ["#f04-q3", 2.69, -2]].forEach(function (q) {
+            tl.fromTo(q[0], { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, rotation: q[2], duration: 0.22, ease: "power3.out" }, q[1]);
+          });
+          // clock: discrete-text-sequence 09:00 → 23:00 (the day slips away)
+          var clock = document.getElementById("f04-clock"); var h = { v: 9 };
+          tl.to(h, { v: 23, duration: 5.6, ease: "none", onUpdate: function () { clock.textContent = String(Math.floor(h.v)).padStart(2, "0") + ":00"; } }, 0.3);
+          // unread badge climbs to 99+
+          var badge = document.getElementById("f04-badge"); var st = { v: 3 };
+          tl.to(st, { v: 99, duration: 5.2, ease: "power1.in", onUpdate: function () { badge.textContent = st.v >= 99 ? "99+" : Math.round(st.v); } }, 0.1);
+          // shelf phone buzzes (finite, stepped)
+          [0.6, 1.9, 3.3, 4.6, 5.3].forEach(function (at) {
+            tl.to("#f04-phone", { keyframes: [{ x: 8, duration: 0.04 }, { x: -8, duration: 0.04 }, { x: 8, duration: 0.04 }, { x: -8, duration: 0.04 }, { x: 0, duration: 0.04 }], ease: "none" }, at);
+          });
+          // Vale: calm → worried as the messages pile up; sweat on "no puede contestar"
+          tl.set("#f04-vale", { visibility: "hidden" }, 1.1); tl.set("#f04-vale-w", { visibility: "visible" }, 1.1);
+          [[2.3, 2.42], [4.3, 4.42]].forEach(function (b) {
+            tl.set("#f04-vale-wb", { visibility: "visible" }, b[0]); tl.set("#f04-vale-w", { visibility: "hidden" }, b[0]);
+            tl.set("#f04-vale-wb", { visibility: "hidden" }, b[1]); tl.set("#f04-vale-w", { visibility: "visible" }, b[1]);
+          });
+          // "pero mientras atiende a una clienta": camera pushes in on Vale + client (multi-phase-camera, smooth)
+          gsap.set("#f04-cam", { transformOrigin: "540px 1100px" });
+          tl.fromTo("#f04-cam", { scale: 1 }, { scale: 1.22, duration: 1.0, ease: "power2.inOut" }, 3.4);
+          // "no puede contestar": everything piles — bubbles shove in a step
+          tl.to(["#f04-q1", "#f04-q2", "#f04-q3"], { y: 30, duration: 0.2, ease: "steps(2)" }, 5.25);
+          tl.to("#f04-badge", { keyframes: [{ scale: 1.4, duration: 0.08 }, { scale: 1.15, duration: 0.2 }] }, 5.28);
+          window.__timelines["f04"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

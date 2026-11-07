@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root { --ink:#18181b; --paper:#fafafa; --slate:#27272a; --cyan:#06b6d4; --emerald:#10b981; --cf:#F38020; --astro:#e9469d; --zinc:#f4f4f5; --red:#ef4444; --amber:#f59e0b; }
+      * { margin:0; padding:0; box-sizing:border-box; }
+      html, body { width:1080px; height:1920px; overflow:hidden; background:var(--ink); }
+      body { font-family: Inter, sans-serif; color:var(--ink); }
+      #root { position:relative; width:1080px; height:1920px; overflow:hidden; background:var(--ink); }
+      .clip { position:absolute; left:0; top:0; width:1080px; height:1920px; }
+      .scene { pointer-events:none; z-index:10; }
+      #cam-frame { position:absolute; inset:0; overflow:hidden; z-index:1; }
+      #cam { position:absolute; left:0; top:0; width:1080px; height:1920px; transform-origin:50% 32%; }
+      #a-roll { position:absolute; left:0; top:0; width:1080px; height:1920px; object-fit:cover; }
+      .flag { display:inline-block; border-radius:8px; object-fit:cover; box-shadow:0 0 0 2px rgba(24,24,27,.12); vertical-align:middle; }
+      .row { display:flex; align-items:center; } .col { display:flex; flex-direction:column; align-items:center; }
+      .center { justify-content:center; }
+      .band { position:absolute; left:0; width:1080px; }
+      .x { font:900 64px Inter; color:var(--ink); } .x.light { color:var(--paper); }
+      .chip-logo { width:370px; height:150px; border-radius:36px; display:flex; align-items:center; justify-content:center; box-shadow:0 18px 40px rgba(24,24,27,.28); }
+      .chip-logo.ink { background:var(--ink); border:3px solid #3f3f46; } .chip-logo.paper { background:var(--paper); }
+      .pill { display:flex; align-items:center; gap:14px; padding:18px 30px; border-radius:999px; font:800 40px Inter; box-shadow:0 14px 34px rgba(24,24,27,.25); white-space:nowrap; }
+      .pill.big { font-size:46px; padding:22px 36px; }
+      .pill.paper { background:var(--paper); color:var(--ink); }
+      .pill.cf { background:var(--cf); color:var(--ink); }
+      .pill.money { background:var(--emerald); color:var(--ink); }
+      .pill.warn { background:var(--ink); color:var(--paper); border:4px solid var(--amber); font-size:40px; }
+      .sticker { background:var(--cf); color:var(--ink); font:900 58px Inter; padding:24px 40px; border-radius:28px; box-shadow:0 20px 44px rgba(24,24,27,.35); }
+
+      /* full-screen cards — content stays in 120–1380, caption rail lives at ~1500 */
+      .card { position:absolute; inset:0; padding:150px 70px 0; display:flex; flex-direction:column; }
+      .paper-bg { background:var(--paper); } .ink-bg { background:var(--ink); }
+      .kicker { font:700 30px 'JetBrains Mono', monospace; letter-spacing:.12em; text-transform:uppercase; color:#0e7490; }
+      .kicker.cfk { color:var(--cf); }
+      .h1 { font:900 76px/1.02 Inter; letter-spacing:-.035em; color:var(--ink); margin-top:18px; max-width:940px; }
+      .h1.light { color:var(--paper); }
+      .opts { margin-top:46px; display:flex; flex-direction:column; gap:22px; }
+      .opt { position:relative; display:flex; align-items:center; justify-content:space-between; background:#fff; border:3px solid #e4e4e7; border-radius:26px; padding:26px 30px; height:118px; }
+      .opt .lbl { font:700 26px 'JetBrains Mono', monospace; color:#52525b; text-transform:uppercase; letter-spacing:.08em; margin-right:90px; }
+      .lbl.dark { font:700 26px 'JetBrains Mono', monospace; color:#52525b; text-transform:uppercase; letter-spacing:.08em; }
+      .mock-select { font:700 36px Inter; color:var(--ink); border:3px solid #d4d4d8; border-radius:14px; padding:10px 20px; }
+      .mock-select span { color:#71717a; margin-left:10px; }
+      .mock-url { font:700 36px 'JetBrains Mono', monospace; color:var(--ink); } .mock-url b { color:#c2410c; }
+      .strike { position:absolute; left:24px; right:24px; top:56px; height:6px; background:var(--red); border-radius:4px; transform-origin:0 50%; }
+      .xmark { position:absolute; right:26px; top:26px; width:64px; height:64px; border-radius:50%; background:var(--red); color:#fff; font:900 38px/64px Inter; text-align:center; }
+      .want { margin-top:40px; display:flex; flex-direction:column; gap:20px; }
+      .bigurl { display:flex; align-items:center; gap:18px; background:#fff; border:4px solid var(--emerald); border-radius:999px; padding:26px 40px; font:700 54px 'JetBrains Mono', monospace; color:var(--ink); box-shadow:0 18px 40px rgba(16,185,129,.18); }
+      .typed { display:inline-block; overflow:hidden; white-space:nowrap; width:330px; }
+      .ok { margin-left:auto; width:70px; height:70px; border-radius:50%; background:var(--emerald); color:#fff; font:900 44px/70px Inter; text-align:center; }
+      .adapted { display:flex; align-items:center; gap:18px; font:700 38px Inter; color:var(--ink); padding-left:10px; }
+      .auto { align-self:flex-start; font:800 34px Inter; background:var(--ink); color:var(--paper); padding:14px 26px; border-radius:999px; }
+
+      .panel { position:absolute; left:0; top:0; width:1080px; height:1080px; background:var(--zinc); overflow:hidden; border-bottom:6px solid var(--cf); }
+      .panel-in { position:absolute; inset:0; }
+      .browser { position:absolute; left:40px; top:56px; width:1000px; height:980px; background:#fff; border-radius:28px; overflow:hidden; box-shadow:0 30px 70px rgba(24,24,27,.22); }
+      .chrome { height:84px; background:#f4f4f5; border-bottom:2px solid #e4e4e7; display:flex; align-items:center; gap:12px; padding:0 26px; }
+      .chrome > i { width:18px; height:18px; border-radius:50%; background:#d4d4d8; }
+      .url { margin-left:22px; flex:1; height:54px; border-radius:999px; background:#fff; border:2px solid #e4e4e7; display:flex; align-items:center; gap:12px; padding:0 24px; font:700 30px 'JetBrains Mono', monospace; color:var(--ink); }
+      .url-t { display:inline-block; overflow:hidden; white-space:nowrap; }
+      .viewport { position:absolute; left:0; top:84px; width:1000px; height:896px; overflow:hidden; }
+      .page { position:absolute; left:0; top:0; width:1000px; height:896px; overflow:hidden; background:#fff; }
+      .marker { position:absolute; background:rgba(243,128,32,.38); mix-blend-mode:multiply; border-radius:6px; transform-origin:0 50%; }
+      .datebox { position:absolute; border:4px solid var(--cf); border-radius:10px; }
+      .stamp { position:absolute; left:0; right:0; margin:0 auto; width:max-content; bottom:40px; background:var(--ink); color:var(--paper); font:800 36px Inter; padding:18px 30px; border-radius:999px; white-space:nowrap; }
+      .diagram { padding:60px 70px 0; }
+      .node { position:absolute; left:110px; width:860px; border-radius:30px; display:flex; align-items:center; gap:28px; padding:26px 34px; }
+      .node b { display:block; font:900 40px Inter; letter-spacing:-.02em; } .node small { display:block; font:600 28px Inter; margin-top:6px; }
+      .node.user { top:150px; background:#fff; border:3px solid #d4d4d8; color:var(--ink); } .node.user small { color:#52525b; }
+      .node.edge { top:380px; background:#fff; border:4px solid var(--cf); color:var(--ink); } .node.edge small { color:#52525b; }
+      .node.astro { top:700px; background:var(--ink); color:var(--paper); } .node.astro small { color:#d4d4d8; }
+      .wire { position:absolute; left:536px; width:8px; height:80px; background:repeating-linear-gradient(var(--cf) 0 12px, transparent 12px 22px); }
+      .dot { position:absolute; left:-10px; top:0; width:28px; height:28px; border-radius:50%; background:var(--cf); box-shadow:0 0 0 8px rgba(243,128,32,.25); }
+      .badge { position:absolute; right:-24px; top:-30px; font:700 34px 'JetBrains Mono', monospace; background:var(--ink); color:var(--cf); padding:12px 22px; border-radius:16px; box-shadow:0 12px 26px rgba(24,24,27,.3); }
+      .badge.money { background:var(--emerald); color:var(--ink); }
+
+      .editor { position:relative; margin-top:30px; background:var(--slate); border-radius:30px; border:2px solid rgba(244,244,245,.12); overflow:visible; }
+      .tab { display:flex; align-items:baseline; gap:18px; padding:22px 34px; border-bottom:2px solid rgba(244,244,245,.1); }
+      .tabname { font:700 30px 'JetBrains Mono', monospace; color:var(--paper); } .tabdim { font:400 24px 'JetBrains Mono', monospace; color:#a1a1aa; }
+      .code { padding:22px 26px 30px; }
+      .ln { display:flex; font:400 37px/1.55 'JetBrains Mono', monospace; color:var(--zinc); white-space:pre; }
+      .ln em { font-style:normal; color:#71717a; width:58px; flex:none; }
+      .ln.cm { color:#a1a1aa; }
+      .lt { display:inline-block; overflow:hidden; }
+      .kw { color:#c084fc; } .ty { color:var(--cyan); } .fn { color:#fbbf24; } .str { color:#86efac; }
+      .hl-cf, .hl-cy { border-radius:8px; padding:0 4px; margin:0 -4px; }
+      .ccchip { position:absolute; display:flex; align-items:center; gap:14px; left:600px; top:540px; background:var(--cf); color:var(--ink); font:700 40px 'JetBrains Mono', monospace; padding:12px 22px; border-radius:999px; box-shadow:0 16px 34px rgba(0,0,0,.35); }
+      .resolved { position:absolute; left:34px; bottom:-74px; font:800 34px Inter; color:var(--emerald); }
+      .edgebadge { margin-top:110px; align-self:flex-start; font:800 34px Inter; color:var(--paper); background:rgba(243,128,32,.16); border:3px solid var(--cf); padding:18px 28px; border-radius:999px; }
+
+      .hero-mock { margin-top:44px; background:#fff; border:3px solid #e4e4e7; border-radius:30px; overflow:hidden; box-shadow:0 24px 50px rgba(24,24,27,.12); }
+      .mock-bar { display:flex; align-items:center; gap:10px; height:64px; padding:0 24px; background:#f4f4f5; border-bottom:2px solid #e4e4e7; }
+      .mock-bar i { width:14px; height:14px; border-radius:50%; background:#d4d4d8; } .mock-bar span { margin-left:18px; font:700 26px 'JetBrains Mono', monospace; color:#52525b; }
+      .greets { position:relative; height:190px; overflow:hidden; }
+      .greet { position:absolute; inset:0; display:flex; align-items:center; gap:26px; padding:0 44px; font:900 74px Inter; letter-spacing:-.035em; color:var(--ink); }
+      .mock-lines { padding:0 44px 40px; display:flex; flex-direction:column; gap:16px; } .mock-lines i { height:22px; border-radius:11px; background:#e4e4e7; }
+      .pricing-word { margin-top:60px; font:900 168px/1 Inter; letter-spacing:-.05em; color:var(--cf); text-align:center; }
+      .cur { gap:16px; margin-top:26px; } .cur span { font:700 34px 'JetBrains Mono', monospace; background:var(--ink); color:var(--emerald); padding:12px 22px; border-radius:16px; }
+
+      .roll { position:absolute; overflow:hidden; } .roll-in { position:absolute; left:0; top:0; width:100%; }
+      .ring { position:absolute; border:5px solid var(--emerald); border-radius:18px; box-shadow:0 0 0 10px rgba(16,185,129,.18); }
+      .pin { position:absolute; width:96px; height:96px; }
+      .pin-f { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:var(--ink); border-radius:50% 50% 50% 8px; box-shadow:0 14px 30px rgba(24,24,27,.35); }
+      .flags { position:absolute; left:0; width:1000px; }
+      .flags-t { text-align:center; font:700 26px 'JetBrains Mono', monospace; color:#52525b; text-transform:uppercase; letter-spacing:.1em; margin-bottom:16px; }
+      .fl { display:flex; flex-direction:column; align-items:center; gap:6px; font:700 22px 'JetBrains Mono', monospace; color:var(--ink); }
+
+      .checks { margin-top:56px; display:flex; flex-direction:column; gap:26px; }
+      .check { display:flex; align-items:center; gap:28px; font:900 74px Inter; letter-spacing:-.03em; color:var(--paper); }
+      .check i { font-style:normal; width:84px; height:84px; border-radius:50%; background:var(--emerald); color:var(--ink); font:900 50px/84px Inter; text-align:center; }
+
+      /* caption rail */
+      #caps { position:absolute; left:0; top:0; width:1080px; height:1920px; z-index:50; pointer-events:none; }
+      .cap { position:absolute; left:70px; top:1430px; width:940px; text-align:center; font:900 68px/1.12 Inter; letter-spacing:-.02em; color:#fff; paint-order:stroke fill; -webkit-text-stroke:10px var(--ink); text-shadow:0 6px 22px rgba(0,0,0,.45); }
+      .cap .w { display:inline-block; margin:0 .09em; }
+      .k-cf { color:var(--cf); } .k-astro { color:#ec4899; } .k-money { color:#34d399; } .k-hl { color:#22d3ee; } .k-warn { color:#fbbf24; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="111.778" data-width="1080" data-height="1920">
+      <div id="cam-frame"><div id="cam">
+        <video id="a-roll" class="clip" src="assets/locations.mp4" data-start="0" data-duration="111.778" data-track-index="0" muted playsinline></video>
+      </div></div>
+      <audio id="a-roll-audio" src="assets/locations.mp4" data-start="0" data-duration="111.778" data-track-index="10" data-volume="1"></audio>
+      <div id="f1" class="clip scene " data-start="0" data-duration="5.400" data-track-index="3">
+  <div class="band row center" style="top:150px;gap:22px;"><div class="chip-logo ink" id="f1-astro"><img src="assets/astro-logo-light-gradient.png" style="width:330px;height:117px;object-fit:cover;"></div><div class="x" id="f1-x">×</div><div class="chip-logo paper" id="f1-cf"><img src="assets/CF-Logo%201.png" style="width:290px;height:98px;"></div></div>
+  <div class="band row center" style="top:330px;"><div class="pill paper" id="f1-pin">📍 <img class="flag" src="assets/flags/bo.svg" style="width:52px;height:39px;"> <b>Bolivia</b></div></div></div>
+      <div id="f2" class="clip scene " data-start="5.08" data-duration="10.520" data-track-index="3">
+  <div class="band row center" style="top:190px;gap:18px;">
+    <div class="pill paper big" id="f2-a">💰 Pricing</div>
+    <div class="pill paper big" id="f2-b">🗣️ Modismos</div>
+    <div class="pill cf big" id="f2-c">📍 Por país</div>
+  </div></div>
+      <div id="f3" class="clip scene " data-start="15.2" data-duration="15.100" data-track-index="3">
+  <div class="card paper-bg" id="f3-card">
+    <div class="kicker" id="f3-k">Las formas típicas</div>
+    <h1 class="h1" id="f3-t">¿Cómo adapto mi sitio por país?</h1>
+    <div class="opts" id="f3-opts">
+      <div class="opt" id="f3-o1"><div class="mock-select">🌎 Selecciona tu país <span>▾</span></div><div class="lbl">Selector</div><div class="strike" id="f3-s1"></div><div class="xmark" id="f3-x1">✕</div></div>
+      <div class="opt" id="f3-o2"><div class="mock-url">parlana.bo<b>/?country=co</b></div><div class="lbl">Query params</div><div class="strike" id="f3-s2"></div><div class="xmark" id="f3-x2">✕</div></div>
+      <div class="opt" id="f3-o3"><div class="mock-url">parlana.bo <b>→ /co</b></div><div class="lbl">Redirect</div><div class="strike" id="f3-s3"></div><div class="xmark" id="f3-x3">✕</div></div>
+    </div>
+    <div class="want" id="f3-want">
+      <div class="lbl dark">Lo que uno quiere</div>
+      <div class="bigurl"><span class="lock">🔒</span><span id="f3-url" class="typed">parlana.bo</span><span class="ok" id="f3-ok">✓</span></div>
+      <div class="adapted" id="f3-ad"><img class="flag" src="assets/flags/bo.svg" style="width:48px;height:36px;"> <span>Precios en <b>Bs</b> · contenido local</span></div>
+      <div class="auto" id="f3-auto">⚡ Automático</div>
+    </div>
+  </div></div>
+      <div id="f4a" class="clip scene " data-start="29.86" data-duration="2.740" data-track-index="3">
+  <div class="band row center" style="top:170px;gap:22px;"><div class="chip-logo ink" id="f4-astro"><img src="assets/astro-logo-light-gradient.png" style="width:330px;height:117px;object-fit:cover;"></div><div class="x" id="f4-x">×</div><div class="chip-logo paper" id="f4-cf"><img src="assets/CF-Logo%201.png" style="width:290px;height:98px;"></div></div></div>
+      <div id="f4" class="clip scene " data-start="32.24" data-duration="10.360" data-track-index="3">
+  <div class="panel" id="f4-panel">
+    <div class="panel-in" id="f4-press">
+  <div class="browser" id="f4-br">
+    <div class="chrome"><i></i><i></i><i></i>
+      <div class="url"><span class="lock">🔒</span><span class="url-t" id="f4-br-url">cloudflare.com/es-la/press/…</span></div>
+    </div>
+    <div class="viewport">
+      <div style="position:absolute;left:0;top:0;width:1000px;height:1778px;transform-origin:0 0;" id="f4-shot">
+        <img src="assets/shots/press.png" style="position:absolute;left:0;top:-277.77777777777777px;width:1000px;height:1777.7777777777778px;">
+        <div class="marker" id="f4-mark" style="left:40px;top:116px;width:665px;height:52px;"></div>
+        <div class="datebox" id="f4-date" style="left:338px;top:44px;width:262px;height:44px;"></div>
+      </div>
+      <div class="stamp" id="f4-stamp">Cloudflare compró Astro · ene 2026</div></div>
+  </div>
+    </div>
+    <div class="panel-in diagram" id="f4-diag">
+      <div class="kicker cfk" id="f4-dk">La red de Cloudflare</div>
+      <div class="node user" id="f4-n1"><img class="flag" src="assets/flags/co.svg" style="width:72px;height:54px;"><div><b>Usuario en Colombia</b><small>pide parlana.bo</small></div></div>
+      <div class="wire" id="f4-w1" style="top:300px;"><i class="dot" id="f4-p1"></i></div>
+      <div class="node edge" id="f4-n2"><img src="assets/CF-Logo%201.png" style="width:250px;height:84px;"><div><b>Edge más cercano</b><small>ve la IP → sabe el país</small></div>
+        <div class="badge" id="f4-cc">country: "CO"</div></div>
+      <div class="wire" id="f4-w2" style="top:620px;"><i class="dot" id="f4-p2"></i></div>
+      <div class="node astro" id="f4-n3"><img src="assets/astro-logo-light-gradient.png" style="width:250px;height:89px;object-fit:cover;"><div><b>Astro renderiza</b><small>con un pedacito de código</small></div>
+        <div class="badge money" id="f4-out">precios en COP</div></div>
+    </div>
+  </div></div>
+      <div id="f5" class="clip scene " data-start="42.08" data-duration="10.620" data-track-index="3">
+  <div class="card ink-bg" id="f5-card">
+    <div class="kicker cfk" id="f5-k">Este es el código</div>
+    <div class="editor" id="f5-ed">
+      <div class="tab"><span class="tabname">pricing.astro</span><span class="tabdim">src/pages</span></div>
+      <div class="code"><div class="ln cm" id="f5-l0"><em>1</em><span class="lt">---</span></div><div class="ln " id="f5-l1"><em>2</em><span class="lt"><span class="kw">const</span> request =</span></div><div class="ln " id="f5-l2"><em>3</em><span class="lt">  Astro.request <span class="kw">as</span> <span class="ty">CfRequest</span>;</span></div><div class="ln " id="f5-l3"><em>4</em><span class="lt">&nbsp;</span></div><div class="ln " id="f5-l4"><em>5</em><span class="lt"><span class="kw">const</span> cfCountry =</span></div><div class="ln " id="f5-l5"><em>6</em><span class="lt">  <span class="hl-cf" id="f5-h1">request.cf?.country</span> ??</span></div><div class="ln " id="f5-l6"><em>7</em><span class="lt">  <span class="hl-cy" id="f5-h2">request.headers.get(<span class="str">"CF-IPCountry"</span>)</span>;</span></div><div class="ln " id="f5-l7"><em>8</em><span class="lt">&nbsp;</span></div><div class="ln " id="f5-l8"><em>9</em><span class="lt"><span class="kw">const</span> initialCountry =</span></div><div class="ln " id="f5-l9"><em>10</em><span class="lt">  <span class="fn">countryFromCfCode</span>(cfCountry);</span></div><div class="ln cm" id="f5-l10"><em>11</em><span class="lt">---</span></div></div>
+      <div class="ccchip" id="f5-chip"><img class="flag" src="assets/flags/bo.svg" style="width:46px;height:35px;"><span>"BO"</span></div>
+      <div class="resolved" id="f5-res">→ Bolivia · precios en Bs</div>
+    </div>
+    <div class="edgebadge" id="f5-badge">☁️ Corre dentro de la red de Cloudflare</div>
+  </div></div>
+      <div id="f6" class="clip scene " data-start="55.64" data-duration="9.960" data-track-index="3">
+  <div class="card paper-bg" id="f6-card">
+    <div class="kicker" id="f6-k">Estrategia de contenido</div>
+    <h1 class="h1" id="f6-t">Mismo sitio, otro tono</h1>
+    <div class="hero-mock" id="f6-mock">
+      <div class="mock-bar"><i></i><i></i><i></i><span>tusitio.com</span></div>
+      <div class="greets">
+        <div class="greet" id="f6-g1"><img class="flag" src="assets/flags/co.svg" style="width:84px;height:63px;"><span>¡Quiubo, parce!</span></div>
+        <div class="greet" id="f6-g2"><img class="flag" src="assets/flags/bo.svg" style="width:84px;height:63px;"><span>¡Qué tal, che!</span></div>
+        <div class="greet" id="f6-g3"><img class="flag" src="assets/flags/pe.svg" style="width:84px;height:63px;"><span>¡Qué tal, causa!</span></div>
+      </div>
+      <div class="mock-lines"><i style="width:70%"></i><i style="width:52%"></i></div>
+    </div>
+    <div class="pricing-word" id="f6-p">PRICING</div>
+    <div class="row center cur" id="f6-cur"><span>Bs</span><span>COP</span><span>S/</span><span>MXN</span><span>USD</span></div>
+  </div></div>
+      <div id="f7" class="clip scene " data-start="65.2" data-duration="24.500" data-track-index="3">
+  <div class="panel" id="f7-panel">
+    <div class="panel-in" id="f7-in">
+  <div class="browser" id="f7-br">
+    <div class="chrome"><i></i><i></i><i></i>
+      <div class="url"><span class="lock">🔒</span><span class="url-t" id="f7-br-url">parlana.bo</span></div>
+    </div>
+    <div class="viewport">
+      <div class="page" id="f7-hero"><img src="assets/shots/parlana-hero.png" style="width:1000px;height:1777.7777777777778px;"></div>
+      <div class="page" id="f7-pricing">
+        <div style="position:absolute;left:0;top:0;width:1000px;height:583.8815789473684px;background-image:url(assets/shots/pricing-bo.png);background-size:1052.6315789473683px 740.1315789473683px;background-position:-26.31578947368421px -156.25px;"></div>
+        <div class="roll" id="f7-r0" style="left:21.866776315789476px;top:429.27631578947364px;width:249.99999999999997px;height:54.27631578947368px;">
+      <div class="roll-in" id="f7-r0-in" style="height:108.55263157894736px;">
+        <div style="width:249.99999999999997px;height:54.27631578947368px;background-image:url(assets/shots/pricing-bo.png);background-size:1052.6315789473683px 740.1315789473683px;background-position:-48.182565789473685px -585.5263157894736px;"></div>
+        <div style="width:249.99999999999997px;height:54.27631578947368px;background-image:url(assets/shots/pricing-co.png);background-size:1052.6315789473683px 740.1315789473683px;background-position:-48.182565789473685px -585.5263157894736px;"></div>
+      </div></div><div class="roll" id="f7-r1" style="left:362.5986842105263px;top:429.27631578947364px;width:249.99999999999997px;height:54.27631578947368px;">
+      <div class="roll-in" id="f7-r1-in" style="height:108.55263157894736px;">
+        <div style="width:249.99999999999997px;height:54.27631578947368px;background-image:url(assets/shots/pricing-bo.png);background-size:1052.6315789473683px 740.1315789473683px;background-position:-388.9144736842105px -585.5263157894736px;"></div>
+        <div style="width:249.99999999999997px;height:54.27631578947368px;background-image:url(assets/shots/pricing-co.png);background-size:1052.6315789473683px 740.1315789473683px;background-position:-388.9144736842105px -585.5263157894736px;"></div>
+      </div></div><div class="roll" id="f7-r2" style="left:701.6858552631578px;top:429.27631578947364px;width:249.99999999999997px;height:54.27631578947368px;">
+      <div class="roll-in" id="f7-r2-in" style="height:108.55263157894736px;">
+        <div style="width:249.99999999999997px;height:54.27631578947368px;background-image:url(assets/shots/pricing-bo.png);background-size:1052.6315789473683px 740.1315789473683px;background-position:-728.0016447368421px -585.5263157894736px;"></div>
+        <div style="width:249.99999999999997px;height:54.27631578947368px;background-image:url(assets/shots/pricing-co.png);background-size:1052.6315789473683px 740.1315789473683px;background-position:-728.0016447368421px -585.5263157894736px;"></div>
+      </div></div>
+        <div class="roll" id="f7-rs" style="left:422.6973684210526px;top:169.40789473684208px;width:156.25px;height:42.76315789473684px;">
+      <div class="roll-in" id="f7-rs-in" style="height:85.52631578947368px;">
+        <div style="width:156.25px;height:42.76315789473684px;background-image:url(assets/shots/pricing-bo.png);background-size:1052.6315789473683px 740.1315789473683px;background-position:-449.0131578947368px -325.6578947368421px;"></div>
+        <div style="width:156.25px;height:42.76315789473684px;background-image:url(assets/shots/pricing-co.png);background-size:1052.6315789473683px 740.1315789473683px;background-position:-449.0131578947368px -325.6578947368421px;"></div>
+      </div></div>
+        <div class="ring" id="f7-ring" style="left:14.802631578947368px;top:422.6973684210526px;width:945.7236842105262px;height:67.43421052631578px;"></div>
+        <div class="pin" id="f7-pin" style="left:578.125px;top:151.3157894736842px;">
+          <div class="pin-f" id="f7-pbo"><img class="flag" src="assets/flags/bo.svg" style="width:56px;height:42px;"></div><div class="pin-f" id="f7-pco"><img class="flag" src="assets/flags/co.svg" style="width:56px;height:42px;"></div></div>
+        <div class="flags" id="f7-flags" style="top:609.8815789473684px;">
+          <div class="flags-t">Detecta y adapta en</div>
+          <div class="row center" style="gap:14px;"><div class="fl" id="f7-fl0"><img class="flag" src="assets/flags/bo.svg" style="width:74px;height:56px;"><span>BO</span></div><div class="fl" id="f7-fl1"><img class="flag" src="assets/flags/pe.svg" style="width:74px;height:56px;"><span>PE</span></div><div class="fl" id="f7-fl2"><img class="flag" src="assets/flags/co.svg" style="width:74px;height:56px;"><span>CO</span></div><div class="fl" id="f7-fl3"><img class="flag" src="assets/flags/mx.svg" style="width:74px;height:56px;"><span>MX</span></div><div class="fl" id="f7-fl4"><img class="flag" src="assets/flags/ar.svg" style="width:74px;height:56px;"><span>AR</span></div><div class="fl" id="f7-fl5"><img class="flag" src="assets/flags/cl.svg" style="width:74px;height:56px;"><span>CL</span></div><div class="fl" id="f7-fl6"><img class="flag" src="assets/flags/ec.svg" style="width:74px;height:56px;"><span>EC</span></div><div class="fl" id="f7-fl7"><img class="flag" src="assets/flags/br.svg" style="width:74px;height:56px;"><span>BR</span></div><div class="fl" id="f7-fl8"><img class="flag" src="assets/flags/us.svg" style="width:74px;height:56px;"><span>US</span></div></div>
+        </div>
+      </div></div>
+  </div>
+    </div>
+  </div></div>
+      <div id="f8" class="clip scene " data-start="89" data-duration="6.900" data-track-index="3">
+  <div class="band col center" style="top:120px;gap:14px;">
+    <div class="pill paper big" id="f8-a">Mismo idioma.</div>
+    <div class="pill paper big" id="f8-b">Misma moneda.</div>
+    <div class="pill money big" id="f8-c">Más conversión ↗</div>
+  </div></div>
+      <div id="f9" class="clip scene " data-start="98.2" data-duration="3.300" data-track-index="3">
+  <div class="band row center" style="top:200px;"><div class="pill warn big" id="f9-a">⚠️ Con VPN → ve el país de la VPN</div></div></div>
+      <div id="f10" class="clip scene " data-start="101.44" data-duration="7.560" data-track-index="3">
+  <div class="card ink-bg" id="f10-card">
+    <div class="kicker cfk" id="f10-k">Contenido por país</div>
+    <h1 class="h1 light" id="f10-t">Sin fricción, desde el edge</h1>
+    <div class="checks">
+      <div class="check" id="f10-c1"><i>✓</i>Automático</div>
+      <div class="check" id="f10-c2"><i>✓</i>Sin redirect</div>
+      <div class="check" id="f10-c3"><i>✓</i>Sin query params</div>
+      <div class="check" id="f10-c4"><i>✓</i>Nativo</div>
+    </div>
+    <div class="row center" style="gap:22px;margin-top:70px;"><div class="chip-logo paper" id="f10-cf"><img src="assets/CF-Logo%201.png" style="width:290px;height:98px;"></div><div class="x light" id="f10-x">×</div><div class="chip-logo ink" id="f10-astro"><img src="assets/astro-logo-light-gradient.png" style="width:330px;height:117px;object-fit:cover;"></div></div>
+  </div></div>
+      <div id="f11" class="clip scene " data-start="108.64" data-duration="3.138" data-track-index="3">
+  <div class="band row center" style="top:190px;"><div class="sticker" id="f11-s">#NoEsPublicidad 😅</div></div></div>
+      <div id="caps">
+<div class="cap" id="cap0"><span class="w " id="cap0w0">Con</span> <span class="w k-astro" id="cap0w1">Astro</span> <span class="w " id="cap0w2">y</span> <span class="w k-cf" id="cap0w3">Cloudflare</span></div>
+<div class="cap" id="cap1"><span class="w " id="cap1w0">puedes</span> <span class="w " id="cap1w1">personalizar</span></div>
+<div class="cap" id="cap2"><span class="w " id="cap2w0">la</span> <span class="w " id="cap2w1">experiencia</span> <span class="w " id="cap2w2">del</span></div>
+<div class="cap" id="cap3"><span class="w " id="cap3w0">usuario</span> <span class="w " id="cap3w1">de</span> <span class="w " id="cap3w2">acuerdo</span></div>
+<div class="cap" id="cap4"><span class="w " id="cap4w0">al</span> <span class="w k-hl" id="cap4w1">país</span> <span class="w " id="cap4w2">que</span> <span class="w " id="cap4w3">se</span></div>
+<div class="cap" id="cap5"><span class="w " id="cap5w0">encuentre.</span></div>
+<div class="cap" id="cap6"><span class="w " id="cap6w0">¿Y</span> <span class="w " id="cap6w1">para</span> <span class="w " id="cap6w2">qué</span> <span class="w " id="cap6w3">uno</span></div>
+<div class="cap" id="cap7"><span class="w " id="cap7w0">quiere</span> <span class="w " id="cap7w1">hacer</span> <span class="w " id="cap7w2">esto?</span></div>
+<div class="cap" id="cap8"><span class="w " id="cap8w0">Normalmente</span> <span class="w " id="cap8w1">es</span> <span class="w " id="cap8w2">porque</span></div>
+<div class="cap" id="cap9"><span class="w " id="cap9w0">necesitas</span> <span class="w " id="cap9w1">adaptar</span></div>
+<div class="cap" id="cap10"><span class="w " id="cap10w0">la</span> <span class="w " id="cap10w1">experiencia,</span></div>
+<div class="cap" id="cap11"><span class="w " id="cap11w0">por</span> <span class="w " id="cap11w1">ejemplo,</span></div>
+<div class="cap" id="cap12"><span class="w " id="cap12w0">colocar</span> <span class="w " id="cap12w1">un</span> <span class="w k-money" id="cap12w2">pricing</span></div>
+<div class="cap" id="cap13"><span class="w " id="cap13w0">o</span> <span class="w " id="cap13w1">colocar</span> <span class="w k-hl" id="cap13w2">modismos</span></div>
+<div class="cap" id="cap14"><span class="w " id="cap14w0">de</span> <span class="w " id="cap14w1">acuerdo</span> <span class="w " id="cap14w2">al</span> <span class="w k-hl" id="cap14w3">país</span></div>
+<div class="cap" id="cap15"><span class="w " id="cap15w0">del</span> <span class="w " id="cap15w1">cual</span> <span class="w " id="cap15w2">te</span> <span class="w " id="cap15w3">estén</span></div>
+<div class="cap" id="cap16"><span class="w " id="cap16w0">visitando.</span></div>
+<div class="cap" id="cap17"><span class="w " id="cap17w0">Hay</span> <span class="w " id="cap17w1">algunas</span> <span class="w " id="cap17w2">formas</span></div>
+<div class="cap" id="cap18"><span class="w " id="cap18w0">de</span> <span class="w " id="cap18w1">hacer</span> <span class="w " id="cap18w2">esto,</span></div>
+<div class="cap" id="cap19"><span class="w " id="cap19w0">un</span> <span class="w k-warn" id="cap19w1">selector</span> <span class="w " id="cap19w2">en</span> <span class="w " id="cap19w3">tu</span></div>
+<div class="cap" id="cap20"><span class="w " id="cap20w0">sitio,</span></div>
+<div class="cap" id="cap21"><span class="w " id="cap21w0">un</span> <span class="w k-warn" id="cap21w1">query</span> <span class="w k-warn" id="cap21w2">params,</span></div>
+<div class="cap" id="cap22"><span class="w " id="cap22w0">pero</span> <span class="w " id="cap22w1">realmente</span> <span class="w " id="cap22w2">no</span></div>
+<div class="cap" id="cap23"><span class="w " id="cap23w0">es</span> <span class="w " id="cap23w1">la</span> <span class="w " id="cap23w2">mejor</span> <span class="w " id="cap23w3">experiencia.</span></div>
+<div class="cap" id="cap24"><span class="w " id="cap24w0">Uno</span> <span class="w " id="cap24w1">simplemente</span> <span class="w " id="cap24w2">quiere</span></div>
+<div class="cap" id="cap25"><span class="w " id="cap25w0">entrar</span> <span class="w " id="cap25w1">a</span> <span class="w " id="cap25w2">la</span> <span class="w k-hl" id="cap25w3">URL</span></div>
+<div class="cap" id="cap26"><span class="w " id="cap26w0">y</span> <span class="w " id="cap26w1">ya</span> <span class="w " id="cap26w2">encontrarse</span> <span class="w " id="cap26w3">con</span></div>
+<div class="cap" id="cap27"><span class="w " id="cap27w0">esa</span> <span class="w " id="cap27w1">adaptación</span> <span class="w " id="cap27w2">de</span></div>
+<div class="cap" id="cap28"><span class="w " id="cap28w0">contenido</span> <span class="w " id="cap28w1">sin</span> <span class="w " id="cap28w2">ningún</span></div>
+<div class="cap" id="cap29"><span class="w k-warn" id="cap29w0">redirect</span> <span class="w " id="cap29w1">ni</span> <span class="w " id="cap29w2">nada</span> <span class="w k-hl" id="cap29w3">automáticamente.</span></div>
+<div class="cap" id="cap30"><span class="w " id="cap30w0">Y</span> <span class="w " id="cap30w1">ahí</span> <span class="w " id="cap30w2">es</span> <span class="w " id="cap30w3">donde</span></div>
+<div class="cap" id="cap31"><span class="w k-astro" id="cap31w0">Astro</span> <span class="w " id="cap31w1">y</span> <span class="w k-cf" id="cap31w2">Cloudflare,</span></div>
+<div class="cap" id="cap32"><span class="w " id="cap32w0">que</span> <span class="w k-cf" id="cap32w1">Cloudflare</span> <span class="w " id="cap32w2">compró</span></div>
+<div class="cap" id="cap33"><span class="w k-astro" id="cap33w0">Astro</span> <span class="w " id="cap33w1">hace</span> <span class="w " id="cap33w2">poco,</span></div>
+<div class="cap" id="cap34"><span class="w " id="cap34w0">gracias</span> <span class="w " id="cap34w1">a</span> <span class="w " id="cap34w2">su</span> <span class="w " id="cap34w3">red</span></div>
+<div class="cap" id="cap35"><span class="w " id="cap35w0">de</span> <span class="w " id="cap35w1">cómputo,</span></div>
+<div class="cap" id="cap36"><span class="w " id="cap36w0">me</span> <span class="w " id="cap36w1">dan</span> <span class="w " id="cap36w2">un</span> <span class="w " id="cap36w3">pedacito</span></div>
+<div class="cap" id="cap37"><span class="w " id="cap37w0">de</span> <span class="w k-hl" id="cap37w1">código</span> <span class="w " id="cap37w2">en</span> <span class="w " id="cap37w3">el</span></div>
+<div class="cap" id="cap38"><span class="w " id="cap38w0">cual</span> <span class="w " id="cap38w1">yo</span> <span class="w " id="cap38w2">puedo</span> <span class="w " id="cap38w3">literalmente</span></div>
+<div class="cap" id="cap39"><span class="w " id="cap39w0">saber</span> <span class="w " id="cap39w1">de</span> <span class="w " id="cap39w2">qué</span> <span class="w k-hl" id="cap39w3">país</span></div>
+<div class="cap" id="cap40"><span class="w " id="cap40w0">y</span> <span class="w " id="cap40w1">adaptar</span> <span class="w " id="cap40w2">el</span> <span class="w " id="cap40w3">contenido.</span></div>
+<div class="cap" id="cap41"><span class="w " id="cap41w0">Fíjense,</span></div>
+<div class="cap" id="cap42"><span class="w " id="cap42w0">este</span> <span class="w " id="cap42w1">es</span> <span class="w " id="cap42w2">el</span> <span class="w " id="cap42w3">pedazo</span></div>
+<div class="cap" id="cap43"><span class="w " id="cap43w0">de</span> <span class="w k-hl" id="cap43w1">código.</span></div>
+<div class="cap" id="cap44"><span class="w " id="cap44w0">Simplemente</span> <span class="w " id="cap44w1">en</span> <span class="w " id="cap44w2">los</span></div>
+<div class="cap" id="cap45"><span class="w k-hl" id="cap45w0">headers,</span></div>
+<div class="cap" id="cap46"><span class="w " id="cap46w0">cuando</span> <span class="w " id="cap46w1">yo</span> <span class="w " id="cap46w2">renderizo</span></div>
+<div class="cap" id="cap47"><span class="w " id="cap47w0">esto</span> <span class="w " id="cap47w1">y</span> <span class="w " id="cap47w2">está</span> <span class="w " id="cap47w3">dentro</span></div>
+<div class="cap" id="cap48"><span class="w " id="cap48w0">de</span> <span class="w " id="cap48w1">la</span> <span class="w " id="cap48w2">nube</span> <span class="w " id="cap48w3">de</span></div>
+<div class="cap" id="cap49"><span class="w k-cf" id="cap49w0">Cloudflare,</span></div>
+<div class="cap" id="cap50"><span class="w " id="cap50w0">este</span> <span class="w k-hl" id="cap50w1">header</span> <span class="w " id="cap50w2">o</span> <span class="w " id="cap50w3">este</span></div>
+<div class="cap" id="cap51"><span class="w " id="cap51w0">pedazo</span> <span class="w " id="cap51w1">del</span> <span class="w k-hl" id="cap51w2">código</span></div>
+<div class="cap" id="cap52"><span class="w " id="cap52w0">me</span> <span class="w " id="cap52w1">detecta</span> <span class="w " id="cap52w2">el</span> <span class="w k-hl" id="cap52w3">país.</span></div>
+<div class="cap" id="cap53"><span class="w " id="cap53w0">Con</span> <span class="w " id="cap53w1">esto,</span></div>
+<div class="cap" id="cap54"><span class="w " id="cap54w0">desde</span> <span class="w " id="cap54w1">mi</span> <span class="w " id="cap54w2">website,</span></div>
+<div class="cap" id="cap55"><span class="w " id="cap55w0">yo</span> <span class="w " id="cap55w1">puedo</span> <span class="w " id="cap55w2">hacer</span> <span class="w " id="cap55w3">estrategias</span></div>
+<div class="cap" id="cap56"><span class="w " id="cap56w0">de</span> <span class="w " id="cap56w1">contenido.</span></div>
+<div class="cap" id="cap57"><span class="w " id="cap57w0">Por</span> <span class="w " id="cap57w1">ejemplo,</span></div>
+<div class="cap" id="cap58"><span class="w " id="cap58w0">puedo</span> <span class="w " id="cap58w1">adaptar</span> <span class="w " id="cap58w2">el</span> <span class="w " id="cap58w3">tono</span></div>
+<div class="cap" id="cap59"><span class="w " id="cap59w0">a</span> <span class="w " id="cap59w1">una</span> <span class="w " id="cap59w2">región,</span></div>
+<div class="cap" id="cap60"><span class="w " id="cap60w0">por</span> <span class="w " id="cap60w1">ejemplo,</span></div>
+<div class="cap" id="cap61"><span class="w " id="cap61w0">con</span> <span class="w k-hl" id="cap61w1">modismos</span> <span class="w k-money" id="cap61w2">colombianos,</span></div>
+<div class="cap" id="cap62"><span class="w k-hl" id="cap62w0">modismos</span> <span class="w k-money" id="cap62w1">bolivianos</span></div>
+<div class="cap" id="cap63"><span class="w " id="cap63w0">o</span> <span class="w " id="cap63w1">de</span> <span class="w " id="cap63w2">Perú,</span></div>
+<div class="cap" id="cap64"><span class="w " id="cap64w0">por</span> <span class="w " id="cap64w1">ejemplo,</span></div>
+<div class="cap" id="cap65"><span class="w " id="cap65w0">o</span> <span class="w " id="cap65w1">lo</span> <span class="w " id="cap65w2">que</span> <span class="w " id="cap65w3">más</span></div>
+<div class="cap" id="cap66"><span class="w " id="cap66w0">se</span> <span class="w " id="cap66w1">usa</span> <span class="w " id="cap66w2">es</span> <span class="w " id="cap66w3">para</span></div>
+<div class="cap" id="cap67"><span class="w " id="cap67w0">adaptar</span> <span class="w " id="cap67w1">el</span> <span class="w k-money" id="cap67w2">pricing.</span></div>
+<div class="cap" id="cap68"><span class="w " id="cap68w0">Hace</span> <span class="w " id="cap68w1">poco</span> <span class="w " id="cap68w2">relancé</span></div>
+<div class="cap" id="cap69"><span class="w " id="cap69w0">Parlana,</span></div>
+<div class="cap" id="cap70"><span class="w " id="cap70w0">que</span> <span class="w " id="cap70w1">es</span> <span class="w " id="cap70w2">nuestra</span> <span class="w " id="cap70w3">landing</span></div>
+<div class="cap" id="cap71"><span class="w " id="cap71w0">page</span> <span class="w " id="cap71w1">para</span> <span class="w " id="cap71w2">agentes</span></div>
+<div class="cap" id="cap72"><span class="w " id="cap72w0">en</span> <span class="w " id="cap72w1">WhatsApp,</span></div>
+<div class="cap" id="cap73"><span class="w " id="cap73w0">y</span> <span class="w " id="cap73w1">ustedes</span> <span class="w " id="cap73w2">ingresan</span></div>
+<div class="cap" id="cap74"><span class="w " id="cap74w0">directamente</span> <span class="w " id="cap74w1">a</span> <span class="w k-hl" id="cap74w2">parlana.bo</span></div>
+<div class="cap" id="cap75"><span class="w " id="cap75w0">y</span> <span class="w " id="cap75w1">ahí</span> <span class="w k-hl" id="cap75w2">automáticamente</span></div>
+<div class="cap" id="cap76"><span class="w " id="cap76w0">si</span> <span class="w " id="cap76w1">están</span> <span class="w " id="cap76w2">en</span> <span class="w " id="cap76w3">Bolivia,</span></div>
+<div class="cap" id="cap77"><span class="w " id="cap77w0">te</span> <span class="w " id="cap77w1">carga</span> <span class="w " id="cap77w2">por</span> <span class="w " id="cap77w3">defecto</span></div>
+<div class="cap" id="cap78"><span class="w " id="cap78w0">los</span> <span class="w k-money" id="cap78w1">precios,</span></div>
+<div class="cap" id="cap79"><span class="w " id="cap79w0">en</span> <span class="w k-money" id="cap79w1">bolivianos,</span></div>
+<div class="cap" id="cap80"><span class="w " id="cap80w0">pero</span> <span class="w " id="cap80w1">si</span> <span class="w " id="cap80w2">tú</span> <span class="w " id="cap80w3">ingresas</span></div>
+<div class="cap" id="cap81"><span class="w " id="cap81w0">desde</span> <span class="w " id="cap81w1">Colombia,</span></div>
+<div class="cap" id="cap82"><span class="w " id="cap82w0">te</span> <span class="w " id="cap82w1">carga</span> <span class="w k-hl" id="cap82w2">automáticamente</span></div>
+<div class="cap" id="cap83"><span class="w " id="cap83w0">los</span> <span class="w k-money" id="cap83w1">precios</span> <span class="w " id="cap83w2">en</span> <span class="w k-money" id="cap83w3">pesos</span></div>
+<div class="cap" id="cap84"><span class="w k-money" id="cap84w0">colombianos</span> <span class="w " id="cap84w1">y</span> <span class="w " id="cap84w2">así</span></div>
+<div class="cap" id="cap85"><span class="w " id="cap85w0">por</span> <span class="w " id="cap85w1">cada</span> <span class="w " id="cap85w2">una</span> <span class="w " id="cap85w3">de</span></div>
+<div class="cap" id="cap86"><span class="w " id="cap86w0">las</span> <span class="w " id="cap86w1">zonas</span> <span class="w " id="cap86w2">que</span> <span class="w " id="cap86w3">empiece</span></div>
+<div class="cap" id="cap87"><span class="w " id="cap87w0">a</span> <span class="w " id="cap87w1">detectar</span> <span class="w " id="cap87w2">y</span> <span class="w " id="cap87w3">que</span></div>
+<div class="cap" id="cap88"><span class="w " id="cap88w0">tenga</span> <span class="w " id="cap88w1">configurado</span></div>
+<div class="cap" id="cap89"><span class="w " id="cap89w0">en</span> <span class="w " id="cap89w1">mi</span> <span class="w " id="cap89w2">landing</span> <span class="w " id="cap89w3">page.</span></div>
+<div class="cap" id="cap90"><span class="w " id="cap90w0">Con</span> <span class="w " id="cap90w1">esto</span> <span class="w " id="cap90w2">puedes</span> <span class="w " id="cap90w3">adaptar</span></div>
+<div class="cap" id="cap91"><span class="w " id="cap91w0">el</span> <span class="w " id="cap91w1">contenido,</span></div>
+<div class="cap" id="cap92"><span class="w " id="cap92w0">hablar</span> <span class="w " id="cap92w1">el</span> <span class="w " id="cap92w2">mismo</span> <span class="w " id="cap92w3">lenguaje</span></div>
+<div class="cap" id="cap93"><span class="w " id="cap93w0">de</span> <span class="w k-money" id="cap93w1">moneda</span> <span class="w " id="cap93w2">y</span> <span class="w " id="cap93w3">no</span></div>
+<div class="cap" id="cap94"><span class="w " id="cap94w0">ser</span> <span class="w " id="cap94w1">genérico</span> <span class="w " id="cap94w2">y</span> <span class="w " id="cap94w3">hacer</span></div>
+<div class="cap" id="cap95"><span class="w " id="cap95w0">que</span> <span class="w " id="cap95w1">pues</span> <span class="w " id="cap95w2">tu</span> <span class="w " id="cap95w3">sitio</span></div>
+<div class="cap" id="cap96"><span class="w k-money" id="cap96w0">convierta</span> <span class="w " id="cap96w1">más.</span></div>
+<div class="cap" id="cap97"><span class="w " id="cap97w0">Obviamente</span> <span class="w " id="cap97w1">no</span> <span class="w " id="cap97w2">funciona</span></div>
+<div class="cap" id="cap98"><span class="w " id="cap98w0">si</span> <span class="w " id="cap98w1">el</span> <span class="w " id="cap98w2">usuario</span> <span class="w " id="cap98w3">está</span></div>
+<div class="cap" id="cap99"><span class="w " id="cap99w0">navegando</span> <span class="w " id="cap99w1">por</span> <span class="w " id="cap99w2">alguna</span></div>
+<div class="cap" id="cap100"><span class="w k-warn" id="cap100w0">VPN,</span></div>
+<div class="cap" id="cap101"><span class="w " id="cap101w0">pero</span> <span class="w " id="cap101w1">para</span> <span class="w " id="cap101w2">la</span> <span class="w " id="cap101w3">mayoría</span></div>
+<div class="cap" id="cap102"><span class="w " id="cap102w0">de</span> <span class="w " id="cap102w1">casos</span> <span class="w " id="cap102w2">es</span> <span class="w " id="cap102w3">una</span></div>
+<div class="cap" id="cap103"><span class="w " id="cap103w0">gran</span> <span class="w " id="cap103w1">estrategia</span> <span class="w " id="cap103w2">para</span></div>
+<div class="cap" id="cap104"><span class="w " id="cap104w0">adaptar</span> <span class="w " id="cap104w1">tu</span> <span class="w " id="cap104w2">contenido</span></div>
+<div class="cap" id="cap105"><span class="w " id="cap105w0">de</span> <span class="w " id="cap105w1">forma</span> <span class="w k-hl" id="cap105w2">automática,</span></div>
+<div class="cap" id="cap106"><span class="w " id="cap106w0">sin</span> <span class="w k-warn" id="cap106w1">redirect,</span></div>
+<div class="cap" id="cap107"><span class="w " id="cap107w0">sin</span> <span class="w k-warn" id="cap107w1">query</span> <span class="w k-warn" id="cap107w2">params</span> <span class="w " id="cap107w3">normal</span></div>
+<div class="cap" id="cap108"><span class="w " id="cap108w0">de</span> <span class="w " id="cap108w1">forma</span> <span class="w k-hl" id="cap108w2">nativa</span> <span class="w " id="cap108w3">usando</span></div>
+<div class="cap" id="cap109"><span class="w " id="cap109w0">la</span> <span class="w " id="cap109w1">red</span> <span class="w " id="cap109w2">de</span> <span class="w k-cf" id="cap109w3">Cloudflare</span></div>
+<div class="cap" id="cap110"><span class="w " id="cap110w0">y</span> <span class="w k-astro" id="cap110w1">Astro.</span></div>
+<div class="cap" id="cap111"><span class="w " id="cap111w0">Y</span> <span class="w " id="cap111w1">se</span> <span class="w " id="cap111w2">los</span> <span class="w " id="cap111w3">prometo,</span></div>
+<div class="cap" id="cap112"><span class="w k-cf" id="cap112w0">Cloudflare</span> <span class="w " id="cap112w1">no</span> <span class="w " id="cap112w2">me</span> <span class="w " id="cap112w3">paga</span></div>
+<div class="cap" id="cap113"><span class="w " id="cap113w0">nada,</span></div>
+<div class="cap" id="cap114"><span class="w " id="cap114w0">es</span> <span class="w " id="cap114w1">lo</span> <span class="w " id="cap114w2">que</span> <span class="w " id="cap114w3">me</span></div>
+<div class="cap" id="cap115"><span class="w " id="cap115w0">parece</span> <span class="w " id="cap115w1">una</span> <span class="w " id="cap115w2">gran</span> <span class="w " id="cap115w3">tecnología.</span></div>
+      </div>
+      <audio id="sfx0" src="assets/sfx/whoosh-short.mp3" data-start="0.27" data-duration="0.575" data-track-index="20" data-volume="0.45"></audio>
+      <audio id="sfx1" src="assets/sfx/pop.mp3" data-start="0.65" data-duration="0.720" data-track-index="21" data-volume="0.4"></audio>
+      <audio id="sfx2" src="assets/sfx/pop.mp3" data-start="3.91" data-duration="0.720" data-track-index="20" data-volume="0.45"></audio>
+      <audio id="sfx3" src="assets/sfx/whoosh-short.mp3" data-start="5.08" data-duration="0.575" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx4" src="assets/sfx/pop.mp3" data-start="10.36" data-duration="0.720" data-track-index="20" data-volume="0.4"></audio>
+      <audio id="sfx5" src="assets/sfx/pop.mp3" data-start="11.59" data-duration="0.720" data-track-index="20" data-volume="0.4"></audio>
+      <audio id="sfx6" src="assets/sfx/pop.mp3" data-start="13.16" data-duration="0.720" data-track-index="20" data-volume="0.4"></audio>
+      <audio id="sfx7" src="assets/sfx/whoosh.mp3" data-start="15.2" data-duration="0.575" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx8" src="assets/sfx/click.mp3" data-start="16.92" data-duration="0.366" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx9" src="assets/sfx/click.mp3" data-start="18.22" data-duration="0.366" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx10" src="assets/sfx/error.mp3" data-start="19.62" data-duration="1.620" data-track-index="20" data-volume="0.32"></audio>
+      <audio id="sfx11" src="assets/sfx/whoosh-short.mp3" data-start="20.96" data-duration="0.575" data-track-index="21" data-volume="0.4"></audio>
+      <audio id="sfx12" src="assets/sfx/key-press.mp3" data-start="22.3" data-duration="0.400" data-track-index="20" data-volume="0.35"></audio>
+      <audio id="sfx13" src="assets/sfx/key-press.mp3" data-start="22.55" data-duration="0.400" data-track-index="21" data-volume="0.35"></audio>
+      <audio id="sfx14" src="assets/sfx/key-press.mp3" data-start="22.8" data-duration="0.400" data-track-index="20" data-volume="0.35"></audio>
+      <audio id="sfx15" src="assets/sfx/key-press.mp3" data-start="23.05" data-duration="0.400" data-track-index="21" data-volume="0.35"></audio>
+      <audio id="sfx16" src="assets/sfx/chime.mp3" data-start="23.59" data-duration="2.500" data-track-index="20" data-volume="0.4"></audio>
+      <audio id="sfx17" src="assets/sfx/error.mp3" data-start="27.76" data-duration="1.620" data-track-index="20" data-volume="0.32"></audio>
+      <audio id="sfx18" src="assets/sfx/ping.mp3" data-start="28.86" data-duration="1.320" data-track-index="21" data-volume="0.4"></audio>
+      <audio id="sfx19" src="assets/sfx/whoosh.mp3" data-start="29.86" data-duration="0.575" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx20" src="assets/sfx/impact-bass-1.mp3" data-start="30.88" data-duration="2.116" data-track-index="20" data-volume="0.55"></audio>
+      <audio id="sfx21" src="assets/sfx/whoosh.mp3" data-start="32.24" data-duration="0.575" data-track-index="21" data-volume="0.5"></audio>
+      <audio id="sfx22" src="assets/sfx/sparkle.mp3" data-start="32.68" data-duration="1.800" data-track-index="22" data-volume="0.35"></audio>
+      <audio id="sfx23" src="assets/sfx/whoosh-short.mp3" data-start="34.12" data-duration="0.575" data-track-index="20" data-volume="0.4"></audio>
+      <audio id="sfx24" src="assets/sfx/pop.mp3" data-start="34.33" data-duration="0.720" data-track-index="21" data-volume="0.35"></audio>
+      <audio id="sfx25" src="assets/sfx/pop.mp3" data-start="35.71" data-duration="0.720" data-track-index="20" data-volume="0.35"></audio>
+      <audio id="sfx26" src="assets/sfx/ping.mp3" data-start="39.45" data-duration="1.320" data-track-index="20" data-volume="0.45"></audio>
+      <audio id="sfx27" src="assets/sfx/pop.mp3" data-start="40.73" data-duration="0.720" data-track-index="21" data-volume="0.4"></audio>
+      <audio id="sfx28" src="assets/sfx/whoosh.mp3" data-start="42.08" data-duration="0.575" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx29" src="assets/sfx/key-press.mp3" data-start="42.25" data-duration="0.400" data-track-index="21" data-volume="0.35"></audio>
+      <audio id="sfx30" src="assets/sfx/key-press.mp3" data-start="42.6" data-duration="0.400" data-track-index="22" data-volume="0.35"></audio>
+      <audio id="sfx31" src="assets/sfx/key-press.mp3" data-start="42.95" data-duration="0.400" data-track-index="20" data-volume="0.35"></audio>
+      <audio id="sfx32" src="assets/sfx/key-press.mp3" data-start="43.3" data-duration="0.400" data-track-index="21" data-volume="0.35"></audio>
+      <audio id="sfx33" src="assets/sfx/key-press.mp3" data-start="43.65" data-duration="0.400" data-track-index="20" data-volume="0.35"></audio>
+      <audio id="sfx34" src="assets/sfx/click.mp3" data-start="44.82" data-duration="0.366" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx35" src="assets/sfx/pop.mp3" data-start="47.44" data-duration="0.720" data-track-index="20" data-volume="0.35"></audio>
+      <audio id="sfx36" src="assets/sfx/click.mp3" data-start="48.45" data-duration="0.366" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx37" src="assets/sfx/ping.mp3" data-start="50.52" data-duration="1.320" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx38" src="assets/sfx/whoosh-short.mp3" data-start="52.32" data-duration="0.575" data-track-index="20" data-volume="0.45"></audio>
+      <audio id="sfx39" src="assets/sfx/whoosh.mp3" data-start="55.64" data-duration="0.575" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx40" src="assets/sfx/whoosh-short.mp3" data-start="59" data-duration="0.575" data-track-index="20" data-volume="0.4"></audio>
+      <audio id="sfx41" src="assets/sfx/whoosh-short.mp3" data-start="60.17" data-duration="0.575" data-track-index="20" data-volume="0.4"></audio>
+      <audio id="sfx42" src="assets/sfx/whoosh-short.mp3" data-start="61.13" data-duration="0.575" data-track-index="20" data-volume="0.4"></audio>
+      <audio id="sfx43" src="assets/sfx/impact-bass-2.mp3" data-start="64.74" data-duration="2.592" data-track-index="20" data-volume="0.55"></audio>
+      <audio id="sfx44" src="assets/sfx/whoosh.mp3" data-start="65.2" data-duration="0.575" data-track-index="21" data-volume="0.5"></audio>
+      <audio id="sfx45" src="assets/sfx/key-press.mp3" data-start="70.35" data-duration="0.400" data-track-index="20" data-volume="0.35"></audio>
+      <audio id="sfx46" src="assets/sfx/key-press.mp3" data-start="70.65" data-duration="0.400" data-track-index="21" data-volume="0.35"></audio>
+      <audio id="sfx47" src="assets/sfx/key-press.mp3" data-start="70.95" data-duration="0.400" data-track-index="20" data-volume="0.35"></audio>
+      <audio id="sfx48" src="assets/sfx/key-press.mp3" data-start="71.25" data-duration="0.400" data-track-index="21" data-volume="0.35"></audio>
+      <audio id="sfx49" src="assets/sfx/key-press.mp3" data-start="71.55" data-duration="0.400" data-track-index="20" data-volume="0.35"></audio>
+      <audio id="sfx50" src="assets/sfx/whoosh-short.mp3" data-start="72.72" data-duration="0.575" data-track-index="20" data-volume="0.45"></audio>
+      <audio id="sfx51" src="assets/sfx/pop.mp3" data-start="74.94" data-duration="0.720" data-track-index="20" data-volume="0.45"></audio>
+      <audio id="sfx52" src="assets/sfx/whoosh-short.mp3" data-start="79.84" data-duration="0.575" data-track-index="20" data-volume="0.45"></audio>
+      <audio id="sfx53" src="assets/sfx/cha-ching.mp3" data-start="80.32" data-duration="1.400" data-track-index="21" data-volume="0.6"></audio>
+      <audio id="sfx54" src="assets/sfx/sparkle.mp3" data-start="83.63" data-duration="1.800" data-track-index="20" data-volume="0.3"></audio>
+      <audio id="sfx55" src="assets/sfx/pop.mp3" data-start="85.12" data-duration="0.720" data-track-index="21" data-volume="0.22"></audio>
+      <audio id="sfx56" src="assets/sfx/pop.mp3" data-start="85.22" data-duration="0.720" data-track-index="22" data-volume="0.22"></audio>
+      <audio id="sfx57" src="assets/sfx/pop.mp3" data-start="85.32000000000001" data-duration="0.720" data-track-index="23" data-volume="0.22"></audio>
+      <audio id="sfx58" src="assets/sfx/pop.mp3" data-start="85.42" data-duration="0.720" data-track-index="24" data-volume="0.22"></audio>
+      <audio id="sfx59" src="assets/sfx/pop.mp3" data-start="85.52000000000001" data-duration="0.720" data-track-index="20" data-volume="0.22"></audio>
+      <audio id="sfx60" src="assets/sfx/pop.mp3" data-start="85.62" data-duration="0.720" data-track-index="25" data-volume="0.22"></audio>
+      <audio id="sfx61" src="assets/sfx/pop.mp3" data-start="85.72" data-duration="0.720" data-track-index="26" data-volume="0.22"></audio>
+      <audio id="sfx62" src="assets/sfx/pop.mp3" data-start="85.82000000000001" data-duration="0.720" data-track-index="27" data-volume="0.22"></audio>
+      <audio id="sfx63" src="assets/sfx/pop.mp3" data-start="85.92" data-duration="0.720" data-track-index="21" data-volume="0.22"></audio>
+      <audio id="sfx64" src="assets/sfx/whoosh.mp3" data-start="89" data-duration="0.575" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx65" src="assets/sfx/pop.mp3" data-start="90.64" data-duration="0.720" data-track-index="20" data-volume="0.4"></audio>
+      <audio id="sfx66" src="assets/sfx/pop.mp3" data-start="91.89" data-duration="0.720" data-track-index="20" data-volume="0.4"></audio>
+      <audio id="sfx67" src="assets/sfx/impact-bass-1.mp3" data-start="95.04" data-duration="2.116" data-track-index="20" data-volume="0.45"></audio>
+      <audio id="sfx68" src="assets/sfx/notification.mp3" data-start="98.43" data-duration="2.455" data-track-index="20" data-volume="0.35"></audio>
+      <audio id="sfx69" src="assets/sfx/whoosh.mp3" data-start="101.44" data-duration="0.575" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx70" src="assets/sfx/click.mp3" data-start="103.2" data-duration="0.366" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx71" src="assets/sfx/click.mp3" data-start="103.95" data-duration="0.366" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx72" src="assets/sfx/click.mp3" data-start="104.62" data-duration="0.366" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx73" src="assets/sfx/click.mp3" data-start="106.3" data-duration="0.366" data-track-index="20" data-volume="0.5"></audio>
+      <audio id="sfx74" src="assets/sfx/chime.mp3" data-start="107.6" data-duration="2.500" data-track-index="20" data-volume="0.4"></audio>
+      <audio id="sfx75" src="assets/sfx/whoosh-short.mp3" data-start="108.64" data-duration="0.575" data-track-index="21" data-volume="0.45"></audio>
+      <audio id="sfx76" src="assets/sfx/pop.mp3" data-start="109.25" data-duration="0.720" data-track-index="21" data-volume="0.5"></audio>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const CAPS = [{"s":0.08,"e":1.099,"w":[0.08,0.269,0.533,0.646]},{"s":1.099,"e":1.929,"w":[1.099,1.401]},{"s":1.929,"e":2.829,"w":[1.929,2.08,2.621]},{"s":2.829,"e":3.744,"w":[2.829,3.203,3.37]},{"s":3.744,"e":4.574,"w":[3.744,3.91,4.16,4.39]},{"s":4.574,"e":5.08,"w":[4.574]},{"s":5.08,"e":5.859,"w":[5.08,5.203,5.449,5.654]},{"s":5.859,"e":6.72,"w":[5.859,6.187,6.474]},{"s":6.72,"e":7.577,"w":[6.72,7.166,7.303]},{"s":7.577,"e":8.263,"w":[7.577,7.954]},{"s":8.263,"e":9.037,"w":[8.263,8.4]},{"s":9.037,"e":9.723,"w":[9.037,9.282]},{"s":9.723,"e":10.885,"w":[9.723,10.164,10.36]},{"s":10.885,"e":12.168,"w":[10.885,11.06,11.585]},{"s":12.168,"e":13.462,"w":[12.168,12.402,12.927,13.16]},{"s":13.462,"e":14.567,"w":[13.462,13.713,14.014,14.215]},{"s":14.567,"e":15.28,"w":[14.567]},{"s":15.28,"e":16.119,"w":[15.28,15.471,15.814]},{"s":16.119,"e":16.767,"w":[16.119,16.272,16.539]},{"s":16.767,"e":17.726,"w":[16.767,16.92,17.368,17.547]},{"s":17.726,"e":18.04,"w":[17.726]},{"s":18.04,"e":18.891,"w":[18.04,18.219,18.533]},{"s":18.891,"e":19.788,"w":[18.891,19.16,19.62]},{"s":19.788,"e":20.96,"w":[19.788,19.955,20.123,20.416]},{"s":20.96,"e":22.271,"w":[20.96,21.212,21.868]},{"s":22.271,"e":23.28,"w":[22.271,22.675,22.826,23.028]},{"s":23.28,"e":24.64,"w":[23.28,23.414,23.594,24.176]},{"s":24.64,"e":26.096,"w":[24.64,24.987,25.819]},{"s":26.096,"e":27.76,"w":[26.096,26.859,27.205]},{"s":27.76,"e":29.92,"w":[27.76,28.311,28.532,28.863]},{"s":29.92,"e":30.878,"w":[29.92,30.071,30.323,30.525]},{"s":30.878,"e":31.988,"w":[30.878,31.231,31.383]},{"s":31.988,"e":32.977,"w":[31.988,32.24,32.682]},{"s":32.977,"e":33.678,"w":[32.977,33.235,33.456]},{"s":33.678,"e":34.583,"w":[33.678,34.009,34.12,34.326]},{"s":34.583,"e":35.251,"w":[34.583,34.789]},{"s":35.251,"e":36.434,"w":[35.251,35.457,35.714,35.92]},{"s":36.434,"e":37.457,"w":[36.434,36.64,37.049,37.253]},{"s":37.457,"e":39.04,"w":[37.457,37.763,37.968,38.325]},{"s":39.04,"e":40.56,"w":[39.04,39.447,39.68,39.971]},{"s":40.56,"e":42.08,"w":[40.56,40.729,41.236,41.461]},{"s":42.08,"e":42.499,"w":[42.08]},{"s":42.499,"e":43.522,"w":[42.499,42.778,42.964,43.15]},{"s":43.522,"e":44.08,"w":[43.522,43.708]},{"s":44.08,"e":44.817,"w":[44.08,44.515,44.649]},{"s":44.817,"e":45.118,"w":[44.817]},{"s":45.118,"e":45.926,"w":[45.118,45.386,45.52]},{"s":45.926,"e":46.775,"w":[45.926,46.148,46.258,46.48]},{"s":46.775,"e":47.44,"w":[46.775,46.923,47.071,47.292]},{"s":47.44,"e":48.16,"w":[47.44]},{"s":48.16,"e":49.291,"w":[48.16,48.455,48.848,48.996]},{"s":49.291,"e":50.323,"w":[49.291,49.684,49.93]},{"s":50.323,"e":52.32,"w":[50.323,50.52,51.373,51.752]},{"s":52.32,"e":52.751,"w":[52.32,52.516]},{"s":52.751,"e":53.535,"w":[52.751,53.025,53.182]},{"s":53.535,"e":54.89,"w":[53.535,53.691,53.966,54.24]},{"s":54.89,"e":55.64,"w":[54.89,55.09]},{"s":55.64,"e":56.212,"w":[55.64,55.844]},{"s":56.212,"e":57.273,"w":[56.212,56.498,56.865,57.028]},{"s":57.273,"e":57.903,"w":[57.273,57.396,57.6]},{"s":57.903,"e":58.432,"w":[57.903,58.092]},{"s":58.432,"e":59.661,"w":[58.432,58.622,59]},{"s":59.661,"e":60.779,"w":[59.661,60.169]},{"s":60.779,"e":61.44,"w":[60.779,60.932,61.135]},{"s":61.44,"e":62.179,"w":[61.44,61.704]},{"s":62.179,"e":63.077,"w":[62.179,62.338,62.549,62.813]},{"s":63.077,"e":64.08,"w":[63.077,63.288,63.552,63.763]},{"s":64.08,"e":65.2,"w":[64.08,64.538,64.742]},{"s":65.2,"e":66.212,"w":[65.2,65.489,65.778]},{"s":66.212,"e":66.646,"w":[66.212]},{"s":66.646,"e":67.917,"w":[66.646,66.887,67.08,67.499]},{"s":67.917,"e":68.894,"w":[67.917,68.196,68.475]},{"s":68.894,"e":69.68,"w":[68.894,69.08]},{"s":69.68,"e":70.912,"w":[69.68,69.848,70.352]},{"s":70.912,"e":72.72,"w":[70.912,71.696,71.864]},{"s":72.72,"e":74.108,"w":[72.72,72.887,73.164]},{"s":74.108,"e":75.44,"w":[74.108,74.33,74.718,74.94]},{"s":75.44,"e":76.742,"w":[75.44,75.648,76.013,76.273]},{"s":76.742,"e":77.472,"w":[76.742,77.003]},{"s":77.472,"e":78.283,"w":[77.472,77.68]},{"s":78.283,"e":79.488,"w":[78.283,78.584,78.785,78.986]},{"s":79.488,"e":80.324,"w":[79.488,79.84]},{"s":80.324,"e":81.678,"w":[80.324,80.517,80.856]},{"s":81.678,"e":83.9,"w":[81.678,81.92,83.48,83.633]},{"s":83.9,"e":84.7,"w":[83.9,84.395,84.51]},{"s":84.7,"e":85.452,"w":[84.7,84.891,85.12,85.304]},{"s":85.452,"e":86.41,"w":[85.452,85.636,85.894,86.078]},{"s":86.41,"e":87.204,"w":[86.41,86.521,86.889,87]},{"s":87.204,"e":88.021,"w":[87.204,87.49]},{"s":88.021,"e":89.04,"w":[88.021,88.184,88.347,88.715]},{"s":89.04,"e":90.082,"w":[89.04,89.226,89.449,89.747]},{"s":90.082,"e":90.64,"w":[90.082,90.231]},{"s":90.64,"e":91.888,"w":[90.64,90.984,91.156,91.457]},{"s":91.888,"e":92.705,"w":[91.888,92.06,92.404,92.533]},{"s":92.705,"e":93.93,"w":[92.705,92.92,93.425,93.576]},{"s":93.93,"e":95.04,"w":[93.93,94.182,94.485,94.687]},{"s":95.04,"e":95.76,"w":[95.04,95.48]},{"s":95.76,"e":96.609,"w":[95.76,96.152,96.282]},{"s":96.609,"e":97.36,"w":[96.609,96.74,96.87,97.164]},{"s":97.36,"e":98.427,"w":[97.36,97.849,98.071]},{"s":98.427,"e":98.649,"w":[98.427]},{"s":98.649,"e":99.758,"w":[98.649,98.916,99.182,99.36]},{"s":99.758,"e":100.643,"w":[99.758,99.935,100.245,100.422]},{"s":100.643,"e":101.698,"w":[100.643,100.909,101.44]},{"s":101.698,"e":102.728,"w":[101.698,102.084,102.256]},{"s":102.728,"e":103.731,"w":[102.728,102.9,103.2]},{"s":103.731,"e":104.395,"w":[103.731,103.952]},{"s":104.395,"e":105.8,"w":[104.395,104.616,104.926,105.44]},{"s":105.8,"e":107.015,"w":[105.8,105.98,106.295,106.655]},{"s":107.015,"e":108.167,"w":[107.015,107.195,107.42,107.6]},{"s":108.167,"e":108.64,"w":[108.167,108.309]},{"s":108.64,"e":109.248,"w":[108.64,108.727,108.843,108.987]},{"s":109.248,"e":110,"w":[109.248,109.595,109.711,109.826]},{"s":110,"e":110.177,"w":[110]},{"s":110.177,"e":110.679,"w":[110.177,110.295,110.413,110.561]},{"s":110.679,"e":111.778,"w":[110.679,110.915,111.063,111.24]}];
+      const E4 = "power4", R = 230;
+
+      // ---------- motion vocabulary
+      const hide = (s) => gsap.set(s, { autoAlpha: 0 });
+      const pop = (s, t, d = 0.38) => tl.fromTo(s, { scale: 0.6, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: d, ease: "back.out(1.6)", immediateRender: false }, t);
+      const rise = (s, t, d = 0.45, y = 40) => tl.fromTo(s, { y, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: d, ease: "power3.out", immediateRender: false }, t);
+      const inR = (s, t, d = 0.36) => tl.fromTo(s, { x: R, autoAlpha: 0.35 }, { x: 0, autoAlpha: 1, duration: d, ease: E4 + ".out", immediateRender: false }, t);
+      const outL = (s, t, d = 0.3) => { tl.to(s, { x: -R, duration: d, ease: E4 + ".in" }, t); tl.to(s, { autoAlpha: 0, duration: d * 0.75, ease: "power1.in" }, t); };
+      const outUp = (s, t, d = 0.3) => { tl.to(s, { y: -120, duration: d, ease: E4 + ".in" }, t); tl.to(s, { autoAlpha: 0, duration: d * 0.75, ease: "power1.in" }, t); };
+      const zoomIn = (s, t, d = 0.42) => tl.fromTo(s, { scale: 0.86, autoAlpha: 0.35 }, { scale: 1, autoAlpha: 1, duration: d, ease: E4 + ".out", immediateRender: false }, t);
+      const cam = (t, vars, d = 0.28, ease = E4 + ".out") => tl.to("#cam", { ...vars, duration: d, ease }, t);
+      const push = (t, scale, d) => tl.to("#cam", { scale, duration: d, ease: "none" }, t);
+
+      // ---------- camera (zooms + split moves) — anchored between the eyes
+      gsap.set("#cam", { scale: 1, x: 0, y: 0 });
+      push(0, 1.05, 3.7);
+      cam(3.74, { scale: 1.18 });                       // "al país"
+      cam(5.08, { scale: 1.3 }, 0.22);                  // "¿Y para qué…?"
+      cam(6.72, { scale: 1.0 }, 0.5, "power2.inOut");   // "Normalmente"
+      push(7.25, 1.07, 7.9);
+      tl.set("#cam", { scale: 1.12 }, 29.5);             // hidden under the problem card
+      push(29.86, 1.06, 0.9);
+      cam(30.88, { scale: 1.22 }, 0.25);                // "Astro y Cloudflare" impact
+      cam(32.24, { scale: 1, y: 640 }, 0.55, "power3.inOut"); // → SPLIT (down)
+      tl.set("#cam", { y: 0, scale: 1.0 }, 51.9);         // under code card
+      push(52.32, 1.08, 3.3);
+      tl.set("#cam", { y: 640, scale: 1, x: 0 }, 64.9); // under tone card
+      cam(89.0, { y: 0, scale: 1.18 }, 0.55, "power3.inOut"); // SPLIT → FACE (up)
+      push(89.6, 1.24, 6.1);
+      cam(95.76, { scale: 1.02 }, 0.45, "power2.inOut");    // "Obviamente…"
+      push(96.3, 1.1, 5.1);
+      tl.set("#cam", { scale: 1.0 }, 108.3);
+      push(108.64, 1.05, 0.6);
+      cam(109.25, { scale: 1.32 }, 0.2);                // "Cloudflare no me paga nada"
+
+      // ---------- F1 hook
+      ["#f1-astro", "#f1-x", "#f1-cf", "#f1-pin"].forEach(hide);
+      tl.fromTo("#f1-astro", { x: -R, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.45, ease: E4 + ".out", immediateRender: false }, 0.27);
+      pop("#f1-x", 0.55, 0.3);
+      tl.fromTo("#f1-cf", { x: R, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.45, ease: E4 + ".out", immediateRender: false }, 0.65);
+      pop("#f1-pin", 3.91);
+      outUp("#f1 .band", 5.08, 0.28);
+
+      // ---------- F2 why
+      ["#f2-a", "#f2-b", "#f2-c"].forEach(hide);
+      pop("#f2-a", 10.36); pop("#f2-b", 11.59); pop("#f2-c", 13.16);
+      outL("#f2 .band", 15.2);
+
+      // ---------- F3 problem (card)
+      ["#f3-card", "#f3-o1", "#f3-o2", "#f3-o3", "#f3-want", "#f3-ok", "#f3-ad", "#f3-auto", "#f3-x1", "#f3-x2", "#f3-x3"].forEach(hide);
+      gsap.set(["#f3-s1", "#f3-s2", "#f3-s3"], { scaleX: 0 });
+      gsap.set("#f3-url", { width: 0 });
+      inR("#f3-card", 15.2);
+      tl.fromTo(["#f3-k", "#f3-t"], { x: 120, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.4, stagger: 0.08, ease: E4 + ".out", immediateRender: false }, 15.3);
+      inR("#f3-o1", 16.92); inR("#f3-o2", 18.22);
+      tl.to("#f3-s1", { scaleX: 1, duration: 0.3, ease: "power3.out" }, 19.62); pop("#f3-x1", 19.62, 0.3);
+      tl.to("#f3-s2", { scaleX: 1, duration: 0.3, ease: "power3.out" }, 19.79); pop("#f3-x2", 19.79, 0.3);
+      tl.to(["#f3-o1", "#f3-o2"], { opacity: 0.45, duration: 0.3 }, 20.1);
+      rise("#f3-want", 20.96);
+      tl.to("#f3-url", { width: 330, duration: 0.95, ease: "steps(10)" }, 22.27);
+      pop("#f3-ok", 23.59); rise("#f3-ad", 23.75, 0.4, 24);
+      inR("#f3-o3", 26.86);
+      tl.to("#f3-s3", { scaleX: 1, duration: 0.3, ease: "power3.out" }, 27.76); pop("#f3-x3", 27.76, 0.3);
+      tl.to("#f3-o3", { opacity: 0.45, duration: 0.3 }, 28.1);
+      pop("#f3-auto", 28.86);
+      outL("#f3-card", 29.86);
+
+      // ---------- F4a lockup on the face
+      ["#f4-astro", "#f4-x", "#f4-cf"].forEach(hide);
+      tl.fromTo("#f4-astro", { scale: 1.6, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.3, ease: E4 + ".out", immediateRender: false }, 30.88);
+      pop("#f4-x", 31.1, 0.25);
+      tl.fromTo("#f4-cf", { scale: 1.6, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.3, ease: E4 + ".out", immediateRender: false }, 31.38);
+      tl.to("#f4a .band", { y: 380, autoAlpha: 0, duration: 0.4, ease: E4 + ".in" }, 32.2);
+
+      // ---------- F4 split: press release → edge diagram
+      gsap.set("#f4-panel", { y: -1080 });
+      tl.to("#f4-panel", { y: 0, duration: 0.55, ease: "power3.inOut" }, 32.24);
+      gsap.set("#f4-mark", { scaleX: 0 }); hide("#f4-date"); hide("#f4-stamp");
+      tl.to("#f4-mark", { scaleX: 1, duration: 0.45, ease: "power2.out" }, 32.68);
+      tl.fromTo("#f4-date", { scale: 1.3, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.3, ease: "power3.out", immediateRender: false }, 33.23);
+      pop("#f4-stamp", 33.46);
+      outL("#f4-press", 34.12);
+      ["#f4-diag", "#f4-n1", "#f4-n2", "#f4-n3", "#f4-w1", "#f4-w2", "#f4-cc", "#f4-out"].forEach(hide);
+      gsap.set(["#f4-p1", "#f4-p2"], { y: 0, autoAlpha: 0 });
+      inR("#f4-diag", 34.12);
+      rise("#f4-n1", 34.2); rise("#f4-n2", 34.33); rise("#f4-w1", 34.6, 0.3, 10);
+      rise("#f4-n3", 35.71); rise("#f4-w2", 35.9, 0.3, 10);
+      tl.set("#f4-p1", { autoAlpha: 1 }, 36.6); tl.to("#f4-p1", { y: 52, duration: 0.6, ease: "power2.inOut" }, 36.6); tl.set("#f4-p1", { autoAlpha: 0 }, 37.25);
+      pop("#f4-cc", 39.45);
+      tl.set("#f4-p2", { autoAlpha: 1 }, 40.0); tl.to("#f4-p2", { y: 52, duration: 0.6, ease: "power2.inOut" }, 40.0); tl.set("#f4-p2", { autoAlpha: 0 }, 40.65);
+      pop("#f4-out", 40.73);
+      tl.to("#f4-panel", { scale: 1.08, duration: 0.36, ease: E4 + ".in" }, 42.08);
+
+      // ---------- F5 code card
+      hide("#f5-card"); hide("#f5-chip"); hide("#f5-res"); hide("#f5-badge");
+      zoomIn("#f5-card", 42.08);
+      gsap.set("#f5-l0 .lt", { clipPath: "inset(0 100% 0 0)" }); gsap.set("#f5-l1 .lt", { clipPath: "inset(0 100% 0 0)" }); gsap.set("#f5-l2 .lt", { clipPath: "inset(0 100% 0 0)" }); gsap.set("#f5-l3 .lt", { clipPath: "inset(0 100% 0 0)" }); gsap.set("#f5-l4 .lt", { clipPath: "inset(0 100% 0 0)" }); gsap.set("#f5-l5 .lt", { clipPath: "inset(0 100% 0 0)" }); gsap.set("#f5-l6 .lt", { clipPath: "inset(0 100% 0 0)" }); gsap.set("#f5-l7 .lt", { clipPath: "inset(0 100% 0 0)" }); gsap.set("#f5-l8 .lt", { clipPath: "inset(0 100% 0 0)" }); gsap.set("#f5-l9 .lt", { clipPath: "inset(0 100% 0 0)" }); gsap.set("#f5-l10 .lt", { clipPath: "inset(0 100% 0 0)" });
+      tl.to("#f5-l0 .lt", { clipPath: "inset(0 0% 0 0)", duration: 0.16, ease: "steps(6)" }, 42.20);
+      tl.to("#f5-l1 .lt", { clipPath: "inset(0 0% 0 0)", duration: 0.16, ease: "steps(6)" }, 42.36);
+      tl.to("#f5-l2 .lt", { clipPath: "inset(0 0% 0 0)", duration: 0.16, ease: "steps(6)" }, 42.52);
+      tl.to("#f5-l3 .lt", { clipPath: "inset(0 0% 0 0)", duration: 0.16, ease: "steps(6)" }, 42.68);
+      tl.to("#f5-l4 .lt", { clipPath: "inset(0 0% 0 0)", duration: 0.16, ease: "steps(6)" }, 42.84);
+      tl.to("#f5-l5 .lt", { clipPath: "inset(0 0% 0 0)", duration: 0.16, ease: "steps(6)" }, 43.00);
+      tl.to("#f5-l6 .lt", { clipPath: "inset(0 0% 0 0)", duration: 0.16, ease: "steps(6)" }, 43.16);
+      tl.to("#f5-l7 .lt", { clipPath: "inset(0 0% 0 0)", duration: 0.16, ease: "steps(6)" }, 43.32);
+      tl.to("#f5-l8 .lt", { clipPath: "inset(0 0% 0 0)", duration: 0.16, ease: "steps(6)" }, 43.48);
+      tl.to("#f5-l9 .lt", { clipPath: "inset(0 0% 0 0)", duration: 0.16, ease: "steps(6)" }, 43.64);
+      tl.to("#f5-l10 .lt", { clipPath: "inset(0 0% 0 0)", duration: 0.16, ease: "steps(6)" }, 43.80);
+      tl.to("#f5-h2", { backgroundColor: "rgba(6,182,212,.30)", duration: 0.25 }, 44.82);
+      pop("#f5-badge", 47.44);
+      tl.to("#f5-h2", { backgroundColor: "rgba(6,182,212,0)", duration: 0.25 }, 48.3);
+      tl.to("#f5-h1", { backgroundColor: "rgba(243,128,32,.34)", duration: 0.25 }, 48.45);
+      tl.fromTo("#f5-chip", { x: -260, y: -150, scale: 0.5, autoAlpha: 0 }, { x: 0, y: 0, scale: 1, autoAlpha: 1, duration: 0.6, ease: "power3.out", immediateRender: false }, 50.52);
+      rise("#f5-res", 51.37, 0.4, 20);
+      outL("#f5-card", 52.32);
+
+      // ---------- F6 tone card
+      hide("#f6-card"); hide("#f6-mock"); hide("#f6-p"); hide("#f6-cur");
+      ["#f6-g1", "#f6-g2", "#f6-g3"].forEach((s) => gsap.set(s, { yPercent: 100, autoAlpha: 0 }));
+      inR("#f6-card", 55.64);
+      tl.fromTo(["#f6-k", "#f6-t"], { x: 120, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.4, stagger: 0.08, ease: E4 + ".out", immediateRender: false }, 55.74);
+      rise("#f6-mock", 57.03);
+      const flip = (inS, outS, t) => { if (outS) tl.to(outS, { yPercent: -100, autoAlpha: 0, duration: 0.3, ease: E4 + ".in" }, t); tl.to(inS, { yPercent: 0, autoAlpha: 1, duration: 0.36, ease: E4 + ".out" }, t + (outS ? 0.12 : 0)); };
+      flip("#f6-g1", null, 59.0); flip("#f6-g2", "#f6-g1", 60.17); flip("#f6-g3", "#f6-g2", 61.13);
+      tl.fromTo("#f6-p", { scale: 1.8, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.32, ease: E4 + ".out", immediateRender: false }, 64.74);
+      tl.fromTo("#f6-cur span", { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.3, stagger: 0.05, ease: "power3.out", immediateRender: false }, 64.9);
+      outL("#f6-card", 65.2);
+
+      // ---------- F7 parlana split
+      hide("#f7-in"); hide("#f7-pricing"); hide("#f7-ring"); hide("#f7-pin"); hide("#f7-pco");
+      hide("#f7-fl0"); hide("#f7-fl1"); hide("#f7-fl2"); hide("#f7-fl3"); hide("#f7-fl4"); hide("#f7-fl5"); hide("#f7-fl6"); hide("#f7-fl7"); hide("#f7-fl8");
+      hide("#f7-flags");
+      inR("#f7-in", 65.2);
+      tl.fromTo("#cam-frame", { x: R }, { x: 0, duration: 0.36, ease: E4 + ".out", immediateRender: false }, 65.2);
+      gsap.set("#f7-br-url", { width: 0 });
+      tl.set("#f7-br-url", { width: 190 }, 65.2);
+      tl.set("#f7-br-url", { width: 0 }, 70.2);
+      tl.to("#f7-br-url", { width: 190, duration: 1.3, ease: "steps(10)" }, 70.35);
+      tl.to("#f7-hero", { y: -896, duration: 0.6, ease: "power3.inOut" }, 72.72);
+      tl.fromTo("#f7-pricing", { y: 896, autoAlpha: 1 }, { y: 0, duration: 0.6, ease: "power3.inOut", immediateRender: false }, 72.72);
+      pop("#f7-pin", 74.94);
+      tl.fromTo("#f7-ring", { scale: 0.96, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.3, ease: "power3.out", immediateRender: false }, 77.68);
+      tl.to("#f7-ring", { autoAlpha: 0, duration: 0.2 }, 79.7);
+      tl.to("#f7-pbo", { rotationY: 90, duration: 0.18, ease: "power2.in" }, 79.84);
+      tl.fromTo("#f7-pco", { rotationY: -90, autoAlpha: 1 }, { rotationY: 0, duration: 0.22, ease: "power2.out", immediateRender: false }, 80.02);
+      ["#f7-rs-in", "#f7-r0-in", "#f7-r1-in", "#f7-r2-in"].forEach((s, i) =>
+        tl.to(s, { yPercent: -50, duration: 0.45, ease: "back.out(1.4)" }, 80.1 + i * 0.08));
+      tl.fromTo("#f7-ring", { scale: 0.96, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.3, ease: "power3.out", immediateRender: false }, 83.63);
+      tl.to("#f7-ring", { autoAlpha: 0, duration: 0.2 }, 85.0);
+      tl.set("#f7-flags", { autoAlpha: 1 }, 85.0);
+      pop("#f7-fl0", 85.12, 0.3); pop("#f7-fl1", 85.22, 0.3); pop("#f7-fl2", 85.32, 0.3); pop("#f7-fl3", 85.42, 0.3); pop("#f7-fl4", 85.52, 0.3); pop("#f7-fl5", 85.62, 0.3); pop("#f7-fl6", 85.72, 0.3); pop("#f7-fl7", 85.82, 0.3); pop("#f7-fl8", 85.92, 0.3);
+      tl.to("#f7-panel", { y: -1080, duration: 0.55, ease: "power3.inOut" }, 89.0);
+
+      // ---------- F8 benefit
+      ["#f8-a", "#f8-b", "#f8-c"].forEach(hide);
+      pop("#f8-a", 90.64); pop("#f8-b", 91.89); pop("#f8-c", 95.04);
+      outUp("#f8 .band", 95.55);
+
+      // ---------- F9 VPN caveat
+      hide("#f9-a"); pop("#f9-a", 98.43); outUp("#f9-a", 101.1);
+
+      // ---------- F10 summary card
+      hide("#f10-card"); ["#f10-c1", "#f10-c2", "#f10-c3", "#f10-c4", "#f10-cf", "#f10-x", "#f10-astro"].forEach(hide);
+      zoomIn("#f10-card", 101.44);
+      tl.fromTo(["#f10-k", "#f10-t"], { x: 120, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.4, stagger: 0.08, ease: E4 + ".out", immediateRender: false }, 101.55);
+      inR("#f10-c1", 103.2); inR("#f10-c2", 103.95); inR("#f10-c3", 104.62); inR("#f10-c4", 106.3);
+      pop("#f10-cf", 107.6); pop("#f10-x", 107.9, 0.25); pop("#f10-astro", 108.17);
+      outL("#f10-card", 108.64);
+
+      // ---------- F11 close
+      hide("#f11-s");
+      tl.fromTo("#f11-s", { scale: 0.3, rotation: -28, autoAlpha: 0 }, { scale: 1, rotation: -6, autoAlpha: 1, duration: 0.45, ease: "back.out(1.7)", immediateRender: false }, 109.25);
+
+      // ---------- captions (word-by-word karaoke build)
+      gsap.set(".cap", { autoAlpha: 0 });
+      gsap.set(".cap .w", { autoAlpha: 0, y: 18, scale: 0.85 });
+      CAPS.forEach((c, gi) => {
+        tl.set("#cap" + gi, { autoAlpha: 1 }, c.s);
+        c.w.forEach((t, wi) => tl.to("#cap" + gi + "w" + wi, { autoAlpha: 1, y: 0, scale: 1, duration: 0.14, ease: "back.out(2)" }, t));
+        tl.set("#cap" + gi, { autoAlpha: 0 }, c.e);
+      });
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

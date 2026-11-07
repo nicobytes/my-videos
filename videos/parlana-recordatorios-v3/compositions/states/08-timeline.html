@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/v2.css" />
+  </head>
+  <body>
+    <template id="c08-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #c08-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Figtree", sans-serif;
+          color: #2c2c2a;
+        }
+        #c08-title { left: 166px; top: 650px; font-size: 34px; font-weight: 700; }
+        #c08-axis { left: 190px; top: 938px; width: 700px; height: 4px; border-radius: 2px; background: #d3d1c7; }
+        .c08-tick { top: 926px; width: 4px; height: 28px; border-radius: 2px; background: #d3d1c7; }
+        .c08-day { top: 876px; font-size: 26px; font-weight: 600; color: #5f5e58; transform: translateX(-50%); white-space: nowrap; }
+        #c08-pin { left: 862px; top: 912px; width: 56px; height: 56px; border-radius: 28px; background: #e7f0eb; color: #155b3f; display: flex; align-items: center; justify-content: center; }
+        #c08-pin svg { width: 30px; height: 30px; }
+        .c08-slot { top: 1003px; height: 64px; border-radius: 32px; border: 2px dashed #d3d1c7; display: flex; align-items: center; justify-content: center; font-size: 26px; color: #8a8880; }
+        .c08-when { top: 1086px; font-size: 26px; color: #5f5e58; white-space: nowrap; opacity: 0; }
+        #c08-chipB { left: 0; top: 0; width: 260px; height: 64px; border-radius: 32px; background: #155b3f; color: #f6f4ef; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; box-shadow: 0 10px 22px rgba(44, 44, 42, 0.16); opacity: 0; }
+      </style>
+
+      <!-- 8 · 'Un día anterior o unas horas antes' — two chips dragged onto the appointment's timeline. -->
+      <div data-hf-id="hf-r78i" id="c08-root" data-composition-id="c08" data-start="0" data-duration="2.853" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-jcp5" id="c08-world" class="world" data-layout-allow-overflow>
+          <div data-hf-id="hf-my9e" id="c08-clip" class="clip-layer">
+            <div data-hf-id="hf-353i" id="c08-st" class="st">
+              <div data-hf-id="hf-urya" id="c08-title" class="abs">Cita de Juan · martes 10:00</div>
+              <div data-hf-id="hf-kho5" id="c08-axis" class="abs"></div>
+              <div data-hf-id="hf-hlvc" class="abs c08-tick" style="left: 358px"></div>
+              <div data-hf-id="hf-am8w" class="abs c08-tick" style="left: 718px"></div>
+              <div data-hf-id="hf-ay03" class="abs c08-day" style="left: 360px">Lunes</div>
+              <div data-hf-id="hf-y6v0" class="abs c08-day" style="left: 720px">Martes</div>
+              <div data-hf-id="hf-oeoj" id="c08-pin" class="abs"><svg data-hf-id="hf-t6g8" class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect data-hf-id="hf-pwu1" x="3.5" y="5" width="17" height="15" rx="3" /><path data-hf-id="hf-707r" d="M3.5 10h17M8 3v4M16 3v4" /></svg></div>
+              <div data-hf-id="hf-idu1" class="abs c08-slot" style="left: 240px; width: 240px">18:00</div>
+              <div data-hf-id="hf-m28r" class="abs c08-slot" style="left: 590px; width: 260px">07:00</div>
+              <div data-hf-id="hf-4r0g" id="c08-whenA" class="abs c08-when" style="left: 240px">Lunes 18:00</div>
+              <div data-hf-id="hf-ygac" id="c08-whenB" class="abs c08-when" style="left: 590px">Martes 07:00</div>
+              <div data-hf-id="hf-7fn9" id="c08-chipB" class="abs">Unas horas antes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var P = window.Physics;
+          var A = R.A;
+          var S = R.S;
+          function $(id) {
+            return document.getElementById("c08-" + id);
+          }
+          var st = $("st");
+          var chipB = $("chipB");
+          var whenA = $("whenA");
+          var whenB = $("whenB");
+          var h = R.HOLD.chipB;
+          // Same spring as the cursor's drag leg, from the same grab point: chip and hand move as one.
+          var bx = P.track(690, [{ t: h[0], v: 590, w: 9, z: 0.85 }]);
+          var by = P.track(720, [{ t: h[0], v: 1003, w: 9, z: 0.85 }]);
+          window.__timelines["c08"] = R.mountState("timeline", $("root"), $("world"), $("clip"), function (t, span) {
+            R.apply(st, t, span[0], span[1]);
+            R.pop(chipB, t, S.timeline + 0.3);
+            chipB.style.transform = "translate(" + bx(t).toFixed(2) + "px, " + by(t).toFixed(2) + "px)";
+            R.fadeAt(whenA, t, R.HOLD.chipA[1]);
+            R.fadeAt(whenB, t, h[1]);
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

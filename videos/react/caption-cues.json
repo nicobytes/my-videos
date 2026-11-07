@@ -1,0 +1,262 @@
+[
+  {
+    "start": 0.08,
+    "end": 1.8399999999999999,
+    "text": "Te voy a enseñar los patrones más sencillos"
+  },
+  {
+    "start": 1.8399999999999999,
+    "end": 4.08,
+    "text": "pero poderosos de los agentes y este se"
+  },
+  {
+    "start": 4.08,
+    "end": 7.04,
+    "text": "llama React y no es de React y es de"
+  },
+  {
+    "start": 7.04,
+    "end": 8.12,
+    "text": "Reasoning and Acting."
+  },
+  {
+    "start": 8.12,
+    "end": 9.88,
+    "text": "Lo que hace poderoso a este patrón es que"
+  },
+  {
+    "start": 9.88,
+    "end": 11.12,
+    "text": "básicamente es un loop y ya se ha"
+  },
+  {
+    "start": 11.12,
+    "end": 12.8,
+    "text": "demostrado que los son muy buenos para los"
+  },
+  {
+    "start": 12.8,
+    "end": 14.64,
+    "text": "agentes porque básicamente tú le das un"
+  },
+  {
+    "start": 14.64,
+    "end": 16.56,
+    "text": "objetivo y él se queda en ese loop hasta"
+  },
+  {
+    "start": 16.56,
+    "end": 18.76,
+    "text": "que lo logre, hasta que resuelva esa tarea."
+  },
+  {
+    "start": 18.92,
+    "end": 20.64,
+    "text": "Pero literalmente tienen que tener unas"
+  },
+  {
+    "start": 20.64,
+    "end": 23.12,
+    "text": "tools para poder salir al mundo exterior y"
+  },
+  {
+    "start": 23.12,
+    "end": 25.36,
+    "text": "por ejemplo hacer conectarse con archivos,"
+  },
+  {
+    "start": 25.36,
+    "end": 26.16,
+    "text": "bases de datos"
+  },
+  {
+    "start": 26.4,
+    "end": 28.6,
+    "text": "a tu calendar, se necesita agendar una"
+  },
+  {
+    "start": 28.6,
+    "end": 30,
+    "text": "cita, etcétera, como que le das unas"
+  },
+  {
+    "start": 30,
+    "end": 32.32,
+    "text": "herramientas y él con esas herramientas"
+  },
+  {
+    "start": 32.32,
+    "end": 33,
+    "text": "resuelve."
+  },
+  {
+    "start": 33.12,
+    "end": 35.64,
+    "text": "Ese nombre ReAct literalmente es Reasoning."
+  },
+  {
+    "start": 35.64,
+    "end": 37.92,
+    "text": "Él empieza a razonar las herramientas que"
+  },
+  {
+    "start": 37.92,
+    "end": 39.28,
+    "text": "tiene y el goal que tiene,"
+  },
+  {
+    "start": 39.52,
+    "end": 41.28,
+    "text": "y luego actúa con esas herramientas."
+  },
+  {
+    "start": 41.28,
+    "end": 43.16,
+    "text": "Antes digamos que tú le propones un"
+  },
+  {
+    "start": 43.16,
+    "end": 45.52,
+    "text": "objetivo a ese agente que es escribir un"
+  },
+  {
+    "start": 45.52,
+    "end": 46.64,
+    "text": "correo o lo que sea,"
+  },
+  {
+    "start": 46.88,
+    "end": 48.12,
+    "text": "él se queda en ese loop."
+  },
+  {
+    "start": 48.12,
+    "end": 49.6,
+    "text": "Obviamente con restricciones, hay"
+  },
+  {
+    "start": 49.6,
+    "end": 51.84,
+    "text": "restricciones ya fijas, por ejemplo, no se"
+  },
+  {
+    "start": 51.84,
+    "end": 54.16,
+    "text": "puede quedar infinito porque consume muchos"
+  },
+  {
+    "start": 54.16,
+    "end": 54.6,
+    "text": "tokens."
+  },
+  {
+    "start": 54.6,
+    "end": 56.72,
+    "text": "Entonces tú le puedes dar como un límite"
+  },
+  {
+    "start": 56.88,
+    "end": 60.2,
+    "text": "de, no sé, puede entrar y iterar unas 100"
+  },
+  {
+    "start": 60.2,
+    "end": 62.28,
+    "text": "veces, unas 50 veces máximo, unas 10 veces"
+  },
+  {
+    "start": 62.28,
+    "end": 62.92,
+    "text": "máximo."
+  },
+  {
+    "start": 63.04,
+    "end": 64.56,
+    "text": "si no se puede quedar infinito."
+  },
+  {
+    "start": 64.56,
+    "end": 66.48,
+    "text": "Sin embargo, la gente también decide cuándo"
+  },
+  {
+    "start": 66.48,
+    "end": 67.72,
+    "text": "debe salir de este ciclo."
+  },
+  {
+    "start": 67.72,
+    "end": 69.6,
+    "text": "Puede ser porque ya terminó la tarea o"
+  },
+  {
+    "start": 69.6,
+    "end": 71.68,
+    "text": "porque necesita más información de ti para"
+  },
+  {
+    "start": 71.68,
+    "end": 73.44,
+    "text": "resolverla, porque puede que le hayas dado"
+  },
+  {
+    "start": 73.44,
+    "end": 75.2,
+    "text": "una tarea muy ambigua."
+  },
+  {
+    "start": 75.36,
+    "end": 77.12,
+    "text": "Por ejemplo, agéndame una cita,"
+  },
+  {
+    "start": 77.68,
+    "end": 79.64,
+    "text": "¿ok? Tiene acceso a tu calendario, tiene el"
+  },
+  {
+    "start": 79.64,
+    "end": 81.44,
+    "text": "goal, pero no se sabe de qué, ni a qué"
+  },
+  {
+    "start": 81.44,
+    "end": 83.56,
+    "text": "horas, ni por ejemplo para cuál"
+  },
+  {
+    "start": 83.56,
+    "end": 84.96,
+    "text": "particularidad, etcétera."
+  },
+  {
+    "start": 84.96,
+    "end": 87.6,
+    "text": "Como que a veces puedes salir a ti,"
+  },
+  {
+    "start": 87.6,
+    "end": 89.52,
+    "text": "digamos, para Para que por ejemplo le des"
+  },
+  {
+    "start": 89.52,
+    "end": 91.8,
+    "text": "más especificaciones y luego volver y luego"
+  },
+  {
+    "start": 91.8,
+    "end": 93.32,
+    "text": "se queda otra vez en ese loop hasta que"
+  },
+  {
+    "start": 93.32,
+    "end": 94.48,
+    "text": "resuelva la tarea."
+  },
+  {
+    "start": 94.48,
+    "end": 96.48,
+    "text": "Y este es el patrón ReAct en los agentes."
+  }
+]

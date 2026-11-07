@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: #0f1a14;
+        }
+        .footage-label {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 160px;
+          text-align: center;
+          font-family: "Nunito", sans-serif;
+          font-size: 22px;
+          color: rgba(237, 239, 230, 0.35);
+        }
+        .sky-zone {
+          position: absolute;
+          top: 130px;
+          left: 65px;
+          right: 65px;
+          height: 610px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 22px;
+        }
+        .ledger-row {
+          background: #e2e6d7;
+          color: #16231c;
+          padding: 14px 26px;
+          border-top: 1px solid #16231c;
+          font-family: "Nunito", sans-serif;
+          font-size: 28px;
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+          max-width: 760px;
+        }
+        .ticket {
+          background: #edefe6;
+          color: #16231c;
+          padding: 36px 56px;
+          border: 1px solid #16231c;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+        }
+        .ticket .num {
+          font-family: "Nunito", sans-serif;
+          font-weight: 900;
+          font-size: 180px;
+          line-height: 0.85;
+          font-variant-numeric: tabular-nums;
+        }
+        .ticket .claim {
+          font-family: "Nunito", sans-serif;
+          font-weight: 900;
+          font-size: 64px;
+          line-height: 0.95;
+        }
+        .ticket .unit {
+          font-family: "Nunito", sans-serif;
+          font-weight: 700;
+          font-size: 24px;
+        }
+      </style>
+      <div data-hf-id="hf-xw7l" id="root" data-composition-id="frame-04" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-yb1m" class="sky-zone">
+          <div data-hf-id="hf-uodc" class="ledger-row">
+            <span data-hf-id="hf-feh7">Marketing</span>
+            <span data-hf-id="hf-jj2t">Bs 0,9354/msg</span>
+          </div>
+          <div data-hf-id="hf-1qws" class="ticket">
+            <div data-hf-id="hf-0yn7" class="num">0,1428</div>
+            <div data-hf-id="hf-kkic" class="claim">Utility</div>
+            <div data-hf-id="hf-1wwc" class="unit">por mensaje — ya se cobraba</div>
+          </div>
+        </div>
+        <div data-hf-id="hf-e0hi" class="footage-label">metraje — precios.mp4 (sin tocar)</div>
+      </div>
+      <script>
+        window.__timelines = window.__timelines || {};
+        window.__timelines["frame-04"] = gsap.timeline({ paused: true });
+      </script>
+    </template>
+  </body>
+</html>

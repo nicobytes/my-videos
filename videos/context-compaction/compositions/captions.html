@@ -1,0 +1,193 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    /* Workspace safe zone (shared/CAPTIONS.md): bottom edge 340 px from the frame
+       bottom, 110 px side margins. */
+    #cap-layer {
+      position: absolute;
+      left: 110px;
+      right: 110px;
+      bottom: 340px;
+      height: 150px;
+      overflow: visible;
+    }
+    .cg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+      display: none;
+    }
+    .strip {
+      display: inline-block;
+      padding: 16px 26px 14px;
+      background: var(--color-paper, #f6f2e8) url("assets/textures/paper.png");
+      background-size: 512px 512px;
+      border-radius: 3px 6px 4px 7px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: 56px;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--color-ink, #141218);
+      white-space: nowrap;
+    }
+    #cap-shadow {
+      position: absolute;
+      inset: 0;
+      filter: drop-shadow(0 3px 0 rgba(20, 10, 40, 0.3)) drop-shadow(0 12px 18px rgba(20, 10, 40, 0.35));
+      overflow: visible;
+    }
+    .cw {
+      position: relative;
+      display: inline-block;
+      margin: 0 0.13em;
+    }
+    .cw b {
+      position: relative;
+      font-weight: 800;
+      opacity: 0.38;
+    }
+    .cw .hl {
+      position: absolute;
+      left: -0.12em;
+      right: -0.12em;
+      top: 0.12em;
+      bottom: 0.02em;
+      background: var(--color-accent, #ffc72c);
+      transform: scaleX(0);
+      transform-origin: 0 50%;
+    }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1080" data-height="1920">
+    <div id="cap-layer">
+     <div id="cap-shadow">
+      <div class="cg" id="cg-000" data-s="0.1" data-e="1.04"><div class="strip"><span class="cw" data-s="0.11" data-e="0.23"><i class="hl"></i><b>Mis</b></span><span class="cw" data-s="0.23" data-e="0.77"><i class="hl"></i><b>agentes</b></span><span class="cw" data-s="0.77" data-e="0.92"><i class="hl"></i><b>de</b></span><span class="cw" data-s="0.92" data-e="1.1"><i class="hl"></i><b>AI</b></span></div></div>
+      <div class="cg" id="cg-001" data-s="1.04" data-e="2.26"><div class="strip"><span class="cw" data-s="1.1" data-e="1.52"><i class="hl"></i><b>estaban</b></span><span class="cw" data-s="1.52" data-e="2.0"><i class="hl"></i><b>costando</b></span><span class="cw" data-s="2.0" data-e="2.19"><i class="hl"></i><b>más</b></span><span class="cw" data-s="2.19" data-e="2.32"><i class="hl"></i><b>de</b></span></div></div>
+      <div class="cg" id="cg-002" data-s="2.26" data-e="3.0"><div class="strip"><span class="cw" data-s="2.32" data-e="2.45"><i class="hl"></i><b>lo</b></span><span class="cw" data-s="2.45" data-e="2.86"><i class="hl"></i><b>normal</b></span><span class="cw" data-s="2.86" data-e="2.9"><i class="hl"></i><b>y</b></span></div></div>
+      <div class="cg" id="cg-003" data-s="3.0" data-e="3.74"><div class="strip"><span class="cw" data-s="3.06" data-e="3.2"><i class="hl"></i><b>había</b></span><span class="cw" data-s="3.2" data-e="3.31"><i class="hl"></i><b>un</b></span><span class="cw" data-s="3.31" data-e="3.8"><i class="hl"></i><b>culpable.</b></span></div></div>
+      <div class="cg" id="cg-004" data-s="3.74" data-e="4.65"><div class="strip"><span class="cw" data-s="3.8" data-e="4.17"><i class="hl"></i><b>Yo,</b></span><span class="cw" data-s="4.17" data-e="4.71"><i class="hl"></i><b>obviamente,</b></span></div></div>
+      <div class="cg" id="cg-005" data-s="4.65" data-e="5.37"><div class="strip"><span class="cw" data-s="4.71" data-e="4.76"><i class="hl"></i><b>y</b></span><span class="cw" data-s="4.76" data-e="4.93"><i class="hl"></i><b>que</b></span><span class="cw" data-s="4.93" data-e="5.04"><i class="hl"></i><b>no</b></span><span class="cw" data-s="5.04" data-e="5.34"><i class="hl"></i><b>estaba</b></span></div></div>
+      <div class="cg" id="cg-006" data-s="5.37" data-e="6.18"><div class="strip"><span class="cw" data-s="5.43" data-e="5.9"><i class="hl"></i><b>manejando</b></span><span class="cw" data-s="5.9" data-e="6.13"><i class="hl"></i><b>bien</b></span><span class="cw" data-s="6.13" data-e="6.24"><i class="hl"></i><b>el</b></span></div></div>
+      <div class="cg" id="cg-007" data-s="6.18" data-e="7.29"><div class="strip"><span class="cw" data-s="6.24" data-e="6.94"><i class="hl"></i><b>contexto.</b></span></div></div>
+      <div class="cg" id="cg-008" data-s="7.44" data-e="8.111"><div class="strip"><span class="cw" data-s="7.5" data-e="7.668"><i class="hl"></i><b>Así</b></span><span class="cw" data-s="7.668" data-e="7.836"><i class="hl"></i><b>que</b></span><span class="cw" data-s="7.836" data-e="7.948"><i class="hl"></i><b>me</b></span><span class="cw" data-s="7.948" data-e="8.171"><i class="hl"></i><b>puse</b></span></div></div>
+      <div class="cg" id="cg-009" data-s="8.111" data-e="8.783"><div class="strip"><span class="cw" data-s="8.171" data-e="8.227"><i class="hl"></i><b>a</b></span><span class="cw" data-s="8.227" data-e="8.395"><i class="hl"></i><b>ver</b></span><span class="cw" data-s="8.395" data-e="8.507"><i class="hl"></i><b>mi</b></span><span class="cw" data-s="8.507" data-e="8.843"><i class="hl"></i><b>Google</b></span></div></div>
+      <div class="cg" id="cg-010" data-s="8.783" data-e="9.51"><div class="strip"><span class="cw" data-s="8.843" data-e="9.123"><i class="hl"></i><b>Cloud</b></span><span class="cw" data-s="9.123" data-e="9.514"><i class="hl"></i><b>Console</b></span><span class="cw" data-s="9.514" data-e="9.57"><i class="hl"></i><b>y</b></span></div></div>
+      <div class="cg" id="cg-011" data-s="9.51" data-e="10.517"><div class="strip"><span class="cw" data-s="9.57" data-e="10.074"><i class="hl"></i><b>realmente</b></span><span class="cw" data-s="10.074" data-e="10.242"><i class="hl"></i><b>los</b></span><span class="cw" data-s="10.242" data-e="10.577"><i class="hl"></i><b>costos</b></span></div></div>
+      <div class="cg" id="cg-012" data-s="10.517" data-e="12.0"><div class="strip"><span class="cw" data-s="10.577" data-e="10.969"><i class="hl"></i><b>estaban</b></span><span class="cw" data-s="10.969" data-e="11.416"><i class="hl"></i><b>bastante</b></span><span class="cw" data-s="11.416" data-e="11.92"><i class="hl"></i><b>elevados.</b></span></div></div>
+      <div class="cg" id="cg-013" data-s="12.0" data-e="12.701"><div class="strip"><span class="cw" data-s="12.06" data-e="12.168"><i class="hl"></i><b>¿Y</b></span><span class="cw" data-s="12.168" data-e="12.384"><i class="hl"></i><b>esto</b></span><span class="cw" data-s="12.384" data-e="12.546"><i class="hl"></i><b>por</b></span><span class="cw" data-s="12.546" data-e="12.761"><i class="hl"></i><b>qué?</b></span></div></div>
+      <div class="cg" id="cg-014" data-s="12.701" data-e="13.565"><div class="strip"><span class="cw" data-s="12.761" data-e="13.085"><i class="hl"></i><b>Porque</b></span><span class="cw" data-s="13.085" data-e="13.139"><i class="hl"></i><b>a</b></span><span class="cw" data-s="13.139" data-e="13.463"><i class="hl"></i><b>medida</b></span><span class="cw" data-s="13.463" data-e="13.625"><i class="hl"></i><b>que</b></span></div></div>
+      <div class="cg" id="cg-015" data-s="13.565" data-e="14.536"><div class="strip"><span class="cw" data-s="13.625" data-e="13.733"><i class="hl"></i><b>un</b></span><span class="cw" data-s="13.733" data-e="14.11"><i class="hl"></i><b>usuario</b></span><span class="cw" data-s="14.11" data-e="14.434"><i class="hl"></i><b>chatea</b></span><span class="cw" data-s="14.434" data-e="14.596"><i class="hl"></i><b>con</b></span></div></div>
+      <div class="cg" id="cg-016" data-s="14.536" data-e="14.86"><div class="strip"><span class="cw" data-s="14.596" data-e="14.704"><i class="hl"></i><b>mi</b></span><span class="cw" data-s="14.704" data-e="14.92"><i class="hl"></i><b>bot,</b></span></div></div>
+      <div class="cg" id="cg-017" data-s="14.86" data-e="15.399"><div class="strip"><span class="cw" data-s="14.92" data-e="15.027"><i class="hl"></i><b>mi</b></span><span class="cw" data-s="15.027" data-e="15.351"><i class="hl"></i><b>agente</b></span><span class="cw" data-s="15.351" data-e="15.459"><i class="hl"></i><b>de</b></span></div></div>
+      <div class="cg" id="cg-018" data-s="15.399" data-e="17.04"><div class="strip"><span class="cw" data-s="15.459" data-e="16.107"><i class="hl"></i><b>inteligencia</b></span><span class="cw" data-s="16.107" data-e="16.7"><i class="hl"></i><b>artificial,</b></span></div></div>
+      <div class="cg" id="cg-019" data-s="17.04" data-e="18.259"><div class="strip"><span class="cw" data-s="17.1" data-e="17.243"><i class="hl"></i><b>el</b></span><span class="cw" data-s="17.243" data-e="17.889"><i class="hl"></i><b>historial</b></span><span class="cw" data-s="17.889" data-e="18.319"><i class="hl"></i><b>crece.</b></span></div></div>
+      <div class="cg" id="cg-020" data-s="18.259" data-e="19.048"><div class="strip"><span class="cw" data-s="18.319" data-e="18.391"><i class="hl"></i><b>Y</b></span><span class="cw" data-s="18.391" data-e="18.534"><i class="hl"></i><b>si</b></span><span class="cw" data-s="18.534" data-e="18.678"><i class="hl"></i><b>tu</b></span><span class="cw" data-s="18.678" data-e="19.108"><i class="hl"></i><b>agente</b></span></div></div>
+      <div class="cg" id="cg-021" data-s="19.048" data-e="20.196"><div class="strip"><span class="cw" data-s="19.108" data-e="19.323"><i class="hl"></i><b>usa</b></span><span class="cw" data-s="19.323" data-e="20.256"><i class="hl"></i><b>herramientas,</b></span></div></div>
+      <div class="cg" id="cg-022" data-s="20.196" data-e="21.487"><div class="strip"><span class="cw" data-s="20.256" data-e="20.758"><i class="hl"></i><b>skills,</b></span><span class="cw" data-s="20.758" data-e="20.901"><i class="hl"></i><b>el</b></span><span class="cw" data-s="20.901" data-e="21.332"><i class="hl"></i><b>tamaño</b></span><span class="cw" data-s="21.332" data-e="21.547"><i class="hl"></i><b>del</b></span></div></div>
+      <div class="cg" id="cg-023" data-s="21.487" data-e="22.419"><div class="strip"><span class="cw" data-s="21.547" data-e="22.121"><i class="hl"></i><b>contexto</b></span><span class="cw" data-s="22.121" data-e="22.264"><i class="hl"></i><b>va</b></span><span class="cw" data-s="22.264" data-e="22.336"><i class="hl"></i><b>y</b></span><span class="cw" data-s="22.336" data-e="22.479"><i class="hl"></i><b>va</b></span></div></div>
+      <div class="cg" id="cg-024" data-s="22.419" data-e="23.28"><div class="strip"><span class="cw" data-s="22.479" data-e="22.551"><i class="hl"></i><b>y</b></span><span class="cw" data-s="22.551" data-e="22.694"><i class="hl"></i><b>va</b></span><span class="cw" data-s="22.694" data-e="22.838"><i class="hl"></i><b>en</b></span><span class="cw" data-s="22.838" data-e="23.34"><i class="hl"></i><b>aumento</b></span></div></div>
+      <div class="cg" id="cg-025" data-s="23.28" data-e="24.087"><div class="strip"><span class="cw" data-s="23.34" data-e="23.407"><i class="hl"></i><b>y</b></span><span class="cw" data-s="23.407" data-e="23.676"><i class="hl"></i><b>pues</b></span><span class="cw" data-s="23.676" data-e="23.81"><i class="hl"></i><b>en</b></span><span class="cw" data-s="23.81" data-e="24.147"><i class="hl"></i><b>algún</b></span></div></div>
+      <div class="cg" id="cg-026" data-s="24.087" data-e="25.364"><div class="strip"><span class="cw" data-s="24.147" data-e="24.617"><i class="hl"></i><b>momento</b></span><span class="cw" data-s="24.617" data-e="24.751"><i class="hl"></i><b>va</b></span><span class="cw" data-s="24.751" data-e="24.819"><i class="hl"></i><b>a</b></span><span class="cw" data-s="24.819" data-e="25.424"><i class="hl"></i><b>explotar.</b></span></div></div>
+      <div class="cg" id="cg-027" data-s="25.364" data-e="26.708"><div class="strip"><span class="cw" data-s="25.424" data-e="25.625"><i class="hl"></i><b>Más</b></span><span class="cw" data-s="25.625" data-e="26.163"><i class="hl"></i><b>contexto</b></span><span class="cw" data-s="26.163" data-e="26.768"><i class="hl"></i><b>significa</b></span></div></div>
+      <div class="cg" id="cg-028" data-s="26.708" data-e="27.56"><div class="strip"><span class="cw" data-s="26.768" data-e="26.97"><i class="hl"></i><b>más</b></span><span class="cw" data-s="26.97" data-e="27.44"><i class="hl"></i><b>tokens.</b></span></div></div>
+      <div class="cg" id="cg-029" data-s="27.56" data-e="28.423"><div class="strip"><span class="cw" data-s="27.62" data-e="27.692"><i class="hl"></i><b>Y</b></span><span class="cw" data-s="27.692" data-e="27.836"><i class="hl"></i><b>la</b></span><span class="cw" data-s="27.836" data-e="28.339"><i class="hl"></i><b>factura</b></span><span class="cw" data-s="28.339" data-e="28.483"><i class="hl"></i><b>de</b></span></div></div>
+      <div class="cg" id="cg-030" data-s="28.423" data-e="29.429"><div class="strip"><span class="cw" data-s="28.483" data-e="28.626"><i class="hl"></i><b>mi</b></span><span class="cw" data-s="28.626" data-e="28.842"><i class="hl"></i><b>API</b></span><span class="cw" data-s="28.842" data-e="28.986"><i class="hl"></i><b>se</b></span><span class="cw" data-s="28.986" data-e="29.489"><i class="hl"></i><b>dispara</b></span></div></div>
+      <div class="cg" id="cg-031" data-s="29.429" data-e="30.436"><div class="strip"><span class="cw" data-s="29.489" data-e="29.561"><i class="hl"></i><b>y</b></span><span class="cw" data-s="29.561" data-e="29.705"><i class="hl"></i><b>va</b></span><span class="cw" data-s="29.705" data-e="30.496"><i class="hl"></i><b>aumentando.</b></span></div></div>
+      <div class="cg" id="cg-032" data-s="30.436" data-e="31.874"><div class="strip"><span class="cw" data-s="30.496" data-e="30.639"><i class="hl"></i><b>Me</b></span><span class="cw" data-s="30.639" data-e="30.927"><i class="hl"></i><b>pasó</b></span><span class="cw" data-s="30.927" data-e="31.718"><i class="hl"></i><b>exactamente</b></span><span class="cw" data-s="31.718" data-e="31.934"><i class="hl"></i><b>eso</b></span></div></div>
+      <div class="cg" id="cg-033" data-s="31.874" data-e="33.08"><div class="strip"><span class="cw" data-s="31.934" data-e="32.149"><i class="hl"></i><b>con</b></span><span class="cw" data-s="32.149" data-e="32.365"><i class="hl"></i><b>mis</b></span><span class="cw" data-s="32.365" data-e="32.94"><i class="hl"></i><b>agentes.</b></span></div></div>
+      <div class="cg" id="cg-034" data-s="33.08" data-e="33.976"><div class="strip"><span class="cw" data-s="33.14" data-e="33.319"><i class="hl"></i><b>Así</b></span><span class="cw" data-s="33.319" data-e="33.498"><i class="hl"></i><b>que</b></span><span class="cw" data-s="33.498" data-e="33.976"><i class="hl"></i><b>buscando</b></span><span class="cw" data-s="33.976" data-e="34.036"><i class="hl"></i><b>y</b></span></div></div>
+      <div class="cg" id="cg-035" data-s="33.976" data-e="35.17"><div class="strip"><span class="cw" data-s="34.036" data-e="34.394"><i class="hl"></i><b>demás,</b></span><span class="cw" data-s="34.394" data-e="34.573"><i class="hl"></i><b>hay</b></span><span class="cw" data-s="34.573" data-e="34.752"><i class="hl"></i><b>una</b></span><span class="cw" data-s="34.752" data-e="35.23"><i class="hl"></i><b>práctica</b></span></div></div>
+      <div class="cg" id="cg-036" data-s="35.17" data-e="35.707"><div class="strip"><span class="cw" data-s="35.23" data-e="35.349"><i class="hl"></i><b>en</b></span><span class="cw" data-s="35.349" data-e="35.469"><i class="hl"></i><b>lo</b></span><span class="cw" data-s="35.469" data-e="35.648"><i class="hl"></i><b>que</b></span><span class="cw" data-s="35.648" data-e="35.767"><i class="hl"></i><b>se</b></span></div></div>
+      <div class="cg" id="cg-037" data-s="35.707" data-e="36.723"><div class="strip"><span class="cw" data-s="35.767" data-e="36.066"><i class="hl"></i><b>llama</b></span><span class="cw" data-s="36.066" data-e="36.663"><i class="hl"></i><b>ingeniería</b></span><span class="cw" data-s="36.663" data-e="36.783"><i class="hl"></i><b>de</b></span></div></div>
+      <div class="cg" id="cg-038" data-s="36.723" data-e="37.48"><div class="strip"><span class="cw" data-s="36.783" data-e="37.32"><i class="hl"></i><b>contexto,</b></span></div></div>
+      <div class="cg" id="cg-039" data-s="37.48" data-e="38.771"><div class="strip"><span class="cw" data-s="37.54" data-e="37.798"><i class="hl"></i><b>que</b></span><span class="cw" data-s="37.798" data-e="37.97"><i class="hl"></i><b>es</b></span><span class="cw" data-s="37.97" data-e="38.831"><i class="hl"></i><b>justamente</b></span></div></div>
+      <div class="cg" id="cg-040" data-s="38.771" data-e="40.493"><div class="strip"><span class="cw" data-s="38.831" data-e="39.779"><i class="hl"></i><b>compactarlo</b></span><span class="cw" data-s="39.779" data-e="40.123"><i class="hl"></i><b>para</b></span><span class="cw" data-s="40.123" data-e="40.381"><i class="hl"></i><b>que</b></span><span class="cw" data-s="40.381" data-e="40.553"><i class="hl"></i><b>no</b></span></div></div>
+      <div class="cg" id="cg-041" data-s="40.493" data-e="41.613"><div class="strip"><span class="cw" data-s="40.553" data-e="40.812"><i class="hl"></i><b>sea</b></span><span class="cw" data-s="40.812" data-e="41.07"><i class="hl"></i><b>tan</b></span><span class="cw" data-s="41.07" data-e="41.673"><i class="hl"></i><b>grande,</b></span></div></div>
+      <div class="cg" id="cg-042" data-s="41.613" data-e="43.076"><div class="strip"><span class="cw" data-s="41.673" data-e="42.448"><i class="hl"></i><b>ahorrando</b></span><span class="cw" data-s="42.448" data-e="42.878"><i class="hl"></i><b>todas</b></span><span class="cw" data-s="42.878" data-e="43.136"><i class="hl"></i><b>las</b></span></div></div>
+      <div class="cg" id="cg-043" data-s="43.076" data-e="44.68"><div class="strip"><span class="cw" data-s="43.136" data-e="43.825"><i class="hl"></i><b>llamadas</b></span><span class="cw" data-s="43.825" data-e="43.997"><i class="hl"></i><b>de</b></span><span class="cw" data-s="43.997" data-e="44.6"><i class="hl"></i><b>skills,</b></span></div></div>
+      <div class="cg" id="cg-044" data-s="44.68" data-e="45.418"><div class="strip"><span class="cw" data-s="44.74" data-e="45.162"><i class="hl"></i><b>quitando</b></span><span class="cw" data-s="45.162" data-e="45.373"><i class="hl"></i><b>toda</b></span><span class="cw" data-s="45.373" data-e="45.478"><i class="hl"></i><b>la</b></span></div></div>
+      <div class="cg" id="cg-045" data-s="45.418" data-e="46.314"><div class="strip"><span class="cw" data-s="45.478" data-e="46.058"><i class="hl"></i><b>información</b></span><span class="cw" data-s="46.058" data-e="46.374"><i class="hl"></i><b>vieja,</b></span></div></div>
+      <div class="cg" id="cg-046" data-s="46.314" data-e="47.157"><div class="strip"><span class="cw" data-s="46.374" data-e="46.479"><i class="hl"></i><b>lo</b></span><span class="cw" data-s="46.479" data-e="46.585"><i class="hl"></i><b>va</b></span><span class="cw" data-s="46.585" data-e="47.217"><i class="hl"></i><b>compactando,</b></span></div></div>
+      <div class="cg" id="cg-047" data-s="47.157" data-e="47.737"><div class="strip"><span class="cw" data-s="47.217" data-e="47.586"><i class="hl"></i><b>también</b></span><span class="cw" data-s="47.586" data-e="47.692"><i class="hl"></i><b>lo</b></span><span class="cw" data-s="47.692" data-e="47.797"><i class="hl"></i><b>va</b></span></div></div>
+      <div class="cg" id="cg-048" data-s="47.737" data-e="48.739"><div class="strip"><span class="cw" data-s="47.797" data-e="48.377"><i class="hl"></i><b>sumarizando</b></span><span class="cw" data-s="48.377" data-e="48.43"><i class="hl"></i><b>y</b></span><span class="cw" data-s="48.43" data-e="48.588"><i class="hl"></i><b>eso</b></span><span class="cw" data-s="48.588" data-e="48.799"><i class="hl"></i><b>hace</b></span></div></div>
+      <div class="cg" id="cg-049" data-s="48.739" data-e="50.15"><div class="strip"><span class="cw" data-s="48.799" data-e="48.957"><i class="hl"></i><b>que</b></span><span class="cw" data-s="48.957" data-e="49.22"><i class="hl"></i><b>quede</b></span><span class="cw" data-s="49.22" data-e="49.378"><i class="hl"></i><b>más</b></span><span class="cw" data-s="49.378" data-e="49.8"><i class="hl"></i><b>liviano.</b></span></div></div>
+      <div class="cg" id="cg-050" data-s="50.6" data-e="51.41"><div class="strip"><span class="cw" data-s="50.66" data-e="50.949"><i class="hl"></i><b>¿Cómo</b></span><span class="cw" data-s="50.949" data-e="51.47"><i class="hl"></i><b>funciona?</b></span></div></div>
+      <div class="cg" id="cg-051" data-s="51.41" data-e="52.568"><div class="strip"><span class="cw" data-s="51.47" data-e="51.817"><i class="hl"></i><b>Cuando</b></span><span class="cw" data-s="51.817" data-e="51.933"><i class="hl"></i><b>la</b></span><span class="cw" data-s="51.933" data-e="52.628"><i class="hl"></i><b>conversación</b></span></div></div>
+      <div class="cg" id="cg-052" data-s="52.568" data-e="53.551"><div class="strip"><span class="cw" data-s="52.628" data-e="53.033"><i class="hl"></i><b>alcanza</b></span><span class="cw" data-s="53.033" data-e="53.149"><i class="hl"></i><b>un</b></span><span class="cw" data-s="53.149" data-e="53.496"><i class="hl"></i><b>límite</b></span><span class="cw" data-s="53.496" data-e="53.611"><i class="hl"></i><b>de</b></span></div></div>
+      <div class="cg" id="cg-053" data-s="53.551" data-e="54.709"><div class="strip"><span class="cw" data-s="53.611" data-e="54.017"><i class="hl"></i><b>tokens,</b></span><span class="cw" data-s="54.017" data-e="54.306"><i class="hl"></i><b>entra</b></span><span class="cw" data-s="54.306" data-e="54.422"><i class="hl"></i><b>en</b></span><span class="cw" data-s="54.422" data-e="54.769"><i class="hl"></i><b>acción</b></span></div></div>
+      <div class="cg" id="cg-054" data-s="54.709" data-e="55.519"><div class="strip"><span class="cw" data-s="54.769" data-e="54.885"><i class="hl"></i><b>un</b></span><span class="cw" data-s="54.885" data-e="55.232"><i class="hl"></i><b>modelo</b></span><span class="cw" data-s="55.232" data-e="55.348"><i class="hl"></i><b>un</b></span><span class="cw" data-s="55.348" data-e="55.579"><i class="hl"></i><b>poco</b></span></div></div>
+      <div class="cg" id="cg-055" data-s="55.519" data-e="56.317"><div class="strip"><span class="cw" data-s="55.579" data-e="55.753"><i class="hl"></i><b>más</b></span><span class="cw" data-s="55.753" data-e="56.1"><i class="hl"></i><b>ligero</b></span><span class="cw" data-s="56.1" data-e="56.266"><i class="hl"></i><b>que</b></span><span class="cw" data-s="56.266" data-e="56.377"><i class="hl"></i><b>lo</b></span></div></div>
+      <div class="cg" id="cg-056" data-s="56.317" data-e="57.204"><div class="strip"><span class="cw" data-s="56.377" data-e="56.544"><i class="hl"></i><b>que</b></span><span class="cw" data-s="56.544" data-e="56.765"><i class="hl"></i><b>hace</b></span><span class="cw" data-s="56.765" data-e="56.876"><i class="hl"></i><b>es</b></span><span class="cw" data-s="56.876" data-e="57.264"><i class="hl"></i><b>resumir</b></span></div></div>
+      <div class="cg" id="cg-057" data-s="57.204" data-e="58.091"><div class="strip"><span class="cw" data-s="57.264" data-e="57.542"><i class="hl"></i><b>todos</b></span><span class="cw" data-s="57.542" data-e="57.708"><i class="hl"></i><b>los</b></span><span class="cw" data-s="57.708" data-e="58.096"><i class="hl"></i><b>eventos</b></span><span class="cw" data-s="58.096" data-e="58.151"><i class="hl"></i><b>y</b></span></div></div>
+      <div class="cg" id="cg-058" data-s="58.091" data-e="58.868"><div class="strip"><span class="cw" data-s="58.151" data-e="58.429"><i class="hl"></i><b>todas</b></span><span class="cw" data-s="58.429" data-e="58.595"><i class="hl"></i><b>las</b></span><span class="cw" data-s="58.595" data-e="58.928"><i class="hl"></i><b>partes</b></span></div></div>
+      <div class="cg" id="cg-059" data-s="58.868" data-e="59.699"><div class="strip"><span class="cw" data-s="58.928" data-e="59.537"><i class="hl"></i><b>importantes</b></span><span class="cw" data-s="59.537" data-e="59.648"><i class="hl"></i><b>de</b></span><span class="cw" data-s="59.648" data-e="59.759"><i class="hl"></i><b>la</b></span></div></div>
+      <div class="cg" id="cg-060" data-s="59.699" data-e="60.56"><div class="strip"><span class="cw" data-s="59.759" data-e="60.48"><i class="hl"></i><b>conversación.</b></span></div></div>
+      <div class="cg" id="cg-061" data-s="60.56" data-e="61.641"><div class="strip"><span class="cw" data-s="60.62" data-e="60.89"><i class="hl"></i><b>Esto</b></span><span class="cw" data-s="60.89" data-e="61.025"><i class="hl"></i><b>es</b></span><span class="cw" data-s="61.025" data-e="61.701"><i class="hl"></i><b>importante</b></span></div></div>
+      <div class="cg" id="cg-062" data-s="61.641" data-e="62.655"><div class="strip"><span class="cw" data-s="61.701" data-e="62.106"><i class="hl"></i><b>porque</b></span><span class="cw" data-s="62.106" data-e="62.309"><i class="hl"></i><b>con</b></span><span class="cw" data-s="62.309" data-e="62.579"><i class="hl"></i><b>esto</b></span><span class="cw" data-s="62.579" data-e="62.715"><i class="hl"></i><b>el</b></span></div></div>
+      <div class="cg" id="cg-063" data-s="62.655" data-e="63.88"><div class="strip"><span class="cw" data-s="62.715" data-e="63.12"><i class="hl"></i><b>bot,</b></span><span class="cw" data-s="63.12" data-e="63.229"><i class="hl"></i><b>No</b></span><span class="cw" data-s="63.229" data-e="63.557"><i class="hl"></i><b>pierde</b></span><span class="cw" data-s="63.557" data-e="63.94"><i class="hl"></i><b>memoria</b></span></div></div>
+      <div class="cg" id="cg-064" data-s="63.88" data-e="64.371"><div class="strip"><span class="cw" data-s="63.94" data-e="64.049"><i class="hl"></i><b>de</b></span><span class="cw" data-s="64.049" data-e="64.158"><i class="hl"></i><b>lo</b></span><span class="cw" data-s="64.158" data-e="64.322"><i class="hl"></i><b>que</b></span><span class="cw" data-s="64.322" data-e="64.431"><i class="hl"></i><b>le</b></span></div></div>
+      <div class="cg" id="cg-065" data-s="64.371" data-e="65.245"><div class="strip"><span class="cw" data-s="64.431" data-e="64.814"><i class="hl"></i><b>estaban</b></span><span class="cw" data-s="64.814" data-e="65.305"><i class="hl"></i><b>hablando,</b></span></div></div>
+      <div class="cg" id="cg-066" data-s="65.245" data-e="65.956"><div class="strip"><span class="cw" data-s="65.305" data-e="65.524"><i class="hl"></i><b>pero</b></span><span class="cw" data-s="65.524" data-e="65.633"><i class="hl"></i><b>sí</b></span><span class="cw" data-s="65.633" data-e="66.016"><i class="hl"></i><b>reduces</b></span></div></div>
+      <div class="cg" id="cg-067" data-s="65.956" data-e="67.048"><div class="strip"><span class="cw" data-s="66.016" data-e="66.726"><i class="hl"></i><b>drásticamente</b></span><span class="cw" data-s="66.726" data-e="66.835"><i class="hl"></i><b>la</b></span><span class="cw" data-s="66.835" data-e="67.108"><i class="hl"></i><b>carga</b></span></div></div>
+      <div class="cg" id="cg-068" data-s="67.048" data-e="67.82"><div class="strip"><span class="cw" data-s="67.108" data-e="67.218"><i class="hl"></i><b>de</b></span><span class="cw" data-s="67.218" data-e="67.6"><i class="hl"></i><b>tokens.</b></span></div></div>
+      <div class="cg" id="cg-069" data-s="67.82" data-e="68.735"><div class="strip"><span class="cw" data-s="67.88" data-e="68.109"><i class="hl"></i><b>Esto</b></span><span class="cw" data-s="68.109" data-e="68.223"><i class="hl"></i><b>ya</b></span><span class="cw" data-s="68.223" data-e="68.395"><i class="hl"></i><b>por</b></span><span class="cw" data-s="68.395" data-e="68.795"><i class="hl"></i><b>defecto</b></span></div></div>
+      <div class="cg" id="cg-070" data-s="68.735" data-e="69.821"><div class="strip"><span class="cw" data-s="68.795" data-e="68.909"><i class="hl"></i><b>lo</b></span><span class="cw" data-s="68.909" data-e="69.252"><i class="hl"></i><b>tienen</b></span><span class="cw" data-s="69.252" data-e="69.881"><i class="hl"></i><b>habilitados</b></span></div></div>
+      <div class="cg" id="cg-071" data-s="69.821" data-e="70.793"><div class="strip"><span class="cw" data-s="69.881" data-e="70.224"><i class="hl"></i><b>varios</b></span><span class="cw" data-s="70.224" data-e="70.853"><i class="hl"></i><b>frameworks.</b></span></div></div>
+      <div class="cg" id="cg-072" data-s="70.793" data-e="71.537"><div class="strip"><span class="cw" data-s="70.853" data-e="70.968"><i class="hl"></i><b>En</b></span><span class="cw" data-s="70.968" data-e="71.082"><i class="hl"></i><b>el</b></span><span class="cw" data-s="71.082" data-e="71.425"><i class="hl"></i><b>Google</b></span><span class="cw" data-s="71.425" data-e="71.597"><i class="hl"></i><b>ADK</b></span></div></div>
+      <div class="cg" id="cg-073" data-s="71.537" data-e="73.08"><div class="strip"><span class="cw" data-s="71.597" data-e="71.711"><i class="hl"></i><b>tú</b></span><span class="cw" data-s="71.711" data-e="71.825"><i class="hl"></i><b>lo</b></span><span class="cw" data-s="71.825" data-e="72.34"><i class="hl"></i><b>habilitas</b></span><span class="cw" data-s="72.34" data-e="73.14"><i class="hl"></i><b>utilizando</b></span></div></div>
+      <div class="cg" id="cg-074" data-s="73.08" data-e="75.0"><div class="strip"><span class="cw" data-s="73.14" data-e="74.98"><i class="hl"></i><b>EventsCompactionConfig</b></span><span class="cw" data-s="74.98" data-e="75.06"><i class="hl"></i><b>y</b></span></div></div>
+      <div class="cg" id="cg-075" data-s="75.0" data-e="76.9"><div class="strip"><span class="cw" data-s="75.06" data-e="75.22"><i class="hl"></i><b>el</b></span><span class="cw" data-s="75.22" data-e="76.74"><i class="hl"></i><b>LlmEventSummarizer.</b></span></div></div>
+      <div class="cg" id="cg-076" data-s="76.9" data-e="77.474"><div class="strip"><span class="cw" data-s="76.96" data-e="77.075"><i class="hl"></i><b>Le</b></span><span class="cw" data-s="77.075" data-e="77.419"><i class="hl"></i><b>mandas</b></span><span class="cw" data-s="77.419" data-e="77.534"><i class="hl"></i><b>tu</b></span></div></div>
+      <div class="cg" id="cg-077" data-s="77.474" data-e="78.737"><div class="strip"><span class="cw" data-s="77.534" data-e="78.338"><i class="hl"></i><b>configuración,</b></span><span class="cw" data-s="78.338" data-e="78.452"><i class="hl"></i><b>tu</b></span><span class="cw" data-s="78.452" data-e="78.797"><i class="hl"></i><b>modelo</b></span></div></div>
+      <div class="cg" id="cg-078" data-s="78.737" data-e="79.311"><div class="strip"><span class="cw" data-s="78.797" data-e="78.854"><i class="hl"></i><b>y</b></span><span class="cw" data-s="78.854" data-e="78.969"><i class="hl"></i><b>tu</b></span><span class="cw" data-s="78.969" data-e="79.314"><i class="hl"></i><b>umbral</b></span><span class="cw" data-s="79.314" data-e="79.371"><i class="hl"></i><b>y</b></span></div></div>
+      <div class="cg" id="cg-079" data-s="79.311" data-e="79.885"><div class="strip"><span class="cw" data-s="79.371" data-e="79.486"><i class="hl"></i><b>él</b></span><span class="cw" data-s="79.486" data-e="79.601"><i class="hl"></i><b>va</b></span><span class="cw" data-s="79.601" data-e="79.658"><i class="hl"></i><b>a</b></span><span class="cw" data-s="79.658" data-e="79.945"><i class="hl"></i><b>hacer</b></span></div></div>
+      <div class="cg" id="cg-080" data-s="79.885" data-e="81.148"><div class="strip"><span class="cw" data-s="79.945" data-e="80.175"><i class="hl"></i><b>esto</b></span><span class="cw" data-s="80.175" data-e="81.036"><i class="hl"></i><b>automáticamente</b></span><span class="cw" data-s="81.036" data-e="81.208"><i class="hl"></i><b>por</b></span></div></div>
+      <div class="cg" id="cg-081" data-s="81.148" data-e="81.73"><div class="strip"><span class="cw" data-s="81.208" data-e="81.38"><i class="hl"></i><b>ti.</b></span></div></div>
+      <div class="cg" id="cg-082" data-s="82.66" data-e="83.315"><div class="strip"><span class="cw" data-s="82.72" data-e="82.871"><i class="hl"></i><b>Así</b></span><span class="cw" data-s="82.871" data-e="83.022"><i class="hl"></i><b>que</b></span><span class="cw" data-s="83.022" data-e="83.274"><i class="hl"></i><b>luego</b></span><span class="cw" data-s="83.274" data-e="83.375"><i class="hl"></i><b>de</b></span></div></div>
+      <div class="cg" id="cg-083" data-s="83.315" data-e="84.424"><div class="strip"><span class="cw" data-s="83.375" data-e="83.93"><i class="hl"></i><b>implementar</b></span><span class="cw" data-s="83.93" data-e="84.131"><i class="hl"></i><b>esta</b></span><span class="cw" data-s="84.131" data-e="84.484"><i class="hl"></i><b>mejora,</b></span></div></div>
+      <div class="cg" id="cg-084" data-s="84.424" data-e="85.231"><div class="strip"><span class="cw" data-s="84.484" data-e="84.636"><i class="hl"></i><b>fui</b></span><span class="cw" data-s="84.636" data-e="84.938"><i class="hl"></i><b>viendo</b></span><span class="cw" data-s="84.938" data-e="85.089"><i class="hl"></i><b>los</b></span><span class="cw" data-s="85.089" data-e="85.291"><i class="hl"></i><b>logs</b></span></div></div>
+      <div class="cg" id="cg-085" data-s="85.231" data-e="86.289"><div class="strip"><span class="cw" data-s="85.291" data-e="85.392"><i class="hl"></i><b>de</b></span><span class="cw" data-s="85.392" data-e="85.946"><i class="hl"></i><b>facturación</b></span><span class="cw" data-s="85.946" data-e="86.198"><i class="hl"></i><b>desde</b></span><span class="cw" data-s="86.198" data-e="86.349"><i class="hl"></i><b>que</b></span></div></div>
+      <div class="cg" id="cg-086" data-s="86.289" data-e="87.247"><div class="strip"><span class="cw" data-s="86.349" data-e="86.853"><i class="hl"></i><b>implementé</b></span><span class="cw" data-s="86.853" data-e="87.055"><i class="hl"></i><b>este</b></span><span class="cw" data-s="87.055" data-e="87.307"><i class="hl"></i><b>nuevo</b></span></div></div>
+      <div class="cg" id="cg-087" data-s="87.247" data-e="87.841"><div class="strip"><span class="cw" data-s="87.307" data-e="87.66"><i class="hl"></i><b>release</b></span><span class="cw" data-s="87.66" data-e="87.72"><i class="hl"></i><b>y</b></span><span class="cw" data-s="87.72" data-e="87.901"><i class="hl"></i><b>las</b></span></div></div>
+      <div class="cg" id="cg-088" data-s="87.841" data-e="89.046"><div class="strip"><span class="cw" data-s="87.901" data-e="88.744"><i class="hl"></i><b>conversaciones</b></span><span class="cw" data-s="88.744" data-e="89.106"><i class="hl"></i><b>siguen</b></span></div></div>
+      <div class="cg" id="cg-089" data-s="89.046" data-e="90.19"><div class="strip"><span class="cw" data-s="89.106" data-e="89.768"><i class="hl"></i><b>manteniendo</b></span><span class="cw" data-s="89.768" data-e="90.25"><i class="hl"></i><b>calidad,</b></span></div></div>
+      <div class="cg" id="cg-090" data-s="90.19" data-e="91.335"><div class="strip"><span class="cw" data-s="90.25" data-e="90.491"><i class="hl"></i><b>pero</b></span><span class="cw" data-s="90.491" data-e="90.612"><i class="hl"></i><b>mi</b></span><span class="cw" data-s="90.612" data-e="91.274"><i class="hl"></i><b>facturación</b></span><span class="cw" data-s="91.274" data-e="91.395"><i class="hl"></i><b>ha</b></span></div></div>
+      <div class="cg" id="cg-091" data-s="91.335" data-e="91.997"><div class="strip"><span class="cw" data-s="91.395" data-e="91.756"><i class="hl"></i><b>bajado</b></span><span class="cw" data-s="91.756" data-e="91.816"><i class="hl"></i><b>y</b></span><span class="cw" data-s="91.816" data-e="91.937"><i class="hl"></i><b>ya</b></span><span class="cw" data-s="91.937" data-e="92.057"><i class="hl"></i><b>no</b></span></div></div>
+      <div class="cg" id="cg-092" data-s="91.997" data-e="93.07"><div class="strip"><span class="cw" data-s="92.057" data-e="92.298"><i class="hl"></i><b>está</b></span><span class="cw" data-s="92.298" data-e="92.419"><i class="hl"></i><b>en</b></span><span class="cw" data-s="92.419" data-e="92.72"><i class="hl"></i><b>alta.</b></span></div></div>
+     </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      document.querySelectorAll("#cap-layer .cg").forEach((g) => {
+        const s = parseFloat(g.dataset.s);
+        const e = parseFloat(g.dataset.e);
+        const strip = g.querySelector(".strip");
+        tl.set(g, { display: "block", opacity: 1 }, s);
+        // The strip is slapped down like a paper label: slight overshoot, no fade.
+        tl.fromTo(strip, { scale: 1.08, rotation: -2.2, y: 6 }, { scale: 1, rotation: -1, y: 0, duration: 0.16, ease: "expo.out" }, s);
+        g.querySelectorAll(".cw").forEach((w) => {
+          const ws = parseFloat(w.dataset.s);
+          const we = parseFloat(w.dataset.e);
+          const hl = w.querySelector(".hl");
+          const b = w.querySelector("b");
+          tl.set(b, { opacity: 1 }, ws);
+          tl.fromTo(hl, { scaleX: 0 }, { scaleX: 1, duration: Math.min(0.14, Math.max(0.06, we - ws)), ease: "power2.out" }, ws);
+          tl.set(hl, { scaleX: 0 }, Math.max(we, ws + 0.12));
+        });
+        tl.to(g, { opacity: 0, duration: 0.08, ease: "power2.in" }, e - 0.08);
+        tl.set(g, { opacity: 0, display: "none" }, e);
+      });
+      tl.set({}, {}, 93.2);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["captions"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,34 @@
+{
+  "name": "my-video-workspace",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "new-video": "node scripts/new-video.mjs",
+    "pnpm12:dev": "pnpm --dir videos/pnpm12 dev",
+    "pnpm12:check": "pnpm --dir videos/pnpm12 check",
+    "pnpm12:render": "pnpm --dir videos/pnpm12 render",
+    "pnpm12:publish": "pnpm --dir videos/pnpm12 publish",
+    "office_hours:dev": "pnpm --dir videos/office_hours dev",
+    "office_hours:check": "pnpm --dir videos/office_hours check",
+    "office_hours:render": "pnpm --dir videos/office_hours render",
+    "office_hours:publish": "pnpm --dir videos/office_hours publish",
+    "effects:dev": "pnpm --dir videos/effects dev",
+    "effects:check": "pnpm --dir videos/effects check",
+    "effects:render": "pnpm --dir videos/effects render",
+    "effects:publish": "pnpm --dir videos/effects publish",
+    "gem_latest:dev": "pnpm --dir videos/gem_latest dev",
+    "gem_latest:check": "pnpm --dir videos/gem_latest check",
+    "gem_latest:render": "pnpm --dir videos/gem_latest render",
+    "gem_latest:publish": "pnpm --dir videos/gem_latest publish",
+    "cf-locations:dev": "pnpm --dir videos/cf-locations dev",
+    "cf-locations:check": "pnpm --dir videos/cf-locations check",
+    "cf-locations:render": "pnpm --dir videos/cf-locations render",
+    "cf-locations:publish": "pnpm --dir videos/cf-locations publish"
+  },
+
+  "devDependencies": {
+    "@hyperframes/core": "0.8.164",
+    "hyperframes": "0.8.164",
+    "playwright": "1.64.1"
+  }
+}

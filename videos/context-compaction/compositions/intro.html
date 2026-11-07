@@ -1,0 +1,132 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    /* Everything in the shot lives on one sheet, so the tear at the end takes it all. */
+    #intro-sheet {
+      position: absolute;
+      inset: 0;
+    }
+    #intro-inner {
+      position: absolute;
+      inset: 0;
+    }
+    #intro-rim {
+      position: absolute;
+      inset: 0;
+      background: var(--color-paper, #f6f2e8);
+    }
+    #intro-hook {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1080px;
+      height: 1920px;
+    }
+    .intro-t {
+      position: absolute;
+      font-size: 112px;
+    }
+    #intro-t1 { left: 84px; top: 716px; }
+    #intro-t2 { left: 150px; top: 846px; }
+    #intro-t3 { left: 76px; top: 984px; }
+    #intro-t4 { left: 556px; top: 962px; font-size: 140px; }
+    #intro-bill {
+      position: absolute;
+      left: 760px;
+      top: 1150px;
+      width: 260px;
+      height: 170px;
+      overflow: visible;
+    }
+    #intro-ctx {
+      position: absolute;
+      left: 120px;
+      top: 900px;
+      font-size: 190px;
+    }
+  </style>
+  <div id="root" data-composition-id="intro" data-width="1080" data-height="1920">
+    <div id="intro-sheet">
+     <div id="intro-inner">
+      <div class="cam" id="intro-cam">
+        <video
+          id="intro-video"
+          class="clip"
+          src="assets/footage/intro.mp4"
+          data-start="0"
+          data-duration="7.44"
+          data-media-start="0"
+          data-track-index="1"
+          muted
+          playsinline
+        ></video>
+      </div>
+
+      <div id="intro-hook" class="lift">
+        <div id="intro-t1" class="intro-t tape">Cómo evitar que</div>
+        <div id="intro-t2" class="intro-t tape">tus agentes de IA</div>
+        <div id="intro-t3" class="intro-t tape">te dejen en</div>
+        <div id="intro-t4" class="intro-t tape yellow">quiebra</div>
+        <!-- 💸 as a cut-paper banknote with wings (no emoji glyphs in the render) -->
+        <svg id="intro-bill" viewBox="0 0 260 170" aria-hidden="true">
+          <path id="intro-wing-l" d="M18 70 C-6 40 6 8 42 14 C30 30 36 50 58 62 Z" fill="#fff" stroke="#141218" stroke-width="5" stroke-linejoin="round" />
+          <path id="intro-wing-r" d="M242 70 C266 40 254 8 218 14 C230 30 224 50 202 62 Z" fill="#fff" stroke="#141218" stroke-width="5" stroke-linejoin="round" />
+          <rect x="46" y="52" width="168" height="96" rx="6" fill="#8CC07A" stroke="#141218" stroke-width="5" />
+          <rect x="60" y="64" width="140" height="72" rx="4" fill="none" stroke="#141218" stroke-width="3" stroke-dasharray="7 6" />
+          <circle cx="130" cy="100" r="25" fill="#F6F2E8" stroke="#141218" stroke-width="4" />
+          <text x="130" y="114" text-anchor="middle" font-family="League Gothic" font-size="40" fill="#141218">$</text>
+        </svg>
+      </div>
+
+      <div id="intro-ctx-wrap" class="lift">
+        <div id="intro-ctx" class="tape yellow">Contexto</div>
+      </div>
+     </div>
+    </div>
+    <div id="intro-rim"></div>
+  </div>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const ROT = { t1: -3, t2: 2, t3: -1.5, t4: 4, bill: -8, ctx: -4 };
+      gsap.set("#intro-t1", { rotation: ROT.t1 });
+      gsap.set("#intro-t2", { rotation: ROT.t2 });
+      gsap.set("#intro-t3", { rotation: ROT.t3 });
+      gsap.set("#intro-t4", { rotation: ROT.t4 });
+      gsap.set("#intro-bill", { rotation: ROT.bill, opacity: 0 });
+      gsap.set("#intro-ctx", { rotation: ROT.ctx, opacity: 0 });
+      gsap.set("#intro-wing-l", { transformOrigin: "100% 100%" });
+      gsap.set("#intro-wing-r", { transformOrigin: "0% 100%" });
+
+      // Frame 0 is the thumbnail: the hook is already pasted on.
+      // The winged bill flies in and flaps on twos (stop-motion) until the tapes go.
+      PC.slap(tl, "#intro-bill", 0.6, { rot: ROT.bill, from: 1.35, dx: 120, dy: -90, spin: -16, dur: 0.32 });
+      tl.to("#intro-wing-l", { rotation: 16, duration: 0.14, ease: "steps(1)", yoyo: true, repeat: 15 }, 0.95);
+      tl.to("#intro-wing-r", { rotation: -16, duration: 0.14, ease: "steps(1)", yoyo: true, repeat: 15 }, 0.95);
+
+      // "culpable" (3.31): the hook is ripped off, last piece first.
+      PC.pull(tl, "#intro-t4", 3.3, { rot: ROT.t4, toX: 520, toY: -1300 });
+      PC.pull(tl, "#intro-bill", 3.36, { rot: ROT.bill, toX: 700, toY: -900, spin: 20 });
+      PC.pull(tl, "#intro-t3", 3.4, { rot: ROT.t3, toX: -640, toY: -1100 });
+      PC.pull(tl, "#intro-t2", 3.48, { rot: ROT.t2, toX: 420 });
+      PC.pull(tl, "#intro-t1", 3.56, { rot: ROT.t1, toX: -360 });
+
+      // Punch-in on "Yo, obviamente" (3.80).
+      tl.fromTo("#intro-cam", { scale: 1, y: 0 }, { scale: 1.15, y: 120, duration: 0.5, ease: "power2.inOut", immediateRender: false }, 3.72);
+
+      // "contexto" (6.24): the yellow tape is slapped across the chest.
+      PC.slap(tl, "#intro-ctx", 6.2, { rot: ROT.ctx, from: 1.25, spin: 7, dy: -30 });
+
+      // 7.0: the whole sheet is torn away onto the console underneath.
+      PC.rip(tl, "#intro-sheet", "#intro-inner", "#intro-rim", 7.0, { dur: 0.45, seed: 11 });
+      tl.set({}, {}, 7.45);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["intro"] = tl;
+    })();
+  </script>
+</template>

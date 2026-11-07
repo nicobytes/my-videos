@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/v2.css" />
+  </head>
+  <body>
+    <template id="c03-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #c03-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Figtree", sans-serif;
+          color: #2c2c2a;
+        }
+        #c03-title { left: 146px; top: 652px; font-size: 36px; font-weight: 700; }
+        #c03-window { left: 146px; top: 750px; width: 788px; height: 350px; overflow: hidden; }
+        #c03-strip { position: absolute; left: 0; top: 0; height: 350px; }
+        .c03-week { position: absolute; top: 0; width: 240px; height: 350px; border-radius: 28px; background: #f1efe8; border: 2px solid #e4e1d8; padding: 26px 24px; display: flex; flex-direction: column; gap: 10px; }
+        .c03-week b { font-size: 24px; font-weight: 600; color: #8a8880; letter-spacing: 0.04em; }
+        .c03-week i { font-style: normal; font-weight: 600; font-size: 46px; }
+        .c03-week span { font-size: 30px; font-weight: 600; color: #5f5e58; }
+        .c03-week em { margin-top: auto; align-self: flex-start; font-style: normal; font-size: 24px; font-weight: 700; color: #f6f4ef; background: #2c2c2a; border-radius: 22px; padding: 8px 18px; }
+      </style>
+
+      <!-- 3 · Weeks strip: 'y quizás tampoco es la primera vez'. The cursor drags it; the pill counts. -->
+      <div data-hf-id="hf-54wo" id="c03-root" data-composition-id="c03" data-start="0" data-duration="2.585" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-otpq" id="c03-world" class="world" data-layout-allow-overflow>
+          <div data-hf-id="hf-c7kf" id="c03-clip" class="clip-layer">
+            <div data-hf-id="hf-ulm3" id="c03-st" class="st">
+              <div data-hf-id="hf-oog5" id="c03-title" class="abs">Juan Pérez · martes 10:00</div>
+              <div data-hf-id="hf-k8k2" id="c03-window" class="abs" data-layout-allow-overflow>
+                <div data-hf-id="hf-n1lh" id="c03-strip" data-layout-allow-overflow>
+                  <div data-hf-id="hf-rxky" class="c03-week" style="left: 0px"><b data-hf-id="hf-fd31">SEMANA 1</b><i data-hf-id="hf-5cxi" class="fr">12 may</i><span data-hf-id="hf-a1ge">10:00</span><em data-hf-id="hf-8qut">No llegó</em></div>
+                  <div data-hf-id="hf-bx6i" class="c03-week" style="left: 260px"><b data-hf-id="hf-gk04">SEMANA 2</b><i data-hf-id="hf-38mz" class="fr">19 may</i><span data-hf-id="hf-ki4i">10:00</span><em data-hf-id="hf-n4fd">No llegó</em></div>
+                  <div data-hf-id="hf-eowd" class="c03-week" style="left: 520px"><b data-hf-id="hf-g5p3">SEMANA 3</b><i data-hf-id="hf-14zp" class="fr">26 may</i><span data-hf-id="hf-kwfj">10:00</span><em data-hf-id="hf-obcg">No llegó</em></div>
+                  <div data-hf-id="hf-pjl9" class="c03-week" style="left: 780px"><b data-hf-id="hf-hcm6">SEMANA 4</b><i data-hf-id="hf-jqnb" class="fr">2 jun</i><span data-hf-id="hf-laqk">10:00</span><em data-hf-id="hf-nx1f">No llegó</em></div>
+                  <div data-hf-id="hf-g3lp" class="c03-week" style="left: 1040px"><b data-hf-id="hf-othf">HOY</b><i data-hf-id="hf-eeaa" class="fr">9 jun</i><span data-hf-id="hf-lp1l">10:00</span><em data-hf-id="hf-lxia">No llegó</em></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var P = window.Physics;
+          var A = R.A;
+          var S = R.S;
+          function $(id) {
+            return document.getElementById("c03-" + id);
+          }
+          var st = $("st");
+          var strip = $("strip");
+          window.__timelines["c03"] = R.mountState("weeks", $("root"), $("world"), $("clip"), function (t, span) {
+            R.apply(st, t, span[0], span[1]);
+            strip.style.transform = "translateX(" + R.weeksX(t).toFixed(2) + "px)";
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

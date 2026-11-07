@@ -1,0 +1,84 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #bu-label {
+      position: absolute;
+      left: 90px;
+      top: 620px;
+      width: 900px;
+      height: 360px;
+    }
+    #bu-squash {
+      position: absolute;
+      inset: 0;
+    }
+    #bu-l1 {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 170px;
+    }
+    #bu-l2 {
+      position: absolute;
+      left: 120px;
+      top: 170px;
+      font-size: 150px;
+    }
+  </style>
+  <div id="root" data-composition-id="busqueda" data-width="1080" data-height="1920">
+    <div class="cam" id="bu-cam">
+      <video
+        id="bu-video"
+        class="clip"
+        src="assets/footage/keywork.mp4"
+        data-start="0"
+        data-duration="6.9"
+        data-media-start="7.5"
+        data-track-index="1"
+        muted
+        playsinline
+      ></video>
+    </div>
+    <div id="bu-label" class="lift">
+      <div id="bu-squash">
+        <div id="bu-l1" class="tape">Ingeniería</div>
+        <div id="bu-l2" class="tape yellow">de contexto</div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      // Host starts at 33.0 s; times below are film seconds.
+      const S = 33.0;
+      const at = (g) => +(g - S).toFixed(3);
+      const tl = gsap.timeline({ paused: true });
+      const ROT = { l1: -3, l2: 2 };
+      gsap.set("#bu-l1", { rotation: ROT.l1, opacity: 0 });
+      gsap.set("#bu-l2", { rotation: ROT.l2, opacity: 0 });
+      gsap.set("#bu-cam", { transformOrigin: "50% 30%" });
+      gsap.set("#bu-squash", { transformOrigin: "50% 50%" });
+
+      // The search: one slow push toward the monitor.
+      tl.fromTo("#bu-cam", { scale: 1 }, { scale: 1.06, duration: 6.3, ease: "power1.inOut", immediateRender: false }, at(33.0));
+
+      // "ingeniería de contexto" (36.07).
+      PC.slap(tl, "#bu-l1", at(36.05), { rot: ROT.l1, from: 1.18, dy: -40 });
+      PC.slap(tl, "#bu-l2", at(36.5), { rot: ROT.l2, from: 1.18, dy: -40 });
+
+      // "compactarlo" (38.83): the label is squeezed from the sides.
+      tl.to("#bu-squash", { scaleX: 0.42, scaleY: 1.12, duration: 0.32, ease: "power3.inOut" }, at(38.85));
+
+      // 39.5: the squeezed label drops away and the camera dives toward the screen.
+      PC.pull(tl, "#bu-label", at(39.5), { toY: 1500, spin: -6, dur: 0.26 });
+      tl.to("#bu-cam", { scale: 1.3, duration: 0.2, ease: "power3.in" }, at(39.7));
+      tl.set({}, {}, 6.9);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["busqueda"] = tl;
+    })();
+  </script>
+</template>

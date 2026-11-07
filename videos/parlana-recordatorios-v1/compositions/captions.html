@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="captions-template">
+      <style>
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #captions-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        /* Reels safe zone (shared/CAPTIONS.md): plate bottom edge 340px above the frame edge. */
+        .cap {
+          position: absolute;
+          left: 110px;
+          right: 110px;
+          bottom: 340px;
+          display: flex;
+          justify-content: center;
+        }
+        .cap-plate {
+          display: flex;
+          gap: 14px;
+          align-items: center;
+          padding: 20px 36px;
+          border-radius: 9999px;
+          background: rgba(44, 44, 42, 0.94);
+          font-family: "Figtree", sans-serif;
+          font-weight: 700;
+          font-size: 52px;
+          line-height: 1.2;
+          white-space: nowrap;
+        }
+        /* Karaoke: upcoming grey → active cream on a green chip → spoken cream. Padding is constant
+           so the chip never shifts the line. */
+        .cap-w {
+          color: #a9a79f;
+          padding: 0 12px;
+          margin: 0 -12px;
+          border-radius: 14px;
+          background: rgba(21, 91, 63, 0);
+        }
+      </style>
+
+      <div data-hf-id="hf-anqy" id="captions-root" data-composition-id="captions" data-start="0" data-duration="53.75" data-width="1080" data-height="1920"></div>
+
+      <script>
+        (function () {
+          // Global seconds, from the voice transcript (assets/vo/transcript.json, whisper large-v3).
+          // Text is the spoken words with the script's spelling and punctuation. A 1 s pause was opened
+          // after "antes" (assets/vo/voice-nopause.wav is the take before it).
+          var DUR = 53.75;
+          var WORDS = [
+            ["Puff,", 0.06, 0.34],
+            ["son", 0.34, 0.53],
+            ["las", 0.59, 0.72],
+            ["10", 0.72, 1.08],
+            ["de", 1.08, 1.19],
+            ["la", 1.19, 1.32],
+            ["mañana.", 1.32, 1.80],
+            ["Ana", 1.80, 1.98],
+            ["espera", 1.98, 2.30],
+            ["a", 2.34, 2.40],
+            ["su", 2.40, 2.52],
+            ["paciente,", 2.52, 3.12],
+            ["que", 3.12, 3.30],
+            ["nunca", 3.42, 3.60],
+            ["llega.", 3.60, 4.14],
+            ["No", 4.14, 4.39],
+            ["avisó.", 4.39, 4.95],
+            ["No", 4.96, 5.03],
+            ["contesta.", 5.24, 6.02],
+            ["Y", 6.02, 6.08],
+            ["no", 6.08, 6.21],
+            ["es", 6.21, 6.32],
+            ["la", 6.32, 6.44],
+            ["primera", 6.44, 6.86],
+            ["vez,", 6.86, 7.09],
+            ["en", 7.26, 7.34],
+            ["muchos", 7.34, 7.78],
+            ["consultorios,", 7.78, 8.79],
+            ["una", 8.79, 9.01],
+            ["de", 9.01, 9.14],
+            ["cada", 9.26, 9.44],
+            ["5", 9.44, 9.66],
+            ["citas", 9.66, 9.99],
+            ["termina", 10.16, 10.53],
+            ["así.", 10.53, 10.94],
+            ["Una", 11.15, 11.17],
+            ["hora", 11.17, 11.44],
+            ["perdida", 11.44, 11.91],
+            ["que", 11.91, 12.11],
+            ["se", 12.11, 12.14],
+            ["pudo", 12.24, 12.50],
+            ["haber", 12.50, 12.84],
+            ["evitado", 12.84, 13.30],
+            ["con", 13.30, 13.50],
+            ["un", 13.50, 13.63],
+            ["mensaje", 13.63, 14.06],
+            ["de", 14.06, 14.27],
+            ["solo", 14.27, 14.50],
+            ["14", 14.50, 14.91],
+            ["centavos.", 14.91, 15.62],
+            ["La", 15.73, 15.76],
+            ["solución", 15.76, 16.14],
+            ["es", 16.14, 16.21],
+            ["simple:", 16.32, 16.61],
+            ["un", 16.61, 16.68],
+            ["recordatorio", 16.70, 17.28],
+            ["por", 17.28, 17.39],
+            ["WhatsApp", 17.44, 17.80],
+            ["el", 17.80, 17.89],
+            ["día", 17.89, 18.03],
+            ["antes.", 18.03, 18.42],
+            ["Los", 19.88, 20.00],
+            ["estudios", 20.00, 20.26],
+            ["muestran", 20.26, 20.80],
+            ["que", 20.80, 21.01],
+            ["un", 21.01, 21.15],
+            ["aviso", 21.15, 21.49],
+            ["de", 21.49, 21.63],
+            ["notificación", 21.63, 22.46],
+            ["baja", 22.46, 22.74],
+            ["las", 22.74, 22.95],
+            ["inasistencias", 22.95, 23.83],
+            ["entre", 23.83, 24.18],
+            ["5", 24.18, 24.39],
+            ["y", 24.39, 24.46],
+            ["10", 24.46, 24.87],
+            ["puntos.", 24.87, 25.47],
+            ["¿Y", 25.49, 25.58],
+            ["cuánto", 25.97, 26.04],
+            ["cuesta?", 26.04, 26.63],
+            ["14", 26.68, 27.09],
+            ["centavos", 27.21, 27.72],
+            ["por", 27.72, 27.88],
+            ["mensaje,", 27.97, 28.54],
+            ["por", 28.84, 28.87],
+            ["la", 28.87, 29.02],
+            ["API", 29.02, 29.25],
+            ["oficial.", 29.25, 29.88],
+            ["Si", 30.00, 30.02],
+            ["hacemos", 30.02, 30.53],
+            ["los", 30.53, 30.74],
+            ["cálculos:", 30.74, 31.43],
+            ["500", 31.51, 32.10],
+            ["recordatorios", 32.10, 32.94],
+            ["al", 33.02, 33.17],
+            ["mes,", 33.30, 33.52],
+            ["71", 33.52, 33.81],
+            ["bolivianos.", 33.94, 34.79],
+            ["Eso", 34.79, 34.91],
+            ["sí,", 35.12, 35.28],
+            ["que", 35.28, 35.48],
+            ["sea", 35.49, 35.61],
+            ["solo", 35.69, 35.99],
+            ["de", 36.09, 36.13],
+            ["recordatorio.", 36.13, 37.12],
+            ["Si", 37.14, 37.27],
+            ["le", 37.27, 37.41],
+            ["pones", 37.41, 37.77],
+            ["una", 37.77, 37.98],
+            ["oferta,", 37.98, 38.55],
+            ["WhatsApp", 38.55, 38.98],
+            ["lo", 39.14, 39.26],
+            ["cobra", 39.26, 39.57],
+            ["como", 39.58, 39.81],
+            ["si", 40.04, 40.05],
+            ["fuera", 40.05, 40.41],
+            ["un", 40.41, 40.55],
+            ["mensaje", 40.55, 41.05],
+            ["de", 41.05, 41.19],
+            ["marketing,", 41.19, 41.97],
+            ["y", 41.97, 42.05],
+            ["pasa", 42.12, 42.34],
+            ["de", 42.34, 42.48],
+            ["14", 42.48, 42.91],
+            ["a", 42.91, 42.98],
+            ["94", 43.10, 43.41],
+            ["centavos.", 43.41, 44.51],
+            ["Con", 44.56, 44.72],
+            ["nuestros", 44.72, 45.25],
+            ["agentes,", 45.25, 45.84],
+            ["cada", 45.84, 46.09],
+            ["cita", 46.16, 46.36],
+            ["se", 46.36, 46.49],
+            ["recuerda", 46.49, 47.02],
+            ["y", 47.02, 47.04],
+            ["se", 47.09, 47.21],
+            ["confirma", 47.21, 47.74],
+            ["sola", 47.74, 48.00],
+            ["en", 48.00, 48.13],
+            ["el", 48.13, 48.26],
+            ["mismo", 48.26, 48.46],
+            ["chat.", 48.76, 49.08],
+            ["¿Quieres", 49.08, 49.51],
+            ["que", 49.51, 49.69],
+            ["no", 49.69, 49.75],
+            ["te", 49.85, 49.93],
+            ["pase", 49.93, 50.17],
+            ["lo", 50.17, 50.29],
+            ["de", 50.29, 50.41],
+            ["Ana?", 50.41, 50.71],
+            ["Comenta", 50.71, 51.13],
+            ["CITAS", 51.13, 51.43],
+            ["y", 51.43, 51.45],
+            ["te", 51.49, 51.61],
+            ["muestro", 51.61, 52.03],
+            ["cómo.", 52.03, 52.56],
+          ];
+          var MAX_CHARS = 26; // one line at 52px stays inside the 860px safe width
+          var SENTENCE_END = /[.?!…]$/;
+          var CLAUSE_END = /[,;:]$/;
+          // A plate should not end on a short linking word ("y", "las", "por"…).
+          var WEAK_END = ["y", "a", "de", "del", "que", "la", "las", "el", "los", "en", "con", "por", "un", "una", "lo", "se", "su", "sus", "no", "te", "entre", "al", "para", "o", "si", "como"];
+
+          // 1. Word timings from the transcript.
+          var words = WORDS.map(function (row) {
+            var end = SENTENCE_END.test(row[0]);
+            return { w: row[0], t: row[1], e: Math.max(row[2], row[1] + 0.08), breakAfter: end, lineEnd: end };
+          });
+
+          // 2. Caption groups: one line each (≤ MAX_CHARS) and a new plate at every sentence end.
+          //    Inside a sentence, an optimal partition (fewest plates, most even lengths, no plate ending
+          //    on a linking word, clause breaks preferred) keeps phrases like "catorce centavos" whole.
+          var segments = [];
+          var seg = [];
+          words.forEach(function (w) {
+            seg.push(w);
+            if (w.breakAfter || w.lineEnd) {
+              segments.push(seg);
+              seg = [];
+            }
+          });
+          if (seg.length) segments.push(seg);
+
+          function textOf(list) {
+            return list
+              .map(function (w) {
+                return w.w;
+              })
+              .join(" ");
+          }
+          function plateCost(list, target) {
+            var l = textOf(list).length;
+            var cost = (l - target) * (l - target);
+            var last = list[list.length - 1].w.toLowerCase();
+            if (WEAK_END.indexOf(last) >= 0) cost += 60;
+            if (CLAUSE_END.test(last)) cost -= 15;
+            return { length: l, cost: cost };
+          }
+          function partition(s) {
+            var m = s.length;
+            var total = textOf(s).length;
+            for (var plates = Math.ceil(total / MAX_CHARS); plates <= m; plates++) {
+              var target = total / plates;
+              var INF = 1e9;
+              var dp = [];
+              var from = [];
+              for (var p = 0; p <= plates; p++) {
+                dp.push(new Array(m + 1).fill(INF));
+                from.push(new Array(m + 1).fill(-1));
+              }
+              dp[0][0] = 0;
+              for (var q = 1; q <= plates; q++) {
+                for (var j = 1; j <= m; j++) {
+                  for (var i = q - 1; i < j; i++) {
+                    if (dp[q - 1][i] >= INF) continue;
+                    var pc = plateCost(s.slice(i, j), target);
+                    if (pc.length > MAX_CHARS) continue;
+                    if (dp[q - 1][i] + pc.cost < dp[q][j]) {
+                      dp[q][j] = dp[q - 1][i] + pc.cost;
+                      from[q][j] = i;
+                    }
+                  }
+                }
+              }
+              if (dp[plates][m] < INF) {
+                var out = [];
+                var end = m;
+                for (var r = plates; r > 0; r--) {
+                  var startIdx = from[r][end];
+                  out.unshift(s.slice(startIdx, end));
+                  end = startIdx;
+                }
+                return out;
+              }
+            }
+            return [s];
+          }
+
+          var groups = [];
+          segments.forEach(function (s) {
+            partition(s).forEach(function (g) {
+              groups.push(g);
+            });
+          });
+
+          // 3. DOM + timeline.
+          var root = document.getElementById("captions-root");
+          var tl = gsap.timeline({ paused: true });
+          groups.forEach(function (g, gi) {
+            var cap = document.createElement("div");
+            cap.className = "cap";
+            var plate = document.createElement("div");
+            plate.className = "cap-plate";
+            g.forEach(function (w) {
+              var span = document.createElement("span");
+              span.className = "cap-w";
+              span.textContent = w.w;
+              plate.appendChild(span);
+              w.el = span;
+            });
+            cap.appendChild(plate);
+            root.appendChild(cap);
+
+            var start = g[0].t - 0.06;
+            var next = groups[gi + 1];
+            var end = Math.min(next ? next[0].t - 0.08 : DUR, g[g.length - 1].e + 0.35);
+            // Plates cut in and out (never a half-transparent plate); a short lift sells the arrival.
+            tl.fromTo(cap, { opacity: 0 }, { opacity: 1, duration: 0.01, ease: "none" }, start);
+            tl.fromTo(cap, { y: 10 }, { y: 0, duration: 0.14, ease: "power2.out" }, start);
+            tl.to(cap, { opacity: 0, duration: 0.01, ease: "none" }, end);
+            g.forEach(function (w) {
+              tl.set(w.el, { color: "#f6f4ef", backgroundColor: "rgba(21, 91, 63, 1)" }, w.t);
+              tl.set(w.el, { backgroundColor: "rgba(21, 91, 63, 0)" }, w.e);
+            });
+          });
+
+          window.__timelines["captions"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

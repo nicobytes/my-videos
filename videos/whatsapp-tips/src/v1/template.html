@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1080" />
+    <style>
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/Inter-400-latin.woff2") format("woff2");
+        font-weight: 400;
+        font-display: block;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("fonts/Inter-700-latin.woff2") format("woff2");
+        font-weight: 700;
+        font-display: block;
+      }
+      :root {
+        --teal: #075e54;
+        --green: #25d366;
+        --ink: #111111;
+        --bubble: #dcf8c6;
+        --card: #ffffff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #000;
+        font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+      }
+      #stage {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+      #frame {
+        position: absolute;
+        inset: 0;
+      }
+      #video-wrap {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 50%;
+      }
+      #video-wrap video {
+        width: 1080px;
+        height: 1920px;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* Top band plate (y 110–390, over the bookshelf) */
+      #B01_top_plate {
+        position: absolute;
+        left: 65px;
+        top: 110px;
+        width: 950px;
+        height: 280px;
+        background: var(--card);
+        border-radius: 32px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+        transform-origin: 50% 50%;
+      }
+      .tb {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        opacity: 0;
+      }
+      #B01_hook {
+        font-size: 84px;
+        font-weight: 700;
+        color: var(--teal);
+        line-height: 1.12;
+        padding: 0 40px;
+      }
+      #B01_hook .w {
+        display: inline-block;
+        margin: 0 8px;
+      }
+      #B02_three {
+        flex-direction: column;
+        color: var(--ink);
+      }
+      #B02_three .lbl {
+        font-size: 40px;
+        font-weight: 400;
+      }
+      #three {
+        font-size: 150px;
+        font-weight: 700;
+        color: var(--teal);
+        line-height: 1;
+      }
+      #B03_phrase {
+        font-size: 66px;
+        font-weight: 700;
+        color: var(--teal);
+        line-height: 1.15;
+        padding: 0 40px;
+      }
+      #B08_end_lockup {
+        opacity: 1;
+        gap: 28px;
+        flex-direction: row;
+      }
+      #B08_end_lockup .handle {
+        font-size: 64px;
+        font-weight: 700;
+        color: var(--teal);
+      }
+      .wa {
+        width: 130px;
+        height: 130px;
+        flex: none;
+      }
+
+      /* Tier card (zone y 883–1267, 46–66%) */
+      #B04_tier_card,
+      #B07_cta {
+        position: absolute;
+        left: 65px;
+        top: 883px;
+        width: 950px;
+        height: 384px;
+        background: var(--card);
+        border-radius: 36px;
+        box-shadow: 0 14px 44px rgba(0, 0, 0, 0.22);
+        overflow: hidden;
+      }
+      #B04_tier_card {
+        opacity: 0;
+      }
+      #B07_cta {
+        opacity: 0;
+      }
+      #badge {
+        position: absolute;
+        left: 36px;
+        top: 36px;
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: var(--teal);
+        color: #fff;
+        font-size: 56px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #title {
+        position: absolute;
+        left: 156px;
+        top: 52px;
+        right: 36px;
+        font-size: 60px;
+        font-weight: 700;
+        color: var(--teal);
+        line-height: 1.1;
+      }
+      #B04_tier1_bubbles {
+        position: absolute;
+        left: 36px;
+        top: 160px;
+        width: 878px;
+        height: 96px;
+      }
+      .bubble {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 96px;
+        padding: 0 34px;
+        display: flex;
+        align-items: center;
+        background: var(--bubble);
+        color: var(--ink);
+        font-size: 40px;
+        border-radius: 28px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        white-space: nowrap;
+        transform-origin: 50% 50%;
+      }
+      #B05_tier2_counter {
+        transform-origin: 0% 50%;
+        position: absolute;
+        left: 36px;
+        top: 140px;
+        width: 878px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        gap: 22px;
+      }
+      #count {
+        font-size: 110px;
+        font-weight: 700;
+        color: var(--teal);
+        line-height: 1;
+      }
+      #count-label {
+        font-size: 40px;
+        color: var(--ink);
+      }
+      #B05_tier2_chips {
+        position: absolute;
+        left: 36px;
+        top: 250px;
+        width: 878px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 14px;
+        opacity: 0;
+      }
+      .chip {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #e7fbef;
+        color: var(--teal);
+        font-size: 28px;
+        font-weight: 700;
+        padding: 10px 20px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+      .chip svg {
+        width: 28px;
+        height: 28px;
+        flex: none;
+      }
+      #B06_tier3_botflow {
+        position: absolute;
+        left: 36px;
+        top: 250px;
+        width: 430px;
+        height: 120px;
+        opacity: 0;
+      }
+      #B06_tier3_botflow .flowline {
+        stroke: var(--teal);
+        stroke-width: 4;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+      }
+      #B06_tier3_botflow .node {
+        fill: var(--green);
+        stroke: var(--teal);
+        stroke-width: 3;
+      }
+      #B06_tier3_reply {
+        position: absolute;
+        left: 500px;
+        top: 262px;
+        width: 378px;
+        height: 76px;
+        display: flex;
+        align-items: center;
+        padding: 0 28px;
+        background: var(--bubble);
+        color: var(--ink);
+        font-size: 36px;
+        border-radius: 26px;
+        opacity: 0;
+      }
+      #B06_tier3_ai_spark {
+        position: absolute;
+        right: 40px;
+        top: 160px;
+        width: 72px;
+        height: 72px;
+        opacity: 0;
+      }
+
+      /* CTA row */
+      #cta-text {
+        position: absolute;
+        left: 50px;
+        right: 50px;
+        top: 44px;
+        font-size: 50px;
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.3;
+        text-align: center;
+      }
+      .ul {
+        background: linear-gradient(var(--green), var(--green)) no-repeat 0 88%;
+        background-size: 0% 12px;
+      }
+      #cta-badges {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 230px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 36px;
+      }
+      .cb {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: var(--teal);
+        color: #fff;
+        font-size: 60px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .sep {
+        font-size: 60px;
+        color: var(--teal);
+        font-weight: 700;
+      }
+
+      /* Captions: pill at y 1420–1540 (~74–80%) */
+      .cap {
+        position: absolute;
+        left: 0;
+        top: 1420px;
+        width: 1080px;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .pill {
+        background: var(--teal);
+        color: #fff;
+        font-size: 52px;
+        font-weight: 700;
+        line-height: 1;
+        padding: 20px 40px;
+        border-radius: 999px;
+        white-space: nowrap;
+      }
+      #B05_tier2_counter { top: 132px; height: 96px; }
+      #count { font-size: 100px; }
+      #B05_count_bar { position: absolute; left: 36px; top: 236px; width: 878px; height: 8px; border-radius: 4px; background: #e7fbef; overflow: hidden; }
+      #B05_count_fill { width: 100%; height: 100%; background: var(--green); }
+      #B05_tier2_chips { top: 256px; }
+      #B06_tier3_botflow { top: 256px; }
+      #B01_hook { flex-wrap: wrap; align-content: center; row-gap: 4px; font-size: 72px; }
+      .ul { white-space: nowrap; }
+    </style>
+  </head>
+  <body>
+    <div
+      id="stage"
+      data-composition-id="whatsapp-tips-overlay"
+      data-start="0"
+      data-duration="46.98"
+      data-width="1080"
+      data-height="1920"
+    >
+      <audio id="B00_audio_mix" src="mix.m4a" data-start="0" data-duration="46.98" data-track-index="9"></audio>
+      <div id="frame">
+        <!-- Base layer: presenter, untouched except beat punch-ins on #video-wrap -->
+        <div id="video-wrap">
+          <video
+            id="bg-video"
+            src="input-video.mp4"
+            muted
+            playsinline
+            data-start="0"
+            data-duration="46.98"
+            data-track-index="0"
+          ></video>
+        </div>
+
+        <!-- Top band: hook, "3", morph phrase, and end lockup -->
+        <div id="B01_top_plate">
+          <div class="tb" id="B01_hook">
+            <span class="w">¿Usas</span><span class="w">WhatsApp</span><span class="w">para</span><span class="w">tener</span><span class="w">tus</span><span class="w">clientes?</span>
+          </div>
+          <div class="tb" id="B02_three">
+            <div class="lbl">¿Sabías que existen</div>
+            <div id="three">1</div>
+            <div class="lbl">tipos de WhatsApp y</div>
+          </div>
+          <div class="tb" id="B03_phrase">no todos sirven igual para tu negocio?</div>
+          <div class="tb" id="B08_end_lockup">
+            <!--WA-->
+            <div class="handle">@tuhandle</div>
+          </div>
+        </div>
+
+        <!-- Tier card: zone y 883–1267 -->
+        <div id="B04_tier_card">
+          <div id="badge">1</div>
+          <div id="title">WhatsApp normal</div>
+
+          <div id="B04_tier1_bubbles">
+            <div class="bubble" id="b1" data-layout-allow-overlap style="left:0px">Familia</div>
+            <div class="bubble" id="b2" data-layout-allow-overlap style="left:260px">Amigos</div>
+            <div class="bubble" id="b3" data-layout-allow-overlap style="left:520px">Grupos</div>
+          </div>
+
+          <div id="B05_tier2_counter">
+            <div id="count">10</div>
+            <div id="count-label">clientes al día</div>
+          </div>
+          <div id="B05_count_bar"><div id="B05_count_fill"></div></div>
+
+          <div id="B05_tier2_chips">
+            <div class="chip" id="chip1">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2" fill="#075e54"/><rect x="13" y="3" width="8" height="8" rx="2" fill="#075e54"/><rect x="3" y="13" width="8" height="8" rx="2" fill="#075e54"/><rect x="13" y="13" width="8" height="8" rx="2" fill="#075e54"/></svg>
+              Catálogo
+            </div>
+            <div class="chip" id="chip2">
+              <svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z" fill="#075e54"/></svg>
+              Respuestas rápidas
+            </div>
+            <div class="chip" id="chip3">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="#075e54" stroke-width="3"/><circle cx="12" cy="12" r="3" fill="#075e54"/></svg>
+              Mensajes automáticos
+            </div>
+          </div>
+
+          <svg id="B06_tier3_botflow" viewBox="0 0 430 120">
+            <line class="flowline" pathLength="1" x1="40" y1="60" x2="215" y2="30"/>
+            <line class="flowline" pathLength="1" x1="40" y1="60" x2="215" y2="90"/>
+            <line class="flowline" pathLength="1" x1="215" y1="30" x2="390" y2="60"/>
+            <line class="flowline" pathLength="1" x1="215" y1="90" x2="390" y2="60"/>
+            <circle class="node" cx="40" cy="60" r="16"/>
+            <circle class="node" cx="215" cy="30" r="16"/>
+            <circle class="node" cx="215" cy="90" r="16"/>
+            <circle class="node" cx="390" cy="60" r="16"/>
+          </svg>
+          <div id="B06_tier3_reply">¿En qué te ayudo?</div>
+          <svg id="B06_tier3_ai_spark" viewBox="0 0 24 24"><path d="M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10Z" fill="#25d366"/></svg>
+        </div>
+
+        <!-- CTA: badges row + phrase with green underline -->
+        <div id="B07_cta">
+          <div id="cta-text">Síguenos… cuéntanos <span class="ul" id="under">cuál de estos 3</span> estás usando</div>
+          <div id="cta-badges">
+            <div class="cb">1</div><div class="sep">·</div><div class="cb">2</div><div class="sep">·</div><div class="cb">3</div>
+          </div>
+        </div>
+
+        <!--CAPTIONS-->
+      </div>
+    </div>
+
+    <script src="vendor/gsap.min.js"></script>
+    <script>
+      (function () {
+        var tl = gsap.timeline({ paused: true });
+        var q = function (s) { return document.querySelector(s); };
+
+        // Brief ease: cubic-bezier(0.22, 1, 0.36, 1) — never exceeds 1, so no overshoot on text.
+        function bezier(x1, y1, x2, y2) {
+          function cx(u) { return 3 * (1 - u) * (1 - u) * u * x1 + 3 * (1 - u) * u * u * x2 + u * u * u; }
+          function cy(u) { return 3 * (1 - u) * (1 - u) * u * y1 + 3 * (1 - u) * u * u * y2 + u * u * u; }
+          return function (t) {
+            var lo = 0, hi = 1, u = t;
+            for (var i = 0; i < 25; i++) {
+              u = (lo + hi) / 2;
+              if (cx(u) < t) lo = u; else hi = u;
+            }
+            return cy(u);
+          };
+        }
+        var EASE = bezier(0.22, 1, 0.36, 1);
+        var EXIT = "power2.in";   // exits accelerate away, faster than entrances
+        var MOVE = "power2.inOut"; // moves between positions
+
+        // Initial states (inner, non-clip elements)
+        gsap.set("#B04_tier_card", { autoAlpha: 0, y: 1200 });
+        gsap.set("#badge", { autoAlpha: 0, scale: 0.5 });
+        gsap.set("#title", { autoAlpha: 0 });
+        gsap.set(".bubble", { autoAlpha: 0, scale: 0.6 });
+        gsap.set("#B05_tier2_counter", { autoAlpha: 0 });
+        gsap.set("#B05_count_bar", { autoAlpha: 0 });
+        gsap.set("#B05_count_fill", { scaleX: 0.2, transformOrigin: "0% 50%" });
+        gsap.set("#B05_tier2_chips", { autoAlpha: 0 });
+        gsap.set(".chip", { autoAlpha: 0 });
+        gsap.set("#B06_tier3_botflow", { autoAlpha: 0 });
+        gsap.set("#B06_tier3_reply", { autoAlpha: 0 });
+        gsap.set("#B06_tier3_ai_spark", { autoAlpha: 0 });
+        gsap.set("#B07_cta", { autoAlpha: 0 });
+        gsap.set(".cb", { autoAlpha: 0, scale: 0.5 });
+        gsap.set("#B08_end_lockup", { autoAlpha: 0 });
+
+        function setText(sel, txt) {
+          return function () { q(sel).textContent = txt; };
+        }
+        // 4% punch-in on a beat hit, settling back to the untouched frame
+        function punch(t) {
+          tl.fromTo("#video-wrap", { scale: 1.04 }, { scale: 1, duration: 0.35, ease: EASE, immediateRender: false }, t);
+        }
+        // Same card, morphed: old badge/title leave, new ones LAND on the beat t
+        function morphTier(t, badge, title) {
+          tl.to("#badge", { autoAlpha: 0, scale: 0.5, duration: 0.15, ease: EXIT }, t - 0.45);
+          tl.to("#title", { autoAlpha: 0, y: -12, duration: 0.15, ease: EXIT }, t - 0.45);
+          tl.call(setText("#badge", badge), null, t - 0.3);
+          tl.call(setText("#title", title), null, t - 0.3);
+          tl.fromTo("#badge", { autoAlpha: 0, scale: 0.5 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: EASE, immediateRender: false }, t - 0.3);
+          tl.fromTo("#title", { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.3, ease: EASE, immediateRender: false }, t - 0.3);
+        }
+
+        // ── B01 HOOK 0.00–1.80 — word-by-word, each word on its spoken time ──
+        tl.set("#B01_hook", { autoAlpha: 1 }, 0);
+        [0.08, 0.33, 0.74, 0.94, 1.19, 1.35].forEach(function (t, i) {
+          tl.fromTo("#B01_hook .w:nth-child(" + (i + 1) + ")", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.3, ease: EASE }, t);
+        });
+        tl.fromTo("#B01_top_plate", { scale: 1.04 }, { scale: 1, duration: 0.3, ease: EASE, immediateRender: false }, 1.7); // hit on "clientes"
+        tl.to("#B01_hook", { autoAlpha: 0, duration: 0.1, ease: EXIT }, 1.7);
+        tl.set("#B01_hook", { autoAlpha: 0 }, 1.8); // hard kill
+
+        // ── B02 "3" SLAM 1.80–4.24 — drops in from above, counter ticks 1 → 2 → 3 ──
+        tl.set("#B02_three", { autoAlpha: 1 }, 1.8);
+        tl.fromTo("#three", { y: -320 }, { y: 0, duration: 0.3, ease: "power4.out" }, 1.8);
+        tl.fromTo("#B02_three .lbl", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: EASE, stagger: 0.1 }, 1.95);
+        tl.call(setText("#three", "1"), null, 1.8);
+        tl.call(setText("#three", "2"), null, 1.95);
+        tl.call(setText("#three", "3"), null, 2.1);
+        punch(1.8);
+
+        // ── B03 MORPH 4.24–6.60 — the "3" dissolves into the phrase, landing at 4.24 ──
+        tl.to("#B02_three", { autoAlpha: 0, scale: 0.3, filter: "blur(16px)", duration: 0.3, ease: EXIT }, 3.84);
+        tl.fromTo("#B03_phrase", { autoAlpha: 0, filter: "blur(18px)", scale: 1.2 }, { autoAlpha: 1, filter: "blur(0px)", scale: 1, duration: 0.4, ease: EASE }, 3.84);
+
+        // ── B04 TIER 1 6.60–17.80 ──
+        tl.to("#B01_top_plate", { autoAlpha: 0, duration: 0.2, ease: EXIT }, 6.6);
+        tl.to("#B03_phrase", { autoAlpha: 0, duration: 0.2, ease: EXIT }, 6.6);
+        tl.fromTo("#B04_tier_card", { autoAlpha: 0, y: 1200 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: EASE }, 6.6);
+        punch(6.6);
+        tl.fromTo("#badge", { autoAlpha: 0, scale: 0.5 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: EASE }, 6.85);
+        tl.fromTo("#title", { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: EASE }, 6.93);
+        [8.3, 9.3, 10.3].forEach(function (t, i) {
+          tl.fromTo("#b" + (i + 1), { autoAlpha: 0, scale: 0.6, y: 20 }, { autoAlpha: 1, scale: 1, y: 0, duration: 0.3, ease: EASE }, t);
+        });
+        // "se queda corto": bubbles stack onto each other, then ONE 6-frame shake
+        tl.to("#b2", { x: -260, duration: 0.4, ease: MOVE }, 14.0);
+        tl.to("#b3", { x: -520, duration: 0.4, ease: MOVE }, 14.0);
+        [-12, 12, -9, 9, -5, 0].forEach(function (x, i) {
+          tl.to("#frame", { x: x, duration: 1 / 30, ease: "none" }, 14.4 + i / 30);
+        });
+
+        // ── B05 TIER 2 17.80–31.84 — same card morphs; counter 10 → 50 in steps of 5 ──
+        tl.to(".bubble", { autoAlpha: 0, duration: 0.2, ease: EXIT }, 17.35);
+        morphTier(17.8, "2", "WhatsApp Business");
+        tl.fromTo("#B05_tier2_counter", { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: EASE }, 17.4);
+        tl.fromTo("#B05_count_bar", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: EASE }, 17.5);
+        var steps = { v: 0 };
+        tl.to(steps, {
+          v: 8, duration: 5.2, ease: "none",
+          onUpdate: function () {
+            var n = Math.min(8, Math.floor(steps.v + 1e-6));
+            var val = 10 + 5 * n;
+            q("#count").textContent = val;
+            q("#B05_count_fill").style.transform = "scaleX(" + (val / 50) + ")";
+          }
+        }, 17.8);
+        punch(17.8);
+        tl.set("#B05_tier2_chips", { autoAlpha: 1 }, 23.3);
+        [23.4, 23.7, 24.0].forEach(function (t, i) {
+          tl.fromTo("#chip" + (i + 1), { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: 0.35, ease: EASE }, t);
+        });
+
+        // ── B06 TIER 3 31.84–39.48 — morph again; "50+" pops; bot flow builds then flows ──
+        tl.to("#B05_tier2_chips", { autoAlpha: 0, duration: 0.2, ease: EXIT }, 31.39);
+        morphTier(31.84, "3", "WhatsApp Business API");
+        tl.call(setText("#count", "50+"), null, 31.84);
+        tl.fromTo("#B05_tier2_counter", { scale: 0.85 }, { scale: 1, duration: 0.3, ease: EASE, immediateRender: false }, 31.84);
+        punch(31.84);
+        tl.set("#B06_tier3_botflow", { autoAlpha: 1 }, 32.0);
+        tl.fromTo("#B06_tier3_botflow .node", { autoAlpha: 0, scale: 0.5 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: EASE, stagger: 0.1, transformOrigin: "50% 50%" }, 32.0);
+        tl.to("#B06_tier3_botflow .flowline", { strokeDashoffset: 0, duration: 0.4, ease: MOVE, stagger: 0.15 }, 32.2);
+        // breathe: messages flow along the connections until the CTA
+        tl.set("#B06_tier3_botflow .flowline", { strokeDasharray: "0.1 0.06" }, 33.4);
+        tl.fromTo("#B06_tier3_botflow .flowline", { strokeDashoffset: 0 }, { strokeDashoffset: -0.48, duration: 1.5, ease: "none", repeat: 3, immediateRender: false }, 33.4);
+        // "inteligencia artificial": AI spark appears and sends a reply
+        tl.fromTo("#B06_tier3_ai_spark", { autoAlpha: 0, scale: 0.4, rotation: -45 }, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.4, ease: EASE }, 36.24);
+        tl.fromTo("#B06_tier3_reply", { autoAlpha: 0, x: 30 }, { autoAlpha: 1, x: 0, duration: 0.35, ease: EASE }, 36.5);
+
+        // ── B07 CTA 39.48–43.68 — card collapses into the 1 · 2 · 3 row ──
+        tl.to("#B04_tier_card", { autoAlpha: 0, scaleY: 0.3, duration: 0.3, ease: EXIT, transformOrigin: "50% 100%" }, 39.18);
+        tl.set("#B04_tier_card", { autoAlpha: 0 }, 39.48); // hard kill
+        tl.fromTo("#B07_cta", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: EASE }, 39.18);
+        tl.fromTo(".cb", { autoAlpha: 0, scale: 0.5 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: EASE, stagger: 0.1 }, 39.28);
+        tl.fromTo("#cta-text", { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: EASE }, 39.48);
+        tl.to("#under", { backgroundSize: "100% 12px", duration: 0.45, ease: EASE }, 43.68);
+
+        // ── B08 END 43.68–46.98 — lockup lands at 43.9 with the bass hit; CTA holds below ──
+        tl.set("#B08_end_lockup", { autoAlpha: 1 }, 43.55);
+        tl.fromTo("#B01_top_plate", { autoAlpha: 0, y: -40 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: EASE, immediateRender: false }, 43.55);
+        punch(43.9);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["whatsapp-tips-overlay"] = tl;
+      })();
+    </script>
+  </body>
+</html>

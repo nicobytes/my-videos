@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="captions-template">
+      <style>
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #captions-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        /* Reels safe zone (shared/CAPTIONS.md): plate bottom edge 340px above the frame edge. */
+        .cap {
+          position: absolute;
+          left: 110px;
+          right: 110px;
+          bottom: 340px;
+          display: flex;
+          justify-content: center;
+        }
+        .cap-plate {
+          display: flex;
+          gap: 14px;
+          align-items: center;
+          padding: 20px 36px;
+          border-radius: 9999px;
+          background: rgba(44, 44, 42, 0.94);
+          font-family: "Figtree", sans-serif;
+          font-weight: 700;
+          font-size: 52px;
+          line-height: 1.2;
+          white-space: nowrap;
+        }
+        /* Karaoke: upcoming grey → active cream on a green chip → spoken cream. Padding is constant
+           so the chip never shifts the line. */
+        .cap-w {
+          color: #a9a79f;
+          padding: 0 12px;
+          margin: 0 -12px;
+          border-radius: 14px;
+          background: rgba(21, 91, 63, 0);
+        }
+      </style>
+
+      <div data-hf-id="hf-anqy" id="captions-root" data-composition-id="captions" data-start="0" data-duration="75.05" data-width="1080" data-height="1920"></div>
+
+      <script>
+        (function () {
+          // Global seconds, from the voice transcript (assets/vo/transcript.json, whisper large-v3; line 6 recorded
+          // separately and spliced in at 27.1 s). Spoken words with the script's spelling and punctuation.
+          var DUR = window.Reel.END;
+          var WORDS = [
+            ["¿Alguna", 0.02, 0.37],
+            ["vez", 0.37, 0.53],
+            ["agendaste", 0.53, 1.00],
+            ["una", 1.06, 1.18],
+            ["cita", 1.18, 1.39],
+            ["para", 1.39, 1.61],
+            ["un", 1.61, 1.72],
+            ["cliente", 1.72, 2.18],
+            ["y", 2.18, 2.24],
+            ["cuando", 2.39, 2.61],
+            ["llegó", 2.61, 2.91],
+            ["la", 2.92, 3.04],
+            ["hora,", 3.04, 3.40],
+            ["no", 3.40, 3.45],
+            ["apareció?", 3.61, 4.26],
+            ["Seguramente", 4.58, 4.92],
+            ["tenías", 4.92, 5.28],
+            ["todo", 5.28, 5.52],
+            ["listo", 5.52, 5.82],
+            ["para", 5.82, 6.06],
+            ["atenderlo,", 6.06, 6.72],
+            ["pero", 6.72, 6.82],
+            ["pasó", 6.97, 7.20],
+            ["la", 7.20, 7.32],
+            ["hora", 7.32, 7.56],
+            ["y", 7.56, 7.62],
+            ["no", 7.62, 7.74],
+            ["llegó.", 7.74, 8.30],
+            ["No", 8.30, 8.64],
+            ["avisó,", 8.64, 8.85],
+            ["no", 8.85, 8.97],
+            ["contesta", 8.97, 9.47],
+            ["y", 9.47, 9.53],
+            ["quizás", 9.53, 9.90],
+            ["tampoco", 9.90, 10.34],
+            ["es", 10.34, 10.46],
+            ["la", 10.46, 10.58],
+            ["primera", 10.58, 11.02],
+            ["vez", 11.02, 11.20],
+            ["que", 11.20, 11.38],
+            ["te", 11.38, 11.50],
+            ["sucede.", 11.50, 12.04],
+            ["Y", 12.28, 12.37],
+            ["claro,", 12.37, 12.59],
+            ["cada", 12.59, 12.82],
+            ["cita", 12.82, 13.04],
+            ["perdida", 13.04, 13.44],
+            ["representa", 13.44, 14.02],
+            ["tiempo", 14.02, 14.31],
+            ["que", 14.35, 14.51],
+            ["reservaste", 14.67, 15.16],
+            ["y", 15.16, 15.21],
+            ["una", 15.20, 15.34],
+            ["oportunidad", 15.34, 15.70],
+            ["de", 15.89, 15.95],
+            ["ingreso", 15.95, 16.30],
+            ["que", 16.30, 16.43],
+            ["se", 16.43, 16.55],
+            ["pierde.", 16.55, 17.02],
+            ["Seguramente", 17.40, 17.60],
+            ["ya", 17.60, 17.70],
+            ["envías", 17.70, 18.02],
+            ["recordatorios", 18.02, 18.71],
+            ["a", 18.71, 18.76],
+            ["tus", 18.77, 18.92],
+            ["clientes,", 18.92, 19.52],
+            ["pero", 19.52, 20.00],
+            ["entre", 20.00, 20.05],
+            ["atenderlos", 20.12, 20.55],
+            ["y", 20.55, 20.60],
+            ["responder", 20.60, 21.09],
+            ["mensajes", 21.09, 21.50],
+            ["y", 21.54, 21.59],
+            ["ocuparte", 21.57, 22.00],
+            ["de", 22.00, 22.11],
+            ["todo", 22.11, 22.22],
+            ["lo", 22.36, 22.44],
+            ["que", 22.44, 22.60],
+            ["implica", 22.60, 22.98],
+            ["llevar", 22.98, 23.31],
+            ["un", 23.31, 23.40],
+            ["negocio,", 23.59, 23.98],
+            ["a", 23.98, 24.18],
+            ["veces", 24.18, 24.37],
+            ["el", 24.37, 24.47],
+            ["tiempo", 24.47, 24.84],
+            ["no", 24.84, 24.96],
+            ["alcanza", 24.96, 25.38],
+            ["y", 25.38, 25.44],
+            ["alguno", 25.44, 25.81],
+            ["se", 25.81, 25.93],
+            ["te", 25.93, 26.05],
+            ["puede", 26.05, 26.36],
+            ["pasar.", 26.36, 26.94],
+            ["¿Y", 27.51, 27.62],
+            ["si", 27.71, 27.76],
+            ["esos", 27.75, 28.02],
+            ["recordatorios", 28.02, 28.92],
+            ["se", 28.92, 28.97],
+            ["enviaran", 29.15, 29.64],
+            ["automáticamente?", 29.64, 30.41],
+            ["Un", 31.32, 31.42],
+            ["día", 31.42, 31.55],
+            ["anterior", 31.55, 31.83],
+            ["o", 31.83, 31.88],
+            ["unas", 31.88, 32.14],
+            ["horas", 32.14, 32.44],
+            ["antes,", 32.46, 32.93],
+            ["para", 32.93, 33.21],
+            ["que", 33.21, 33.42],
+            ["el", 33.42, 33.55],
+            ["cliente", 33.56, 34.05],
+            ["recuerde", 34.05, 34.61],
+            ["su", 34.62, 34.75],
+            ["cita", 34.75, 35.04],
+            ["y", 35.04, 35.10],
+            ["tenga", 35.10, 35.29],
+            ["la", 35.29, 35.63],
+            ["oportunidad", 35.63, 36.03],
+            ["de", 36.03, 36.13],
+            ["confirmar", 36.13, 36.59],
+            ["o", 36.59, 36.64],
+            ["reprogramar.", 36.64, 37.39],
+            ["Y", 37.39, 37.53],
+            ["aquí", 37.53, 37.87],
+            ["viene", 37.87, 37.92],
+            ["algo", 37.89, 38.09],
+            ["muy", 38.09, 38.24],
+            ["interesante,", 38.24, 38.90],
+            ["con", 38.90, 39.03],
+            ["solo", 39.06, 39.24],
+            ["un", 39.25, 39.35],
+            ["boliviano", 39.35, 39.80],
+            ["puedes", 39.80, 40.10],
+            ["enviar", 40.10, 40.40],
+            ["hasta", 40.40, 40.65],
+            ["7", 40.65, 40.80],
+            ["recordatorios", 40.80, 41.45],
+            ["por", 41.45, 41.60],
+            ["WhatsApp,", 41.60, 42.13],
+            ["y", 42.13, 42.34],
+            ["lo", 42.34, 42.55],
+            ["mejor,", 42.55, 42.69],
+            ["sin", 42.69, 42.86],
+            ["tener", 42.86, 43.15],
+            ["que", 43.15, 43.32],
+            ["enviarlos", 43.32, 43.83],
+            ["tú", 43.83, 43.94],
+            ["mismo.", 43.94, 44.47],
+            ["Por", 44.47, 44.76],
+            ["eso", 44.76, 45.04],
+            ["creamos", 45.04, 45.30],
+            ["Parlana,", 45.30, 45.88],
+            ["para", 45.88, 46.14],
+            ["ayudarte", 46.14, 46.66],
+            ["a", 46.66, 46.71],
+            ["automatizar", 46.74, 47.40],
+            ["esos", 47.46, 47.70],
+            ["recordatorios", 47.70, 48.65],
+            ["y", 48.65, 48.70],
+            ["gestionar", 48.69, 49.12],
+            ["las", 49.12, 49.24],
+            ["confirmaciones", 49.52, 49.94],
+            ["por", 49.94, 50.08],
+            ["WhatsApp,", 50.08, 50.61],
+            ["sin", 50.61, 50.85],
+            ["tener", 50.85, 51.10],
+            ["que", 51.10, 51.23],
+            ["escribir", 51.23, 51.68],
+            ["a", 51.68, 51.73],
+            ["cada", 51.73, 51.91],
+            ["cliente.", 51.97, 52.55],
+            ["Pero", 52.55, 53.03],
+            ["Parlana", 53.03, 53.20],
+            ["no", 53.20, 53.32],
+            ["solo", 53.32, 53.56],
+            ["envía", 53.56, 53.85],
+            ["recordatorios,", 53.85, 54.77],
+            ["también", 55.06, 55.11],
+            ["te", 55.11, 55.20],
+            ["ayuda", 55.20, 55.44],
+            ["a", 55.44, 55.49],
+            ["responder", 55.48, 55.87],
+            ["las", 55.93, 56.05],
+            ["consultas", 56.05, 56.48],
+            ["de", 56.48, 56.57],
+            ["tus", 56.57, 56.71],
+            ["clientes", 56.71, 57.08],
+            ["y", 57.09, 57.14],
+            ["agendar", 57.22, 57.46],
+            ["sus", 57.46, 57.60],
+            ["citas", 57.60, 57.83],
+            ["por", 57.83, 57.97],
+            ["WhatsApp.", 57.97, 58.63],
+            ["Así,", 58.78, 58.88],
+            ["tú", 58.88, 58.98],
+            ["puedes", 58.98, 59.29],
+            ["concentrarte", 59.29, 59.90],
+            ["en", 59.90, 59.97],
+            ["atender", 60.00, 60.36],
+            ["a", 60.36, 60.41],
+            ["clientes,", 60.41, 60.87],
+            ["quienes", 61.20, 61.36],
+            ["llegan", 61.36, 61.66],
+            ["a", 61.66, 61.71],
+            ["tu", 61.71, 61.81],
+            ["negocio,", 61.81, 62.27],
+            ["mientras", 62.27, 62.82],
+            ["Parlana", 62.82, 63.13],
+            ["te", 63.13, 63.24],
+            ["ayuda", 63.24, 63.53],
+            ["a", 63.53, 63.58],
+            ["atender", 63.58, 63.97],
+            ["a", 64.00, 64.05],
+            ["quienes", 64.03, 64.42],
+            ["te", 64.46, 64.54],
+            ["escriben,", 64.54, 65.19],
+            ["organizar", 65.75, 65.94],
+            ["las", 65.94, 66.19],
+            ["citas", 66.19, 66.58],
+            ["y", 66.63, 66.69],
+            ["recordarles", 66.69, 67.35],
+            ["cuándo", 67.36, 67.72],
+            ["deben", 67.72, 68.03],
+            ["asistir.", 68.03, 68.60],
+            ["¿Te", 69.02, 69.18],
+            ["gustaría", 69.18, 69.23],
+            ["automatizar", 69.23, 69.76],
+            ["los", 69.76, 69.90],
+            ["recordatorios", 69.90, 70.51],
+            ["de", 70.55, 70.61],
+            ["citas", 70.61, 70.84],
+            ["de", 70.84, 70.93],
+            ["tu", 70.93, 71.02],
+            ["negocio?", 71.02, 71.63],
+            ["Comenta", 71.95, 72.00],
+            ["CITAS", 72.13, 72.24],
+            ["y", 72.24, 72.29],
+            ["te", 72.29, 72.39],
+            ["mostramos", 72.39, 72.86],
+            ["cómo", 72.86, 73.07],
+            ["hacerlo.", 73.07, 73.65],
+          ];
+          var MAX_CHARS = 26; // one line at 52px stays inside the 860px safe width
+          var SENTENCE_END = /[.?!…]$/;
+          var CLAUSE_END = /[,;:]$/;
+          // A plate should not end on a short linking word ("y", "las", "por"…).
+          var WEAK_END = ["y", "a", "de", "del", "que", "la", "las", "el", "los", "en", "con", "por", "un", "una", "lo", "se", "su", "sus", "no", "te", "entre", "al", "para", "o", "si", "como"];
+
+          // 1. Word timings from the transcript.
+          var words = WORDS.map(function (row) {
+            var end = SENTENCE_END.test(row[0]);
+            return { w: row[0], t: row[1], e: Math.max(row[2], row[1] + 0.08), breakAfter: end, lineEnd: end };
+          });
+
+          // 2. Caption groups: one line each (≤ MAX_CHARS) and a new plate at every sentence end.
+          //    Inside a sentence, an optimal partition (fewest plates, most even lengths, no plate ending
+          //    on a linking word, clause breaks preferred) keeps phrases like "catorce centavos" whole.
+          var segments = [];
+          var seg = [];
+          words.forEach(function (w) {
+            seg.push(w);
+            if (w.breakAfter || w.lineEnd) {
+              segments.push(seg);
+              seg = [];
+            }
+          });
+          if (seg.length) segments.push(seg);
+
+          function textOf(list) {
+            return list
+              .map(function (w) {
+                return w.w;
+              })
+              .join(" ");
+          }
+          function plateCost(list, target) {
+            var l = textOf(list).length;
+            var cost = (l - target) * (l - target);
+            var last = list[list.length - 1].w.toLowerCase();
+            if (WEAK_END.indexOf(last) >= 0) cost += 60;
+            if (CLAUSE_END.test(last)) cost -= 15;
+            return { length: l, cost: cost };
+          }
+          function partition(s) {
+            var m = s.length;
+            var total = textOf(s).length;
+            for (var plates = Math.ceil(total / MAX_CHARS); plates <= m; plates++) {
+              var target = total / plates;
+              var INF = 1e9;
+              var dp = [];
+              var from = [];
+              for (var p = 0; p <= plates; p++) {
+                dp.push(new Array(m + 1).fill(INF));
+                from.push(new Array(m + 1).fill(-1));
+              }
+              dp[0][0] = 0;
+              for (var q = 1; q <= plates; q++) {
+                for (var j = 1; j <= m; j++) {
+                  for (var i = q - 1; i < j; i++) {
+                    if (dp[q - 1][i] >= INF) continue;
+                    var pc = plateCost(s.slice(i, j), target);
+                    if (pc.length > MAX_CHARS) continue;
+                    if (dp[q - 1][i] + pc.cost < dp[q][j]) {
+                      dp[q][j] = dp[q - 1][i] + pc.cost;
+                      from[q][j] = i;
+                    }
+                  }
+                }
+              }
+              if (dp[plates][m] < INF) {
+                var out = [];
+                var end = m;
+                for (var r = plates; r > 0; r--) {
+                  var startIdx = from[r][end];
+                  out.unshift(s.slice(startIdx, end));
+                  end = startIdx;
+                }
+                return out;
+              }
+            }
+            return [s];
+          }
+
+          var groups = [];
+          segments.forEach(function (s) {
+            partition(s).forEach(function (g) {
+              groups.push(g);
+            });
+          });
+
+          // 3. DOM + timeline.
+          var root = document.getElementById("captions-root");
+          var tl = gsap.timeline({ paused: true });
+          groups.forEach(function (g, gi) {
+            var cap = document.createElement("div");
+            cap.className = "cap";
+            var plate = document.createElement("div");
+            plate.className = "cap-plate";
+            g.forEach(function (w) {
+              var span = document.createElement("span");
+              span.className = "cap-w";
+              span.textContent = w.w;
+              plate.appendChild(span);
+              w.el = span;
+            });
+            cap.appendChild(plate);
+            root.appendChild(cap);
+
+            var start = g[0].t - 0.06;
+            var next = groups[gi + 1];
+            var end = Math.min(next ? next[0].t - 0.08 : DUR, g[g.length - 1].e + 0.35);
+            // Plates cut in and out (never a half-transparent plate); a short lift sells the arrival.
+            tl.fromTo(cap, { opacity: 0 }, { opacity: 1, duration: 0.01, ease: "none" }, start);
+            tl.fromTo(cap, { y: 10 }, { y: 0, duration: 0.14, ease: "power2.out" }, start);
+            tl.to(cap, { opacity: 0, duration: 0.01, ease: "none" }, end);
+            g.forEach(function (w) {
+              tl.set(w.el, { color: "#f6f4ef", backgroundColor: "rgba(21, 91, 63, 1)" }, w.t);
+              tl.set(w.el, { backgroundColor: "rgba(21, 91, 63, 0)" }, w.e);
+            });
+          });
+
+          window.__timelines["captions"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

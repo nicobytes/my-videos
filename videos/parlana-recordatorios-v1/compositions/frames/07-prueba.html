@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/parlana.css" />
+  </head>
+  <body>
+    <template id="f07-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #f07-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        /* The blog's own "Inasistencias" slope chart, adapted for video: same honest 0–40 % scale,
+           no gridlines, values written on the lines. The card surface is painted by the shell track. */
+        #f07-card {
+          left: 110px;
+          top: 400px;
+          width: 860px;
+          height: 920px;
+          background: transparent;
+          border-color: transparent;
+          box-shadow: none;
+        }
+        #f07-kicker {
+          position: absolute;
+          left: 56px;
+          top: 56px;
+          font-size: 26px;
+          font-weight: 700;
+          letter-spacing: 0.16em;
+          color: var(--muted);
+        }
+        #f07-delta {
+          position: absolute;
+          right: 56px;
+          top: 36px;
+        }
+        #f07-title {
+          position: absolute;
+          left: 56px;
+          top: 104px;
+          font-size: 84px;
+          color: var(--ink);
+        }
+        #f07-chart {
+          position: absolute;
+          left: 56px;
+          top: 230px;
+          width: 748px;
+          height: 520px;
+        }
+        .f07-value {
+          font-family: "Fraunces", serif;
+          font-weight: 700;
+          font-size: 48px;
+          fill: #2c2c2a;
+        }
+        .f07-axis {
+          font-family: "Figtree", sans-serif;
+          font-weight: 600;
+          font-size: 34px;
+          fill: #5f5e58;
+        }
+        #f07-legend {
+          position: absolute;
+          left: 56px;
+          top: 774px;
+          display: flex;
+          gap: 40px;
+          font-size: 32px;
+          font-weight: 600;
+          color: var(--ink);
+        }
+        .f07-key {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+        .f07-key i {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+        }
+        .f07-key em {
+          font-style: normal;
+          font-weight: 500;
+          color: var(--muted);
+        }
+        #f07-note {
+          position: absolute;
+          left: 56px;
+          top: 836px;
+          font-size: 24px;
+          color: var(--muted);
+        }
+      </style>
+
+      <div data-hf-id="hf-6r61" id="f07-root" data-composition-id="f07" data-start="0" data-duration="5.2" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-v86z" id="f07-card" class="pr-card">
+          <div data-hf-id="hf-d4y2" id="f07-kicker" class="pr-ui">DOS ESTUDIOS</div>
+          <span data-hf-id="hf-ryvo" id="f07-delta" class="pr-chip pr-chip--green">−5 a −10 puntos</span>
+          <div data-hf-id="hf-1xwb" id="f07-title" class="pr-display">Inasistencias</div>
+          <!-- y = 440 − value × 10 (0 % at the bottom, 40 % at the top, as in the blog). -->
+          <svg data-hf-id="hf-gtcu" id="f07-chart" viewBox="0 0 748 520" aria-hidden="true">
+            <line data-hf-id="hf-y7p5" id="f07-ba-line" x1="200" y1="94" x2="540" y2="176" stroke="#BA7517" stroke-width="8" stroke-linecap="round" />
+            <line data-hf-id="hf-j6hl" id="f07-bmj-line" x1="200" y1="230" x2="540" y2="290" stroke="#155B3F" stroke-width="8" stroke-linecap="round" />
+            <circle data-hf-id="hf-vxji" id="f07-ba-a" cx="200" cy="94" r="15" fill="#BA7517" stroke="#FFFFFF" stroke-width="4" />
+            <circle data-hf-id="hf-ktwh" id="f07-ba-b" cx="540" cy="176" r="15" fill="#BA7517" stroke="#FFFFFF" stroke-width="4" />
+            <circle data-hf-id="hf-n1b7" id="f07-bmj-a" cx="200" cy="230" r="15" fill="#155B3F" stroke="#FFFFFF" stroke-width="4" />
+            <circle data-hf-id="hf-w5gr" id="f07-bmj-b" cx="540" cy="290" r="15" fill="#155B3F" stroke="#FFFFFF" stroke-width="4" />
+            <text data-hf-id="hf-45xo" id="f07-ba-va" class="f07-value" x="172" y="110" text-anchor="end">34,6 %</text>
+            <text data-hf-id="hf-eqcc" id="f07-bmj-va" class="f07-value" x="172" y="246" text-anchor="end">21 %</text>
+            <text data-hf-id="hf-vai8" id="f07-ba-vb" class="f07-value" x="568" y="192">26,4 %</text>
+            <text data-hf-id="hf-fgcp" id="f07-bmj-vb" class="f07-value" x="568" y="306">15 %</text>
+            <text data-hf-id="hf-rhj4" id="f07-x-a" class="f07-axis" x="200" y="500" text-anchor="middle">Sin aviso</text>
+            <text data-hf-id="hf-klg4" id="f07-x-b" class="f07-axis" x="540" y="500" text-anchor="middle">Con aviso</text>
+          </svg>
+          <div data-hf-id="hf-1ouu" id="f07-legend" class="pr-ui">
+            <span data-hf-id="hf-p21n" class="f07-key"><i data-hf-id="hf-kfce" style="background: #155b3f"></i>BMJ Open</span>
+            <span data-hf-id="hf-jnic" class="f07-key"><i data-hf-id="hf-s3sp" style="background: #ba7517"></i>Buenos Aires <em data-hf-id="hf-ejdj">preprint</em></span>
+          </div>
+          <div data-hf-id="hf-g9ai" id="f07-note" class="pr-data">Fuentes: BMJ Open 2016 · preprint Buenos Aires</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          // VO cues, frame-local seconds (from assets/vo/transcript.json):
+          // "Los estudios muestran que un aviso de notificación baja las inasistencias entre 5 y 10 puntos."
+          var CUE = { head: 0.3, axis: 0.45, bmj: 1.0, ba: 1.25, draw: 0.8, delta: 3.6, legend: 4.0, note: 4.2, out: 5.02 };
+          var tl = gsap.timeline({ paused: true });
+
+          function blurIn(targets, at) {
+            tl.fromTo(targets, { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, at);
+          }
+
+          blurIn(["#f07-kicker", "#f07-title"], CUE.head);
+          tl.fromTo(["#f07-x-a", "#f07-x-b"], { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, CUE.axis);
+
+          // One series: start point + value, the line draws itself (measured length), the end point
+          // lands and its value counts down to the "con aviso" figure — the drop reads as a number falling.
+          function series(prefix, at, from, to, decimals) {
+            var line = document.getElementById(prefix + "-line");
+            var len = line.getTotalLength ? line.getTotalLength() : 360;
+            line.style.strokeDasharray = String(len);
+            tl.fromTo("#" + prefix + "-a", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.3, ease: "power3.out" }, at);
+            tl.fromTo("#" + prefix + "-va", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, at);
+            tl.fromTo(line, { strokeDashoffset: len }, { strokeDashoffset: 0, duration: CUE.draw, ease: "power2.out" }, at + 0.1);
+            var endAt = at + 0.1 + CUE.draw;
+            tl.fromTo("#" + prefix + "-b", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.3, ease: "power3.out" }, endAt - 0.05);
+            var label = document.getElementById(prefix + "-vb");
+            var state = { v: from };
+            var fmt = function (v) {
+              return v.toFixed(decimals).replace(".", ",") + " %";
+            };
+            tl.fromTo("#" + prefix + "-vb", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" }, endAt - 0.05);
+            tl.fromTo(
+              state,
+              { v: from },
+              {
+                v: to,
+                duration: 0.6,
+                ease: "power2.out",
+                onUpdate: function () {
+                  label.textContent = fmt(state.v);
+                },
+              },
+              endAt - 0.05,
+            );
+          }
+          series("f07-bmj", CUE.bmj, 21, 15, 0);
+          series("f07-ba", CUE.ba, 34.6, 26.4, 1);
+
+          // "…entre cinco y diez puntos."
+          tl.fromTo("#f07-delta", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.36, ease: "power3.out" }, CUE.delta);
+          blurIn("#f07-legend", CUE.legend);
+          tl.fromTo("#f07-note", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, CUE.note);
+
+          tl.fromTo(["#f07-kicker", "#f07-delta", "#f07-title", "#f07-chart", "#f07-legend", "#f07-note"], { filter: "blur(0px)" }, { opacity: 0, y: -18, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, CUE.out);
+
+          window.__timelines["f07"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

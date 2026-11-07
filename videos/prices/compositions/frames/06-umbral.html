@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="UTF-8"></head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: #0f1a14;
+        }
+        .footage-label {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 160px;
+          text-align: center;
+          font-family: "Nunito", sans-serif;
+          font-size: 22px;
+          color: rgba(237, 239, 230, 0.35);
+        }
+        .sky-zone {
+          position: absolute;
+          top: 130px;
+          left: 65px;
+          right: 65px;
+          height: 610px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 30px;
+        }
+        /* The frame-5 ticket, demoted — held, not reintroduced at full size */
+        .ticket-postal-small {
+          background: #c8381f;
+          color: #edefe6;
+          padding: 16px 28px;
+          border: 1px solid #edefe6;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 4px;
+        }
+        .ticket-postal-small .num {
+          font-family: "Nunito", sans-serif;
+          font-weight: 900;
+          font-size: 88px;
+          line-height: 0.85;
+          font-variant-numeric: tabular-nums;
+        }
+        .ticket-postal-small .claim {
+          font-family: "Nunito", sans-serif;
+          font-weight: 900;
+          font-size: 34px;
+          line-height: 0.95;
+        }
+        .brass-callout {
+          font-family: "Nunito", sans-serif;
+          font-weight: 700;
+          font-size: 44px;
+          color: #ab8332; /* {colors.brass} — the one unit datum this frame */
+          text-align: center;
+        }
+      </style>
+      <div data-hf-id="hf-gl9v" id="root" data-composition-id="frame-06" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-yb1m" class="sky-zone">
+          <div data-hf-id="hf-mdma" class="ticket-postal-small">
+            <div data-hf-id="hf-0yn7" class="num">0,1428</div>
+            <div data-hf-id="hf-0ayx" class="claim">Servicio inbound</div>
+          </div>
+          <div data-hf-id="hf-9oak" class="brass-callout">primeros 1.000 gratis</div>
+        </div>
+        <div data-hf-id="hf-e0hi" class="footage-label">metraje — precios.mp4 (sin tocar)</div>
+      </div>
+      <script>
+        window.__timelines = window.__timelines || {};
+        window.__timelines["frame-06"] = gsap.timeline({ paused: true });
+      </script>
+    </template>
+  </body>
+</html>

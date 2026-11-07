@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+        }
+        #b04 {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 960px;
+          font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+          color: #111111;
+        }
+        /* Grid stack: every state of a value is its own element in the same cell; the timeline
+           shows exactly one with reversible tl.set — scrubbing backwards always shows the right state */
+        .b04-stack {
+          display: grid;
+        }
+        .b04-stack > * {
+          grid-area: 1 / 1;
+        }
+
+        /* Header — one group per tier: logo (+ number badge) and name */
+        .b04-head {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 250px;
+        }
+        .b04-logo {
+          position: absolute;
+          left: 65px;
+          top: 102px;
+          width: 128px;
+          height: 128px;
+        }
+        .b04-logo img {
+          width: 128px;
+          height: 128px;
+          display: block;
+        }
+        .b04-num {
+          position: absolute;
+          left: 150px;
+          top: 186px;
+          width: 54px;
+          height: 54px;
+          border-radius: 50%;
+          background: #075e54;
+          border: 4px solid #ffffff;
+          color: #ffffff;
+          font-size: 30px;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .b04-api {
+          position: absolute;
+          left: 52px;
+          top: 196px;
+          height: 40px;
+          padding: 0 12px;
+          border-radius: 20px;
+          background: #111111;
+          color: #25d366;
+          font-size: 24px;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          letter-spacing: 0.04em;
+        }
+        .b04-title {
+          position: absolute;
+          left: 228px;
+          top: 106px;
+          width: 800px;
+          height: 120px;
+          display: flex;
+          align-items: center;
+          font-size: 62px;
+          font-weight: 700;
+          color: #075e54;
+          white-space: nowrap;
+        }
+
+        /* Tier 1 — chat list */
+        #b04-chat {
+          position: absolute;
+          left: 65px;
+          top: 270px;
+          width: 950px;
+          height: 590px;
+          background: #ffffff;
+          border: 2px solid #dde7e4;
+          border-radius: 36px;
+          overflow: hidden;
+          box-shadow: 0 14px 40px rgba(7, 94, 84, 0.12);
+        }
+        #b04-chat-head {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 950px;
+          height: 96px;
+          background: #075e54;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 26px 0 34px;
+          color: #ffffff;
+          font-size: 40px;
+          font-weight: 700;
+        }
+        #b04-unread {
+          min-width: 110px;
+          height: 58px;
+          padding: 0 20px;
+          border-radius: 29px;
+          background: #25d366;
+          color: #111111;
+          font-size: 34px;
+          font-weight: 700;
+          align-items: center;
+          justify-items: center;
+        }
+        #b04-rows {
+          position: absolute;
+          left: 0;
+          top: 96px;
+          width: 950px;
+          height: 494px;
+          overflow: hidden;
+        }
+        .b04-row {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 950px;
+          height: 110px;
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          padding: 0 30px;
+          border-bottom: 1px solid #eef2f1;
+          background: #ffffff;
+        }
+        .b04-av {
+          width: 74px;
+          height: 74px;
+          border-radius: 50%;
+          flex: none;
+        }
+        .b04-txt {
+          flex: 1;
+          min-width: 0;
+        }
+        .b04-name {
+          font-size: 38px;
+          font-weight: 700;
+          line-height: 1.15;
+        }
+        .b04-prev {
+          font-size: 29px;
+          color: #5c6b68;
+          line-height: 1.2;
+        }
+        .b04-dot {
+          width: 46px;
+          height: 46px;
+          border-radius: 50%;
+          background: #25d366;
+          color: #111111;
+          font-size: 26px;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex: none;
+        }
+
+        /* Tier 2 / 3 — stat + features */
+        .b04-sub {
+          position: absolute;
+          left: 65px;
+          top: 290px;
+          width: 950px;
+          height: 70px;
+          font-size: 52px;
+          font-weight: 400;
+          white-space: nowrap;
+        }
+        .b04-sub b {
+          color: #075e54;
+        }
+        .b04-count-row {
+          position: absolute;
+          left: 65px;
+          top: 380px;
+          width: 950px;
+          height: 200px;
+          display: flex;
+          align-items: flex-end;
+          gap: 26px;
+        }
+        .b04-count {
+          font-size: 190px;
+          font-weight: 700;
+          line-height: 0.86;
+          color: #075e54;
+          font-variant-numeric: tabular-nums;
+          transform-origin: 0% 100%;
+        }
+        .b04-count-label {
+          font-size: 52px;
+          font-weight: 400;
+          padding-bottom: 12px;
+        }
+        .b04-chip {
+          position: absolute;
+          height: 76px;
+          padding: 0 28px 0 70px;
+          border-radius: 38px;
+          background: #e7fbef;
+          color: #075e54;
+          font-size: 32px;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+        }
+        #b04-clock {
+          position: absolute;
+          left: 65px;
+          top: 590px;
+          width: 80px;
+          height: 80px;
+        }
+        #b04-clock-label {
+          position: absolute;
+          left: 170px;
+          top: 598px;
+          height: 64px;
+          display: flex;
+          align-items: center;
+          font-size: 40px;
+          font-weight: 700;
+          color: #075e54;
+        }
+
+        /* Phone mockup — rebuilt as live UI (crisp text, animatable); only the cake photos are images */
+        #b04-phone,
+        #b04-phone2 {
+          position: absolute;
+          left: 565px;
+          top: 252px;
+          width: 450px;
+          height: 650px;
+          overflow: hidden;
+        }
+        #b04-device,
+        #b04-device2 {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 450px;
+          height: 900px;
+          border-radius: 60px;
+          background: #111111;
+          box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+        }
+        #b04-screen,
+        #b04-screen2 {
+          position: absolute;
+          left: 14px;
+          top: 14px;
+          width: 422px;
+          height: 872px;
+          border-radius: 46px;
+          overflow: hidden;
+          background: #ffffff;
+        }
+        .b04-scr {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 422px;
+          height: 872px;
+        }
+        .b04-bar {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 422px;
+          height: 104px;
+          background: #075e54;
+          color: #ffffff;
+          display: flex;
+          align-items: flex-end;
+          gap: 16px;
+          padding: 0 24px 20px;
+          font-size: 30px;
+          font-weight: 700;
+        }
+        .b04-bar svg {
+          width: 30px;
+          height: 30px;
+          flex: none;
+        }
+        .b04-bar small {
+          display: block;
+          font-size: 18px;
+          font-weight: 400;
+          opacity: 0.85;
+        }
+        .b04-bar-av {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background: #25d366;
+          flex: none;
+        }
+        .b04-prod {
+          position: absolute;
+          left: 0;
+          width: 422px;
+          height: 118px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          padding: 0 20px;
+          border-bottom: 1px solid #eef2f1;
+          background: #ffffff;
+        }
+        .b04-prod img {
+          width: 92px;
+          height: 92px;
+          border-radius: 14px;
+          object-fit: cover;
+          flex: none;
+        }
+        .b04-prod b {
+          display: block;
+          font-size: 24px;
+          line-height: 1.15;
+        }
+        .b04-prod span {
+          display: block;
+          font-size: 19px;
+          color: #5c6b68;
+          line-height: 1.3;
+        }
+        .b04-prod i {
+          display: block;
+          font-style: normal;
+          font-size: 21px;
+          font-weight: 700;
+          color: #075e54;
+        }
+        #b04-s2,
+        #b04-s3 {
+          background: #ece5dd;
+        }
+        .b04-ailabel {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 17px;
+          font-weight: 700;
+          color: #075e54;
+          margin-bottom: 4px;
+        }
+        .b04-ailabel svg {
+          width: 16px;
+          height: 16px;
+        }
+        #b04-ai-icon {
+          position: absolute;
+          left: 65px;
+          top: 290px;
+          width: 80px;
+          height: 80px;
+        }
+        #b04-ai-title {
+          position: absolute;
+          left: 165px;
+          top: 296px;
+          height: 70px;
+          display: flex;
+          align-items: center;
+          font-size: 44px;
+          font-weight: 700;
+          color: #075e54;
+          white-space: nowrap;
+        }
+        .b04-bub {
+          position: absolute;
+          max-width: 318px;
+          padding: 12px 18px;
+          border-radius: 18px;
+          font-size: 23px;
+          line-height: 1.3;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+        }
+        .b04-in {
+          left: 18px;
+          background: #ffffff;
+          border-top-left-radius: 4px;
+        }
+        .b04-out {
+          right: 18px;
+          background: #dcf8c6;
+          border-top-right-radius: 4px;
+        }
+        .b04-auto {
+          display: block;
+          font-size: 17px;
+          font-weight: 700;
+          color: #075e54;
+          margin-bottom: 4px;
+        }
+        #b04-qr {
+          position: absolute;
+          left: 12px;
+          top: 340px;
+          width: 398px;
+          height: 196px;
+          border-radius: 18px;
+          background: #ffffff;
+          box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.12);
+          overflow: hidden;
+        }
+        .b04-qr-row {
+          height: 65px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 0 18px;
+          font-size: 21px;
+          border-bottom: 1px solid #eef2f1;
+        }
+        .b04-qr-row b {
+          color: #075e54;
+          font-size: 20px;
+        }
+        #b04-input,
+        #b04-input2 {
+          position: absolute;
+          left: 12px;
+          top: 548px;
+          width: 398px;
+          height: 62px;
+          border-radius: 31px;
+          background: #ffffff;
+          display: flex;
+          align-items: center;
+          padding: 0 24px;
+          font-size: 26px;
+          color: #111111;
+        }
+
+        /* Tier 3 — bot flow */
+        .b04-node {
+          position: absolute;
+          top: 678px;
+          width: 104px;
+          height: 104px;
+          border-radius: 50%;
+          background: #ffffff;
+          border: 4px solid #075e54;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .b04-node svg {
+          width: 52px;
+          height: 52px;
+        }
+        .b04-msg {
+          position: absolute;
+          left: 0;
+          top: 721px;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: #25d366;
+        }
+      </style>
+
+      <div id="root" data-composition-id="B04_tiers" data-width="1080" data-height="1920">
+        <div id="b04">
+          <!-- Header per tier -->
+          <div class="b04-head" id="b04-h1">
+            <div class="b04-logo"><img src="assets/brand/whatsapp-logo.png" alt="WhatsApp" /></div>
+            <div class="b04-num">1</div>
+            <div class="b04-title" data-layout-allow-occlusion>WhatsApp personal</div>
+          </div>
+          <div class="b04-head" id="b04-h2">
+            <div class="b04-logo"><img src="assets/brand/whatsapp-business-logo.png" alt="WhatsApp Business" /></div>
+            <div class="b04-num">2</div>
+            <div class="b04-title" data-layout-allow-occlusion>WhatsApp Business</div>
+          </div>
+          <div class="b04-head" id="b04-h3">
+            <div class="b04-logo"><img src="assets/brand/whatsapp-logo.png" alt="WhatsApp Business API" /></div>
+            <div class="b04-api" data-layout-allow-occlusion>API</div>
+            <div class="b04-num">3</div>
+            <div class="b04-title" data-layout-allow-occlusion>WhatsApp Business API</div>
+          </div>
+
+          <!-- Tier 1: personal chat list that floods with clients -->
+          <div id="b04-chat">
+            <div id="b04-chat-head">
+              <span>Chats</span>
+              <div id="b04-unread" class="b04-stack">
+                <span id="b04-u1">1</span><span id="b04-u2">2</span><span id="b04-u3">3</span><span id="b04-u4">4</span><span id="b04-u5">5</span><span id="b04-u6">6</span><span id="b04-u7">7</span><span id="b04-u8">8</span><span id="b04-u9">9</span><span id="b04-u99">99+</span>
+              </div>
+            </div>
+            <div id="b04-rows">
+              <div class="b04-row" id="b04-r0"><div class="b04-av" style="background:#f19c9c"></div><div class="b04-txt"><div class="b04-name">Mamá</div><div class="b04-prev">¿Ya comiste?</div></div></div>
+              <div class="b04-row" id="b04-r1"><div class="b04-av" style="background:#f4b860"></div><div class="b04-txt"><div class="b04-name">Familia</div><div class="b04-prev">¿Vienes el domingo?</div></div></div>
+              <div class="b04-row" id="b04-r2"><div class="b04-av" style="background:#8fb8de"></div><div class="b04-txt"><div class="b04-name">Amigos</div><div class="b04-prev">¿Salimos hoy?</div></div></div>
+              <div class="b04-row" id="b04-r3"><div class="b04-av" style="background:#b9a6e0"></div><div class="b04-txt"><div class="b04-name">Grupo del trabajo</div><div class="b04-prev">Reunión a las 9</div></div></div>
+              <div class="b04-row" id="b04-r4"><div class="b04-av" style="background:#25d366"></div><div class="b04-txt"><div class="b04-name">Cliente</div><div class="b04-prev">Hola, ¿precio?</div></div><div class="b04-dot">1</div></div>
+              <div class="b04-row" id="b04-r5"><div class="b04-av" style="background:#25d366"></div><div class="b04-txt"><div class="b04-name">Cliente</div><div class="b04-prev">¿Tienen stock?</div></div><div class="b04-dot">2</div></div>
+              <div class="b04-row" id="b04-r6"><div class="b04-av" style="background:#25d366"></div><div class="b04-txt"><div class="b04-name">Cliente</div><div class="b04-prev">Quiero comprar</div></div><div class="b04-dot">1</div></div>
+              <div class="b04-row" id="b04-r7"><div class="b04-av" style="background:#25d366"></div><div class="b04-txt"><div class="b04-name">Cliente</div><div class="b04-prev">¿Hacen envíos?</div></div><div class="b04-dot">3</div></div>
+              <div class="b04-row" id="b04-r8"><div class="b04-av" style="background:#25d366"></div><div class="b04-txt"><div class="b04-name">Cliente</div><div class="b04-prev">Hola!!</div></div><div class="b04-dot">2</div></div>
+              <div class="b04-row" id="b04-r9"><div class="b04-av" style="background:#25d366"></div><div class="b04-txt"><div class="b04-name">Cliente</div><div class="b04-prev">¿Horario?</div></div><div class="b04-dot">1</div></div>
+              <div class="b04-row" id="b04-r10"><div class="b04-av" style="background:#25d366"></div><div class="b04-txt"><div class="b04-name">Cliente</div><div class="b04-prev">Info por favor</div></div><div class="b04-dot">2</div></div>
+              <div class="b04-row" id="b04-r11"><div class="b04-av" style="background:#25d366"></div><div class="b04-txt"><div class="b04-name">Cliente</div><div class="b04-prev">¿Precio?</div></div><div class="b04-dot">4</div></div>
+              <div class="b04-row" id="b04-r12"><div class="b04-av" style="background:#25d366"></div><div class="b04-txt"><div class="b04-name">Cliente</div><div class="b04-prev">¿Me atienden?</div></div><div class="b04-dot">5</div></div>
+            </div>
+          </div>
+
+          <!-- Tier 2 -->
+          <div class="b04-sub" id="b04-sub2">Perfecto para <b>negocios</b></div>
+          <div class="b04-count-row" id="b04-countA">
+            <div class="b04-count b04-stack">
+              <span id="b04-c10">10</span><span id="b04-c15">15</span><span id="b04-c20">20</span><span id="b04-c25">25</span><span id="b04-c30">30</span><span id="b04-c35">35</span><span id="b04-c40">40</span><span id="b04-c45">45</span><span id="b04-c50">50</span>
+            </div>
+            <div class="b04-count-label" data-layout-allow-occlusion>clientes al día</div>
+          </div>
+          <div class="b04-chip" id="b04-chip1" style="left:65px;top:290px">Catálogo</div>
+          <div class="b04-chip" id="b04-chip2" style="left:65px;top:386px">Respuestas rápidas</div>
+          <div class="b04-chip" id="b04-chip3" style="left:65px;top:482px">Mensajes automáticos</div>
+          <div id="b04-clock-label">Ahorra tiempo</div>
+          <div id="b04-phone">
+            <div id="b04-device">
+              <div id="b04-screen">
+                <div class="b04-scr" id="b04-s1">
+                  <div class="b04-bar"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg><span>Catálogo</span></div>
+                  <div class="b04-prod" id="b04-p1" style="top:104px"><img src="assets/catalog/cake1.png" alt="" /><div><b>Cupcake de zanahoria</b><span>Crema de queso, nuez</span><i>Bs 20</i></div></div>
+                  <div class="b04-prod" id="b04-p2" style="top:222px"><img src="assets/catalog/cake2.png" alt="" /><div><b>Cupcake de chocolate</b><span>Cacao amargo, ganache</span><i>Bs 20</i></div></div>
+                  <div class="b04-prod" id="b04-p3" style="top:340px"><img src="assets/catalog/cake3.png" alt="" /><div><b>Cheesecake clásico</b><span>Vainilla, base de galleta</span><i>Bs 150</i></div></div>
+                  <div class="b04-prod" id="b04-p4" style="top:458px"><img src="assets/catalog/cake4.png" alt="" /><div><b>Cheesecake frutos rojos</b><span>Salsa de frambuesa</span><i>Bs 170</i></div></div>
+                  <div class="b04-prod" id="b04-p5" style="top:576px"><img src="assets/catalog/cake5.png" alt="" /><div><b>Torta Red Velvet</b><span>Cacao, crema de queso</span><i>Bs 150</i></div></div>
+                </div>
+                <div class="b04-scr" id="b04-s2">
+                  <div class="b04-bar"><div class="b04-bar-av"></div><div data-layout-allow-occlusion>Cliente<small data-layout-allow-occlusion>en línea</small></div></div>
+                  <div class="b04-bub b04-in" id="b04-m-in1" style="top:124px">¡Hola! ¿Puedo pedir un pastel para el sábado?</div>
+                  <div class="b04-bub b04-out" id="b04-m-out1" style="top:240px">¿Qué tipo de pastel te gustaría?</div>
+                  <div class="b04-bub b04-in" id="b04-m-in2" style="top:330px">Hola, ¿hacen envíos?</div>
+                  <div class="b04-bub b04-out" id="b04-m-out2" style="top:402px"><span class="b04-auto">Mensaje automático</span>¡Gracias por escribirnos! Te respondemos en minutos.</div>
+                  <div id="b04-qr">
+                    <div class="b04-qr-row"><b>/hola</b>¡Bienvenido a la pastelería!</div>
+                    <div class="b04-qr-row"><b>/agotado</b>Producto agotado</div>
+                    <div class="b04-qr-row" id="b04-qr3"><b>/pedido</b>¿Qué tipo de pastel…?</div>
+                  </div>
+                  <div id="b04-input"><span id="b04-slash">/</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <svg id="b04-clock" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="34" fill="#e7fbef" stroke="#075e54" stroke-width="5" />
+            <line x1="40" y1="40" x2="40" y2="20" stroke="#075e54" stroke-width="5" stroke-linecap="round" />
+            <line id="b04-clock-hand" x1="40" y1="40" x2="56" y2="40" stroke="#25d366" stroke-width="5" stroke-linecap="round" />
+          </svg>
+
+          <!-- Tier 3 -->
+          <div class="b04-sub" id="b04-sub3">Para <b>grandes volúmenes</b></div>
+          <div class="b04-count-row" id="b04-countB">
+            <div class="b04-count" id="b04-c50p">50+</div>
+            <div class="b04-count-label" data-layout-allow-occlusion>clientes al día</div>
+          </div>
+          <div class="b04-msg" id="b04-m0"></div>
+          <div class="b04-msg" id="b04-m1"></div>
+          <div class="b04-msg" id="b04-m2"></div>
+          <div class="b04-node" id="b04-n0" style="left:88px">
+            <svg viewBox="0 0 24 24"><path d="M4 5h16v10H9l-5 4z" fill="none" stroke="#075e54" stroke-width="2.2" stroke-linejoin="round" /></svg>
+          </div>
+          <div class="b04-node" id="b04-n1" style="left:348px">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5" fill="none" stroke="#075e54" stroke-width="2.2" /><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" stroke="#075e54" stroke-width="2.2" stroke-linecap="round" /></svg>
+          </div>
+          <div class="b04-node" id="b04-n2" style="left:608px">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.8L21 11l-6.8 2.2L12 20l-2.2-6.8L3 11l6.8-2.2z" fill="#25d366" stroke="#075e54" stroke-width="1.6" stroke-linejoin="round" /></svg>
+          </div>
+          <div class="b04-node" id="b04-n3" style="left:868px">
+            <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#075e54" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </div>
+          <!-- Tier 3 · AI agent: left column + phone (same language as the tier-2 phone) -->
+          <svg id="b04-ai-icon" viewBox="0 0 24 24"><path d="M12 2l2.2 6.8L21 11l-6.8 2.2L12 20l-2.2-6.8L3 11l6.8-2.2z" fill="#25d366" stroke="#075e54" stroke-width="1.4" stroke-linejoin="round" /></svg>
+          <div id="b04-ai-title">Agente de IA</div>
+          <div class="b04-chip" id="b04-aichip1" style="left:65px;top:400px">Responde 24/7</div>
+          <div class="b04-chip" id="b04-aichip2" style="left:65px;top:496px">Toma pedidos</div>
+          <div class="b04-chip" id="b04-aichip3" style="left:65px;top:592px">Atiende a miles</div>
+          <div id="b04-phone2">
+            <div id="b04-device2">
+              <div id="b04-screen2">
+                <div class="b04-scr" id="b04-s3">
+                  <div class="b04-bar"><div class="b04-bar-av"></div><div data-layout-allow-occlusion>Cliente<small data-layout-allow-occlusion>en línea</small></div></div>
+                  <div class="b04-bub b04-in" id="b04-a-in1" style="top:124px">Quiero 2 cheesecakes para mañana</div>
+                  <div class="b04-bub b04-out" id="b04-a-typing" style="top:214px"><span class="b04-ailabel"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.8L21 11l-6.8 2.2L12 20l-2.2-6.8L3 11l6.8-2.2z" fill="#25d366" /></svg>Agente IA</span>escribiendo…</div>
+                  <div class="b04-bub b04-out" id="b04-a-out1" style="top:214px"><span class="b04-ailabel"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.8L21 11l-6.8 2.2L12 20l-2.2-6.8L3 11l6.8-2.2z" fill="#25d366" /></svg>Agente IA</span>¡Claro! Son Bs 300. ¿Dirección de envío?</div>
+                  <div class="b04-bub b04-in" id="b04-a-in2" style="top:336px">Av. Arce 2345, Sopocachi</div>
+                  <div class="b04-bub b04-out" id="b04-a-out2" style="top:404px"><span class="b04-ailabel"><svg viewBox="0 0 24 24"><path d="M12 2l2.2 6.8L21 11l-6.8 2.2L12 20l-2.2-6.8L3 11l6.8-2.2z" fill="#25d366" /></svg>Agente IA</span>¡Listo! Pedido confirmado para mañana 10:00</div>
+                  <div id="b04-input2"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var B = /*BEATS*/;
+          var T0 = B.tier1.start;
+          function at(t) { return Math.max(0, t - T0); }
+          var tl = gsap.timeline({ paused: true });
+          var ROW = 110;
+
+          // Everything that arrives later starts hidden
+          gsap.set(
+            "#b04-h1, #b04-h2, #b04-h3, #b04-chat, .b04-row, #b04-unread, #b04-unread > span, " +
+              "#b04-sub2, #b04-countA, #b04-countA .b04-count > span, .b04-chip, #b04-clock, " +
+              "#b04-sub3, #b04-countB, .b04-node, .b04-msg, #b04-clock-label, #b04-phone, #b04-ai-icon, #b04-ai-title, #b04-phone2, " +
+              ".b04-prod, #b04-s2, .b04-bub, #b04-qr, #b04-slash, #b04-aichip1, #b04-aichip2, #b04-aichip3",
+            { autoAlpha: 0 }
+          );
+          // Show exactly one state of a stack from time t on (tl.set is reversible on seek-back)
+          function show(prevSel, nextSel, t) {
+            if (prevSel) tl.set(prevSel, { autoAlpha: 0 }, t);
+            tl.set(nextSel, { autoAlpha: 1 }, t);
+          }
+
+          // ── TIER 1 header + chat lands as the wipe retracts ──
+          var t1 = at(B.wipe1.tail[0]);
+          tl.fromTo("#b04-h1", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.01 }, t1);
+          tl.fromTo("#b04-h1 .b04-logo", { scale: 0.5 }, { scale: 1, duration: 0.4, ease: "power4.out" }, t1 + 0.05);
+          tl.fromTo("#b04-h1 .b04-num", { scale: 0 }, { scale: 1, duration: 0.3, ease: "power4.out" }, t1 + 0.25);
+          tl.fromTo("#b04-h1 .b04-title", { autoAlpha: 0, x: -40 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: "expo.out" }, t1 + 0.12);
+          tl.fromTo("#b04-chat", { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power4.out" }, t1 + 0.2);
+
+          // Rows arrive on top like a conveyor, pushing older chats down (absolute fromTo — seek-safe)
+          var inserts = B.tier1.rows.concat([B.tier1.negocio]).concat(B.tier1.floodRows);
+          inserts.forEach(function (tk, k) {
+            var gap = k + 1 < inserts.length ? inserts[k + 1] - tk : 1;
+            var d = Math.min(0.3, gap - 0.01);
+            tl.fromTo("#b04-r" + k, { autoAlpha: 0, y: -ROW }, { autoAlpha: 1, y: 0, duration: d, ease: "power3.inOut" }, at(tk));
+            for (var i = 0; i < k; i++) {
+              tl.fromTo("#b04-r" + i, { y: (k - 1 - i) * ROW }, { y: (k - i) * ROW, duration: d, ease: "power3.inOut", immediateRender: false }, at(tk));
+            }
+          });
+          // Unread pill: first client → 1, each flood row +1, "corto" → 99+
+          tl.fromTo("#b04-unread", { autoAlpha: 0, scale: 0.6 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power4.out" }, at(B.tier1.negocio));
+          show(null, "#b04-u1", at(B.tier1.negocio));
+          B.tier1.floodRows.forEach(function (tk, i) { show("#b04-u" + (i + 1), "#b04-u" + (i + 2), at(tk)); });
+          show("#b04-u9", "#b04-u99", at(B.tier1.corto));
+          tl.fromTo("#b04-unread", { scale: 1.25 }, { scale: 1, duration: 0.4, ease: "expo.out", immediateRender: false }, at(B.tier1.corto));
+
+          // ── MORPH: the header swaps under the brush band and LANDS on the beat ──
+          function morph(m, from, to) {
+            show(from, to, at(m.swap));
+            tl.fromTo(to + " .b04-logo", { scale: 0.6 }, { scale: 1, duration: 0.35, ease: "power4.out", immediateRender: false }, at(m.swap));
+            tl.fromTo(to + " .b04-num", { scale: 0 }, { scale: 1, duration: 0.3, ease: "power4.out", immediateRender: false }, at(m.swap) + 0.1);
+            tl.fromTo(to + " .b04-title", { x: -30 }, { x: 0, duration: 0.3, ease: "expo.out", immediateRender: false }, at(m.swap));
+          }
+
+          // ── TIER 2: WhatsApp Business ──
+          tl.to("#b04-chat", { autoAlpha: 0, y: 40, duration: 0.22, ease: "power2.in" }, at(B.morph2.head[0]));
+          tl.set("#b04-chat", { autoAlpha: 0 }, at(B.morph2.land)); // hard kill
+          morph(B.morph2, "#b04-h1", "#b04-h2");
+          tl.fromTo("#b04-sub2", { autoAlpha: 0, x: -50 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: "expo.out" }, at(B.tier2.perfecto));
+          tl.fromTo("#b04-countA", { autoAlpha: 0, y: 44 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power4.out" }, at(B.tier2.count[0]) - 0.25);
+          // 10 → 50 in steps of 5, one tick each (the painted bar follows the same steps)
+          var c = B.tier2.count, stepDur = (c[1] - c[0]) / 8;
+          for (var n = 0; n <= 8; n++) show(n ? "#b04-c" + (5 + 5 * n) : null, "#b04-c" + (10 + 5 * n), at(c[0] + n * stepDur));
+          tl.fromTo("#b04-countA .b04-count", { scale: 1.1 }, { scale: 1, duration: 0.4, ease: "expo.out", immediateRender: false }, at(c[1]));
+          // The stat makes room: sub-line + counter leave (the painted bar retracts in the brush layer)
+          var P = B.tier2.phone;
+          tl.to(["#b04-sub2", "#b04-countA"], { autoAlpha: 0, y: -30, duration: 0.25, ease: "power2.in" }, at(B.tier2.statExit));
+          // Phone rises from below the panel
+          tl.set("#b04-phone", { autoAlpha: 1 }, at(P.enter));
+          tl.fromTo("#b04-device", { y: 700 }, { y: 0, duration: 0.5, ease: "power4.out" }, at(P.enter));
+          // "catálogo": products cascade in, then a slow browse scroll
+          [1, 2, 3, 4, 5].forEach(function (i) {
+            tl.fromTo("#b04-p" + i, { autoAlpha: 0, x: 40 }, { autoAlpha: 1, x: 0, duration: 0.3, ease: "power4.out" }, at(P.catalog) + (i - 1) * 0.07);
+          });
+          tl.fromTo("#b04-s1", { y: 0 }, { y: -60, duration: P.quick - P.catalog - 0.6, ease: "sine.inOut" }, at(P.catalog) + 0.4);
+          // "respuestas rápidas": push to the chat, type "/", pick a saved reply, it is sent
+          tl.set("#b04-s2", { autoAlpha: 1 }, at(P.quick) - 0.2);
+          tl.fromTo("#b04-s1", { x: 0 }, { x: -422, duration: 0.35, ease: "power3.inOut", immediateRender: false }, at(P.quick) - 0.2);
+          tl.set("#b04-s1", { autoAlpha: 0 }, at(P.quick) + 0.15); // hard kill once pushed off-screen
+          tl.fromTo("#b04-s2", { x: 422 }, { x: 0, duration: 0.35, ease: "power3.inOut", immediateRender: false }, at(P.quick) - 0.2);
+          tl.fromTo("#b04-m-in1", { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.25, ease: "power4.out" }, at(P.quick));
+          tl.set("#b04-slash", { autoAlpha: 1 }, at(P.slash));
+          tl.fromTo("#b04-qr", { autoAlpha: 0, y: 80 }, { autoAlpha: 1, y: 0, duration: 0.25, ease: "power4.out" }, at(P.slash) + 0.05);
+          tl.fromTo("#b04-qr3", { backgroundColor: "#ffffff" }, { backgroundColor: "#e7fbef", duration: 0.15, ease: "power2.out" }, at(P.pick) - 0.2);
+          tl.to("#b04-qr", { autoAlpha: 0, y: 40, duration: 0.18, ease: "power2.in" }, at(P.pick));
+          tl.set("#b04-slash", { autoAlpha: 0 }, at(P.pick));
+          tl.fromTo("#b04-m-out1", { autoAlpha: 0, y: 16, scale: 0.9 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.25, ease: "power4.out", transformOrigin: "100% 100%" }, at(P.pick) + 0.05);
+          // "mensajes automáticos": a client writes, the automatic reply answers right away
+          tl.fromTo("#b04-m-in2", { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.25, ease: "power4.out" }, at(P.autoIn));
+          tl.fromTo("#b04-m-out2", { autoAlpha: 0, y: 16, scale: 0.9 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.3, ease: "power4.out", transformOrigin: "100% 100%" }, at(P.autoReply));
+          tl.to("#b04-device", { y: 700, duration: 0.3, ease: "power2.in" }, at(P.exit));
+          tl.set("#b04-phone", { autoAlpha: 0 }, at(P.exit) + 0.3); // hard kill
+
+          // Feature chips arrive as each one is named; the pen check draws into the icon slot
+          B.tier2.chips.forEach(function (t, i) {
+            tl.fromTo("#b04-chip" + (i + 1), { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power4.out" }, at(t) - 0.05);
+          });
+          // "ahorrar tiempo": the clock pops in and its hand sweeps until the tier changes
+          tl.fromTo("#b04-clock", { autoAlpha: 0, scale: 0.6, rotation: -40 }, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.4, ease: "expo.out", transformOrigin: "50% 50%" }, at(B.tier2.tiempo));
+          tl.fromTo("#b04-clock-label", { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.4, ease: "expo.out" }, at(B.tier2.tiempo) + 0.1);
+          tl.fromTo("#b04-clock-hand", { rotation: 0 }, { rotation: 720, duration: B.morph3.head[0] - B.tier2.tiempo, ease: "none", svgOrigin: "40 40" }, at(B.tier2.tiempo));
+
+          // ── TIER 3: WhatsApp Business API (introduced on "WhatsApp Business API", 29.6) ──
+          tl.to(["#b04-chip1", "#b04-chip2", "#b04-chip3", "#b04-clock", "#b04-clock-label"], { autoAlpha: 0, y: 20, duration: 0.2, ease: "power2.in" }, at(B.morph3.head[0]));
+          tl.set(["#b04-chip1", "#b04-chip2", "#b04-chip3", "#b04-clock", "#b04-clock-label", "#b04-sub2"], { autoAlpha: 0 }, at(B.morph3.land)); // hard kill
+          morph(B.morph3, "#b04-h2", "#b04-h3");
+          tl.fromTo("#b04-h3 .b04-api", { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.3, ease: "expo.out", immediateRender: false }, at(B.morph3.land));
+          tl.fromTo("#b04-sub3", { autoAlpha: 0, x: -50 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: "expo.out" }, at(B.tier3.pensado));
+          // The counter comes back (still 50) and the bar repaints, ready for "más de 50"
+          tl.fromTo("#b04-countA", { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power4.out", immediateRender: false }, at(B.tier3.statBack));
+          // "más de 50": the 50 becomes 50+ and the painted bar overflows the panel
+          show("#b04-countA", "#b04-countB", at(B.tier3.masde50));
+          tl.fromTo("#b04-c50p", { scale: 1.18 }, { scale: 1, duration: 0.4, ease: "expo.out", immediateRender: false }, at(B.tier3.masde50));
+
+          // Bot flow: nodes appear as their pen links draw, then messages travel through them
+          var f = B.tier3.flow, fstep = (f[1] - f[0]) / 3;
+          [0, 1, 2, 3].forEach(function (i) {
+            tl.fromTo("#b04-n" + i, { autoAlpha: 0, scale: 0.5 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power4.out" }, at(f[0]) - 0.3 + i * fstep);
+          });
+          var flowStart = f[1] + 0.1, cycle = 0.45, travel = B.tier3.aiExit - flowStart;
+          [0, 1, 2].forEach(function (i) {
+            var t0 = at(flowStart) + i * 0.3, span = travel - i * 0.3;
+            tl.set("#b04-m" + i, { autoAlpha: 1 }, t0);
+            tl.fromTo("#b04-m" + i, { x: 182 }, { x: 880, duration: cycle, ease: "none", repeat: Math.max(0, Math.floor(span / cycle) - 1), immediateRender: false }, t0);
+          });
+          // ── "inteligencia artificial": stat + flow make room, the AI agent takes over the chat ──
+          var A = B.tier3.aiPhone, ax = at(B.tier3.aiExit);
+          tl.to(["#b04-sub3", "#b04-countB", ".b04-node", ".b04-msg"], { autoAlpha: 0, y: -24, duration: 0.25, ease: "power2.in" }, ax);
+          tl.set(["#b04-sub3", "#b04-countB", ".b04-node", ".b04-msg"], { autoAlpha: 0 }, ax + 0.25); // hard kill
+          tl.fromTo("#b04-ai-icon", { autoAlpha: 0, scale: 0.4, rotation: -60 }, { autoAlpha: 1, scale: 1, rotation: 0, duration: 0.45, ease: "expo.out", transformOrigin: "50% 50%" }, ax + 0.2);
+          tl.fromTo("#b04-ai-title", { autoAlpha: 0, x: -40 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: "expo.out" }, ax + 0.3);
+          B.tier3.aiChips.forEach(function (t, i) {
+            tl.fromTo("#b04-aichip" + (i + 1), { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 0.35, ease: "power4.out" }, at(t) - 0.05);
+          });
+          tl.set("#b04-phone2", { autoAlpha: 1 }, at(A.enter));
+          tl.fromTo("#b04-device2", { y: 700 }, { y: 0, duration: 0.5, ease: "power4.out" }, at(A.enter));
+          tl.fromTo("#b04-a-in1", { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.25, ease: "power4.out" }, at(A.in1));
+          tl.fromTo("#b04-a-typing", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.2, ease: "power4.out" }, at(A.typing));
+          tl.set("#b04-a-typing", { autoAlpha: 0 }, at(A.ai1));
+          tl.fromTo("#b04-a-out1", { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power4.out", transformOrigin: "100% 0%" }, at(A.ai1));
+          tl.fromTo("#b04-a-in2", { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.25, ease: "power4.out" }, at(A.in2));
+          tl.fromTo("#b04-a-out2", { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.3, ease: "power4.out", transformOrigin: "100% 0%" }, at(A.ai2));
+
+          window.__timelines["B04_tiers"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

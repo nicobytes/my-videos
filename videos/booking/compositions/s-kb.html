@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <style>
+@font-face { font-family: "Rubik"; src: url("fonts/Rubik-400-latin.woff2") format("woff2"); font-weight: 400; font-display: block; }
+@font-face { font-family: "Rubik"; src: url("fonts/Rubik-800-latin.woff2") format("woff2"); font-weight: 800; font-display: block; }
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/JetBrainsMono-700-latin.woff2") format("woff2"); font-weight: 700; font-display: block; }
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:transparent; }
+#s-kb-root {
+  --foam:#F3FBF8; --mist:#D5EDE6; --ink:#152A26;
+  --mango:#FF7A45; --lagoon:#1ECAD3; --butter:#FFE56A;
+  --sticker: 4px 4px 0 #152A26;
+  position:relative; width:1080px; height:1920px; overflow:hidden;
+  background: var(--foam); color: var(--ink);
+  font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
+}
+.plate {
+  position:absolute; inset:0;
+  padding: 160px 48px 420px;
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap: 18px;
+}
+.kicker {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 22px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  opacity:0; align-self:flex-start; margin-left: 16px;
+}
+.title {
+  font-size: 56px; font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; margin:0; opacity:0;
+  align-self:flex-start; margin-left: 16px;
+}
+.title .slap {
+  background: linear-gradient(180deg, transparent 55%, #FFE56A 55%);
+}
+.stage-wrap {
+  position:relative; width: 920px; height: 820px; margin-top: 8px;
+}
+.brain-stage {
+  position:absolute; left:50%; top:46%; transform:translate(-50%, -50%);
+  width: 680px; height: 560px; opacity:0;
+  will-change: transform, opacity;
+}
+.brain-svg { display:block; width:100%; height:100%; overflow:visible; }
+.lobe-fill {
+  fill: none;
+  stroke: #152A26;
+  stroke-width: 8;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.lobe-fill.left { --lobe-color: #1ECAD3; }
+.lobe-fill.right { --lobe-color: #FF7A45; }
+.fold {
+  fill: none; stroke: #152A26; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round;
+  opacity:0;
+}
+.fissure {
+  fill: none; stroke: #152A26; stroke-width: 10; stroke-linecap: round; opacity:0;
+}
+.core {
+  fill: #FFE56A; stroke: #152A26; stroke-width: 6; opacity:0;
+}
+.feed {
+  position:absolute; display:flex; align-items:center; justify-content:center;
+  padding: 16px 24px; border-radius: 9999px; font-size: 28px; font-weight: 800;
+  box-shadow: var(--sticker); opacity:0; z-index:2; white-space:nowrap;
+  color: var(--ink); border: 3px solid #152A26;
+}
+.feed.a { left: 24px; top: 140px; background: var(--mist); }
+.feed.b { right: 24px; top: 280px; background: var(--mango); }
+.feed.c { left: 48px; top: 460px; background: var(--butter); }
+.hint {
+  position:absolute; bottom: 8px; left: 50%; transform:translateX(-50%);
+  font-size: 30px; font-weight: 800; opacity:0; white-space:nowrap;
+  padding: 14px 26px; border-radius: 9999px; background: var(--mango);
+  box-shadow: var(--sticker); color: var(--ink); z-index: 2;
+  border: 3px solid #152A26;
+}
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-3279" id="s-kb-root" data-composition-id="s-kb" data-start="0" data-duration="4" data-fps="24" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-1f07" class="plate clip" id="skb-plate" data-start="0" data-duration="4" data-track-index="0">
+        <div data-hf-id="hf-eiju" class="kicker" id="skb-kicker">Base de conocimiento</div>
+        <h1 data-hf-id="hf-tkie" class="title" id="skb-title">Mapeamos <span data-hf-id="hf-9v5n" class="slap">todo</span></h1>
+
+        <div data-hf-id="hf-cbbv" class="stage-wrap" id="skb-stage-wrap">
+          <div data-hf-id="hf-ijli" class="brain-stage" id="skb-brain-stage" role="img" aria-label="Cerebro — base de conocimiento del agente">
+            <!-- Top-down brain: two scalloped hemispheres + midline + gyri folds -->
+            <svg data-hf-id="hf-8y9r" class="brain-svg" viewBox="0 0 400 320" aria-hidden="true">
+              <!-- LEFT hemisphere (scalloped gyri) -->
+              <path data-hf-id="hf-7zh7" class="lobe-fill left" id="skb-lobe-l" d="
+                M 200 48
+                C 178 42, 155 38, 132 48
+                C 108 38, 85 52, 72 78
+                C 52 72, 38 92, 42 118
+                C 28 128, 28 152, 42 168
+                C 32 188, 48 210, 70 218
+                C 62 240, 82 258, 108 258
+                C 122 278, 152 278, 168 258
+                C 182 268, 196 258, 200 238
+                Z" />
+              <!-- RIGHT hemisphere (mirror) -->
+              <path data-hf-id="hf-b2iv" class="lobe-fill right" id="skb-lobe-r" d="
+                M 200 48
+                C 222 42, 245 38, 268 48
+                C 292 38, 315 52, 328 78
+                C 348 72, 362 92, 358 118
+                C 372 128, 372 152, 358 168
+                C 368 188, 352 210, 330 218
+                C 338 240, 318 258, 292 258
+                C 278 278, 248 278, 232 258
+                C 218 268, 204 258, 200 238
+                Z" />
+              <!-- Midline fissure -->
+              <path data-hf-id="hf-qyba" class="fissure" id="skb-fissure" d="M 200 58 L 200 248" />
+              <!-- Gyri folds (left) -->
+              <path data-hf-id="hf-ttak" class="fold" id="skb-f1" d="M 95 95 Q 130 85, 160 105" />
+              <path data-hf-id="hf-yg3v" class="fold" id="skb-f2" d="M 70 140 Q 115 125, 155 150" />
+              <path data-hf-id="hf-pj7k" class="fold" id="skb-f3" d="M 95 190 Q 135 175, 165 200" />
+              <!-- Gyri folds (right) -->
+              <path data-hf-id="hf-wvwh" class="fold" id="skb-f4" d="M 305 95 Q 270 85, 240 105" />
+              <path data-hf-id="hf-4qd3" class="fold" id="skb-f5" d="M 330 140 Q 285 125, 245 150" />
+              <path data-hf-id="hf-mztj" class="fold" id="skb-f6" d="M 305 190 Q 265 175, 235 200" />
+              <!-- Knowledge core -->
+              <circle data-hf-id="hf-w023" class="core" id="skb-core" cx="200" cy="155" r="28" />
+            </svg>
+          </div>
+
+          <span data-hf-id="hf-5t4i" class="feed a" id="skb-feed-a">servicios</span>
+          <span data-hf-id="hf-8j90" class="feed b" id="skb-feed-b">empresa</span>
+          <span data-hf-id="hf-b3mq" class="feed c" id="skb-feed-c">información</span>
+          <div data-hf-id="hf-mh9p" class="hint" id="skb-hint">KB del agente</div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        "use strict";
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const stage = document.getElementById("skb-brain-stage");
+
+        function prepStroke(sel) {
+          var el = document.querySelector(sel);
+          if (!el || typeof el.getTotalLength !== "function") return;
+          var len = el.getTotalLength() * 1.06;
+          el.style.strokeDasharray = String(len);
+          el.style.strokeDashoffset = String(len);
+        }
+
+        ["#skb-lobe-l", "#skb-lobe-r", "#skb-fissure", "#skb-f1", "#skb-f2", "#skb-f3", "#skb-f4", "#skb-f5", "#skb-f6"].forEach(prepStroke);
+
+        // Lobes: outline draws first, then fill color fades in
+        gsap.set(["#skb-lobe-l", "#skb-lobe-r"], { fill: "none" });
+        gsap.set(["#skb-kicker", "#skb-title", "#skb-hint", "#skb-feed-a", "#skb-feed-b", "#skb-feed-c", "#skb-core"], { opacity: 0 });
+        gsap.set(["#skb-fissure", "#skb-f1", "#skb-f2", "#skb-f3", "#skb-f4", "#skb-f5", "#skb-f6"], { opacity: 1 });
+
+        tl.fromTo("#skb-kicker", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.2, ease: "power2.out" }, 0.05);
+        tl.fromTo("#skb-title", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.26, ease: "power2.out" }, 0.15);
+
+        tl.to(stage, { opacity: 1, duration: 0.22, ease: "power2.out" }, 0.2);
+
+        // Draw left lobe outline, then fill lagoon
+        tl.to("#skb-lobe-l", { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" }, 0.28);
+        tl.to("#skb-lobe-l", { fill: "#1ECAD3", duration: 0.3, ease: "power1.out" }, 0.72);
+        // Right lobe mango
+        tl.to("#skb-lobe-r", { strokeDashoffset: 0, duration: 0.55, ease: "power2.out" }, 0.48);
+        tl.to("#skb-lobe-r", { fill: "#FF7A45", duration: 0.3, ease: "power1.out" }, 0.92);
+
+        // Midline + folds
+        tl.to("#skb-fissure", { strokeDashoffset: 0, duration: 0.28, ease: "power2.out" }, 0.95);
+        tl.to(["#skb-f1", "#skb-f2", "#skb-f3", "#skb-f4", "#skb-f5", "#skb-f6"], {
+          strokeDashoffset: 0, duration: 0.3, stagger: 0.04, ease: "power2.out"
+        }, 1.1);
+
+        // Core ready to receive info
+        tl.to("#skb-core", { opacity: 1, scale: 1, duration: 0.28, ease: "back.out(1.5)", transformOrigin: "50% 50%" }, 1.45);
+
+        function feedIn(sel, t, dx, dy) {
+          tl.fromTo(sel, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.22, ease: "back.out(1.8)" }, t);
+          tl.to(sel, { x: dx, y: dy, scale: 0.4, opacity: 0, duration: 0.5, ease: "power2.in" }, t + 0.28);
+          tl.to("#skb-core", { scale: 1.32, duration: 0.14, yoyo: true, repeat: 1, ease: "sine.inOut", transformOrigin: "50% 50%" }, t + 0.68);
+        }
+
+        feedIn("#skb-feed-a", 1.7, 260, 100);
+        feedIn("#skb-feed-b", 2.35, -260, 40);
+        feedIn("#skb-feed-c", 3.0, 240, -70);
+
+        tl.fromTo("#skb-hint", { opacity: 0, scale: 0.9, y: 12 }, { opacity: 1, scale: 1, y: 0, duration: 0.24, ease: "back.out(1.4)" }, 3.55);
+
+        tl.seek(0);
+        window.__timelines["s-kb"] = tl;
+      })();
+    </script>
+  </body>
+</html>

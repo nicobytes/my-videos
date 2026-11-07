@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 3,
+  "composition": {
+    "fps": 30,
+    "width": 1080,
+    "height": 1920,
+    "durationSeconds": 47,
+    "layout": "portrait",
+    "themeId": "nicobytes",
+    "seed": 42
+  },
+  "videoTrack": {
+    "sourcePath": "input-video.mp4",
+    "startSec": 0,
+    "endSec": 47,
+    "bounds": { "x": 0, "y": 0, "width": 1080, "height": 1920 }
+  },
+  "subtitles": { "enabled": true },
+  "cards": [
+    {
+      "id": "card-01",
+      "intent": "Hook — how to use Google's frontier Flash in agents",
+      "startSec": 0,
+      "endSec": 6.0,
+      "accentIndex": 0,
+      "zone": "fullscreen",
+      "contentHints": {
+        "kicker": "GEMINI FLASH",
+        "title": "¿Modelo de frontera en tus agentes?",
+        "logo": "assets/logos/adk-logo.png"
+      }
+    },
+    {
+      "id": "card-02",
+      "intent": "Before — pinned model ID requires release on every upgrade",
+      "startSec": 6.0,
+      "endSec": 14.36,
+      "accentIndex": 1,
+      "zone": "fullscreen",
+      "contentHints": {
+        "kicker": "ANTES",
+        "title": "ID de modelo pinneado",
+        "code": "model=\"gemini-2.5-flash\"",
+        "detail": "Cada upgrade = edit + deploy"
+      }
+    },
+    {
+      "id": "card-03",
+      "intent": "Reveal Google's mutable alias placeholder",
+      "startSec": 14.36,
+      "endSec": 20.76,
+      "accentIndex": 0,
+      "zone": "fullscreen",
+      "contentHints": {
+        "kicker": "PLACEHOLDER",
+        "title": "gemini-flash-latest",
+        "detail": "Alias por familia de modelo"
+      }
+    },
+    {
+      "id": "card-04",
+      "intent": "After — Flash family always resolves to current frontier",
+      "startSec": 20.76,
+      "endSec": 26.64,
+      "accentIndex": 1,
+      "zone": "fullscreen",
+      "contentHints": {
+        "kicker": "DESPUÉS",
+        "title": "Siempre el Flash más reciente",
+        "code": "model=\"gemini-flash-latest\"",
+        "detail": "Frontera en automático",
+        "lang": "python"
+      }
+    },
+    {
+      "id": "card-05",
+      "intent": "Payoff — new versions land with zero deploy",
+      "startSec": 26.64,
+      "endSec": 41.68,
+      "accentIndex": 0,
+      "zone": "fullscreen",
+      "contentHints": {
+        "kicker": "PAYOFF",
+        "title": "0 deploy",
+        "versions": ["3.4", "3.5", "…"],
+        "detail": "Agentes operan el frontier sin release"
+      }
+    },
+    {
+      "id": "card-06",
+      "intent": "CTA — WhatsApp agents platform",
+      "startSec": 41.68,
+      "endSec": 47.0,
+      "accentIndex": 0,
+      "zone": "fullscreen",
+      "contentHints": {
+        "kicker": "CTA",
+        "title": "Agentes en WhatsApp",
+        "cta": "Escríbeme · tengo una plataforma",
+        "logo": "assets/logos/adk-logo.png"
+      }
+    }
+  ]
+}

@@ -1,0 +1,213 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #ch-phone-wrap {
+      position: absolute;
+      left: 64px;
+      top: 262px;
+      width: 470px;
+      height: 690px;
+    }
+    .ch-bub {
+      display: none;
+    }
+    #ch-chip1 { left: 556px; top: 330px; }
+    #ch-chip2 { left: 590px; top: 540px; }
+    #ch-hist {
+      position: absolute;
+      left: 590px;
+      top: 760px;
+      font-size: 76px;
+    }
+    /* ---- token chart card ---- */
+    #ch-card-wrap {
+      position: absolute;
+      left: 50px;
+      top: 990px;
+      width: 980px;
+      height: 450px;
+    }
+    #ch-card {
+      position: absolute;
+      inset: 0;
+    }
+    #ch-card-title {
+      position: absolute;
+      left: 30px;
+      top: -40px;
+      font-size: 60px;
+    }
+    #ch-plot {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 980px;
+      height: 450px;
+      overflow: visible;
+    }
+    #ch-reveal {
+      position: absolute;
+      inset: 0;
+    }
+    #ch-burst {
+      position: absolute;
+      left: 570px;
+      top: -150px;
+      width: 260px;
+      height: 200px;
+    }
+  </style>
+  <div id="root" data-composition-id="chat" data-width="1080" data-height="1920">
+    <div class="card-ground"></div>
+
+    <div id="ch-phone-wrap" class="lift">
+      <div class="ph-body">
+        <div class="ph-screen">
+          <div class="ph-head">
+            <div class="ph-avatar"></div>
+            <div class="ph-name">Tienda Bot</div>
+            <div class="ph-status">en línea</div>
+          </div>
+          <div class="ph-thread">
+            <div class="ph-list" id="ch-list">
+              <div class="bub out ch-bub" id="ch-b1">Hola, quiero cambiar mi pedido</div>
+              <div class="bub in ch-bub" id="ch-b2">¡Claro! ¿Cuál es el número?</div>
+              <div class="bub out ch-bub" id="ch-b3">Es el #4821</div>
+              <div class="bub in ch-bub" id="ch-b4">Listo, lo encontré. ¿Qué cambio?</div>
+              <div class="bub out ch-bub" id="ch-b5">A talla M, porfa</div>
+              <div class="bub in ch-bub" id="ch-b6">Hecho. Llega el jueves</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lift">
+      <div id="ch-chip1" class="chip paper cut-b"><span class="kind">Tool</span>buscar_pedido()</div>
+    </div>
+    <div class="lift">
+      <div id="ch-chip2" class="chip paper cut-a"><span class="kind">Skill</span>politicas.md</div>
+    </div>
+    <div class="lift">
+      <div id="ch-hist" class="tape">Historial ↓</div>
+    </div>
+
+    <div id="ch-card-wrap" class="lift">
+      <div id="ch-card" class="paper cut-b"></div>
+      <div id="ch-reveal">
+        <svg id="ch-plot" viewBox="0 0 980 450" aria-hidden="true">
+          <path id="ch-area" fill="#d8cff3" />
+          <path id="ch-line" fill="none" stroke="#141218" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" />
+          <circle id="ch-tip" r="13" fill="#141218" stroke="#fff" stroke-width="5" />
+        </svg>
+      </div>
+      <svg id="ch-burst" viewBox="0 0 260 200" aria-hidden="true">
+        <polygon points="130,4 152,58 214,22 186,82 256,96 190,118 230,184 158,140 130,196 104,140 30,184 72,118 4,96 74,82 46,22 108,58" fill="#141218" stroke="#fff" stroke-width="6" stroke-linejoin="round" />
+        <text x="130" y="116" text-anchor="middle" font-family="League Gothic" font-size="50" fill="#fff">¡EXPLOTA!</text>
+      </svg>
+      <div id="ch-card-title" class="tape">Contexto (tokens)</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      // Host starts at 12.0 s; times below are film seconds.
+      const S = 12.0;
+      const at = (g) => +(g - S).toFixed(3);
+      const tl = gsap.timeline({ paused: true });
+
+      // Token curve: ILLUSTRATIVE values (no source numbers). One step per
+      // message, a spike per tool call / skill, three quick steps on
+      // "va y va y va", and the break through the top on "explotar".
+      // [x, y, kind] in plot fractions; kind "s" = step, "p" = spike (peak, rest).
+      const PLOT = { x0: 70, x1: 940, y0: 405, y1: 75 };
+      const EVENTS = [
+        [0.0, 0.1, "s"], [0.06, 0.15, "s"], [0.12, 0.2, "s"], [0.18, 0.25, "s"], [0.24, 0.3, "s"],
+        [0.3, [0.6, 0.38], "p"], [0.38, [0.74, 0.48], "p"],
+        [0.45, 0.55, "s"], [0.48, 0.61, "s"], [0.51, 0.67, "s"], [0.56, 0.75, "s"],
+        [0.6, 0.83, "s"], [0.64, 0.92, "s"], [0.68, 1.42, "s"],
+      ];
+      const X = (f) => PLOT.x0 + (PLOT.x1 - PLOT.x0) * f;
+      const Y = (f) => PLOT.y0 - (PLOT.y0 - PLOT.y1) * f;
+      let d = `M ${X(0)} ${Y(EVENTS[0][1])}`;
+      for (const [x, v, kind] of EVENTS.slice(1)) {
+        if (kind === "s") d += ` H ${X(x)} V ${Y(v)}`;
+        else d += ` H ${X(x)} L ${X(x + 0.012)} ${Y(v[0])} L ${X(x + 0.026)} ${Y(v[1])}`;
+      }
+      const last = EVENTS[EVENTS.length - 1];
+      document.getElementById("ch-line").setAttribute("d", d);
+      document.getElementById("ch-area").setAttribute("d", `${d} V ${PLOT.y0} H ${X(0)} Z`);
+      gsap.set("#ch-tip", { attr: { cx: X(last[0]), cy: Y(last[1]) }, opacity: 0 });
+      const reveal = (f) => `inset(-260px ${(980 - X(f)).toFixed(1)}px -20px 0px)`;
+      let shown = 0;
+      // Each event moves the curve on, in three stop-motion steps.
+      const grow = (to, g) => {
+        PC.steps(tl, "#ch-reveal", shown, to, at(g), 0.18, 3, reveal);
+        shown = to;
+      };
+
+      const ROT = { phone: -3, chip1: 3, chip2: -2.5, hist: 2, title: -2, burst: -6 };
+      gsap.set("#ch-phone-wrap", { rotation: ROT.phone, opacity: 0 });
+      gsap.set("#ch-card-wrap", { opacity: 0 });
+      gsap.set("#ch-chip1", { rotation: ROT.chip1, opacity: 0 });
+      gsap.set("#ch-chip2", { rotation: ROT.chip2, opacity: 0 });
+      gsap.set("#ch-hist", { rotation: ROT.hist, opacity: 0 });
+      gsap.set("#ch-card-title", { rotation: ROT.title, opacity: 0 });
+      gsap.set("#ch-burst", { rotation: ROT.burst, opacity: 0 });
+      gsap.set("#ch-reveal", { clipPath: reveal(0) });
+      gsap.set(".bub.out", { transformOrigin: "100% 0%" });
+      gsap.set(".bub.in", { transformOrigin: "0% 0%" });
+
+      // 12.0: the phone and the chart card are slapped down, title after.
+      PC.slap(tl, "#ch-phone-wrap", at(12.0), { rot: ROT.phone, from: 1.08, dy: 120, spin: -4, dur: 0.3 });
+      PC.slap(tl, "#ch-card-wrap", at(12.16), { from: 1.05, dy: 90, spin: 1.5, dur: 0.3 });
+      PC.slap(tl, "#ch-card-title", at(12.32), { rot: ROT.title });
+      grow(0.03, 12.4);
+
+      // Messages arrive as the voice talks about the chat; each one is a step.
+      const bubble = (sel, g) => {
+        tl.set(sel, { display: "block" }, at(g));
+        tl.fromTo(sel, { scale: 0.75 }, { scale: 1, duration: 0.12, ease: "power2.out", immediateRender: false }, at(g));
+      };
+      bubble("#ch-b1", 12.9); grow(0.09, 13.0);
+      bubble("#ch-b2", 14.4); grow(0.15, 14.5);
+      bubble("#ch-b3", 15.3); grow(0.21, 15.4);
+      bubble("#ch-b4", 16.3); grow(0.27, 16.4);
+
+      // "historial" (17.24).
+      PC.slap(tl, "#ch-hist", at(17.25), { rot: ROT.hist, from: 1.2 });
+      PC.pull(tl, "#ch-hist", at(18.1), { rot: ROT.hist, toX: 600, toY: -300 });
+
+      bubble("#ch-b5", 18.5); grow(0.29, 18.6);
+      // "herramientas" (19.32) and "skills" (20.26): the chips come out of the phone, each a spike.
+      PC.slap(tl, "#ch-chip1", at(19.3), { rot: ROT.chip1, from: 1.1, dx: -300, dy: 0, spin: -8, dur: 0.28 });
+      grow(0.345, 19.45);
+      PC.slap(tl, "#ch-chip2", at(20.25), { rot: ROT.chip2, from: 1.1, dx: -320, dy: 0, spin: 8, dur: 0.28 });
+      grow(0.425, 20.4);
+      bubble("#ch-b6", 21.0); grow(0.47, 21.2);
+      // "va y va y va" (22.12 / 22.34 / 22.55), "aumento" (22.84), "algún momento" (23.8).
+      grow(0.5, 22.12);
+      grow(0.53, 22.34);
+      grow(0.58, 22.55);
+      grow(0.62, 22.84);
+      grow(0.66, 23.8);
+      // "explotar" (24.82): the curve breaks through the top of the card.
+      grow(0.72, 24.78);
+      tl.set("#ch-tip", { opacity: 1 }, at(24.96));
+      PC.slap(tl, "#ch-burst", at(24.86), { rot: ROT.burst, from: 1.45, dy: 30, spin: 10, dur: 0.18 });
+
+      // 25.0: everything is pulled off for the receipt.
+      PC.pull(tl, "#ch-phone-wrap", at(25.0), { rot: ROT.phone, toX: -300, toY: -1500, dur: 0.22 });
+      PC.pull(tl, "#ch-chip1", at(25.0), { rot: ROT.chip1, toX: 500, dur: 0.22 });
+      PC.pull(tl, "#ch-chip2", at(25.02), { rot: ROT.chip2, toX: 500, dur: 0.22 });
+      PC.pull(tl, "#ch-card-wrap", at(25.04), { toY: 1400, spin: -4, dur: 0.22 });
+      tl.set({}, {}, 13.3);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["chat"] = tl;
+    })();
+  </script>
+</template>

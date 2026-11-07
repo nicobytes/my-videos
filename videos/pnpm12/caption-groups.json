@@ -1,0 +1,1278 @@
+{
+  "words": [
+    {
+      "id": "w0",
+      "text": "Con",
+      "start": 0.08,
+      "end": 0.368
+    },
+    {
+      "id": "w1",
+      "text": "la",
+      "start": 0.368,
+      "end": 0.656
+    },
+    {
+      "id": "w2",
+      "text": "nueva",
+      "start": 0.656,
+      "end": 0.944
+    },
+    {
+      "id": "w3",
+      "text": "versión",
+      "start": 0.944,
+      "end": 1.232
+    },
+    {
+      "id": "w4",
+      "text": "de",
+      "start": 1.232,
+      "end": 1.52
+    },
+    {
+      "id": "w5",
+      "text": "pnpm",
+      "start": 1.52,
+      "end": 1.808
+    },
+    {
+      "id": "w6",
+      "text": "en",
+      "start": 1.808,
+      "end": 2.096
+    },
+    {
+      "id": "w7",
+      "text": "la",
+      "start": 2.096,
+      "end": 2.384
+    },
+    {
+      "id": "w8",
+      "text": "versión",
+      "start": 2.384,
+      "end": 2.672
+    },
+    {
+      "id": "w9",
+      "text": "12",
+      "start": 2.672,
+      "end": 2.96
+    },
+    {
+      "id": "w10",
+      "text": "puedo",
+      "start": 2.96,
+      "end": 3.273
+    },
+    {
+      "id": "w11",
+      "text": "reemplazar",
+      "start": 3.273,
+      "end": 3.587
+    },
+    {
+      "id": "w12",
+      "text": "dos",
+      "start": 3.587,
+      "end": 3.9
+    },
+    {
+      "id": "w13",
+      "text": "herramientas",
+      "start": 3.9,
+      "end": 4.213
+    },
+    {
+      "id": "w14",
+      "text": "que",
+      "start": 4.213,
+      "end": 4.527
+    },
+    {
+      "id": "w15",
+      "text": "para",
+      "start": 4.527,
+      "end": 4.84
+    },
+    {
+      "id": "w16",
+      "text": "mí",
+      "start": 4.84,
+      "end": 5.114
+    },
+    {
+      "id": "w17",
+      "text": "eran",
+      "start": 5.114,
+      "end": 5.389
+    },
+    {
+      "id": "w18",
+      "text": "muy",
+      "start": 5.389,
+      "end": 5.663
+    },
+    {
+      "id": "w19",
+      "text": "importantes",
+      "start": 5.663,
+      "end": 5.937
+    },
+    {
+      "id": "w20",
+      "text": "y",
+      "start": 5.937,
+      "end": 6.211
+    },
+    {
+      "id": "w21",
+      "text": "ahora",
+      "start": 6.211,
+      "end": 6.486
+    },
+    {
+      "id": "w22",
+      "text": "simplemente",
+      "start": 6.486,
+      "end": 6.76
+    },
+    {
+      "id": "w23",
+      "text": "manejo",
+      "start": 6.76,
+      "end": 7.143
+    },
+    {
+      "id": "w24",
+      "text": "solo",
+      "start": 7.143,
+      "end": 7.526
+    },
+    {
+      "id": "w25",
+      "text": "una",
+      "start": 7.526,
+      "end": 7.909
+    },
+    {
+      "id": "w26",
+      "text": "y",
+      "start": 7.909,
+      "end": 8.291
+    },
+    {
+      "id": "w27",
+      "text": "confío",
+      "start": 8.291,
+      "end": 8.674
+    },
+    {
+      "id": "w28",
+      "text": "en",
+      "start": 8.674,
+      "end": 9.057
+    },
+    {
+      "id": "w29",
+      "text": "pnpm.",
+      "start": 9.057,
+      "end": 9.44
+    },
+    {
+      "id": "w30",
+      "text": "La",
+      "start": 9.44,
+      "end": 9.733
+    },
+    {
+      "id": "w31",
+      "text": "primera",
+      "start": 9.733,
+      "end": 10.027
+    },
+    {
+      "id": "w32",
+      "text": "es",
+      "start": 10.027,
+      "end": 10.32
+    },
+    {
+      "id": "w33",
+      "text": "Node",
+      "start": 10.32,
+      "end": 10.613
+    },
+    {
+      "id": "w34",
+      "text": "Version",
+      "start": 10.613,
+      "end": 10.907
+    },
+    {
+      "id": "w35",
+      "text": "Manager.",
+      "start": 10.907,
+      "end": 11.2
+    },
+    {
+      "id": "w36",
+      "text": "Normalmente",
+      "start": 11.28,
+      "end": 11.6
+    },
+    {
+      "id": "w37",
+      "text": "cuando",
+      "start": 11.6,
+      "end": 11.92
+    },
+    {
+      "id": "w38",
+      "text": "tú",
+      "start": 11.92,
+      "end": 12.24
+    },
+    {
+      "id": "w39",
+      "text": "desarrollas",
+      "start": 12.48,
+      "end": 12.84
+    },
+    {
+      "id": "w40",
+      "text": "en",
+      "start": 12.84,
+      "end": 13.2
+    },
+    {
+      "id": "w41",
+      "text": "diferentes",
+      "start": 13.2,
+      "end": 13.56
+    },
+    {
+      "id": "w42",
+      "text": "proyectos,",
+      "start": 13.56,
+      "end": 13.92
+    },
+    {
+      "id": "w43",
+      "text": "diferentes",
+      "start": 13.92,
+      "end": 14.296
+    },
+    {
+      "id": "w44",
+      "text": "frameworks,",
+      "start": 14.296,
+      "end": 14.672
+    },
+    {
+      "id": "w45",
+      "text": "tienes",
+      "start": 14.672,
+      "end": 15.048
+    },
+    {
+      "id": "w46",
+      "text": "que",
+      "start": 15.048,
+      "end": 15.424
+    },
+    {
+      "id": "w47",
+      "text": "gestionar",
+      "start": 15.424,
+      "end": 15.8
+    },
+    {
+      "id": "w48",
+      "text": "diferentes",
+      "start": 15.8,
+      "end": 16.206
+    },
+    {
+      "id": "w49",
+      "text": "versiones",
+      "start": 16.206,
+      "end": 16.611
+    },
+    {
+      "id": "w50",
+      "text": "de",
+      "start": 16.611,
+      "end": 17.017
+    },
+    {
+      "id": "w51",
+      "text": "Node",
+      "start": 17.017,
+      "end": 17.423
+    },
+    {
+      "id": "w52",
+      "text": "como",
+      "start": 17.423,
+      "end": 17.829
+    },
+    {
+      "id": "w53",
+      "text": "en",
+      "start": 17.829,
+      "end": 18.234
+    },
+    {
+      "id": "w54",
+      "text": "tu",
+      "start": 18.234,
+      "end": 18.64
+    },
+    {
+      "id": "w55",
+      "text": "misma",
+      "start": 18.64,
+      "end": 18.96
+    },
+    {
+      "id": "w56",
+      "text": "máquina",
+      "start": 18.96,
+      "end": 19.28
+    },
+    {
+      "id": "w57",
+      "text": "para",
+      "start": 19.28,
+      "end": 19.6
+    },
+    {
+      "id": "w58",
+      "text": "diferentes",
+      "start": 19.6,
+      "end": 19.92
+    },
+    {
+      "id": "w59",
+      "text": "proyectos",
+      "start": 19.92,
+      "end": 20.24
+    },
+    {
+      "id": "w60",
+      "text": "eso",
+      "start": 20.24,
+      "end": 20.56
+    },
+    {
+      "id": "w61",
+      "text": "es",
+      "start": 20.56,
+      "end": 20.855
+    },
+    {
+      "id": "w62",
+      "text": "un",
+      "start": 20.855,
+      "end": 21.15
+    },
+    {
+      "id": "w63",
+      "text": "dolor",
+      "start": 21.15,
+      "end": 21.445
+    },
+    {
+      "id": "w64",
+      "text": "de",
+      "start": 21.445,
+      "end": 21.74
+    },
+    {
+      "id": "w65",
+      "text": "cabeza",
+      "start": 21.74,
+      "end": 22.035
+    },
+    {
+      "id": "w66",
+      "text": "lo",
+      "start": 22.035,
+      "end": 22.33
+    },
+    {
+      "id": "w67",
+      "text": "solucionamos",
+      "start": 22.33,
+      "end": 22.625
+    },
+    {
+      "id": "w68",
+      "text": "con",
+      "start": 22.625,
+      "end": 22.92
+    },
+    {
+      "id": "w69",
+      "text": "Node",
+      "start": 22.92,
+      "end": 23.143
+    },
+    {
+      "id": "w70",
+      "text": "Version",
+      "start": 23.143,
+      "end": 23.366
+    },
+    {
+      "id": "w71",
+      "text": "Manager",
+      "start": 23.366,
+      "end": 23.589
+    },
+    {
+      "id": "w72",
+      "text": "pero",
+      "start": 23.589,
+      "end": 23.811
+    },
+    {
+      "id": "w73",
+      "text": "ahora",
+      "start": 23.811,
+      "end": 24.034
+    },
+    {
+      "id": "w74",
+      "text": "estoy",
+      "start": 24.034,
+      "end": 24.257
+    },
+    {
+      "id": "w75",
+      "text": "ya",
+      "start": 24.257,
+      "end": 24.48
+    },
+    {
+      "id": "w76",
+      "text": "bien",
+      "start": 24.48,
+      "end": 24.785
+    },
+    {
+      "id": "w77",
+      "text": "integrado",
+      "start": 24.785,
+      "end": 25.09
+    },
+    {
+      "id": "w78",
+      "text": "en",
+      "start": 25.09,
+      "end": 25.395
+    },
+    {
+      "id": "w79",
+      "text": "la",
+      "start": 25.395,
+      "end": 25.7
+    },
+    {
+      "id": "w80",
+      "text": "versión",
+      "start": 25.7,
+      "end": 26.005
+    },
+    {
+      "id": "w81",
+      "text": "2",
+      "start": 26.005,
+      "end": 26.31
+    },
+    {
+      "id": "w82",
+      "text": "de",
+      "start": 26.31,
+      "end": 26.615
+    },
+    {
+      "id": "w83",
+      "text": "pnpm",
+      "start": 26.615,
+      "end": 26.92
+    },
+    {
+      "id": "w84",
+      "text": "simplemente",
+      "start": 26.92,
+      "end": 27.38
+    },
+    {
+      "id": "w85",
+      "text": "colocas",
+      "start": 27.38,
+      "end": 27.84
+    },
+    {
+      "id": "w86",
+      "text": "como",
+      "start": 28.08,
+      "end": 28.38
+    },
+    {
+      "id": "w87",
+      "text": "un",
+      "start": 28.38,
+      "end": 28.68
+    },
+    {
+      "id": "w88",
+      "text": "nuevo",
+      "start": 28.68,
+      "end": 28.98
+    },
+    {
+      "id": "w89",
+      "text": "tag",
+      "start": 28.98,
+      "end": 29.28
+    },
+    {
+      "id": "w90",
+      "text": "en",
+      "start": 29.28,
+      "end": 29.58
+    },
+    {
+      "id": "w91",
+      "text": "tu",
+      "start": 29.58,
+      "end": 29.88
+    },
+    {
+      "id": "w92",
+      "text": "package.json",
+      "start": 29.88,
+      "end": 30.18
+    },
+    {
+      "id": "w93",
+      "text": "y",
+      "start": 30.18,
+      "end": 30.48
+    },
+    {
+      "id": "w94",
+      "text": "listo",
+      "start": 30.48,
+      "end": 30.749
+    },
+    {
+      "id": "w95",
+      "text": "lo",
+      "start": 30.749,
+      "end": 31.017
+    },
+    {
+      "id": "w96",
+      "text": "segundo",
+      "start": 31.017,
+      "end": 31.286
+    },
+    {
+      "id": "w97",
+      "text": "es",
+      "start": 31.286,
+      "end": 31.554
+    },
+    {
+      "id": "w98",
+      "text": "la",
+      "start": 31.554,
+      "end": 31.823
+    },
+    {
+      "id": "w99",
+      "text": "gestión",
+      "start": 31.823,
+      "end": 32.091
+    },
+    {
+      "id": "w100",
+      "text": "de",
+      "start": 32.091,
+      "end": 32.36
+    },
+    {
+      "id": "w101",
+      "text": "dependencias",
+      "start": 32.36,
+      "end": 32.693
+    },
+    {
+      "id": "w102",
+      "text": "que",
+      "start": 32.693,
+      "end": 33.027
+    },
+    {
+      "id": "w103",
+      "text": "normalmente",
+      "start": 33.027,
+      "end": 33.36
+    },
+    {
+      "id": "w104",
+      "text": "by",
+      "start": 33.36,
+      "end": 33.693
+    },
+    {
+      "id": "w105",
+      "text": "default",
+      "start": 33.693,
+      "end": 34.027
+    },
+    {
+      "id": "w106",
+      "text": "en",
+      "start": 34.027,
+      "end": 34.36
+    },
+    {
+      "id": "w107",
+      "text": "Node",
+      "start": 34.36,
+      "end": 34.745
+    },
+    {
+      "id": "w108",
+      "text": "viene",
+      "start": 34.745,
+      "end": 35.13
+    },
+    {
+      "id": "w109",
+      "text": "NPM",
+      "start": 35.13,
+      "end": 35.515
+    },
+    {
+      "id": "w110",
+      "text": "sin",
+      "start": 35.515,
+      "end": 35.9
+    },
+    {
+      "id": "w111",
+      "text": "embargo",
+      "start": 35.9,
+      "end": 36.285
+    },
+    {
+      "id": "w112",
+      "text": "NPM",
+      "start": 36.285,
+      "end": 36.67
+    },
+    {
+      "id": "w113",
+      "text": "es",
+      "start": 36.67,
+      "end": 37.055
+    },
+    {
+      "id": "w114",
+      "text": "un",
+      "start": 37.055,
+      "end": 37.44
+    },
+    {
+      "id": "w115",
+      "text": "poquito",
+      "start": 37.44,
+      "end": 37.726
+    },
+    {
+      "id": "w116",
+      "text": "lento",
+      "start": 37.726,
+      "end": 38.011
+    },
+    {
+      "id": "w117",
+      "text": "y",
+      "start": 38.011,
+      "end": 38.297
+    },
+    {
+      "id": "w118",
+      "text": "además",
+      "start": 38.297,
+      "end": 38.583
+    },
+    {
+      "id": "w119",
+      "text": "tiene",
+      "start": 38.583,
+      "end": 38.869
+    },
+    {
+      "id": "w120",
+      "text": "muchos",
+      "start": 38.869,
+      "end": 39.154
+    },
+    {
+      "id": "w121",
+      "text": "issues",
+      "start": 39.154,
+      "end": 39.44
+    },
+    {
+      "id": "w122",
+      "text": "de",
+      "start": 39.44,
+      "end": 39.73
+    },
+    {
+      "id": "w123",
+      "text": "seguridad",
+      "start": 39.73,
+      "end": 40.02
+    },
+    {
+      "id": "w124",
+      "text": "y",
+      "start": 40.02,
+      "end": 40.31
+    },
+    {
+      "id": "w125",
+      "text": "eso",
+      "start": 40.31,
+      "end": 40.6
+    },
+    {
+      "id": "w126",
+      "text": "no",
+      "start": 40.6,
+      "end": 40.89
+    },
+    {
+      "id": "w127",
+      "text": "se",
+      "start": 40.89,
+      "end": 41.18
+    },
+    {
+      "id": "w128",
+      "text": "ha",
+      "start": 41.18,
+      "end": 41.47
+    },
+    {
+      "id": "w129",
+      "text": "solucionado",
+      "start": 41.47,
+      "end": 41.76
+    },
+    {
+      "id": "w130",
+      "text": "entonces",
+      "start": 42,
+      "end": 42.297
+    },
+    {
+      "id": "w131",
+      "text": "pnpm",
+      "start": 42.297,
+      "end": 42.594
+    },
+    {
+      "id": "w132",
+      "text": "es",
+      "start": 42.594,
+      "end": 42.891
+    },
+    {
+      "id": "w133",
+      "text": "mucho",
+      "start": 42.891,
+      "end": 43.189
+    },
+    {
+      "id": "w134",
+      "text": "más",
+      "start": 43.189,
+      "end": 43.486
+    },
+    {
+      "id": "w135",
+      "text": "seguro,",
+      "start": 43.486,
+      "end": 43.783
+    },
+    {
+      "id": "w136",
+      "text": "se",
+      "start": 43.783,
+      "end": 44.08
+    },
+    {
+      "id": "w137",
+      "text": "reescribió",
+      "start": 44.08,
+      "end": 44.493
+    },
+    {
+      "id": "w138",
+      "text": "en",
+      "start": 44.493,
+      "end": 44.907
+    },
+    {
+      "id": "w139",
+      "text": "Rust,",
+      "start": 44.907,
+      "end": 45.32
+    },
+    {
+      "id": "w140",
+      "text": "entonces",
+      "start": 45.32,
+      "end": 45.733
+    },
+    {
+      "id": "w141",
+      "text": "es",
+      "start": 45.733,
+      "end": 46.147
+    },
+    {
+      "id": "w142",
+      "text": "rapidísimo,",
+      "start": 46.147,
+      "end": 46.56
+    },
+    {
+      "id": "w143",
+      "text": "evita",
+      "start": 46.56,
+      "end": 47
+    },
+    {
+      "id": "w144",
+      "text": "ataques",
+      "start": 47,
+      "end": 47.44
+    },
+    {
+      "id": "w145",
+      "text": "de.",
+      "start": 47.44,
+      "end": 47.88
+    },
+    {
+      "id": "w146",
+      "text": "Entonces",
+      "start": 48,
+      "end": 48.544
+    },
+    {
+      "id": "w147",
+      "text": "con",
+      "start": 48.544,
+      "end": 49.088
+    },
+    {
+      "id": "w148",
+      "text": "esto",
+      "start": 49.088,
+      "end": 49.632
+    },
+    {
+      "id": "w149",
+      "text": "yo",
+      "start": 49.632,
+      "end": 50.176
+    },
+    {
+      "id": "w150",
+      "text": "literalmente",
+      "start": 50.176,
+      "end": 50.72
+    },
+    {
+      "id": "w151",
+      "text": "desinstalé",
+      "start": 50.72,
+      "end": 51.058
+    },
+    {
+      "id": "w152",
+      "text": "npm",
+      "start": 51.058,
+      "end": 51.396
+    },
+    {
+      "id": "w153",
+      "text": "y",
+      "start": 51.396,
+      "end": 51.733
+    },
+    {
+      "id": "w154",
+      "text": "además",
+      "start": 51.733,
+      "end": 52.071
+    },
+    {
+      "id": "w155",
+      "text": "de",
+      "start": 52.071,
+      "end": 52.409
+    },
+    {
+      "id": "w156",
+      "text": "eso,",
+      "start": 52.409,
+      "end": 52.747
+    },
+    {
+      "id": "w157",
+      "text": "pues",
+      "start": 52.747,
+      "end": 53.084
+    },
+    {
+      "id": "w158",
+      "text": "no",
+      "start": 53.084,
+      "end": 53.422
+    },
+    {
+      "id": "w159",
+      "text": "es",
+      "start": 53.422,
+      "end": 53.76
+    },
+    {
+      "id": "w160",
+      "text": "versión",
+      "start": 53.76,
+      "end": 53.977
+    },
+    {
+      "id": "w161",
+      "text": "manager",
+      "start": 53.977,
+      "end": 54.194
+    },
+    {
+      "id": "w162",
+      "text": "y",
+      "start": 54.194,
+      "end": 54.411
+    },
+    {
+      "id": "w163",
+      "text": "ahora",
+      "start": 54.411,
+      "end": 54.629
+    },
+    {
+      "id": "w164",
+      "text": "solo",
+      "start": 54.629,
+      "end": 54.846
+    },
+    {
+      "id": "w165",
+      "text": "tengo",
+      "start": 54.846,
+      "end": 55.063
+    },
+    {
+      "id": "w166",
+      "text": "una",
+      "start": 55.063,
+      "end": 55.28
+    },
+    {
+      "id": "w167",
+      "text": "herramienta",
+      "start": 55.28,
+      "end": 55.587
+    },
+    {
+      "id": "w168",
+      "text": "para",
+      "start": 55.587,
+      "end": 55.893
+    },
+    {
+      "id": "w169",
+      "text": "la",
+      "start": 55.893,
+      "end": 56.2
+    },
+    {
+      "id": "w170",
+      "text": "gestión",
+      "start": 56.2,
+      "end": 56.507
+    },
+    {
+      "id": "w171",
+      "text": "de",
+      "start": 56.507,
+      "end": 56.813
+    },
+    {
+      "id": "w172",
+      "text": "dependencias",
+      "start": 56.813,
+      "end": 57.12
+    },
+    {
+      "id": "w173",
+      "text": "en",
+      "start": 57.12,
+      "end": 57.48
+    },
+    {
+      "id": "w174",
+      "text": "Node.",
+      "start": 57.48,
+      "end": 57.84
+    }
+  ],
+  "groups": [
+    {
+      "wordStart": 0,
+      "wordEnd": 4,
+      "start": 0.08,
+      "end": 1.52
+    },
+    {
+      "wordStart": 5,
+      "wordEnd": 9,
+      "start": 1.52,
+      "end": 2.96
+    },
+    {
+      "wordStart": 10,
+      "wordEnd": 14,
+      "start": 2.96,
+      "end": 4.527
+    },
+    {
+      "wordStart": 15,
+      "wordEnd": 19,
+      "start": 4.527,
+      "end": 5.937
+    },
+    {
+      "wordStart": 20,
+      "wordEnd": 24,
+      "start": 5.937,
+      "end": 7.526
+    },
+    {
+      "wordStart": 25,
+      "wordEnd": 29,
+      "start": 7.526,
+      "end": 9.44
+    },
+    {
+      "wordStart": 30,
+      "wordEnd": 34,
+      "start": 9.44,
+      "end": 10.907
+    },
+    {
+      "wordStart": 35,
+      "wordEnd": 39,
+      "start": 10.907,
+      "end": 12.84
+    },
+    {
+      "wordStart": 40,
+      "wordEnd": 42,
+      "start": 12.84,
+      "end": 13.92
+    },
+    {
+      "wordStart": 43,
+      "wordEnd": 44,
+      "start": 13.92,
+      "end": 14.672
+    },
+    {
+      "wordStart": 45,
+      "wordEnd": 49,
+      "start": 14.672,
+      "end": 16.611
+    },
+    {
+      "wordStart": 50,
+      "wordEnd": 54,
+      "start": 16.611,
+      "end": 18.64
+    },
+    {
+      "wordStart": 55,
+      "wordEnd": 59,
+      "start": 18.64,
+      "end": 20.24
+    },
+    {
+      "wordStart": 60,
+      "wordEnd": 64,
+      "start": 20.24,
+      "end": 21.74
+    },
+    {
+      "wordStart": 65,
+      "wordEnd": 69,
+      "start": 21.74,
+      "end": 23.143
+    },
+    {
+      "wordStart": 70,
+      "wordEnd": 74,
+      "start": 23.143,
+      "end": 24.257
+    },
+    {
+      "wordStart": 75,
+      "wordEnd": 79,
+      "start": 24.257,
+      "end": 25.7
+    },
+    {
+      "wordStart": 80,
+      "wordEnd": 84,
+      "start": 25.7,
+      "end": 27.38
+    },
+    {
+      "wordStart": 85,
+      "wordEnd": 89,
+      "start": 27.38,
+      "end": 29.28
+    },
+    {
+      "wordStart": 90,
+      "wordEnd": 94,
+      "start": 29.28,
+      "end": 30.749
+    },
+    {
+      "wordStart": 95,
+      "wordEnd": 99,
+      "start": 30.749,
+      "end": 32.091
+    },
+    {
+      "wordStart": 100,
+      "wordEnd": 104,
+      "start": 32.091,
+      "end": 33.693
+    },
+    {
+      "wordStart": 105,
+      "wordEnd": 109,
+      "start": 33.693,
+      "end": 35.515
+    },
+    {
+      "wordStart": 110,
+      "wordEnd": 114,
+      "start": 35.515,
+      "end": 37.44
+    },
+    {
+      "wordStart": 115,
+      "wordEnd": 119,
+      "start": 37.44,
+      "end": 38.869
+    },
+    {
+      "wordStart": 120,
+      "wordEnd": 124,
+      "start": 38.869,
+      "end": 40.31
+    },
+    {
+      "wordStart": 125,
+      "wordEnd": 129,
+      "start": 40.31,
+      "end": 41.76
+    },
+    {
+      "wordStart": 130,
+      "wordEnd": 134,
+      "start": 42,
+      "end": 43.486
+    },
+    {
+      "wordStart": 135,
+      "wordEnd": 139,
+      "start": 43.486,
+      "end": 45.32
+    },
+    {
+      "wordStart": 140,
+      "wordEnd": 142,
+      "start": 45.32,
+      "end": 46.56
+    },
+    {
+      "wordStart": 143,
+      "wordEnd": 145,
+      "start": 46.56,
+      "end": 47.88
+    },
+    {
+      "wordStart": 146,
+      "wordEnd": 150,
+      "start": 48,
+      "end": 50.72
+    },
+    {
+      "wordStart": 151,
+      "wordEnd": 155,
+      "start": 50.72,
+      "end": 52.409
+    },
+    {
+      "wordStart": 156,
+      "wordEnd": 160,
+      "start": 52.409,
+      "end": 53.977
+    },
+    {
+      "wordStart": 161,
+      "wordEnd": 165,
+      "start": 53.977,
+      "end": 55.063
+    },
+    {
+      "wordStart": 166,
+      "wordEnd": 170,
+      "start": 55.063,
+      "end": 56.507
+    },
+    {
+      "wordStart": 171,
+      "wordEnd": 174,
+      "start": 56.507,
+      "end": 57.84
+    }
+  ]
+}

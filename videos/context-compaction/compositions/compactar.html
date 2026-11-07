@@ -1,0 +1,187 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    /* The conversation's history as paper strips, stacked on a base at y=1180. */
+    .co-strip-wrap {
+      position: absolute;
+      left: 100px;
+      width: 860px;
+      height: 96px;
+    }
+    .co-strip {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 26px;
+      font-weight: 700;
+      font-size: 32px;
+      white-space: nowrap;
+    }
+    .co-strip .kind {
+      flex: none;
+      width: 128px;
+      font-family: var(--font-display, "League Gothic"), sans-serif;
+      font-weight: 400;
+      font-size: 46px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .co-strip.heavy {
+      background: var(--color-ink, #141218);
+      color: #fff;
+    }
+    #co-w1 { top: 296px; }
+    #co-w2 { top: 404px; }
+    #co-w3 { top: 512px; }
+    #co-w4 { top: 620px; }
+    #co-w5 { top: 728px; }
+    #co-w6 { top: 836px; }
+    #co-w7 { top: 944px; }
+    #co-w8 { top: 1076px; }
+
+    /* Where the removed strips were: dashed die-cut outlines on the card. */
+    .co-ghost {
+      position: absolute;
+      left: 100px;
+      width: 860px;
+      height: 96px;
+      border: 4px dashed rgba(246, 242, 232, 0.5);
+      border-radius: 6px;
+    }
+    #co-sum-wrap {
+      position: absolute;
+      left: 110px;
+      top: 800px;
+      width: 840px;
+      height: 250px;
+    }
+    #co-sum {
+      position: absolute;
+      inset: 0;
+      padding: 62px 36px 0;
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 1.22;
+    }
+    #co-sum-tag {
+      position: absolute;
+      left: 26px;
+      top: -40px;
+      font-size: 84px;
+    }
+
+    /* Paper ruler: how tall the history was, and how tall it is now. */
+    #co-ruler-wrap {
+      position: absolute;
+      left: 982px;
+      top: 280px;
+      width: 58px;
+      height: 910px;
+    }
+    #co-ruler {
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(to bottom, var(--color-ink, #141218) 0 3px, transparent 3px 30px) 0 0 / 18px 100% no-repeat,
+        var(--color-paper, #f6f2e8);
+    }
+    .co-mark {
+      position: absolute;
+      right: 70px;
+      font-size: 54px;
+    }
+    #co-mark-before { top: -6px; }
+    #co-mark-now { top: 480px; }
+  </style>
+  <div data-hf-id="hf-5mm7" id="root" data-composition-id="compactar" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-wum6" class="card-ground"></div>
+
+    <div data-hf-id="hf-gj9k" id="co-ghosts">
+      <div data-hf-id="hf-xs5d" class="co-ghost" id="co-g1" style="top: 296px"></div>
+      <div data-hf-id="hf-arh7" class="co-ghost" id="co-g2" style="top: 404px"></div>
+      <div data-hf-id="hf-vebc" class="co-ghost" id="co-g3" style="top: 512px"></div>
+      <div data-hf-id="hf-dvox" class="co-ghost" id="co-g4" style="top: 620px"></div>
+      <div data-hf-id="hf-kthz" class="co-ghost" id="co-g5" style="top: 728px"></div>
+      <div data-hf-id="hf-l6cc" class="co-ghost" id="co-g6" style="top: 836px"></div>
+      <div data-hf-id="hf-yjp9" class="co-ghost" id="co-g7" style="top: 944px"></div>
+    </div>
+
+    <div data-hf-id="hf-a9lo" class="co-strip-wrap lift" id="co-w1"><div data-hf-id="hf-flvn" class="co-strip paper cut-a" id="co-s1"><span data-hf-id="hf-0pi1" class="kind">Usuario</span>Hola, quiero cambiar mi pedido</div></div>
+    <div data-hf-id="hf-ixhj" class="co-strip-wrap lift" id="co-w2"><div data-hf-id="hf-edm9" class="co-strip paper cut-b" id="co-s2"><span data-hf-id="hf-ldf0" class="kind">Bot</span>¿Cuál es el número?</div></div>
+    <div data-hf-id="hf-ezdi" class="co-strip-wrap lift" id="co-w3"><div data-hf-id="hf-fwfz" class="co-strip heavy cut-a" id="co-s3"><span data-hf-id="hf-nzkh" class="kind">Tool</span>buscar_pedido(4821) → {…}</div></div>
+    <div data-hf-id="hf-nn9d" class="co-strip-wrap lift" id="co-w4"><div data-hf-id="hf-2n4o" class="co-strip heavy cut-b" id="co-s4"><span data-hf-id="hf-cea4" class="kind">Skill</span>politicas.md (completo)</div></div>
+    <div data-hf-id="hf-mvlk" class="co-strip-wrap lift" id="co-w5"><div data-hf-id="hf-tpji" class="co-strip paper cut-a" id="co-s5"><span data-hf-id="hf-6xv1" class="kind">Usuario</span>A talla M, porfa</div></div>
+    <div data-hf-id="hf-xr37" class="co-strip-wrap lift" id="co-w6"><div data-hf-id="hf-lwz6" class="co-strip heavy cut-b" id="co-s6"><span data-hf-id="hf-wwn9" class="kind">Tool</span>actualizar_pedido() → {…}</div></div>
+    <div data-hf-id="hf-rlde" class="co-strip-wrap lift" id="co-w7"><div data-hf-id="hf-6bke" class="co-strip heavy cut-a" id="co-s7"><span data-hf-id="hf-rdd0" class="kind">Skill</span>envios.md (completo)</div></div>
+    <div data-hf-id="hf-jlnx" class="co-strip-wrap lift" id="co-w8"><div data-hf-id="hf-akfj" class="co-strip paper cut-b" id="co-s8"><span data-hf-id="hf-days" class="kind">Bot</span>Hecho. Llega el jueves</div></div>
+
+    <div data-hf-id="hf-58s4" id="co-sum-wrap" class="lift-hi">
+      <div data-hf-id="hf-oh1c" id="co-sum" class="paper cut-b">Cambió el pedido #4821 a talla&nbsp;M. Llega el jueves.</div>
+      <div data-hf-id="hf-rnxo" id="co-sum-tag" class="tape yellow">Resumen</div>
+    </div>
+
+    <div data-hf-id="hf-za5d" id="co-ruler-wrap" class="lift">
+      <div data-hf-id="hf-dax9" id="co-ruler" class="cut-a"></div>
+      <div data-hf-id="hf-zwt3" class="co-mark tape" id="co-mark-before">Antes</div>
+      <div data-hf-id="hf-uvm7" class="co-mark tape white" id="co-mark-now">Ahora</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      // Host starts at 39.9 s; times below are film seconds.
+      const S = 39.9;
+      const at = (g) => +(g - S).toFixed(3);
+      const tl = gsap.timeline({ paused: true });
+      const TILT = { 1: -1.2, 2: 0.8, 3: -0.6, 4: 1.1, 5: -0.9, 6: 0.5, 7: -1.0, 8: 0.7 };
+      for (let i = 1; i <= 8; i++) gsap.set("#co-s" + i, { rotation: TILT[i] });
+      gsap.set(".co-strip-wrap", { opacity: 0 });
+      gsap.set(".co-ghost", { opacity: 0 });
+      gsap.set("#co-sum-wrap", { rotation: -1.5, opacity: 0 });
+      gsap.set("#co-sum-tag", { rotation: -3, opacity: 0 });
+      gsap.set("#co-ruler-wrap", { opacity: 0 });
+      gsap.set("#co-mark-now", { opacity: 0 });
+      gsap.set("#co-w5", { transformOrigin: "50% 100%" });
+
+      // 39.9: the conversation's history lands as a stack of paper strips.
+      for (let i = 1; i <= 8; i++) PC.slap(tl, "#co-w" + i, at(39.9 + (i - 1) * 0.06), { from: 1.04, dy: -260, spin: (i % 2 ? 2 : -2), dur: 0.26 });
+      PC.slap(tl, "#co-ruler-wrap", at(40.6), { from: 1.05, dx: 80, dy: 0, spin: 0 });
+
+      // "ahorrando todas las llamadas de skills": tool and skill outputs are cut out.
+      [[3, 42.6], [4, 42.85], [6, 43.1], [7, 43.35]].forEach(([i, g]) => {
+        PC.pull(tl, "#co-w" + i, at(g), { toX: 1300, toY: 60, spin: 7, dur: 0.26 });
+        tl.set("#co-g" + i, { opacity: 1 }, at(g + 0.12));
+      });
+      // "quitando toda la información vieja" (44.74): the oldest strips are torn off.
+      [[1, 45.0], [2, 45.2]].forEach(([i, g]) => {
+        PC.pull(tl, "#co-w" + i, at(g), { toY: -1400, spin: -8, dur: 0.26 });
+        tl.set("#co-g" + i, { opacity: 1 }, at(g + 0.12));
+      });
+      // "lo va compactando" (46.37): what is left is pressed down onto the newest strip.
+      tl.to("#co-w5", { y: 240, scaleY: 0.86, duration: 0.35, ease: "power3.inOut" }, at(46.4));
+      tl.set("#co-g5", { opacity: 1 }, at(46.5));
+      // "sumarizando" (47.8): it folds into the summary card.
+      tl.to("#co-w5", { scaleY: 0, duration: 0.18, ease: "power2.in" }, at(47.8));
+      PC.slap(tl, "#co-sum-wrap", at(47.88), { rot: -1.5, from: 1.12, dy: -40, spin: 3, dur: 0.26 });
+      PC.slap(tl, "#co-sum-tag", at(48.05), { rot: -3, from: 1.25 });
+      // "más liviano" (49.22): the ruler marks the new height.
+      PC.slap(tl, "#co-mark-now", at(49.2), { from: 1.25, dx: -30, dy: 0 });
+
+      // 49.98: cleared for the next scene.
+      PC.pull(tl, "#co-sum-wrap", at(49.98), { rot: -1.5, toY: -1500, dur: 0.22 });
+      PC.pull(tl, "#co-w8", at(50.0), { toY: -1500, dur: 0.22 });
+      PC.pull(tl, "#co-ruler-wrap", at(50.0), { toX: 400, toY: 0, dur: 0.22 });
+      tl.set("#co-ghosts", { opacity: 0 }, at(50.2));
+      tl.set({}, {}, 10.4);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["compactar"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/hyperframes.json",
+  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
+  "paths": {
+    "blocks": "compositions",
+    "components": "compositions/components",
+    "assets": "assets"
+  },
+  "media": {
+    "autoProxy": true
+  },
+  "authoringSkill": "general-video",
+  "registryItems": [
+    {
+      "name": "text-state-swap",
+      "type": "hyperframes:component",
+      "target": "compositions/components/text-state-swap.html"
+    },
+    {
+      "name": "chat-message",
+      "type": "hyperframes:component",
+      "target": "compositions/components/chat-message.html"
+    },
+    {
+      "name": "number-wheel",
+      "type": "hyperframes:component",
+      "target": "compositions/components/number-wheel.html"
+    },
+    {
+      "name": "count-up",
+      "type": "hyperframes:component",
+      "target": "compositions/components/count-up.html"
+    },
+    {
+      "name": "toggle-flip",
+      "type": "hyperframes:component",
+      "target": "compositions/components/toggle-flip.html"
+    }
+  ]
+}

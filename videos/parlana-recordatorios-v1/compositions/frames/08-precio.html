@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/parlana.css" />
+  </head>
+  <body>
+    <template id="f08-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #f08-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        /* The calm landing: one price, held still. The card surface is painted by the shell track. */
+        #f08-card {
+          left: 160px;
+          top: 540px;
+          width: 760px;
+          height: 600px;
+          padding: 56px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background: transparent;
+          border-color: transparent;
+          box-shadow: none;
+        }
+        #f08-price {
+          margin-top: 54px;
+          display: flex;
+          align-items: flex-start;
+          font-size: 180px;
+          color: var(--green-text);
+        }
+        #f08-price .f08-glyph,
+        #f08-price .f08-col {
+          display: inline-block;
+          height: 1em;
+          line-height: 1em;
+        }
+        /* number-wheel: one masked column per digit, a strip of 0…n rolls up to its digit. */
+        #f08-price .f08-col {
+          overflow: hidden;
+          position: relative;
+        }
+        #f08-price .f08-strip {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          display: grid;
+          grid-template-columns: 100%;
+          justify-items: center;
+        }
+        /* Invisible final digit: gives each column its own glyph width (Fraunces has no tabular figures). */
+        #f08-price .f08-sizer {
+          visibility: hidden;
+        }
+        #f08-price .f08-strip span {
+          height: 1em;
+          line-height: 1em;
+        }
+        #f08-per {
+          margin-top: 30px;
+          font-size: 54px;
+          font-weight: 600;
+          color: var(--ink);
+        }
+        #f08-rate {
+          margin-top: 36px;
+        }
+      </style>
+
+      <div data-hf-id="hf-ijkw" id="f08-root" data-composition-id="f08" data-start="0" data-duration="4.45" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-7m1u" id="f08-card" class="pr-card">
+          <span data-hf-id="hf-j9t9" id="f08-kick" class="pr-chip pr-chip--neutral">1 recordatorio</span>
+          <div data-hf-id="hf-emon" id="f08-price" class="pr-display" data-value="Bs 0,14" aria-label="Bs 0,14"></div>
+          <div data-hf-id="hf-qhgn" id="f08-per" class="pr-ui">por mensaje</div>
+          <span data-hf-id="hf-8n67" id="f08-rate" class="pr-chip pr-chip--green">Utilidad · US$0,0113</span>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          // VO cues, frame-local seconds (from assets/vo/transcript.json):
+          // "Y cuánto cuesta, 14 centavos por mensaje, por la API oficial."
+          var CUE = { kick: 0.25, price: 0.93, roll: 1.0, per: 1.97, rate: 3.1, out: 4.27 };
+
+          // Build the wheel once, deterministically (number-wheel component pattern).
+          var price = document.getElementById("f08-price");
+          var strips = [];
+          price.dataset.value.split("").forEach(function (ch) {
+            if (!/\d/.test(ch)) {
+              var glyph = document.createElement("span");
+              glyph.className = "f08-glyph";
+              glyph.textContent = ch === " " ? " " : ch;
+              price.appendChild(glyph);
+              return;
+            }
+            var col = document.createElement("span");
+            col.className = "f08-col";
+            col.setAttribute("data-layout-allow-overflow", "");
+            col.setAttribute("data-layout-allow-occlusion", "");
+            var sizer = document.createElement("span");
+            sizer.className = "f08-sizer";
+            sizer.textContent = ch;
+            col.appendChild(sizer);
+            var strip = document.createElement("span");
+            strip.className = "f08-strip";
+            strip.setAttribute("data-layout-allow-overflow", "");
+            strip.setAttribute("data-layout-allow-occlusion", "");
+            for (var i = 0; i <= Number(ch); i++) {
+              var step = document.createElement("span");
+              step.textContent = String(i);
+              strip.appendChild(step);
+            }
+            col.appendChild(strip);
+            price.appendChild(col);
+            strips.push({ el: strip, to: Number(ch) });
+          });
+
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo("#f08-kick", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.kick);
+          tl.fromTo("#f08-price", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.price);
+          strips.forEach(function (s, i) {
+            tl.fromTo(s.el, { y: "0em" }, { y: -s.to + "em", duration: 0.9, ease: "power3.out" }, CUE.roll + i * 0.05);
+          });
+          tl.fromTo("#f08-per", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.per);
+          tl.fromTo("#f08-rate", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, CUE.rate);
+
+          tl.fromTo(["#f08-kick", "#f08-price", "#f08-per", "#f08-rate"], { filter: "blur(0px)" }, { opacity: 0, y: -18, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, CUE.out);
+
+          window.__timelines["f08"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

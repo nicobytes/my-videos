@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Storyboard · context-compaction</title>
+    <style>
+      :root {
+        --bg: #f4f3f7;
+        --card: #ffffff;
+        --ink: #17151c;
+        --muted: #5d5868;
+        --line: #e2dfe8;
+        --accent: #493a80;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+        line-height: 1.45;
+      }
+      header {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 40px 24px 8px;
+      }
+      h1 {
+        margin: 0 0 6px;
+        font-size: 30px;
+        letter-spacing: -0.02em;
+      }
+      .lede {
+        margin: 0 0 18px;
+        color: var(--muted);
+        max-width: 860px;
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+        margin: 0 0 18px;
+        font-size: 14px;
+        color: var(--muted);
+      }
+      .legend b {
+        color: var(--ink);
+      }
+      .ask {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--accent);
+        border-radius: 12px;
+        padding: 14px 18px;
+        max-width: 860px;
+        font-size: 15px;
+      }
+      .ask ol {
+        margin: 6px 0 0;
+        padding-left: 20px;
+      }
+      main {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 8px 24px 64px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        gap: 22px;
+      }
+      .act {
+        grid-column: 1 / -1;
+        margin: 22px 0 -4px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .frame {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .frame img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 9 / 16;
+        object-fit: cover;
+        background: #ddd;
+      }
+      .frame .meta {
+        padding: 12px 14px 14px;
+      }
+      .title {
+        font-weight: 700;
+        font-size: 15px;
+      }
+      .time {
+        font-size: 13px;
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+      .layout {
+        display: inline-block;
+        margin-top: 6px;
+        padding: 1px 8px;
+        border-radius: 6px;
+        background: #ece9f5;
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .words {
+        margin: 8px 0 0;
+        font-size: 13.5px;
+        color: #2c2833;
+      }
+      @media (max-width: 520px) {
+        main {
+          grid-template-columns: 1fr 1fr;
+          gap: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Cómo evitar que tus agentes de IA te dejen en quiebra</h1>
+      <p class="lede">
+        Reel 9:16 · 93,2 s · paper cut · sin CTA: termina en "ya no está en alta". Tiempos anclados a las palabras de la voz en off (empieza en 7,3 s).
+        Cada still es la composición real (fuentes, colores y footage reales) en el momento clave del plano; el movimiento se
+        anima después de tu OK.
+      </p>
+      <div class="legend">
+        <span><b>FULL</b> footage a pantalla completa</span>
+        <span><b>SPLIT</b> motion arriba / footage abajo con borde rasgado</span>
+        <span><b>MOTION</b> escena de papel a pantalla completa</span>
+        <span><b>Subtítulos</b> karaoke en tira de papel, zona y 1440–1580 en todos los frames con voz</span>
+      </div>
+      <div class="ask">
+        <b>Para confirmar antes de animar</b>
+        <ol>
+          <li>Frames 13–14: ¿el release fue entre el 13 y el 14 de octubre? Ahí puse la bandera.</li>
+          <li>Frame 12: la voz dice "tu umbral", que en ADK es <code>token_threshold</code>; tu snippet usa
+            <code>compaction_interval=3</code> (cada 3 invocaciones). ¿Lo dejo tal cual o sumo la línea?</li>
+          <li>Música: no hay pista. ¿Genero opciones con MusicGen, uso el catálogo de HeyGen o la pones en Instagram?</li>
+        </ol>
+      </div>
+    </header>
+    <main>
+      <section class="act">Hook</section>
+      <div class="frame">
+        <img src="stills/frame-00-at-1s.png" alt="" />
+        <div class="meta">
+          <div class="title">01: Hook</div>
+          <div class="time">0.0 to 3.6s</div>
+          <span class="layout">FULL · intro.mp4</span>
+          <p class="words">El hook ya está pegado en el frame 0 sobre el pecho, con la cara libre; "QUIEBRA" en amarillo y un billete de papel con alas (en vez del emoji). Las cintas se arrancan en "culpable".</p>
+        </div>
+      </div>
+      <div class="frame">
+        <img src="stills/frame-01-at-6.8s.png" alt="" />
+        <div class="meta">
+          <div class="title">02: El culpable</div>
+          <div class="time">3.6 to 7.4s</div>
+          <span class="layout">FULL · intro.mp4</span>
+          <p class="words">Punch-in en "Yo, obviamente". En "contexto" se pega la cinta CONTEXTO y rasga el cuadro hacia la consola.</p>
+        </div>
+      </div>
+
+      <section class="act">Conflicto</section>
+      <div class="frame">
+        <img src="stills/frame-02-at-11.6s.png" alt="" />
+        <div class="meta">
+          <div class="title">03: La consola</div>
+          <div class="time">7.4 to 12.0s</div>
+          <span class="layout">FULL → SPLIT · working.mp4</span>
+          <p class="words">De espaldas frente a la consola; el monitor se abre en tu gráfico real de facturación de octubre, reconstruido en papel. Las barras crecen día a día y el pico del 8 queda en amarillo.</p>
+        </div>
+      </div>
+
+      <section class="act">Contexto</section>
+      <div class="frame">
+        <img src="stills/frame-03-at-17.6s.png" alt="" />
+        <div class="meta">
+          <div class="title">04: El chat crece</div>
+          <div class="time">12.0 to 18.2s</div>
+          <span class="layout">MOTION · escena hogar</span>
+          <p class="words">El chat del pedido #4821 (colores de WhatsApp, sin logo): cada burbuja sube un escalón en la curva de tokens.</p>
+        </div>
+      </div>
+      <div class="frame">
+        <img src="stills/frame-04-at-24.9s.png" alt="" />
+        <div class="meta">
+          <div class="title">05: Tools y skills</div>
+          <div class="time">18.2 to 25.3s</div>
+          <span class="layout">MOTION · escena hogar</span>
+          <p class="words">Las fichas Tool y Skill salen del teléfono y cada una dispara un pico; "va y va y va" son tres escalones; en "explotar" la curva rompe el techo de la tarjeta.</p>
+        </div>
+      </div>
+      <div class="frame">
+        <img src="stills/frame-05-at-31s.png" alt="" />
+        <div class="meta">
+          <div class="title">06: La factura de la API</div>
+          <div class="time">25.3 to 33.0s</div>
+          <span class="layout">SPLIT · watching-results 8–15.7 s</span>
+          <p class="words">Un recibo: cada llamada reenvía todo el historial, así que cada renglón es más largo; el último se sale del papel. Sello "SE DISPARA" y "ME PASÓ A MÍ".</p>
+        </div>
+      </div>
+
+      <section class="act">Mensaje</section>
+      <div class="frame">
+        <img src="stills/frame-06-at-37.6s.png" alt="" />
+        <div class="meta">
+          <div class="title">07: Buscando</div>
+          <div class="time">33.0 to 39.9s</div>
+          <span class="layout">FULL · keywork.mp4</span>
+          <p class="words">Tus manos buscando; en "ingeniería de contexto" se pega la cinta; en "compactarlo" la cinta se comprime de lado y lleva a la escena siguiente.</p>
+        </div>
+      </div>
+      <div class="frame">
+        <img src="stills/frame-07-at-48.6s.png" alt="" />
+        <div class="meta">
+          <div class="title">08: Compactar</div>
+          <div class="time">39.9 to 50.3s</div>
+          <span class="layout">MOTION</span>
+          <p class="words">El historial en tiras: las de skills se cortan, las viejas se arrancan, el resto se prensa y se dobla en RESUMEN. La última tira queda tal cual (overlap_size=1) y la regla marca lo que bajó la pila.</p>
+        </div>
+      </div>
+      <div class="frame">
+        <img src="stills/frame-08-at-59s.png" alt="" />
+        <div class="meta">
+          <div class="title">09: El límite</div>
+          <div class="time">50.3 to 60.4s</div>
+          <span class="layout">MOTION · escena hogar</span>
+          <p class="words">La curva sube hasta "LÍMITE 85 %"; entra Gemini Flash (modelo ligero) y las burbujas del chat se doblan en el resumen.</p>
+        </div>
+      </div>
+      <div class="frame">
+        <img src="stills/frame-09-at-66.8s.png" alt="" />
+        <div class="meta">
+          <div class="title">10: La caída</div>
+          <div class="time">60.4 to 67.9s</div>
+          <span class="layout">MOTION · escena hogar</span>
+          <p class="words">"¿Cuándo llega mi pedido?" → "El jueves, como te dije": no perdió memoria. En "drásticamente" la curva cae casi al piso: el momento más grande.</p>
+        </div>
+      </div>
+      <div class="frame">
+        <img src="stills/frame-10-at-72s.png" alt="" />
+        <div class="meta">
+          <div class="title">11: Google ADK</div>
+          <div class="time">67.9 to 73.0s</div>
+          <span class="layout">SPLIT · keywork 16–21 s</span>
+          <p class="words">La tarjeta con el snippet verificado en adk.dev se imprime línea por línea.</p>
+        </div>
+      </div>
+      <div class="frame">
+        <img src="stills/frame-11-at-75.8s.png" alt="" />
+        <div class="meta">
+          <div class="title">12: Zoom al código</div>
+          <div class="time">73.0 to 82.5s</div>
+          <span class="layout">MOTION · zoom 1.9×</span>
+          <p class="words">Zoom con resaltador a EventsCompactionConfig, LlmEventSummarizer, el modelo y compaction_interval, cada uno cuando la voz lo nombra; en "automáticamente" vuelve al snippet completo.</p>
+        </div>
+      </div>
+
+      <section class="act">Resultado</section>
+      <div class="frame">
+        <img src="stills/frame-12-at-88.4s.png" alt="" />
+        <div class="meta">
+          <div class="title">13: Resultados</div>
+          <div class="time">82.5 to 90.2s</div>
+          <span class="layout">SPLIT · watching-results 17–24.8 s</span>
+          <p class="words">Vuelve tu gráfico real: bandera "release" y desde ahí las barras se quedan bajas. En "calidad", un mensaje de cliente feliz.</p>
+        </div>
+      </div>
+      <div class="frame">
+        <img src="stills/frame-13-at-92.2s.png" alt="" />
+        <div class="meta">
+          <div class="title">14: La factura baja</div>
+          <div class="time">90.2 to 93.2s</div>
+          <span class="layout">MOTION</span>
+          <p class="words">Se cierra el split y el gráfico toma el cuadro: flecha del pico a lo de después del release, resaltado en amarillo. Último frame del video.</p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/v2.css" />
+  </head>
+  <body>
+    <template id="c04-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #c04-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Figtree", sans-serif;
+          color: #2c2c2a;
+        }
+        #c04-ring { left: 300px; top: 590px; width: 480px; height: 480px; }
+        #c04-big { left: 300px; top: 728px; width: 480px; text-align: center; font-weight: 700; font-size: 132px; line-height: 1; }
+        #c04-sub { left: 300px; top: 872px; width: 480px; text-align: center; font-size: 36px; color: #5f5e58; }
+      </style>
+
+      <!-- 4 · The hour drains while the cursor holds it; 'Ingreso perdido' is born from the disc's edge. -->
+      <div data-hf-id="hf-ugfz" id="c04-root" data-composition-id="c04" data-start="0" data-duration="5.499" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-xc8l" id="c04-world" class="world" data-layout-allow-overflow>
+          <div data-hf-id="hf-9866" id="c04-clip" class="clip-layer">
+            <div data-hf-id="hf-2d1m" id="c04-st" class="st">
+              <svg data-hf-id="hf-6vg3" id="c04-ring" class="abs" viewBox="0 0 480 480" aria-hidden="true">
+                <circle data-hf-id="hf-8hop" cx="240" cy="240" r="196" fill="none" stroke="#E4E1D8" stroke-width="26" />
+                <circle data-hf-id="hf-kpvi" id="c04-arc" cx="240" cy="240" r="196" fill="none" stroke="#2C2C2A" stroke-width="26" stroke-linecap="round" transform="rotate(-90 240 240)" />
+              </svg>
+              <div data-hf-id="hf-ilgd" id="c04-big" class="abs fr">−1 h</div>
+              <div data-hf-id="hf-fd82" id="c04-sub" class="abs">reservada para nadie</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var P = window.Physics;
+          var A = R.A;
+          var S = R.S;
+          function $(id) {
+            return document.getElementById("c04-" + id);
+          }
+          var st = $("st");
+          var arc = $("arc");
+          var L = 2 * Math.PI * 196;
+          arc.style.strokeDasharray = L.toFixed(1);
+          window.__timelines["c04"] = R.mountState("disc", $("root"), $("world"), $("clip"), function (t, span) {
+            R.apply(st, t, span[0], span[1]);
+            var h = R.HOLD.hour;
+            var drain = R.clamp01((t - h[0]) / (h[1] - h[0]));
+            arc.style.strokeDashoffset = (L * drain).toFixed(1);
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

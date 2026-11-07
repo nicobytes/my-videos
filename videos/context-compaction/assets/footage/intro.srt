@@ -1,0 +1,12 @@
+1
+00:00:00,080 --> 00:00:02,600
+Mis agentes de AI estaban costando más de lo
+
+2
+00:00:02,600 --> 00:00:04,960
+normal y había un culpable yo, obviamente,
+
+3
+00:00:04,960 --> 00:00:07,280
+y que no estaba manejando bien el contexto.
+

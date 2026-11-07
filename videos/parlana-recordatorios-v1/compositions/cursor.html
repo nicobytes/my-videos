@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="cursor-template">
+      <style>
+        #cursor-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
+        /* Classic arrow (frame.md): ink fill, white outline. The tip sits at (3, 3) of the box. */
+        #cursor-arrow {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 40px;
+          height: 54px;
+          filter: drop-shadow(0 4px 6px rgba(44, 44, 42, 0.25));
+        }
+        #cursor-arrow svg {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      </style>
+
+      <div data-hf-id="hf-a9hs" id="cursor-root" data-composition-id="cursor" data-start="0" data-duration="53.75" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-u77f" id="cursor-arrow">
+          <svg data-hf-id="hf-4au5" viewBox="0 0 24 32" aria-hidden="true">
+            <path data-hf-id="hf-uomd" d="M2 2 L2 26 L8.4 20.2 L12.6 30 L16.8 28.2 L12.7 18.6 L21 18.6 Z" fill="#2C2C2A" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" />
+          </svg>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          // Global seconds, timed to the voice. Tip coordinates.
+          // The cursor drives every change: it arrives before each action, decelerating.
+          var START = { x: 880, y: 1040 };
+          var MOVES = [
+            { at: 4.35, dur: 0.55, x: 860, y: 1150, ease: "power2.inOut" }, // f02: waits in the silent chat
+            { at: 6.5, dur: 0.6, x: 880, y: 985, ease: "power3.out" }, // f03: points at Juan's slot
+            { at: 11.35, dur: 0.6, x: 820, y: 1290, ease: "power2.inOut" }, // f04: rests by the chip
+            { at: 16.85, dur: 0.9, x: 730, y: 921, ease: "power3.out" }, // f05: arrives on "Confirmar"
+            { at: 20.8, dur: 0.6, x: 1000, y: 1250, ease: "power2.inOut" }, // f07: steps aside for the chart
+            { at: 25.95, dur: 0.5, x: 900, y: 1230, ease: "power2.inOut" }, // f08: rests under the price
+            { at: 30.4, dur: 0.5, x: 1000, y: 1320, ease: "power2.inOut" }, // f09: rests while the dots fill
+            { at: 36.5, dur: 0.75, x: 850, y: 390, ease: "power3.out" }, // f10: arrives on the toggle
+            { at: 44.95, dur: 0.6, x: 990, y: 1330, ease: "power2.inOut" }, // f11: rests by the agenda
+            { at: 50.1, dur: 0.75, x: 255, y: 870, ease: "power3.out" }, // f12: arrives on the button icon
+            { at: 53.15, dur: 0.55, x: START.x, y: START.y, ease: "power2.inOut" }, // loop: back to the start
+          ];
+          // Clicks: f06 "Confirmar" (the pause after "antes"), f10 the toggle ("pones"), f12 the CTA ("citas").
+          var PRESSES = [18.45, 37.4, 51.13];
+          var TIP = 3;
+
+          var tl = gsap.timeline({ paused: true });
+          tl.set("#cursor-arrow", { x: START.x - TIP, y: START.y - TIP, scale: 1, transformOrigin: TIP + "px " + TIP + "px" }, 0);
+
+          var from = START;
+          MOVES.forEach(function (m) {
+            tl.fromTo("#cursor-arrow", { x: from.x - TIP, y: from.y - TIP }, { x: m.x - TIP, y: m.y - TIP, duration: m.dur, ease: m.ease, immediateRender: false }, m.at);
+            from = m;
+          });
+
+          PRESSES.forEach(function (at) {
+            tl.fromTo("#cursor-arrow", { scale: 1 }, { scale: 0.85, duration: 0.08, ease: "power2.in", immediateRender: false }, at);
+            tl.fromTo("#cursor-arrow", { scale: 0.85 }, { scale: 1, duration: 0.1, ease: "power2.out", immediateRender: false }, at + 0.08);
+          });
+
+          window.__timelines["cursor"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><meta charset="UTF-8"><link rel="stylesheet" href="compositions/shared/pixel.css"></head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Jersey 10"; src: url("assets/fonts/jersey10-latin.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Plus Jakarta Sans"; src: url("assets/fonts/plusjakarta-latin.woff2") format("woff2"); font-weight: 200 800; }
+        #f07-root { position: absolute; inset: 0; width: 1080px; height: 1920px; overflow: hidden; background: #e6f9ee; }
+        #f07-dots { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27120%27 height=%27120%27%3E%3Crect x=%2755%27 y=%2755%27 width=%2710%27 height=%2710%27 fill=%27%23cdefd9%27/%3E%3C/svg%3E"); }
+        #f07-chat { left: 70px; top: 110px; width: 940px; height: 910px; background: #f1efe8; overflow: hidden; }
+        #f07-chat .wa-head { font-size: 50px; }
+        #f07-view { position: absolute; left: 0; right: 0; top: 96px; bottom: 0; overflow: hidden; }
+        #f07-msgs { position: absolute; left: 0; right: 0; top: 0; height: 1200px; }
+        .f07-m { font-size: 46px; }
+        .f07-l { left: 24px; }
+        .f07-r { right: 24px; }
+        #f07-agenda { left: 70px; top: 1050px; width: 940px; height: 350px; padding: 18px 24px; }
+        #f07-agenda h3 { font-family: "Jersey 10", monospace; font-weight: 400; font-size: 58px; margin: 0 0 12px; }
+        .f07-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+        .f07-slot { height: 104px; background: #ffffff; border: 6px solid #888780; color: #888780; font-family: "Jersey 10", monospace; font-size: 54px; display: flex; align-items: center; justify-content: center; }
+        #f07-ag, #f07-ag-h { left: 860px; top: 40px; width: 176px; }
+        .f07-chk { width: 44px; vertical-align: middle; margin-left: 10px; position: relative; display: inline-block; image-rendering: pixelated; }
+      </style>
+
+      <div id="f07-root" data-composition-id="f07" data-start="0" data-duration="6.04" data-width="1080" data-height="1920">
+        <div id="f07-dots"></div>
+        <div id="f07-chat" class="panel notch">
+          <div class="wa-head"><div class="dot" style="background:#00bd4c"></div>Spa Vale · asistente IA</div>
+          <div id="f07-view"><div id="f07-msgs"></div></div>
+        </div>
+        <img id="f07-ag" class="px" src="assets/sprites/agent.svg" alt="">
+        <img id="f07-ag-h" class="px" src="assets/sprites/agent-happy.svg" style="visibility: hidden;" alt="">
+        <div id="f07-agenda" class="panel notch">
+          <h3>Agenda · mañana</h3>
+          <div class="f07-grid" id="f07-grid"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var tl = gsap.timeline({ paused: true });
+          // local anchors (abs − 22.64): responde 0.75 · WhatsApp 1.35 · instante 1.96 · da precios 2.50 · ofrece horarios 3.19 · agenda citas 4.24 · a cualquier hora 5.02
+          // [side, text, at] — agent replies land on the spoken verbs
+          var MSGS = [
+            ["l", "Hola! ¿Cuánto cuesta el masaje?", 0.08],
+            ["r", "¡Hola! Soy el asistente de Spa Vale", 1.33],
+            ["r", "Masaje relajante: Bs 150", 2.45],
+            ["l", "¿Tienen turno mañana?", 2.85],
+            ["r", "Tengo 10:00 o 15:30, ¿cuál prefieres?", 3.15],
+            ["l", "15:30 porfa", 3.72],
+            ["r", "¡Listo! Te agendé mañana 15:30", 4.2, true],
+            ["l", "¿Atienden el sábado? (02:13)", 4.98, false, true],
+            ["r", "¡Sí! De 9:00 a 18:00", 5.4],
+          ];
+          var ROW = 112, VIEW = 790;
+          var box = document.getElementById("f07-msgs");
+          MSGS.forEach(function (m, i) {
+            var b = document.createElement("div");
+            b.className = "bub notch f07-m " + (m[0] === "l" ? "f07-l" : "f07-r agent");
+            b.style.top = 24 + i * ROW + "px";
+            b.innerHTML = (m[4] ? '<img class="f07-chk" src="assets/sprites/moon.svg" style="margin:0 10px 0 0" alt="">' : "") + m[1] +
+              (m[3] ? '<img class="f07-chk" src="assets/sprites/check.svg" alt="">' : "");
+            box.appendChild(b);
+            tl.fromTo(b, { autoAlpha: 0, x: m[0] === "l" ? -60 : 60 }, { autoAlpha: 1, x: 0, duration: 0.18, ease: "steps(3)" }, m[2]);
+            // keep the newest message in view: step the thread up (chat scroll)
+            var bottom = 24 + i * ROW + 92;
+            if (bottom > VIEW) tl.to(box, { y: VIEW - bottom - 10, duration: 0.18, ease: "power2.out" }, m[2] - 0.05);
+          });
+          // typing dots before the first reply (agent "thinks" for half a second)
+          var dots = document.createElement("div");
+          dots.className = "bub notch agent f07-r f07-m"; dots.style.top = 24 + ROW + "px"; dots.textContent = "•";
+          box.appendChild(dots);
+          tl.fromTo(dots, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.05 }, 0.7);
+          ["• •", "• • •", "•", "• •", "• • •"].forEach(function (t, k) { tl.set(dots, { textContent: t }, 0.82 + k * 0.1); });
+          tl.set(dots, { autoAlpha: 0 }, 1.32);
+
+          // agenda: the booked slot lands first, then the rest of the day fills
+          var SLOTS = ["09:00", "10:00", "11:00", "12:00", "14:00", "15:30", "16:00", "17:00"];
+          var grid = document.getElementById("f07-grid");
+          SLOTS.forEach(function (s, i) { var e = document.createElement("div"); e.className = "f07-slot"; e.id = "f07-s" + i; e.textContent = s; grid.appendChild(e); });
+          function book(i, at) {
+            tl.to("#f07-s" + i, { backgroundColor: "#00bd4c", borderColor: "#00260f", color: "#00260f", duration: 0.05 }, at);
+            tl.fromTo("#f07-s" + i, { scale: 1.25 }, { scale: 1, duration: 0.2, ease: "steps(3)", immediateRender: false }, at);
+          }
+          tl.fromTo("#f07-agenda", { autoAlpha: 0, y: 80 }, { autoAlpha: 1, y: 0, duration: 0.3, ease: "power3.out" }, 0.3);
+          book(5, 4.3);
+          [1, 0, 3, 6, 2].forEach(function (i, k) { book(i, 4.55 + k * 0.09); });
+          book(7, 5.6);
+
+          // the agent mascot: blinks while typing, smiles when the booking lands
+          tl.fromTo("#f07-ag", { autoAlpha: 0, scale: 0 }, { autoAlpha: 1, scale: 1, duration: 0.25, ease: "power3.out" }, 0.0);
+          tl.set("#f07-ag-h", { visibility: "visible" }, 4.25); tl.set("#f07-ag", { visibility: "hidden" }, 4.25);
+          tl.to("#f07-ag-h", { keyframes: [{ y: -24, duration: 0.1, ease: "steps(2)" }, { y: 0, duration: 0.1, ease: "steps(2)" }] }, 4.3);
+          window.__timelines["f07"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

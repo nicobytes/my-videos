@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        
+
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-300.woff2") format("woff2"); font-weight: 300; }
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-500.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-500.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-600.woff2") format("woff2"); font-weight: 600; }
+
+.lbl { font: 500 28px/1 "Jost"; letter-spacing: 0.16em; text-transform: uppercase; color: #5B4334; }
+.ttl { font: 500 64px/1.04 "Cormorant Garamond"; color: #312A23; letter-spacing: -0.01em; }
+.txt { font: 400 30px/1.42 "Jost"; color: #5B4334; }
+.meta { font: 400 28px/1.3 "Jost"; color: #8A7668; }
+.w { display: inline-block; }
+.stamp { display: inline-block; padding: 12px 22px 10px; border: 3px solid #5B4334; color: #5B4334;
+  font: 600 28px/1 "Jost"; letter-spacing: 0.14em; text-transform: uppercase; transform-origin: 0% 50%; }
+.stamp.ask { background: #A4583A; border-color: #A4583A; color: #FFFFFF; }
+.chip { font: 500 28px/1 "Jost"; letter-spacing: 0.04em; color: #5B4334; white-space: nowrap; }
+.chip.ask { color: #A4583A; font-weight: 600; }
+.chip .mk { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: currentColor; margin-right: 12px; transform: translateY(-2px); }
+
+        #root { position: absolute; inset: 0; }
+        #p5-panel { position: absolute; left: 1216px; top: 104px; width: 640px; height: 912px; }
+        #p5-head { display: flex; flex-direction: column; gap: 26px; }
+        #p5-panel .ans { position: absolute; left: 0; top: 600px; width: 640px; display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+        #p5-panel .ttl.small { font-size: 50px; }
+        #p5-panel .answer { font: 400 32px/1.38 "Jost"; color: #312A23; }
+        #p5-panel .stamp { transform: rotate(-3deg); }
+        #p5-led { position: absolute; inset: 0; background: #FBF8F4; }
+        #p5-sheet { position: absolute; inset: 0; transform-origin: 1000px 616px; }
+        #p5-sheet .doc { position: absolute; left: 360px; top: 112px; font: 300 56px/1 "Cormorant Garamond"; color: #5B4334; }
+        #p5-sheet .row { position: absolute; left: 340px; width: 1500px; height: 84px; border-bottom: 2px solid #E4D6C6;
+          display: flex; align-items: center; }
+        #p5-sheet .num { width: 70px; padding-left: 20px; font: 400 30px/1 "Jost"; color: #8A7668; }
+        #p5-sheet .rt { flex: 1; font: 500 42px/1 "Cormorant Garamond"; color: #312A23; }
+        #p5-sheet .rs { width: 300px; text-align: right; padding-right: 20px; }
+        #p5-sheet .rs .chip { display: inline-block; transform-origin: 100% 50%; }
+        #p5-hl { position: absolute; left: 340px; top: 0; width: 1500px; height: 84px; background: #F3E6DE; }
+      </style>
+      <div id="root" data-composition-id="p5" data-width="1920" data-height="1080">
+        <div id="p5-panel">
+          <div id="p5-head">
+            <div id="p5-lbl" class="lbl">Pedido 5 de 9</div>
+            <div id="p5-ttl" class="ttl"><span class="w p5-tw">Poder</span> <span class="w p5-tw">ir</span> <span class="w p5-tw">a</span> <span class="w p5-tw">la</span> <span class="w p5-tw">conversación</span> <span class="w p5-tw">desde</span> <span class="w p5-tw">la</span> <span class="w p5-tw">agenda</span></div>
+            <div id="p5-desc" class="txt">Un botón para ir a la conversación con el cliente sin copiar y pegar su número.</div>
+            <div id="p5-meta" class="meta">Mejora · Prioridad alta · 16/10/2026</div>
+          </div>
+          <div id="p5-ans" class="ans">
+            <span id="p5-stamp" class="stamp">Resuelto</span>
+            <div id="p5-answer" class="answer">Nuevo botón «Ver detalles»: la cita y toda la conversación en una sola vista.</div>
+          </div>
+        <div id="p5-new" class="ans">
+          <span id="p5-newchip" class="stamp ask">Nuevo</span>
+          <div id="p5-newt" class="ttl small"><span class="w p5-nw">Crear</span> <span class="w p5-nw">citas</span> <span class="w p5-nw">desde</span> <span class="w p5-nw">la</span> <span class="w p5-nw">app</span> <span class="w p5-nw">móvil</span></div>
+          <div id="p5-newb" class="txt">Les enviaremos una nueva versión: desinstalen la anterior e instalen la nueva.</div>
+        </div>
+        </div>
+        <div id="p5-led">
+          <div id="p5-sheet">
+            <div id="p5-hl"></div>
+            <div class="doc">Pedidos de cambios para el sistema Sofi</div>
+        <div class="row" style="top:238px"><span class="num">1</span><span id="p5-rt1" class="rt">Comprobante de pago</span><span class="rs"><span id="p5-st1" class="chip">✓ Resuelto</span></span></div>
+        <div class="row" style="top:322px"><span class="num">2</span><span id="p5-rt2" class="rt">Editar citas en agenda</span><span class="rs"><span id="p5-st2" class="chip ask"><span class="mk"></span>Su respuesta</span></span></div>
+        <div class="row" style="top:406px"><span class="num">3</span><span id="p5-rt3" class="rt">Agenda con datos restringidos</span><span class="rs"><span id="p5-st3" class="chip ask"><span class="mk"></span>Por confirmar</span></span></div>
+        <div class="row" style="top:490px"><span class="num">4</span><span id="p5-rt4" class="rt">Sofi no está agendando bien</span><span class="rs"><span id="p5-st4" class="chip">Revisado</span></span></div>
+        <div class="row" style="top:574px"><span class="num">5</span><span id="p5-rt5" class="rt">Ir a la conversación desde la agenda</span><span class="rs"></span></div>
+        <div class="row" style="top:658px"><span class="num">6</span><span id="p5-rt6" class="rt">Tiempo para enviar mensajes</span><span class="rs"></span></div>
+        <div class="row" style="top:742px"><span class="num">7</span><span id="p5-rt7" class="rt">Nueva cita en lugar de reagendar</span><span class="rs"></span></div>
+        <div class="row" style="top:826px"><span class="num">8</span><span id="p5-rt8" class="rt">Límite de fecha en agenda</span><span class="rs"></span></div>
+        <div class="row" style="top:910px"><span class="num">9</span><span id="p5-rt9" class="rt">Siguiente sesión o reagendar</span><span class="rs"></span></div>
+          </div>
+        </div>
+      </div>
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        // Ledger beat: the client's list, the highlight steps to this row.
+        tl.fromTo("#p5-led", { clipPath: "inset(0% 0% 100% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.42, ease: "power3.inOut" }, 0);
+        tl.fromTo("#p5-hl", { y: 490 }, { y: 574, duration: 0.55, ease: "power3.inOut" }, 0.3);
+      tl.fromTo("#p5-st4", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.2, ease: "expo.out" }, 0.62);
+        tl.fromTo("#p5-rt5", { color: "#312A23" }, { color: "#A4583A", duration: 0.25, ease: "power2.out" }, 0.95);
+        // Push into the row, then the card takes the frame.
+        tl.fromTo("#p5-sheet", { scale: 1, filter: "blur(0px)" }, { scale: 1.45, filter: "blur(10px)", duration: 0.55, ease: "power3.in" }, 1.95);
+        tl.fromTo("#p5-led", { opacity: 1 }, { opacity: 0, duration: 0.25, ease: "power2.in" }, 2.25);
+        tl.fromTo("#p5-lbl", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 2.35);
+        tl.fromTo(".p5-tw", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.067, ease: "power4.out" }, 2.45);
+        tl.fromTo("#p5-desc", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 3.136);
+        tl.fromTo("#p5-meta", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 3.316);
+        // The verdict: stamped when Nicolás says it.
+        tl.fromTo("#p5-stamp", { opacity: 0, scale: 1.35, rotation: -7 }, { opacity: 1, scale: 1, rotation: -3, duration: 0.22, ease: "expo.out" }, 3.4);
+        tl.fromTo("#p5-answer", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 3.7);
+      tl.to("#p5-ans", { opacity: 0, filter: "blur(8px)", duration: 0.2, ease: "power2.in" }, 156.787);
+      tl.fromTo("#p5-new", { opacity: 0 }, { opacity: 1, duration: 0.01 }, 156.987);
+      tl.fromTo("#p5-newchip", { opacity: 0, scale: 1.35, rotation: -6 }, { opacity: 1, scale: 1, rotation: -3, duration: 0.22, ease: "expo.out" }, 156.987);
+      tl.fromTo(".p5-nw", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.067, ease: "power4.out" }, 157.237);
+      tl.fromTo("#p5-newb", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 157.839);
+        // Hidden while the screen or the camera covers the card.
+        tl.set("#p5-panel", { opacity: 0 }, 7.074);
+        tl.set("#p5-panel", { opacity: 1 }, 119.6);
+        tl.set("#p5-panel", { opacity: 0 }, 122.9);
+        tl.set("#p5-panel", { opacity: 1 }, 156.787);
+        window.__timelines["p5"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

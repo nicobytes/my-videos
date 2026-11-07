@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/v2.css" />
+  </head>
+  <body>
+    <template id="c12-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #c12-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Figtree", sans-serif;
+          color: #2c2c2a;
+        }
+        #c12-head { background: #155b3f; color: #f6f4ef; }
+        #c12-head .avatar { background: rgba(246, 244, 239, 0.2); color: #f6f4ef; }
+        #c12-q { left: 214px; top: 616px; width: 470px; }
+        #c12-a { left: 410px; top: 800px; width: 460px; }
+        .c12-slot { top: 1010px; width: 140px; height: 64px; border-radius: 32px; background: #ffffff; border: 2px solid #d3d1c7; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; opacity: 0; }
+      </style>
+
+      <!-- 12 · 'responder las consultas… y agendar sus citas': a question, Parlana's answer with slots, booked. -->
+      <div data-hf-id="hf-50xu" id="c12-root" data-composition-id="c12" data-start="0" data-duration="6.226" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-hmg0" id="c12-world" class="world" data-layout-allow-overflow>
+          <div data-hf-id="hf-w5td" id="c12-clip" class="clip-layer">
+            <div data-hf-id="hf-48vl" id="c12-st" class="st">
+              <div data-hf-id="hf-ukg2" id="c12-head" class="abs chat-head"><div data-hf-id="hf-wpd9" class="avatar">T</div><div data-hf-id="hf-yeow"><b data-hf-id="hf-feuv">Tu consultorio</b><span data-hf-id="hf-ybvu">Parlana responde por ti</span></div></div>
+              <div data-hf-id="hf-3vyz" id="c12-q" class="abs bubble bubble--in">Hola, ¿tienen turno mañana?<small data-hf-id="hf-atp1">21:40</small></div>
+              <div data-hf-id="hf-r7ki" id="c12-a" class="abs bubble bubble--out">¡Hola! Sí, tenemos estos horarios:<small data-hf-id="hf-i7fp">21:40 · Parlana</small></div>
+              <div data-hf-id="hf-qs4w" id="c12-s0" class="abs c12-slot" style="left: 214px">09:00</div>
+              <div data-hf-id="hf-inpr" id="c12-s2" class="abs c12-slot" style="left: 554px">16:00</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var P = window.Physics;
+          var A = R.A;
+          var S = R.S;
+          function $(id) {
+            return document.getElementById("c12-" + id);
+          }
+          var st = $("st");
+          var q = $("q");
+          var a = $("a");
+          var s0 = $("s0");
+          var s2 = $("s2");
+          var ANS = R.beatNear(A.responder);
+          window.__timelines["c12"] = R.mountState("inbox", $("root"), $("world"), $("clip"), function (t, span) {
+            R.apply(st, t, span[0], span[1]);
+            R.pop(q, t, S.inbox + 0.3);
+            R.pop(a, t, ANS);
+            R.pop(s0, t, ANS + 0.2);
+            R.pop(s2, t, ANS + 0.45);
+            var picked = R.beatNear(A.consultas) + 0.75;
+            var dim = 1 - 0.5 * R.smooth((t - picked) / 0.3);
+            if (t > picked) {
+              s0.style.opacity = Math.min(Number(s0.style.opacity), dim).toFixed(3);
+              s2.style.opacity = Math.min(Number(s2.style.opacity), dim).toFixed(3);
+            }
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

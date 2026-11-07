@@ -1,0 +1,272 @@
+<!doctype html>
+<html
+  lang="es"
+  data-composition-variables='[
+    {"id":"color-ground","type":"color","label":"Cartulina","default":"#493A80"},
+    {"id":"color-paper","type":"color","label":"Papel","default":"#F6F2E8"},
+    {"id":"color-ink","type":"color","label":"Tinta","default":"#141218"},
+    {"id":"color-accent","type":"color","label":"Acento (resaltador)","default":"#FFC72C"},
+    {"id":"font-display","type":"string","label":"Fuente display","default":"League Gothic"},
+    {"id":"font-ui","type":"string","label":"Fuente interfaz","default":"Montserrat"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--color-ground, #493a80);
+      }
+      #root {
+        width: 100%;
+        height: 100%;
+        font-family: var(--font-ui, "Montserrat"), sans-serif;
+        color: var(--color-ink, #141218);
+      }
+      #ground {
+        position: absolute;
+        inset: 0;
+        background: var(--color-ground, #493a80) url("assets/textures/cardboard.png") 0 0 / 1080px 1920px;
+      }
+
+      /* ---------- Paper-cut kit, shared by every scene ---------- */
+
+      /* Purple card stock, for a scene that owns its own ground. */
+      .card-ground {
+        position: absolute;
+        inset: 0;
+        background: var(--color-ground, #493a80) url("assets/textures/cardboard.png") 0 0 / 1080px 1920px;
+      }
+      /* A piece of off-white paper. Its cut edge comes from a .cut-* class. */
+      .paper {
+        background: var(--color-paper, #f6f2e8) url("assets/textures/paper.png") 0 0 / 512px 512px;
+        color: var(--color-ink, #141218);
+      }
+      /* Lifted paper: the shadow lives on a wrapper, never on the clipped piece. */
+      .lift {
+        filter: drop-shadow(0 3px 0 rgba(20, 10, 40, 0.3)) drop-shadow(0 14px 22px rgba(20, 10, 40, 0.32));
+      }
+      .lift-hi {
+        filter: drop-shadow(0 4px 0 rgba(20, 10, 40, 0.28)) drop-shadow(0 30px 40px rgba(20, 10, 40, 0.38));
+      }
+      /* Hand-cut edges: no straight line is quite straight. */
+      .cut-a {
+        clip-path: polygon(0.4% 1.2%, 24% 0%, 61% 0.8%, 99.5% 0%, 100% 34%, 99.3% 71%, 100% 99.2%, 72% 100%, 38% 99.1%, 0% 100%, 0.7% 64%, 0% 30%);
+      }
+      .cut-b {
+        clip-path: polygon(0% 0.6%, 41% 0%, 77% 1%, 100% 0.2%, 99.4% 41%, 100% 78%, 99.6% 100%, 57% 99.3%, 19% 100%, 0.5% 99.4%, 0% 58%, 0.6% 22%);
+      }
+      /* Black tape with torn zigzag ends; white condensed caps. */
+      .tape {
+        display: inline-block;
+        padding: 0.12em 0.42em 0.02em;
+        background: var(--color-ink, #141218);
+        color: #fff;
+        font-family: var(--font-display, "League Gothic"), sans-serif;
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0.01em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        clip-path: polygon(0 0, 100% 0, 98.2% 16%, 100% 33%, 98.4% 50%, 100% 67%, 98.2% 84%, 100% 100%, 0 100%, 1.8% 84%, 0 67%, 1.6% 50%, 0 33%, 1.8% 16%);
+      }
+      .tape.yellow {
+        background: var(--color-accent, #ffc72c);
+        color: var(--color-ink, #141218);
+      }
+      .tape.white {
+        background: var(--color-paper, #f6f2e8) url("assets/textures/paper.png") 0 0 / 512px 512px;
+        color: var(--color-ink, #141218);
+      }
+      /* Footage in the bottom half of a split: a full-size layer masked by a torn
+         edge at y≈970, with the white paper core showing above the tear. The
+         mask is the only thing that changes between full frame and split. */
+      .split-photo {
+        position: absolute;
+        inset: 0;
+        filter: drop-shadow(0 -6px 14px rgba(20, 10, 40, 0.45));
+      }
+      .split-photo .rim {
+        position: absolute;
+        inset: 0;
+        background: #fff;
+        clip-path: polygon(0 958px, 76px 966px, 151px 954px, 238px 970px, 324px 958px, 410px 973px, 497px 960px, 583px 969px, 670px 953px, 756px 971px, 842px 959px, 929px 974px, 1015px 956px, 1080px 966px, 1080px 1920px, 0 1920px);
+      }
+      .split-photo .shot {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        clip-path: polygon(0 972px, 76px 984px, 151px 970px, 238px 988px, 324px 974px, 410px 990px, 497px 976px, 583px 986px, 670px 968px, 756px 988px, 842px 975px, 929px 991px, 1015px 971px, 1080px 982px, 1080px 1920px, 0 1920px);
+      }
+      /* ---- Paper phone with a chat in WhatsApp colours (no WhatsApp mark) ---- */
+      .ph-body {
+        position: absolute;
+        inset: 0;
+        background: var(--color-ink, #141218);
+        border: 10px solid #fff;
+        border-radius: 58px;
+        padding: 14px;
+      }
+      .ph-screen {
+        position: absolute;
+        inset: 14px;
+        border-radius: 40px;
+        overflow: hidden;
+        background: #efe7dc url("assets/textures/paper.png") 0 0 / 512px 512px;
+        background-blend-mode: multiply;
+      }
+      .ph-head {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 112px;
+        background: #008069;
+        color: #fff;
+        font-family: "Roboto", sans-serif;
+        padding: 30px 0 0 104px;
+      }
+      .ph-avatar {
+        position: absolute;
+        left: 26px;
+        top: 26px;
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        background: #f6f2e8;
+        border: 4px solid #fff;
+      }
+      .ph-name {
+        font-weight: 500;
+        font-size: 32px;
+        line-height: 1;
+      }
+      .ph-status {
+        font-size: 28px;
+        line-height: 1.2;
+        opacity: 0.85;
+      }
+      .ph-thread {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 112px;
+        bottom: 0;
+        overflow: hidden;
+      }
+      .ph-list {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .bub {
+        max-width: 330px;
+        padding: 12px 18px 14px;
+        border-radius: 18px;
+        font-family: "Roboto", sans-serif;
+        font-size: 29px;
+        line-height: 1.22;
+        color: #111b21;
+        box-shadow: 0 2px 0 rgba(17, 27, 33, 0.18);
+      }
+      .bub.out {
+        align-self: flex-end;
+        background: #d9fdd3;
+        border-top-right-radius: 4px;
+      }
+      .bub.in {
+        align-self: flex-start;
+        background: #fff;
+        border-top-left-radius: 4px;
+      }
+      .bub .tick {
+        margin-left: 8px;
+        color: #53bdeb;
+        font-size: 24px;
+        letter-spacing: -6px;
+      }
+
+      /* ---- right column: tool / skill chips and labels ---- */
+      .chip {
+        position: absolute;
+        padding: 18px 24px 16px;
+        font-family: var(--font-ui, "Montserrat"), sans-serif;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 1.15;
+        white-space: nowrap;
+      }
+      .chip .kind {
+        display: block;
+        font-family: var(--font-display, "League Gothic"), sans-serif;
+        font-weight: 400;
+        font-size: 44px;
+        letter-spacing: 0.02em;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      /* The top half of a split: everything a scene puts there stays inside
+         y 250–940 (platform UI above, footage below). */
+      .cam {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 50%;
+      }
+      .cam video,
+      .cam img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-93z1"
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="96.6"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div data-hf-id="hf-7hg0" id="ground"></div>
+
+      <div data-hf-id="hf-wrj6" id="intro" data-composition-id="intro" data-composition-src="compositions/intro.html" data-start="0" data-duration="7.4" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-wxqk" id="consola" data-composition-id="consola" data-composition-src="compositions/consola.html" data-start="7.4" data-duration="4.6" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-wqq1" id="chat" data-composition-id="chat" data-composition-src="compositions/chat.html" data-start="12" data-duration="13.3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-wqrc" id="factura" data-composition-id="factura" data-composition-src="compositions/factura.html" data-start="25.3" data-duration="7.7" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-foz2" id="busqueda" data-composition-id="busqueda" data-composition-src="compositions/busqueda.html" data-start="33" data-duration="6.9" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-94f8" id="compactar" data-composition-id="compactar" data-composition-src="compositions/compactar.html" data-start="39.9" data-duration="10.4" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-hkr1" id="limite" data-composition-id="limite" data-composition-src="compositions/limite.html" data-start="50.3" data-duration="17.6" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-9lrx" id="adk" data-composition-id="adk" data-composition-src="compositions/adk.html" data-start="67.9" data-duration="14.6" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-g4qd" id="resultados" data-composition-id="resultados" data-composition-src="compositions/resultados.html" data-start="82.5" data-duration="10.4" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-gs3u" id="cta" data-composition-id="cta" data-composition-src="compositions/cta.html" data-start="92.9" data-duration="3.7" data-track-index="2" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+
+      <div data-hf-id="hf-i2se" id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="96.6" data-track-index="4" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index: 50"></div>
+
+      <audio data-hf-id="hf-00ud" id="vo" class="clip" src="assets/vo/voiceover.mp3" data-start="7.3" data-duration="85.6" data-track-index="6" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

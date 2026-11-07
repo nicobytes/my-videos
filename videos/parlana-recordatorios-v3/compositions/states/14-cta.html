@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/v2.css" />
+  </head>
+  <body>
+    <template id="c14-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #c14-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Figtree", sans-serif;
+          color: #2c2c2a;
+        }
+        #c14-logo { left: 196px; top: 670px; width: 64px; height: auto; }
+        #c14-word { left: 276px; top: 666px; font-weight: 700; font-size: 56px; line-height: 1.1; color: #145a41; }
+        #c14-label { left: 196px; top: 784px; font-size: 28px; color: #5f5e58; }
+        #c14-input { left: 196px; top: 836px; width: 688px; height: 120px; border-radius: 60px; background: #f1efe8; display: flex; align-items: center; padding-left: 40px; font-size: 44px; font-weight: 700; letter-spacing: 0.06em; }
+        #c14-ph { color: #8a8880; font-size: 32px; font-weight: 500; letter-spacing: 0; }
+        #c14-caret { display: inline-block; width: 4px; height: 50px; margin-left: 4px; background: #155b3f; }
+        #c14-dm { left: 196px; top: 1146px; font-size: 30px; font-weight: 600; color: #155b3f; opacity: 0; }
+      </style>
+
+      <!-- 14 · CTA: 'Comenta CITAS' — the comment types itself; the cursor taps the button (the pill). -->
+      <div data-hf-id="hf-drde" id="c14-root" data-composition-id="c14" data-start="0" data-duration="5.276" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-euta" id="c14-world" class="world" data-layout-allow-overflow>
+          <div data-hf-id="hf-ma4z" id="c14-clip" class="clip-layer">
+            <div data-hf-id="hf-mqqj" id="c14-st" class="st">
+              <img data-hf-id="hf-3olq" id="c14-logo" class="abs" src="assets/brand/parlana-logo.svg" alt="" />
+              <div data-hf-id="hf-jzk0" id="c14-word" class="abs fr">Parlana</div>
+              <div data-hf-id="hf-xgc3" id="c14-label" class="abs">Comentarios</div>
+              <div data-hf-id="hf-yss5" id="c14-input" class="abs"><span data-hf-id="hf-325f" id="c14-ph">Añade un comentario…</span><span data-hf-id="hf-zi5p" id="c14-typed"></span><span data-hf-id="hf-a338" id="c14-caret"></span></div>
+              <div data-hf-id="hf-j2f3" id="c14-dm" class="abs">Te escribimos por mensaje directo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var P = window.Physics;
+          var A = R.A;
+          var S = R.S;
+          function $(id) {
+            return document.getElementById("c14-" + id);
+          }
+          var st = $("st");
+          var ph = $("ph");
+          var typed = $("typed");
+          var caret = $("caret");
+          var dm = $("dm");
+          var WORD = "CITAS";
+          var T0 = A.comenta - 0.2;
+          window.__timelines["c14"] = R.mountState("cta", $("root"), $("world"), $("clip"), function (t, span) {
+            R.apply(st, t, span[0], span[1]);
+            var n = Math.max(0, Math.min(WORD.length, Math.floor((t - T0) / 0.08) + 1));
+            if (t < T0) n = 0;
+            typed.textContent = WORD.slice(0, n);
+            ph.style.display = n === 0 ? "inline" : "none";
+            caret.style.opacity = Math.floor(t / 0.45) % 2 === 0 ? "1" : "0";
+            R.fadeAt(dm, t, R.TAP.cta + 0.4);
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

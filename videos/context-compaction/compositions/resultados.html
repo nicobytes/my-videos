@@ -1,0 +1,233 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #re-move {
+      position: absolute;
+      inset: 0;
+    }
+    #re-card-wrap {
+      position: absolute;
+      left: 50px;
+      top: 300px;
+      width: 980px;
+      height: 620px;
+    }
+    #re-card {
+      position: absolute;
+      inset: 0;
+    }
+    #re-title {
+      position: absolute;
+      left: 26px;
+      top: -46px;
+      font-size: 66px;
+    }
+    /* Same data as consola.html: the user's Google Cloud daily cost,
+       1–21 Oct 2026, relative heights from their screenshot (8 Oct = 440 px). */
+    #re-bars {
+      position: absolute;
+      left: 46px;
+      right: 46px;
+      bottom: 92px;
+      height: 460px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .re-bar {
+      width: 30px;
+      background: var(--color-ground, #493a80) url("assets/textures/cardboard.png") 0 0 / 1080px 1920px;
+      transform-origin: 50% 100%;
+      clip-path: polygon(0 1.5%, 100% 0, 97% 100%, 3% 100%);
+    }
+    #re-axis {
+      position: absolute;
+      left: 34px;
+      right: 34px;
+      bottom: 86px;
+      height: 6px;
+      background: var(--color-ink, #141218);
+    }
+    .re-day {
+      position: absolute;
+      bottom: 30px;
+      font-weight: 700;
+      font-size: 30px;
+      transform: translateX(-50%);
+    }
+    /* Release on 13 Oct (confirmed by the user, 2026-10-22). */
+    #re-flag {
+      position: absolute;
+      left: 579px;
+      top: 70px;
+      width: 6px;
+      height: 462px;
+      background: var(--color-ink, #141218);
+    }
+    #re-flag-tag {
+      position: absolute;
+      left: 588px;
+      top: 54px;
+      font-size: 50px;
+    }
+    #re-band {
+      position: absolute;
+      left: 612px;
+      right: 34px;
+      top: 300px;
+      bottom: 92px;
+      background: var(--color-accent, #ffc72c);
+      transform-origin: 0 50%;
+    }
+    #re-arrow {
+      position: absolute;
+      left: 380px;
+      top: 60px;
+      width: 420px;
+      height: 260px;
+      overflow: visible;
+    }
+    #re-down-wrap {
+      position: absolute;
+      left: 80px;
+      top: 1000px;
+    }
+    #re-down {
+      font-size: 92px;
+    }
+    #re-ok-wrap {
+      position: absolute;
+      left: 70px;
+      top: 1190px;
+    }
+    #re-ok {
+      font-size: 32px;
+      max-width: 420px;
+      box-shadow: none;
+    }
+  </style>
+  <div data-hf-id="hf-xshx" id="root" data-composition-id="resultados" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-wum6" class="card-ground"></div>
+
+    <div data-hf-id="hf-2s74" id="re-move">
+      <div data-hf-id="hf-133a" id="re-card-wrap" class="lift">
+        <div data-hf-id="hf-pf38" id="re-card" class="paper cut-a">
+          <div data-hf-id="hf-moue" id="re-band"></div>
+          <div data-hf-id="hf-jiql" id="re-bars">
+            <div data-hf-id="hf-rkzm" class="re-bar" style="height: 123px"></div>
+            <div data-hf-id="hf-19k9" class="re-bar" style="height: 155px"></div>
+            <div data-hf-id="hf-tf22" class="re-bar" style="height: 48px"></div>
+            <div data-hf-id="hf-dabw" class="re-bar" style="height: 15px"></div>
+            <div data-hf-id="hf-iahq" class="re-bar" style="height: 149px"></div>
+            <div data-hf-id="hf-srvo" class="re-bar" style="height: 305px"></div>
+            <div data-hf-id="hf-6sd7" class="re-bar" style="height: 346px"></div>
+            <div data-hf-id="hf-7s1u" class="re-bar" style="height: 440px"></div>
+            <div data-hf-id="hf-2cuu" class="re-bar" style="height: 369px"></div>
+            <div data-hf-id="hf-myki" class="re-bar" style="height: 149px"></div>
+            <div data-hf-id="hf-9oix" class="re-bar" style="height: 119px"></div>
+            <div data-hf-id="hf-i2ch" class="re-bar" style="height: 263px"></div>
+            <div data-hf-id="hf-izf3" class="re-bar" style="height: 214px"></div>
+            <div data-hf-id="hf-m41a" class="re-bar re-after" style="height: 97px"></div>
+            <div data-hf-id="hf-961p" class="re-bar re-after" style="height: 142px"></div>
+            <div data-hf-id="hf-186d" class="re-bar re-after" style="height: 69px"></div>
+            <div data-hf-id="hf-cwsr" class="re-bar re-after" style="height: 67px"></div>
+            <div data-hf-id="hf-oeml" class="re-bar re-after" style="height: 72px"></div>
+            <div data-hf-id="hf-970j" class="re-bar re-after" style="height: 92px"></div>
+            <div data-hf-id="hf-azis" class="re-bar re-after" style="height: 82px"></div>
+            <div data-hf-id="hf-94jz" class="re-bar re-after" style="height: 140px"></div>
+          </div>
+          <div data-hf-id="hf-ojcw" id="re-axis"></div>
+          <div data-hf-id="hf-vmfx" class="re-day" style="left: 61px">1 oct</div>
+          <div data-hf-id="hf-tiab" class="re-day" style="left: 365px">8</div>
+          <div data-hf-id="hf-ubmu" class="re-day" style="left: 582px">13</div>
+          <div data-hf-id="hf-cm53" class="re-day" style="left: 919px">21</div>
+          <div data-hf-id="hf-3fwp" id="re-flag"></div>
+          <svg data-hf-id="hf-8x0v" id="re-arrow" viewBox="0 0 420 260" aria-hidden="true">
+            <path data-hf-id="hf-1rkv" pathLength="1" class="re-ar" d="M14 140 C 120 120, 250 150, 318 246" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" />
+            <path data-hf-id="hf-xphf" pathLength="1" class="re-ar" d="M14 140 C 120 120, 250 150, 318 246" fill="none" stroke="#141218" stroke-width="10" stroke-linecap="round" />
+            <path data-hf-id="hf-jvjl" pathLength="1" class="re-ar" d="M270 226 L 322 254 L 344 196" fill="none" stroke="#fff" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" />
+            <path data-hf-id="hf-o97p" pathLength="1" class="re-ar" d="M270 226 L 322 254 L 344 196" fill="none" stroke="#141218" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <div data-hf-id="hf-1jg6" id="re-title" class="tape">Facturación diaria · Google Cloud</div>
+        <div data-hf-id="hf-8pkc" id="re-flag-tag" class="tape yellow">Release · 13 oct</div>
+      </div>
+      <div data-hf-id="hf-lzgk" id="re-down-wrap" class="lift">
+        <div data-hf-id="hf-bhcf" id="re-down" class="tape">Misma calidad, menos gasto</div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-nkad" class="split-photo" id="re-photo">
+      <div data-hf-id="hf-5gs0" class="rim"></div>
+      <div data-hf-id="hf-2ycw" class="shot">
+        <div data-hf-id="hf-0ema" class="cam" id="re-cam">
+          <video data-hf-id="hf-zsp1"
+            id="re-video"
+            class="clip"
+            src="assets/footage/watching-results.mp4"
+            data-start="0"
+            data-duration="8.4"
+            data-media-start="17"
+            data-track-index="1"
+            muted
+            playsinline
+          ></video>
+        </div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-dh06" id="re-ok-wrap" class="lift">
+      <div data-hf-id="hf-ejol" id="re-ok" class="bub in">¡Llegó perfecto, gracias!<span data-hf-id="hf-ok14" class="tick">✓✓</span></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      // Host starts at 82.5 s; times below are film seconds.
+      const S = 82.5;
+      const at = (g) => +(g - S).toFixed(3);
+      const tl = gsap.timeline({ paused: true });
+      const ROT = { title: -2, tag: -4, down: -3, ok: -3 };
+
+      gsap.set("#re-title", { rotation: ROT.title });
+      gsap.set("#re-flag-tag", { rotation: ROT.tag, opacity: 0 });
+      gsap.set("#re-down", { rotation: ROT.down, opacity: 0 });
+      gsap.set("#re-ok-wrap", { rotation: ROT.ok, opacity: 0 });
+      gsap.set("#re-ok", { transformOrigin: "0% 0%" });
+      // Face (source y≈20–450) sits above the captions.
+      gsap.set("#re-cam", { y: 950 });
+      gsap.set(".re-after", { scaleY: 0 });
+      gsap.set("#re-flag", { scaleY: 0, transformOrigin: "50% 100%" });
+      gsap.set("#re-band", { scaleX: 0 });
+      gsap.set(".re-ar", { strokeDasharray: 1, strokeDashoffset: 1 });
+      // Shown under the tear at 82.5: 1–13 Oct already on the chart, as in the console.
+
+      // "los logs de facturación" (84.4): the days since then arrive, low.
+      gsap.utils.toArray(".re-after").forEach((bar, i) => {
+        tl.to(bar, { scaleY: 1, duration: 0.24, ease: "steps(4)" }, at(84.6 + i * 0.16));
+      });
+      // "este nuevo release" (87.05): the flag goes in on 13 Oct.
+      tl.to("#re-flag", { scaleY: 1, duration: 0.25, ease: "power3.out" }, at(87.0));
+      PC.slap(tl, "#re-flag-tag", at(87.25), { rot: ROT.tag, from: 1.25 });
+      // "siguen manteniendo calidad" (89.77): a happy customer.
+      tl.set("#re-ok-wrap", { opacity: 1 }, at(89.5));
+      tl.fromTo("#re-ok", { scale: 0.75 }, { scale: 1, duration: 0.12, ease: "power2.out", immediateRender: false }, at(89.5));
+
+      // "pero mi facturación ha bajado" (90.25): the split closes, the chart is the frame.
+      tl.to("#re-photo", { y: 1000, duration: 0.4, ease: "power3.in" }, at(90.25));
+      PC.pull(tl, "#re-ok-wrap", at(90.25), { rot: ROT.ok, toX: -500, toY: 300, dur: 0.24 });
+      tl.to("#re-move", { y: 160, duration: 0.6, ease: "power2.inOut" }, at(90.3));
+      // From the peak to the days after the release.
+      tl.to(".re-ar", { strokeDashoffset: 0, duration: 0.45, ease: "power2.out", stagger: 0.04 }, at(91.0));
+      tl.to("#re-band", { scaleX: 1, duration: 0.35, ease: "power3.out" }, at(91.5));
+      PC.slap(tl, "#re-down", at(92.0), { rot: ROT.down, from: 1.2, dy: -40 });
+      tl.set({}, {}, 10.7);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["resultados"] = tl;
+    })();
+  </script>
+</template>

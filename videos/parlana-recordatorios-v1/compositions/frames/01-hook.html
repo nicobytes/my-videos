@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/parlana.css" />
+  </head>
+  <body>
+    <template id="f01-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #f01-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        /* The surface is painted by the shell track; this frame carries only content. */
+        #f01-card {
+          left: 110px;
+          top: 440px;
+          width: 860px;
+          height: 760px;
+          padding: 60px;
+          background: transparent;
+          border-color: transparent;
+          box-shadow: none;
+        }
+        #f01-content {
+          position: relative;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+        #f01-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        #f01-clock {
+          height: 76px;
+          padding: 0 30px;
+          font-size: 36px;
+          font-weight: 700;
+        }
+        #f01-clock svg {
+          width: 36px;
+          height: 36px;
+        }
+        #f01-time {
+          margin-top: 50px;
+          font-size: 250px;
+          color: var(--ink);
+        }
+        #f01-what {
+          margin-top: 36px;
+          font-size: 60px;
+          font-weight: 700;
+          color: var(--ink);
+        }
+        #f01-who {
+          margin-top: 10px;
+          font-size: 46px;
+          font-weight: 500;
+          color: var(--muted);
+        }
+        #f01-doc {
+          margin-top: 18px;
+          font-size: 30px;
+          color: var(--muted);
+        }
+        #f01-pending {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          background: var(--surface);
+          color: var(--muted);
+          border: 2px solid var(--line);
+        }
+        /* The status chip, grown into the hook's stamp. */
+        #f01-stamp {
+          position: absolute;
+          left: 520px;
+          top: 1128px;
+          width: 420px;
+          height: 136px;
+          font-size: 64px;
+          box-shadow: var(--shadow-lift);
+          opacity: 0;
+        }
+      </style>
+
+      <div data-hf-id="hf-27oe" id="f01-root" data-composition-id="f01" data-start="0" data-duration="4.3" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-h659" id="f01-card" class="pr-card">
+          <div data-hf-id="hf-q2fk" id="f01-content">
+            <div data-hf-id="hf-80je" id="f01-top">
+              <span data-hf-id="hf-e4ov" class="pr-chip pr-chip--neutral">MARTES · HOY</span>
+              <span data-hf-id="hf-vrad" id="f01-clock" class="pr-chip pr-chip--ink">
+                <svg data-hf-id="hf-ui0x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle data-hf-id="hf-1iwn" cx="12" cy="12" r="9" /><path data-hf-id="hf-8ge0" d="M12 7v5l3.5 2" /></svg>
+                <span data-hf-id="hf-0beo" id="f01-clock-t">10:00</span>
+              </span>
+            </div>
+            <div data-hf-id="hf-o8iz" id="f01-time" class="pr-display">10:00</div>
+            <div data-hf-id="hf-w2ra" id="f01-what" class="pr-ui">Consulta</div>
+            <div data-hf-id="hf-cogj" id="f01-who" class="pr-ui">Juan Pérez</div>
+            <div data-hf-id="hf-8qru" id="f01-doc" class="pr-data">Dra. Ana · Odontología</div>
+            <span data-hf-id="hf-l6yr" id="f01-pending" class="pr-chip">Pendiente</span>
+          </div>
+        </div>
+        <div data-hf-id="hf-ydsr" id="f01-stamp" class="pr-btn pr-chip--ink">No llegó</div>
+      </div>
+
+      <script>
+        (function () {
+          // VO cues, frame-local seconds (from assets/vo/transcript.json):
+          // "Son las 10 de la mañana, Ana espera a su paciente, que nunca llega." (stamp on "nunca")
+          var CUE = { clockFrom: 1.1, clockStep: 0.15, stamp: 3.42, out: 4.12 };
+          var tl = gsap.timeline({ paused: true });
+
+          // The clock runs 10:00 → 10:14 in instant minute steps (discrete-text-sequence).
+          var clock = document.getElementById("f01-clock-t");
+          var steps = [];
+          for (var i = 0; i <= 14; i++) {
+            steps.push({ t: i === 0 ? 0 : CUE.clockFrom + i * CUE.clockStep, text: "10:" + (i < 10 ? "0" + i : String(i)) });
+          }
+          var driver = { t: 0 };
+          tl.to(
+            driver,
+            {
+              t: 4.3,
+              duration: 4.3,
+              ease: "none",
+              onUpdate: function () {
+                var text = steps[0].text;
+                for (var k = steps.length - 1; k >= 0; k--) {
+                  if (driver.t >= steps[k].t) {
+                    text = steps[k].text;
+                    break;
+                  }
+                }
+                clock.textContent = text;
+              },
+            },
+            0,
+          );
+
+          // "…que nunca llega": the appointment goes grey and the status grows into the stamp.
+          tl.fromTo("#f01-time", { color: "#2c2c2a" }, { color: "#5f5e58", duration: 0.35, ease: "power2.out" }, CUE.stamp);
+          tl.fromTo("#f01-pending", { opacity: 1, filter: "blur(0px)" }, { opacity: 0, filter: "blur(8px)", duration: 0.16, ease: "power2.in" }, CUE.stamp - 0.12);
+          tl.fromTo("#f01-stamp", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.42, ease: "power3.out" }, CUE.stamp);
+
+          // Content swaps out behind a short blur before the shell morphs (text-state-swap values).
+          tl.fromTo(["#f01-content", "#f01-stamp"], { y: 0, filter: "blur(0px)" }, { opacity: 0, y: -18, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, CUE.out);
+
+          window.__timelines["f01"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

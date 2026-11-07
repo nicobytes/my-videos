@@ -1,0 +1,126 @@
+<div id="video-wrap"><div id="video-zoom">
+  <video id="bg-video" src="input-video.mp4" playsinline data-has-audio="true" data-start="0" data-duration="90.18" data-track-index="1"></video>
+</div></div>
+
+<!-- ═══ chips over the talking head ═══ -->
+<div id="c0" class="chip clip" data-start="0" data-duration="5" data-track-index="3">
+  <div class="k">En producción</div>
+  <div class="t ln"><span>Google se está cayendo</span></div>
+</div>
+<div id="c1a" class="chip clip" data-start="12.48" data-duration="4.1" data-track-index="3">
+  <div class="k" style="color: var(--blue)">Cada vez más seguido</div>
+  <div class="t ln"><span>Picos de alta demanda</span></div>
+</div>
+<div id="c1b" class="chip clip" data-start="16.56" data-duration="3.12" data-track-index="3">
+  <div class="k">Resultado</div>
+  <div class="t ln"><span>Mis agentes se quedan mudos</span></div>
+  <div class="s">nadie responde</div>
+</div>
+<div id="c3" class="chip clip" data-start="32.24" data-duration="1.56" data-track-index="3">
+  <div class="t ln"><span>¿Cómo lo solucioné?</span></div>
+</div>
+<div id="c4" class="chip clip" data-start="50.32" data-duration="6.76" data-track-index="3">
+  <div class="t ln" style="font-size: 44px"><span><span class="pill" style="background: var(--blue)">OpenRouter</span> fallback del proveedor</span></div>
+  <div class="t ln" id="c4-r2" style="font-size: 44px; margin-top: 18px"><span><span class="pill" style="background: var(--green)">LangChain</span> nativo en el SDK</span></div>
+</div>
+<div id="c5" class="chip clip" data-start="76.4" data-duration="5.36" data-track-index="3">
+  <div class="t ln"><span>El agente no se queda mudo</span></div>
+  <div class="s" id="c5-s">tarda un poco más, <b style="color: var(--green)">pero responde</b></div>
+</div>
+
+<!-- ═══ k1 · el error 503 (5.00–12.48) ═══ -->
+<section id="k1" class="card clip" data-start="5" data-duration="7.48" data-track-index="2">
+  <div class="view"><div class="cam">
+    <div class="lbl">El error que veo</div>
+    <div class="big" data-at="6.6">503</div>
+    <div class="unav" data-at="6.9">UNAVAILABLE</div>
+    <div class="shot" data-at="5.3"><img src="503_error.jpeg" alt="Error 503 en la UI de ADK" /></div>
+    <div id="k1-focus" class="focus" data-at="9.5" style="left: 194px; top: 530px; width: 392px; height: 142px"></div>
+  </div></div>
+</section>
+
+<!-- ═══ k2 · mi solución anterior: reintentar (19.68–32.24) ═══ -->
+<section id="k2" class="card clip" data-start="19.68" data-duration="12.56" data-track-index="2">
+  <div class="view"><div class="cam">
+    <div class="lbl" style="color: var(--red)">Lo que yo hacía</div>
+    <div class="ttl ln" style="font-size: 84px"><span>Reintentar al mismo modelo</span></div>
+    <div class="row" data-at="21.7" style="top: 280px">Intento <span class="bad">503</span></div>
+    <div class="row" data-at="24.1" style="top: 392px">Reintento<em>+1 s</em> <span class="bad">503</span></div>
+    <div class="row" data-at="25.2" style="top: 504px">Reintento<em>+3 s</em> <span class="bad">503</span></div>
+    <div class="meter-l" data-at="25.9" style="top: 632px">Carga del servicio</div>
+    <div class="meter" data-at="25.9" style="top: 686px"><i id="k2-fill"></i></div>
+    <div id="k2-stamp" class="stamp" style="left: 470px; top: 770px; opacity: 0">SATURADO</div>
+  </div></div>
+</section>
+
+<!-- ═══ k2b · la solución (33.80–36.08) ═══ -->
+<section id="k2b" class="card dark clip" data-start="33.8" data-duration="2.28" data-track-index="2">
+  <div class="view"><div class="cam">
+    <div class="lbl" style="color: #81c995">La solución</div>
+    <div class="ttl ln"><span>Fallback de modelo</span></div>
+    <img class="hero" src="hero.png" alt="" />
+    <div class="sub" style="top: 720px">si un modelo falla, responde otro</div>
+  </div></div>
+</section>
+
+<!-- ═══ k3 · OpenRouter (36.08–50.32) ═══ -->
+<section id="k3" class="card clip" data-start="36.08" data-duration="14.24" data-track-index="2">
+  <div class="view"><div class="cam">
+    <div class="lbl">Opción 1 · proveedor</div>
+    <div class="ttl ln"><span>OpenRouter</span></div>
+    <svg class="wires" viewBox="0 0 1080 920">
+      <path id="w0" d="M540 332 L540 380" stroke="#c9c1ad" />
+      <path id="wa" d="M540 492 C540 552 300 540 300 600" stroke="#c9c1ad" />
+      <path id="wb" d="M540 492 C540 552 780 540 780 600" stroke="#2f9e5a" />
+    </svg>
+    <div class="node" data-at="36.3" style="top: 220px">Tu agente</div>
+    <div class="node dk" data-at="37.6" style="top: 380px">OpenRouter</div>
+    <div id="k3-a" class="model" data-at="39.6" style="left: 80px"><b>Modelo A</b><span>el que elegiste</span><span id="k3-a503" class="bad" style="opacity: 0">503</span><div class="bar"><i></i></div></div>
+    <div id="k3-b" class="model" data-at="42.2" style="left: 560px"><b>Modelo B</b><span>otra compañía · más bajo</span><div class="bar"><i id="k3-bfill"></i></div></div>
+    <div class="hand" data-at="48.6" style="left: 560px; top: 800px">…y B se satura</div>
+  </div></div>
+</section>
+
+<!-- ═══ k4 · Google ADK (57.08–66.04) ═══ -->
+<section id="k4" class="card clip" data-start="57.08" data-duration="8.96" data-track-index="2">
+  <div class="view"><div class="cam">
+    <div class="lbl">Opción 2 · nativo</div>
+    <div class="ttl ln"><span>Google ADK</span></div>
+    <div id="k4-exp" class="exp" style="opacity: 0">EXPERIMENTAL</div>
+    <div id="k4-fbm" class="bigmono mono"><span>F</span><span>a</span><span>l</span><span>l</span><span>b</span><span>a</span><span>c</span><span>k</span><span>M</span><span>o</span><span>d</span><span>e</span><span>l</span><i class="caret"></i></div>
+    <div class="doc" data-at="64.0"><div class="p mono">adk-python · docs/guides/models/fallback_model</div><div class="q">“FallbackModel wraps an ordered list of models and moves to the next one when a call fails.”</div></div>
+    <div class="ok" data-at="65.4">✓ Lo leí y lo implementé</div>
+  </div></div>
+</section>
+
+<!-- ═══ k5 · cómo funciona (66.04–76.40) ═══ -->
+<section id="k5" class="card dark clip" data-start="66.04" data-duration="10.36" data-track-index="2">
+  <div class="view"><div class="cam">
+    <div class="lbl" style="color: #81c995">Cómo funciona</div>
+    <div class="ttl ln" style="font-size: 84px"><span>Modelo de respaldo</span></div>
+    <div class="code mono">
+<span class="l"><span class="ty"><span class="kw">from</span> google.adk.models <span class="kw">import</span> <span class="fn">FallbackModel</span></span></span>
+<span class="l"><span class="ty"> </span></span>
+<span class="l"><span class="ty">agent = <span class="fn">LlmAgent</span>(</span></span>
+<span class="l"><span class="ty">    model=<span class="fn">FallbackModel</span>(models=[</span></span>
+<span class="l"><span class="ty">        <span class="mark st">'gemini-3.1-pro-preview'<i class="strike"></i></span>,</span><span id="k5-503" class="t503">503</span></span>
+<span class="l"><span class="ty">        <span class="mark st">'gemini-3.5-flash'<i class="hl"></i></span>,</span></span>
+<span class="l"><span class="ty">    ]),</span></span>
+<span class="l"><span class="ty">)</span></span>
+    </div>
+    <div id="k5-resp" class="resp" style="opacity: 0">✓ Responde gemini-3.5-flash</div>
+  </div></div>
+</section>
+
+<!-- ═══ k6 · conclusión (81.76–90.18) ═══ -->
+<section id="k6" class="card clip" data-start="81.76" data-duration="8.42" data-track-index="2">
+  <div class="view"><div class="cam">
+    <div class="lbl" data-at="81.9" style="color: var(--red)">Pasa muy seguido</div>
+    <div class="ttl ln" style="font-size: 110px"><span id="k6-t" style="opacity: 0">Usa un fallback</span></div>
+    <div class="opt" data-at="85.6" style="top: 260px"><span class="pill" style="background: var(--green)">Nativo</span><div class="t2">Google ADK, LangChain <span>· en tu framework</span></div></div>
+    <div class="opt" data-at="88.2" style="top: 500px"><span class="pill" style="background: var(--blue)">Proveedor</span><div class="t2">OpenRouter <span>· otro proveedor</span></div></div>
+  </div></div>
+</section>
+
+<!-- ═══ captions: Reels safe zone ═══ -->
+<div id="cap-box"><div id="cap"></div></div>

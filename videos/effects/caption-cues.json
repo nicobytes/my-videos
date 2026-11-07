@@ -1,0 +1,197 @@
+[
+  {
+    "start": 0.08,
+    "end": 2,
+    "text": "Hablemos sobre los effects en Angular."
+  },
+  {
+    "start": 2,
+    "end": 3.6,
+    "text": "Básicamente deberíamos tratar de evitarlos"
+  },
+  {
+    "start": 3.6,
+    "end": 5.4,
+    "text": "a toda costa y Angular ha hecho mucho buen"
+  },
+  {
+    "start": 5.4,
+    "end": 6.08,
+    "text": "trabajo para"
+  },
+  {
+    "start": 6.64,
+    "end": 8.64,
+    "text": "mecanismos para poder evitarlos."
+  },
+  {
+    "start": 8.64,
+    "end": 9.04,
+    "text": "Sin embargo,"
+  },
+  {
+    "start": 9.36,
+    "end": 10.64,
+    "text": "pues a veces hay que utilizarlos para"
+  },
+  {
+    "start": 10.64,
+    "end": 12.52,
+    "text": "analytics, logging, debugging, manipulación"
+  },
+  {
+    "start": 12.52,
+    "end": 13.76,
+    "text": "del DOM, etcétera."
+  },
+  {
+    "start": 13.84,
+    "end": 15.52,
+    "text": "Hay una forma mucho más limpia de escribir"
+  },
+  {
+    "start": 15.52,
+    "end": 17.4,
+    "text": "estos effects a mi parecer y es con esta"
+  },
+  {
+    "start": 17.4,
+    "end": 19.44,
+    "text": "alternativa que tiene en"
+  },
+  {
+    "start": 19.68,
+    "end": 21.76,
+    "text": "su paquete que se llama signalMethod."
+  },
+  {
+    "start": 22.24,
+    "end": 24.08,
+    "text": "Tiene 3 ventajas sobre el efecto normal de"
+  },
+  {
+    "start": 24.08,
+    "end": 24.56,
+    "text": "Angular."
+  },
+  {
+    "start": 24.56,
+    "end": 26,
+    "text": "La primera es flexible inputs."
+  },
+  {
+    "start": 26,
+    "end": 28.56,
+    "text": "Yo puedo enviarle un signal o simplemente"
+  },
+  {
+    "start": 28.56,
+    "end": 29.12,
+    "text": "un valor"
+  },
+  {
+    "start": 29.36,
+    "end": 31.56,
+    "text": "y él va a suscribirse y ejecutar esa lógica"
+  },
+  {
+    "start": 31.56,
+    "end": 32.08,
+    "text": "de negocio"
+  },
+  {
+    "start": 32.4,
+    "end": 34.32,
+    "text": "aparte como si fuera programación en la"
+  },
+  {
+    "start": 34.32,
+    "end": 36,
+    "text": "entrada objetos, lo cual lo hace grande"
+  },
+  {
+    "start": 36,
+    "end": 37.64,
+    "text": "para el unit test y tengo que pelear con el"
+  },
+  {
+    "start": 37.64,
+    "end": 39.68,
+    "text": "constructor, inyectables y demás."
+  },
+  {
+    "start": 39.68,
+    "end": 42.08,
+    "text": "Tiene automáticamente el implicit un"
+  },
+  {
+    "start": 42.08,
+    "end": 42.52,
+    "text": "untracked."
+  },
+  {
+    "start": 42.52,
+    "end": 44.52,
+    "text": "Entonces yo no me tengo que recordar cuándo"
+  },
+  {
+    "start": 44.52,
+    "end": 45.92,
+    "text": "poner untracked o no"
+  },
+  {
+    "start": 46.4,
+    "end": 47.44,
+    "text": "para evitar"
+  },
+  {
+    "start": 47.68,
+    "end": 48.44,
+    "text": "memory leaks."
+  },
+  {
+    "start": 48.44,
+    "end": 49.28,
+    "text": "Eso ya lo hace."
+  },
+  {
+    "start": 49.6,
+    "end": 50.32,
+    "text": "De por sí, eso ya"
+  },
+  {
+    "start": 50.56,
+    "end": 52.04,
+    "text": "me ahorra un montón de pensamiento"
+  },
+  {
+    "start": 52.04,
+    "end": 53.92,
+    "text": "cognitivo de cuándo usar untracked o no."
+  },
+  {
+    "start": 53.92,
+    "end": 56.16,
+    "text": "Simplemente uso signalMethod y ya y se ve"
+  },
+  {
+    "start": 56.16,
+    "end": 57.92,
+    "text": "mucho más limpio, declarativo y es"
+  },
+  {
+    "start": 57.92,
+    "end": 58.96,
+    "text": "inyectable. Así que"
+  },
+  {
+    "start": 59.28,
+    "end": 61.28,
+    "text": "te recomiendo usarlo si utilizas el paquete"
+  },
+  {
+    "start": 61.44,
+    "end": 62.96,
+    "text": "de NgRx Signals."
+  }
+]

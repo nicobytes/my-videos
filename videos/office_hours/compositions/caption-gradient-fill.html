@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <style>
+      @font-face { font-family: "Inter"; src: url("fonts/Inter-700-latin.woff2") format("woff2"); font-weight: 700; font-display: block; }
+      @font-face { font-family: "Inter"; src: url("fonts/Inter-400-latin.woff2") format("woff2"); font-weight: 400; font-display: block; }
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body {
+        width: 1080px; height: 1920px; margin: 0; overflow: hidden; background: transparent;
+      }
+      #gradient-fill {
+        pointer-events: none; position: relative;
+        width: 1080px; height: 1920px; overflow: hidden; background: transparent;
+      }
+      #gr-container {
+        position: absolute; inset: 0; z-index: 50; pointer-events: none;
+      }
+      .gr-group {
+        position: absolute;
+        left: 50%;
+        bottom: 380px;
+        transform: translateX(-50%);
+        width: max-content;
+        max-width: 912px;
+        display: flex; flex-wrap: wrap;
+        align-items: flex-end; justify-content: center;
+        gap: 8px 12px;
+        padding: 18px 28px;
+        border-radius: 18px;
+        background: #18181b;
+        box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+        opacity: 0; visibility: hidden;
+      }
+      .gr-word {
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 44px;
+        display: inline-block;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        padding-bottom: 0.02em;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        background-size: 350% 100%;
+        background-position: 100% 0;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-cza4" id="gradient-fill" data-composition-id="caption-gradient-fill" data-timeline-locked="" data-start="0" data-duration="35.233" data-fps="30" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-gjh8" id="gr-container"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var WORDS = [{"text":"Últimamente","start":0.08,"end":0.408},{"text":"he","start":0.408,"end":0.736},{"text":"estado","start":0.736,"end":1.064},{"text":"desarrollando","start":1.064,"end":1.392},{"text":"agentes","start":1.392,"end":1.72},{"text":"que","start":1.72,"end":1.903},{"text":"corren","start":1.903,"end":2.086},{"text":"y","start":2.086,"end":2.269},{"text":"viven","start":2.269,"end":2.451},{"text":"en","start":2.451,"end":2.634},{"text":"WhatsApp","start":2.634,"end":2.817},{"text":"para","start":2.817,"end":3},{"text":"diferentes","start":3,"end":3.327},{"text":"empresas","start":3.327,"end":3.653},{"text":"y","start":3.653,"end":3.98},{"text":"hace","start":3.98,"end":4.307},{"text":"poco","start":4.307,"end":4.633},{"text":"sacamos","start":4.633,"end":4.96},{"text":"esta","start":4.96,"end":5.56},{"text":"estadística","start":5.56,"end":6.16},{"text":"en","start":6.4,"end":6.686},{"text":"donde","start":6.686,"end":6.971},{"text":"miramos","start":6.971,"end":7.257},{"text":"cómo","start":7.257,"end":7.543},{"text":"está","start":7.543,"end":7.829},{"text":"atendiendo","start":7.829,"end":8.114},{"text":"y","start":8.114,"end":8.4},{"text":"esto","start":8.4,"end":8.67},{"text":"es","start":8.67,"end":8.94},{"text":"lo","start":8.94,"end":9.21},{"text":"vital.","start":9.21,"end":9.48},{"text":"Fíjate","start":9.52,"end":9.88},{"text":"que","start":9.88,"end":10.24},{"text":"en","start":10.24,"end":10.6},{"text":"las","start":10.6,"end":10.96},{"text":"horas","start":10.96,"end":11.32},{"text":"básicamente","start":11.32,"end":11.68},{"text":"hábiles,","start":11.68,"end":11.914},{"text":"en","start":11.914,"end":12.149},{"text":"las","start":12.149,"end":12.383},{"text":"horas","start":12.383,"end":12.617},{"text":"de","start":12.617,"end":12.851},{"text":"trabajo,","start":12.851,"end":13.086},{"text":"pues","start":13.086,"end":13.32},{"text":"nuestro","start":13.32,"end":13.76},{"text":"agent","start":13.76,"end":14.2},{"text":"obviamente","start":14.2,"end":14.64},{"text":"sigue","start":14.64,"end":15.08},{"text":"funcionando,","start":15.08,"end":15.52},{"text":"pero","start":15.68,"end":15.937},{"text":"también","start":15.937,"end":16.194},{"text":"responde","start":16.194,"end":16.451},{"text":"en","start":16.451,"end":16.709},{"text":"picos","start":16.709,"end":16.966},{"text":"en","start":16.966,"end":17.223},{"text":"donde","start":17.223,"end":17.48},{"text":"normalmente","start":17.48,"end":17.784},{"text":"ya","start":17.784,"end":18.088},{"text":"nadie","start":18.088,"end":18.392},{"text":"te","start":18.392,"end":18.696},{"text":"atiende.","start":18.696,"end":19},{"text":"En","start":19.4,"end":19.644},{"text":"la","start":19.644,"end":19.888},{"text":"madrugada,","start":19.888,"end":20.132},{"text":"en","start":20.132,"end":20.376},{"text":"las","start":20.376,"end":20.62},{"text":"altas","start":20.62,"end":20.864},{"text":"horas","start":20.864,"end":21.108},{"text":"de","start":21.108,"end":21.352},{"text":"la","start":21.352,"end":21.596},{"text":"noche,","start":21.596,"end":21.84},{"text":"el","start":22.08,"end":22.385},{"text":"agente","start":22.385,"end":22.69},{"text":"literalmente","start":22.69,"end":22.995},{"text":"toma","start":22.995,"end":23.3},{"text":"toda","start":23.3,"end":23.605},{"text":"la","start":23.605,"end":23.91},{"text":"base","start":23.91,"end":24.215},{"text":"de","start":24.215,"end":24.52},{"text":"conocimiento","start":24.52,"end":24.853},{"text":"de","start":24.853,"end":25.187},{"text":"tu","start":25.187,"end":25.52},{"text":"compañía,","start":25.52,"end":25.853},{"text":"responde,","start":25.853,"end":26.187},{"text":"haz","start":26.187,"end":26.52},{"text":"atención","start":26.52,"end":26.869},{"text":"y","start":26.869,"end":27.217},{"text":"deja","start":27.217,"end":27.566},{"text":"listo","start":27.566,"end":27.914},{"text":"precisamente","start":27.914,"end":28.263},{"text":"para","start":28.263,"end":28.611},{"text":"que","start":28.611,"end":28.96},{"text":"alguien","start":28.96,"end":29.28},{"text":"ya","start":29.28,"end":29.6},{"text":"pues","start":30.56,"end":30.783},{"text":"del","start":30.783,"end":31.006},{"text":"equipo","start":31.006,"end":31.229},{"text":"de","start":31.229,"end":31.451},{"text":"ventas","start":31.451,"end":31.674},{"text":"tome","start":31.674,"end":31.897},{"text":"esa","start":31.897,"end":32.12},{"text":"conversación","start":32.12,"end":32.377},{"text":"cuando","start":32.377,"end":32.634},{"text":"ya","start":32.634,"end":32.891},{"text":"esté","start":32.891,"end":33.149},{"text":"en","start":33.149,"end":33.406},{"text":"horas","start":33.406,"end":33.663},{"text":"de","start":33.663,"end":33.92},{"text":"trabajo","start":33.92,"end":34.168},{"text":"y","start":34.168,"end":34.416},{"text":"cierre","start":34.416,"end":34.664},{"text":"la","start":34.664,"end":34.912},{"text":"venta.","start":34.912,"end":35.16}];
+        var GROUPS = [{"wordStart":0,"wordEnd":4,"start":0.08,"end":1.72},{"wordStart":5,"wordEnd":11,"start":1.72,"end":3},{"wordStart":12,"wordEnd":17,"start":3,"end":4.96},{"wordStart":18,"wordEnd":19,"start":4.96,"end":6.16},{"wordStart":20,"wordEnd":26,"start":6.4,"end":8.4},{"wordStart":27,"wordEnd":30,"start":8.4,"end":9.48},{"wordStart":31,"wordEnd":36,"start":9.52,"end":11.68},{"wordStart":37,"wordEnd":43,"start":11.68,"end":13.32},{"wordStart":44,"wordEnd":48,"start":13.32,"end":15.52},{"wordStart":49,"wordEnd":55,"start":15.68,"end":17.48},{"wordStart":56,"wordEnd":60,"start":17.48,"end":19},{"wordStart":61,"wordEnd":70,"start":19.4,"end":21.84},{"wordStart":71,"wordEnd":78,"start":22.08,"end":24.52},{"wordStart":79,"wordEnd":84,"start":24.52,"end":26.52},{"wordStart":85,"wordEnd":91,"start":26.52,"end":28.96},{"wordStart":92,"wordEnd":93,"start":28.96,"end":29.6},{"wordStart":94,"wordEnd":100,"start":30.56,"end":32.12},{"wordStart":101,"wordEnd":107,"start":32.12,"end":33.92},{"wordStart":108,"wordEnd":112,"start":33.92,"end":35.16}];
+        var BRAND_GRAD = "linear-gradient(90deg, #06b6d4 0%, #10b981 18%, #06b6d4 36%, #fafafa 50%, #fafafa 100%)";
+        var MAX_W = 856;
+        var BASE_SIZE = 42;
+
+        var _fitCanvas = document.createElement("canvas");
+        var _fitCtx = _fitCanvas.getContext("2d");
+        function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+          var size = baseFontSize;
+          var minSize = Math.floor(baseFontSize * 0.6);
+          while (size > minSize) {
+            _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+            if (_fitCtx.measureText(text).width <= maxWidth) return size;
+            size -= 2;
+          }
+          return minSize;
+        }
+
+        var container = document.getElementById("gr-container");
+        var tl = gsap.timeline({ paused: true });
+
+        GROUPS.forEach(function (g, gi) {
+          var groupWords = WORDS.slice(g.wordStart, g.wordEnd + 1);
+          var groupText = groupWords.map(function (w) { return w.text; }).join(" ");
+          var fontSize = fitFontSize(groupText, BASE_SIZE, "700", "Inter, sans-serif", MAX_W);
+          var grp = document.createElement("div");
+          grp.className = "gr-group";
+          grp.id = "gr-grp-" + gi;
+
+          groupWords.forEach(function (w, i) {
+            var wi = g.wordStart + i;
+            var span = document.createElement("span");
+            span.className = "gr-word";
+            span.id = "gr-w-" + wi;
+            span.textContent = w.text;
+            span.style.fontSize = fontSize + "px";
+            span.style.background = BRAND_GRAD;
+            span.style.backgroundSize = "350% 100%";
+            span.style.backgroundPosition = "100% 0";
+            span.style.webkitBackgroundClip = "text";
+            span.style.backgroundClip = "text";
+            grp.appendChild(span);
+          });
+
+          container.appendChild(grp);
+
+          tl.set(grp, { visibility: "visible", opacity: 1 }, g.start);
+
+          var lastWordEnd = groupWords[groupWords.length - 1].end;
+          var nextStart = gi < GROUPS.length - 1 ? GROUPS[gi + 1].start : lastWordEnd + 0.45;
+          var gap = nextStart - lastWordEnd;
+          var fadeDur = Math.min(0.22, Math.max(0.08, gap * 0.75));
+          var fadeStart = nextStart - fadeDur;
+          var groupEnd = nextStart;
+
+          groupWords.forEach(function (w, i) {
+            var wi = g.wordStart + i;
+            var el = document.getElementById("gr-w-" + wi);
+            var dur = Math.max(0.08, w.end - w.start);
+
+            // Keep upcoming words hidden at full size — avoids tiny unreadables
+            tl.set(el, { opacity: 0, scale: 1, y: 18, backgroundPosition: "100% 0" }, g.start);
+            tl.fromTo(
+              el,
+              { opacity: 0, y: 18, scale: 0.92 },
+              { opacity: 1, y: 0, scale: 1.04, duration: 0.32, ease: "elastic.out(1, 0.6)" },
+              w.start
+            );
+            tl.fromTo(
+              el,
+              { backgroundPosition: "45% 0" },
+              { backgroundPosition: "0% 0", duration: dur, ease: "none" },
+              w.start
+            );
+            tl.set(el, { backgroundPosition: "100% 0" }, w.end);
+            tl.to(el, { scale: 1, duration: 0.12, ease: "power2.out" }, w.end);
+          });
+
+          tl.to(grp, { opacity: 0, duration: fadeDur }, fadeStart);
+          tl.set(grp, { visibility: "hidden" }, groupEnd);
+        });
+
+        window.__timelines["caption-gradient-fill"] = tl;
+      })();
+    </script>
+  </body>
+</html>

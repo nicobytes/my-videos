@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/v2.css" />
+  </head>
+  <body>
+    <template id="c02-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #c02-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Figtree", sans-serif;
+          color: #2c2c2a;
+        }
+        #c02-head { background: #3c3b36; color: #f6f4ef; }
+        #c02-head .avatar { background: #5f5e58; color: #f6f4ef; }
+        #c02-msg { left: 450px; top: 640px; width: 420px; }
+        #c02-input { left: 206px; top: 1192px; width: 572px; height: 80px; border-radius: 40px; background: #ffffff; display: flex; align-items: center; padding-left: 34px; font-size: 30px; color: #8a8880; }
+        #c02-send { left: 800px; top: 1192px; width: 80px; height: 80px; border-radius: 40px; background: #2c2c2a; color: #f6f4ef; display: flex; align-items: center; justify-content: center; }
+      </style>
+
+      <!-- 2 · Chat with Juan: 'No avisó, no contesta'. The pill is his typing dots, which die. -->
+      <div data-hf-id="hf-5a7s" id="c02-root" data-composition-id="c02" data-start="0" data-duration="1.621" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-32jf" id="c02-world" class="world" data-layout-allow-overflow>
+          <div data-hf-id="hf-v0nc" id="c02-clip" class="clip-layer">
+            <div data-hf-id="hf-b4ys" id="c02-st" class="st">
+              <div data-hf-id="hf-gagj" id="c02-head" class="abs chat-head"><div data-hf-id="hf-coj7" class="avatar">J</div><div data-hf-id="hf-yeow"><b data-hf-id="hf-za93">Juan Pérez</b><span data-hf-id="hf-jbbd">últ. vez ayer</span></div></div>
+              <div data-hf-id="hf-q1t8" id="c02-msg" class="abs bubble bubble--out">Hola Juan, ¿vienes a tu cita?<small data-hf-id="hf-698m">10:14 ✓✓</small></div>
+              <div data-hf-id="hf-iird" id="c02-input" class="abs">Mensaje</div>
+              <div data-hf-id="hf-6eau" id="c02-send" class="abs"><svg data-hf-id="hf-t6g8" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-vlx4" d="M4 12h15" /><path data-hf-id="hf-fi8a" d="M13 6l6 6-6 6" /></svg></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var P = window.Physics;
+          var A = R.A;
+          var S = R.S;
+          function $(id) {
+            return document.getElementById("c02-" + id);
+          }
+          var st = $("st");
+          var msg = $("msg");
+          window.__timelines["c02"] = R.mountState("chat", $("root"), $("world"), $("clip"), function (t, span) {
+            R.apply(st, t, span[0], span[1]);
+            R.pop(msg, t, S.chat + 0.12);
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

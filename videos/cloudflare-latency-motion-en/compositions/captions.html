@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-800.woff2") format("woff2");
+          font-weight: 800;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-400.woff2") format("woff2");
+          font-weight: 400;
+          font-display: block;
+        }
+        #root {
+          pointer-events: none;
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: transparent;
+        }
+        #cap-container {
+          position: absolute;
+          inset: 0;
+          z-index: 50;
+          pointer-events: none;
+        }
+        /* Instagram Reels safe zone: clear of the top profile/follow chip and
+           the bottom caption/music/engagement-icon UI + the right-side action
+           column — same margins established for the rail captions. */
+        .cap-group {
+          position: absolute;
+          left: 110px;
+          right: 110px;
+          bottom: 340px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          opacity: 0;
+          visibility: hidden;
+        }
+        .cap-pill {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 8px 14px;
+          max-width: 860px;
+          width: fit-content;
+          padding: 18px 30px;
+          border-radius: 20px;
+          background: #18181b;
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+          text-align: center;
+        }
+        .cap-word {
+          font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+          font-weight: 800;
+          font-size: 40px;
+          display: inline-block;
+          letter-spacing: -0.02em;
+          line-height: 1.2;
+          color: #a1a1aa;
+          opacity: 1;
+        }
+      </style>
+      <div data-hf-id="hf-nh0l" id="root" data-composition-id="captions" data-start="0" data-duration="163.70" data-fps="30" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-jfvh" id="cap-container"></div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+
+          // Phrase groups = merged SRT cues (verbatim, with known ASR
+          // mis-transcriptions of tech names corrected: Cloudfare→Cloudflare,
+          // "Dino, Boom, Winter GS"→"Deno, Bun, WinterJS", etc.)
+          var CUES = [
+            { start: 0.08, end: 1.52, text: "¿Cómo puedes lograr que tus aplicaciones" },
+            { start: 1.52, end: 3.56, text: "sean mucho más veloces? Pues vamos a" },
+            { start: 3.56, end: 5.68, text: "introducir el término de Edge Computing." },
+            { start: 5.68, end: 9.00, text: "Normalmente tú cuando despliegas una aplicación, escoges tu proveedor, Google" },
+            { start: 9.00, end: 12.60, text: "Cloud, AWS, Azure, etcétera, y luego ahí te" },
+            { start: 12.60, end: 15.44, text: "dan un panel de en qué región va a estar tu aplicación." },
+            { start: 15.48, end: 16.88, text: "Esa región es muy importante porque al" },
+            { start: 16.88, end: 18.56, text: "final es donde va a estar sectorizado como" },
+            { start: 18.56, end: 20.24, text: "todo el cómputo de tu aplicación." },
+            { start: 20.24, end: 22.32, text: "Y si por ejemplo tienes un usuario que está" },
+            { start: 22.32, end: 24.40, text: "en el otro lado del mundo y escoges más la" },
+            { start: 24.40, end: 26.48, text: "región, pues va a haber un problema de latencia." },
+            { start: 26.48, end: 29.12, text: "Normalmente escoges el punto más cercano de tus usuarios." },
+            { start: 29.12, end: 32.80, text: "Ahora, si tienes una aplicación mundial, normalmente tienes réplicas para que sean" },
+            { start: 32.80, end: 35.16, text: "lo más cercano a donde tu usuario haga la petición." },
+            { start: 35.16, end: 37.12, text: "Sin embargo, hay alguien que fue mucho más" },
+            { start: 37.12, end: 39.40, text: "allá y a esto se le conoce como el Edge Computing." },
+            { start: 39.48, end: 40.96, text: "Entonces hagamos la simulación." },
+            { start: 40.96, end: 42.36, text: "Por ejemplo, estos son todos los puntos que" },
+            { start: 42.36, end: 44.40, text: "tiene Google Cloud y si por ejemplo yo hago" },
+            { start: 44.40, end: 46.60, text: "una petición desde la ciudad que estoy," },
+            { start: 46.60, end: 49.60, text: "Cochabamba, hasta por ejemplo el punto más" },
+            { start: 49.60, end: 51.28, text: "cercano de Google Cloud, que sería un" },
+            { start: 51.28, end: 54.28, text: "Bogotá o un Santiago de Chile, pues hay una latencia." },
+            { start: 54.28, end: 57.76, text: "Eso es muy interesante, pero ¿sabías que Cloudflare y algunos otros proveedores" },
+            { start: 58.08, end: 63.00, text: "tienen locaciones y puntos directamente casi por ciudad? Miremos el de Cloudflare." },
+            { start: 63.04, end: 66.96, text: "Cloudflare tiene casi puntos por cada una de las ciudades de Latinoamérica." },
+            { start: 66.96, end: 69.20, text: "Eso hace que, por ejemplo, si yo me conecto" },
+            { start: 69.20, end: 71.20, text: "desde Cochabamba, el punto más cercano cuál" },
+            { start: 71.20, end: 73.44, text: "va a ser un servidor que ellos tienen en La" },
+            { start: 73.44, end: 75.52, text: "Paz, por ende la latencia va a ser mucho menor." },
+            { start: 75.52, end: 78.04, text: "¿Y la pregunta es entonces por qué Google" },
+            { start: 78.04, end: 80.24, text: "Cloud AWS no tienen los mismos puntos? Esto" },
+            { start: 80.24, end: 82.56, text: "se debe algo muy interesante y tiene que ver con JavaScript." },
+            { start: 82.56, end: 84.36, text: "Resulta que esos puntos en la red son muy" },
+            { start: 84.36, end: 87.92, text: "complicados y normalmente necesitas de servidores con recursos normal, no correr" },
+            { start: 87.92, end: 90.92, text: "una base de datos, RAM, CPU, disco, etcétera." },
+            { start: 91.04, end: 93.20, text: "Sin embargo, hay otra red mucho más liviana" },
+            { start: 93.20, end: 96.72, text: "que no se utiliza para cómputos, se utiliza solo para archivos estáticos." },
+            { start: 96.72, end: 99.96, text: "A esto se le llama el CDN o Content Delivery Network." },
+            { start: 99.96, end: 101.48, text: "Esta red es mucho más fácil de manejar" },
+            { start: 101.48, end: 105.00, text: "porque no necesita de cómputo, sino solo guardar archivos en disco." },
+            { start: 105.00, end: 106.44, text: "Por eso hay tantos en la red." },
+            { start: 106.44, end: 108.08, text: "Pero gracias a los nuevos runtimes de" },
+            { start: 108.08, end: 110.84, text: "JavaScript que son súper ligeros, ahora se" },
+            { start: 110.84, end: 112.96, text: "puede reutilizar la red de CDN." },
+            { start: 113.16, end: 115.20, text: "Para ejecutar código, esto es gracias a" },
+            { start: 115.20, end: 117.52, text: "runtimes más ligeros, más ligeros que Node," },
+            { start: 117.52, end: 119.76, text: "más ligeros que Python, que Ruby on Rails." },
+            { start: 119.92, end: 122.56, text: "Se llaman estos nuevos y modernos runtimes" },
+            { start: 122.72, end: 127.60, text: "como Deno, Bun, WinterJS, hasta los Cloudflare Workers." },
+            { start: 127.72, end: 129.44, text: "Pero para lograr esto tienes que sacrificar" },
+            { start: 129.44, end: 131.64, text: "tecnología, es decir, casi que reescribir" },
+            { start: 131.64, end: 135.20, text: "gran parte de tu aplicación para que funcionen esos runtimes tan ligeros." },
+            { start: 135.20, end: 136.24, text: "Pero esto ya está pasando." },
+            { start: 136.24, end: 138.40, text: "Por ejemplo, tenemos ejemplos como Hono, en" },
+            { start: 138.40, end: 140.32, text: "el cual está escrito para que corran el" },
+            { start: 140.32, end: 142.56, text: "runtime, para escribir API, sería como el" },
+            { start: 142.56, end: 144.64, text: "Express para que corran este tipo de" },
+            { start: 144.64, end: 148.40, text: "runtimes tan livianos, o Diesel, un ORM que también está pensado" },
+            { start: 148.88, end: 153.36, text: "para este tipo de runtimes, o incluso cualquier framework de frontend por" },
+            { start: 153.36, end: 155.80, text: "definición ya se puede correr en un runtime." },
+            { start: 155.80, end: 157.28, text: "Así que la próxima vez puedes evaluar si de" },
+            { start: 157.28, end: 159.12, text: "pronto tu proyecto ya puede correr en este" },
+            { start: 159.12, end: 163.52, text: "tipo de y puedes ganar altas velocidades simplemente por desplegar ahí." },
+          ];
+
+          var MAX_W = 800;
+          var BASE_SIZE = 40;
+
+          var _fitCanvas = document.createElement("canvas");
+          var _fitCtx = _fitCanvas.getContext("2d");
+          function fitFontSize(text, baseFontSize, maxWidth) {
+            var size = baseFontSize;
+            var minSize = 26;
+            while (size > minSize) {
+              _fitCtx.font = "800 " + size + "px Inter, sans-serif";
+              if (_fitCtx.measureText(text).width <= maxWidth) return size;
+              size -= 2;
+            }
+            return minSize;
+          }
+
+          var container = document.getElementById("cap-container");
+          var tl = gsap.timeline({ paused: true });
+
+          CUES.forEach(function (cue, ci) {
+            var words = cue.text.split(/\s+/).filter(Boolean);
+            var fontSize = fitFontSize(cue.text, BASE_SIZE, MAX_W);
+
+            var grp = document.createElement("div");
+            grp.className = "cap-group";
+            grp.id = "cap-grp-" + ci;
+
+            var pill = document.createElement("div");
+            pill.className = "cap-pill";
+
+            var wordEls = words.map(function (text, i) {
+              var span = document.createElement("span");
+              span.className = "cap-word";
+              span.id = "cap-w-" + ci + "-" + i;
+              span.textContent = text;
+              span.style.fontSize = fontSize + "px";
+              pill.appendChild(span);
+              return span;
+            });
+
+            grp.appendChild(pill);
+            container.appendChild(grp);
+
+            var nextStart = ci < CUES.length - 1 ? CUES[ci + 1].start : cue.end + 0.35;
+            var gap = Math.max(0.05, nextStart - cue.end);
+            var fadeDur = Math.min(0.2, Math.max(0.08, gap * 0.7));
+            var fadeStart = Math.max(cue.start + 0.1, nextStart - fadeDur);
+
+            tl.set(grp, { visibility: "visible" }, cue.start);
+            tl.fromTo(grp, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power2.out" }, cue.start);
+
+            var span = (cue.end - cue.start) / Math.max(words.length, 1);
+            wordEls.forEach(function (el, i) {
+              var wStart = cue.start + i * span;
+              var wEnd = cue.start + (i + 1) * span;
+              tl.set(el, { color: "#a1a1aa", scale: 1 }, cue.start);
+              tl.to(el, { color: "#06b6d4", scale: 1.05, duration: 0.1, ease: "power2.out" }, wStart);
+              tl.to(el, { color: "#fafafa", scale: 1, duration: 0.1, ease: "power2.out" }, wEnd);
+            });
+
+            tl.to(grp, { opacity: 0, duration: fadeDur, ease: "power2.in" }, fadeStart);
+            tl.set(grp, { visibility: "hidden" }, nextStart);
+          });
+
+          window.__timelines["captions"] = tl;
+          tl.seek(0);
+        })();
+      </script>
+    </template>
+  </body>
+</html>

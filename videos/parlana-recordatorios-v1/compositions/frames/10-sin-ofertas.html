@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/parlana.css" />
+  </head>
+  <body>
+    <template id="f10-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #f10-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #f10-control {
+          left: 140px;
+          top: 300px;
+          width: 800px;
+          height: 160px;
+          padding: 0 48px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        #f10-control-label {
+          font-size: 48px;
+          font-weight: 700;
+          color: var(--ink);
+        }
+        /* toggle-flip: OFF (line grey, knob left) → ON (amber = marketing, knob right). */
+        #f10-switch {
+          position: relative;
+          width: 168px;
+          height: 92px;
+          border-radius: 9999px;
+          background: var(--line);
+        }
+        #f10-knob {
+          position: absolute;
+          left: 8px;
+          top: 8px;
+          width: 76px;
+          height: 76px;
+          border-radius: 50%;
+          background: #ffffff;
+          box-shadow: 0 4px 10px rgba(44, 44, 42, 0.2);
+        }
+        /* The phone frame surface is painted by the shell track. */
+        #f10-phone {
+          position: absolute;
+          left: 140px;
+          top: 490px;
+          width: 800px;
+          height: 720px;
+          padding: 14px;
+          box-sizing: border-box;
+          border: 3px solid transparent;
+        }
+        #f10-screen {
+          width: 100%;
+          height: 100%;
+          border-radius: 40px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          background: #efeae2;
+        }
+        #f10-head {
+          flex: none;
+          height: 150px;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          padding: 0 34px;
+          background: var(--green);
+        }
+        #f10-avatar {
+          width: 84px;
+          height: 84px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(255, 255, 255, 0.18);
+          color: #ffffff;
+          font-size: 40px;
+          font-weight: 700;
+        }
+        #f10-name {
+          color: #ffffff;
+          font-size: 44px;
+          font-weight: 600;
+          line-height: 1.1;
+        }
+        #f10-status {
+          color: rgba(255, 255, 255, 0.8);
+          font-size: 30px;
+          font-weight: 400;
+        }
+        #f10-body {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          padding: 56px 36px;
+        }
+        /* anchored-layout-expand: authored at its expanded size (both sentences); a clip hides the
+           offer line until the toggle turns on, then the bottom edge opens downward. */
+        #f10-msg {
+          position: relative;
+          width: 640px;
+          padding-bottom: 30px;
+        }
+        .f10-line {
+          height: 120px;
+        }
+        #f10-offer {
+          height: 180px;
+        }
+        /* The blog's own comparison: the same reminder, utility vs marketing, per message. */
+        #f10-compare {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1240px;
+          display: flex;
+          justify-content: center;
+          align-items: flex-end;
+          gap: 36px;
+        }
+        .f10-price {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+        }
+        .f10-cat {
+          font-size: 30px;
+          font-weight: 700;
+        }
+        .f10-price--util .f10-cat,
+        .f10-price--util .f10-val {
+          color: var(--green-text);
+        }
+        .f10-price--mkt .f10-cat,
+        .f10-price--mkt .f10-val {
+          color: var(--amber);
+        }
+        .f10-price--util .f10-val {
+          font-size: 64px;
+        }
+        .f10-price--mkt .f10-val {
+          display: flex;
+          align-items: flex-start;
+          font-size: 96px;
+        }
+        .f10-price--mkt .f10-glyph,
+        .f10-price--mkt .f10-col {
+          display: inline-block;
+          height: 1em;
+          line-height: 1em;
+        }
+        .f10-price--mkt .f10-col {
+          overflow: hidden;
+          position: relative;
+        }
+        .f10-price--mkt .f10-strip {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          display: grid;
+          grid-template-columns: 100%;
+          justify-items: center;
+        }
+        /* Invisible final digit: gives each column its own glyph width (Fraunces has no tabular figures). */
+        .f10-price--mkt .f10-sizer {
+          visibility: hidden;
+        }
+        .f10-price--mkt .f10-strip span {
+          height: 1em;
+          line-height: 1em;
+        }
+        #f10-arrow {
+          width: 56px;
+          height: 56px;
+          margin-bottom: 18px;
+          color: var(--muted);
+        }
+        #f10-per {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 1388px;
+          text-align: center;
+          font-size: 28px;
+          color: var(--muted);
+        }
+      </style>
+
+      <div data-hf-id="hf-3324" id="f10-root" data-composition-id="f10" data-start="0" data-duration="9.8" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-15r0" id="f10-control" class="pr-card">
+          <span data-hf-id="hf-wwhy" id="f10-control-label" class="pr-ui">Agregar oferta</span>
+          <span data-hf-id="hf-wc0k" id="f10-switch"><span data-hf-id="hf-y650" id="f10-knob"></span></span>
+        </div>
+
+        <div data-hf-id="hf-19r1" id="f10-phone">
+          <div data-hf-id="hf-1as3" id="f10-screen">
+            <div data-hf-id="hf-7p1j" id="f10-head" class="pr-ui">
+              <div data-hf-id="hf-kauw" id="f10-avatar">T</div>
+              <div data-hf-id="hf-yeow">
+                <div data-hf-id="hf-fwww" id="f10-name">Tu consultorio</div>
+                <div data-hf-id="hf-y1yj" id="f10-status">en línea</div>
+              </div>
+            </div>
+            <div data-hf-id="hf-230t" id="f10-body" class="pr-ui">
+              <div data-hf-id="hf-v2zp" id="f10-msg" class="pr-bubble pr-bubble--out">
+                <div data-hf-id="hf-mn6a" class="f10-line">Recordatorio: tu cita es mañana a las 10:00.</div>
+                <div data-hf-id="hf-auq0" id="f10-offer">Aprovecha 20% de descuento en tu próxima visita.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-5k02" id="f10-compare" class="pr-ui">
+          <div data-hf-id="hf-gugy" class="f10-price f10-price--util" id="f10-util">
+            <span data-hf-id="hf-zslt" class="f10-cat">Utilidad</span>
+            <span data-hf-id="hf-5hxh" class="f10-val pr-display">Bs 0,14</span>
+          </div>
+          <svg data-hf-id="hf-tzj4" id="f10-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path data-hf-id="hf-vlx4" d="M4 12h15" /><path data-hf-id="hf-fi8a" d="M13 6l6 6-6 6" /></svg>
+          <div data-hf-id="hf-1xyi" class="f10-price f10-price--mkt" id="f10-mkt">
+            <span data-hf-id="hf-yqbb" class="f10-cat">Marketing</span>
+            <span data-hf-id="hf-x38v" class="f10-val pr-display" id="f10-mkt-val" data-value="Bs 0,94" data-from="Bs 0,14" aria-label="Bs 0,94"></span>
+          </div>
+        </div>
+        <div data-hf-id="hf-bgdc" id="f10-per" class="pr-data">por mensaje</div>
+      </div>
+
+      <script>
+        (function () {
+          // VO cues, frame-local seconds (from assets/vo/transcript.json):
+          // "Eso sí, que sea solo de recordatorio. Si le pones una oferta (click on "pones"), WhatsApp lo cobra
+          //  como si fuera un mensaje de marketing, y pasa de 14 a 94 centavos" (wheel lands on "94").
+          var CUE = { screen: 0.3, control: 0.6, util: 1.25, click: 2.5, expand: 2.65, arrow: 5.15, mkt: 6.29, roll: 7.2, per: 7.3, out: 9.62 };
+          var OFFER_H = 180; // #f10-offer height: three 60px lines, authored constant
+
+          // Marketing price as a number-wheel (component pattern), built once. It starts at the utility
+          // price and rolls to the marketing one: "pasa de 14 a 94" (never a placeholder 0,00 on screen).
+          var val = document.getElementById("f10-mkt-val");
+          var from = val.dataset.from;
+          var strips = [];
+          val.dataset.value.split("").forEach(function (ch, pos) {
+            if (!/\d/.test(ch)) {
+              var glyph = document.createElement("span");
+              glyph.className = "f10-glyph";
+              glyph.textContent = ch === " " ? " " : ch;
+              val.appendChild(glyph);
+              return;
+            }
+            var col = document.createElement("span");
+            col.className = "f10-col";
+            col.setAttribute("data-layout-allow-overflow", "");
+            col.setAttribute("data-layout-allow-occlusion", "");
+            var sizer = document.createElement("span");
+            sizer.className = "f10-sizer";
+            sizer.textContent = ch;
+            col.appendChild(sizer);
+            var strip = document.createElement("span");
+            strip.className = "f10-strip";
+            strip.setAttribute("data-layout-allow-overflow", "");
+            strip.setAttribute("data-layout-allow-occlusion", "");
+            var start = Number(from.charAt(pos));
+            for (var i = 0; i <= Math.max(start, Number(ch)); i++) {
+              var step = document.createElement("span");
+              step.textContent = String(i);
+              strip.appendChild(step);
+            }
+            col.appendChild(strip);
+            val.appendChild(col);
+            strips.push({ el: strip, from: start, to: Number(ch) });
+          });
+
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo("#f10-screen", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.screen);
+          tl.fromTo("#f10-control", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" }, CUE.control);
+          tl.fromTo("#f10-util", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.util);
+
+          // The click: toggle-flip (press, knob travels, track turns amber).
+          tl.fromTo("#f10-switch", { scale: 1 }, { scale: 0.94, duration: 0.08, ease: "power1.in" }, CUE.click);
+          tl.to("#f10-switch", { scale: 1, duration: 0.4, ease: "back.out(1.4)" }, CUE.click + 0.08);
+          tl.fromTo("#f10-knob", { x: 0 }, { x: 76, duration: 0.25, ease: "power3.out" }, CUE.click + 0.05);
+          tl.fromTo("#f10-switch", { backgroundColor: "#d3d1c7" }, { backgroundColor: "#ba7517", duration: 0.25, ease: "power2.out" }, CUE.click + 0.05);
+
+          // The bubble starts as the plain reminder (utility) with the offer line clipped away
+          // (fromTo renders that start state at t=0); the click opens its bottom edge downward.
+          tl.fromTo(
+            "#f10-msg",
+            { clipPath: "inset(0px 0px " + OFFER_H + "px 0px round 32px 10px 32px 32px)" },
+            { clipPath: "inset(0px 0px 0px 0px round 32px 10px 32px 32px)", duration: 0.45, ease: "power3.out" },
+            CUE.expand,
+          );
+          tl.fromTo("#f10-offer", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, CUE.expand + 0.12);
+
+          // "…WhatsApp lo cobra como si fuera un mensaje de marketing, y pasa de 14 a 94 centavos."
+          tl.fromTo("#f10-arrow", { opacity: 0, x: -18, filter: "blur(8px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.3, ease: "power2.out" }, CUE.arrow);
+          tl.fromTo("#f10-mkt", { opacity: 0, x: -18, filter: "blur(8px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.3, ease: "power2.out" }, CUE.mkt);
+          // The value waits for its line: it appears as 0,14 on "pasa de 14" and lands on 0,94 at "94".
+          tl.fromTo("#f10-mkt-val", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power2.out" }, CUE.roll - 0.1);
+          strips.forEach(function (s, i) {
+            tl.fromTo(s.el, { y: -s.from + "em" }, { y: -s.to + "em", duration: 0.9, ease: "power3.out" }, CUE.roll + i * 0.05);
+          });
+          tl.fromTo("#f10-per", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, CUE.per);
+
+          tl.fromTo(["#f10-control", "#f10-screen", "#f10-compare", "#f10-per"], { filter: "blur(0px)" }, { opacity: 0, y: -18, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, CUE.out);
+
+          window.__timelines["f10"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

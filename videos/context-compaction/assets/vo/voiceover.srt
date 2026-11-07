@@ -1,0 +1,184 @@
+1
+00:00:00,480 --> 00:00:02,000
+Así que me puse a ver mi Google Cloud
+
+2
+00:00:02,000 --> 00:00:03,880
+Console y realmente los costos estaban
+
+3
+00:00:03,880 --> 00:00:04,800
+bastante elevados.
+
+4
+00:00:04,800 --> 00:00:06,640
+¿Y esto por qué? Porque a medida que un
+
+5
+00:00:06,640 --> 00:00:08,360
+usuario chatea con mi bot, mi agente de
+
+6
+00:00:08,360 --> 00:00:10,800
+inteligencia artificial, el historial crece
+
+7
+00:00:11,120 --> 00:00:13,960
+y si tu agente usa herramientas, skills, el
+
+8
+00:00:13,960 --> 00:00:16,160
+tamaño del contexto va y va y va en aumento
+
+9
+00:00:16,160 --> 00:00:18,040
+y pues en algún momento va a explotar.
+
+10
+00:00:18,400 --> 00:00:20,480
+Más contexto significa más tokens y la
+
+11
+00:00:20,480 --> 00:00:23,000
+factura de mi API se dispara y va
+
+12
+00:00:23,000 --> 00:00:23,760
+aumentando.
+
+13
+00:00:23,760 --> 00:00:26,000
+Me pasó exactamente eso con mis agentes.
+
+14
+00:00:26,080 --> 00:00:28,040
+Así que buscando y demás, hay una práctica
+
+15
+00:00:28,040 --> 00:00:30,480
+en lo que se llama ingeniería de contexto, que es
+
+16
+00:00:30,720 --> 00:00:32,480
+justamente compactarlo
+
+17
+00:00:32,800 --> 00:00:36,040
+para que no sea pues tan grande, ahorrando
+
+18
+00:00:36,040 --> 00:00:37,960
+todas las llamadas de skills, quitando toda
+
+19
+00:00:37,960 --> 00:00:40,040
+la información vieja, lo va compactando,
+
+20
+00:00:40,040 --> 00:00:41,840
+también lo va sumarizando y eso hace que
+
+21
+00:00:41,840 --> 00:00:42,720
+quede más liviano.
+
+22
+00:00:43,280 --> 00:00:44,920
+¿Cómo funciona? Cuando la conversación
+
+23
+00:00:44,920 --> 00:00:47,080
+alcanza un límite de tokens, entra en
+
+24
+00:00:47,080 --> 00:00:49,120
+acción un modelo un poco más ligero que lo
+
+25
+00:00:49,120 --> 00:00:51,440
+que hace es resumir todos los eventos y
+
+26
+00:00:51,440 --> 00:00:52,720
+todas las partes importantes de la
+
+27
+00:00:52,720 --> 00:00:53,480
+conversación.
+
+28
+00:00:53,480 --> 00:00:54,800
+Esto es importante porque.
+
+29
+00:00:55,080 --> 00:00:57,000
+Con esto el bot no pierde memoria de lo que
+
+30
+00:00:57,000 --> 00:00:58,720
+le estaban hablando, pero sí reduces
+
+31
+00:00:58,720 --> 00:01:00,560
+drásticamente la carga de tokens.
+
+32
+00:01:00,560 --> 00:01:02,240
+Esto ya por defecto lo tienen habilitados
+
+33
+00:01:02,240 --> 00:01:03,120
+varios frameworks.
+
+34
+00:01:03,120 --> 00:01:05,440
+En el Google Edicate tú lo habilitas
+
+35
+00:01:05,440 --> 00:01:08,600
+utilizando Event Compatient Config y el LM
+
+36
+00:01:08,600 --> 00:01:09,480
+Events Merizer.
+
+37
+00:01:09,480 --> 00:01:11,360
+Le mandas tu configuración, tu modelo
+
+38
+00:01:11,600 --> 00:01:13,160
+y tu umbral y él va a hacer esto
+
+39
+00:01:13,160 --> 00:01:14,240
+automáticamente por ti.
+
+40
+00:01:15,360 --> 00:01:17,200
+Así que luego de implementar esta mejora,
+
+41
+00:01:17,200 --> 00:01:18,960
+fui viendo los logs de facturación desde
+
+42
+00:01:18,960 --> 00:01:20,480
+que implementé este nuevo release
+
+43
+00:01:20,720 --> 00:01:22,440
+y las conversaciones siguen manteniendo
+
+44
+00:01:22,440 --> 00:01:22,880
+calidad,
+
+45
+00:01:23,240 --> 00:01:25,120
+Pero mi facturación ha bajado y ya no está
+
+46
+00:01:25,120 --> 00:01:25,600
+en alta.
+

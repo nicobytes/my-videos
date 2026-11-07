@@ -1,0 +1,90 @@
+<div class="card" data-card-id="card-01">
+  <style>
+    .card[data-card-id="card-01"] .root {
+      --ink: #e6edf3;
+      --muted: #7d8590;
+      --green: #4ade80;
+      --amber: #fbbf24;
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #0d1117;
+      color: var(--ink);
+      font-family: ui-monospace, "SF Mono", Menlo, "Courier New", monospace;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 72px 56px 160px;
+    }
+    .card[data-card-id="card-01"] .panel {
+      width: 100%;
+      max-width: 920px;
+    }
+    .card[data-card-id="card-01"] .kicker {
+      color: var(--muted);
+      font: 600 22px/1 ui-monospace, Menlo, monospace;
+      letter-spacing: 0.18em;
+      margin-bottom: 28px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-01"] .headline {
+      font: 700 76px/1.1 ui-monospace, Menlo, monospace;
+      margin: 0 0 36px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-01"] .headline .hl {
+      background: rgba(74, 222, 128, 0.18);
+      color: var(--green);
+      padding: 0 10px;
+    }
+    .card[data-card-id="card-01"] .chips {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 0 0 40px;
+      opacity: 0;
+    }
+    .card[data-card-id="card-01"] .chip {
+      border: 1px solid #3d4450;
+      border-radius: 8px;
+      padding: 12px 18px;
+      font: 600 30px/1 ui-monospace, Menlo, monospace;
+      color: var(--muted);
+    }
+    .card[data-card-id="card-01"] .arrow {
+      color: var(--amber);
+      font-size: 34px;
+    }
+    .card[data-card-id="card-01"] .chip.win {
+      color: var(--green);
+      border-color: rgba(74, 222, 128, 0.5);
+    }
+    .card[data-card-id="card-01"] .detail {
+      color: var(--ink);
+      font: 400 34px/1.4 ui-monospace, Menlo, monospace;
+      opacity: 0;
+    }
+  </style>
+  <div class="root">
+    <div class="panel">
+      <div class="kicker" id="card-01-kicker" data-anim="fade-in" data-anim-at="0.1" data-anim-duration="0.3">
+        $ takeaway --hook
+      </div>
+      <h2 class="headline" id="card-01-title" data-anim="fade-in" data-anim-at="0.35" data-anim-duration="0.45">
+        <span class="hl">pnpm 12</span> reemplaza dos tools
+      </h2>
+      <div class="chips" id="card-01-chips" data-anim="fade-in" data-anim-at="0.85" data-anim-duration="0.4">
+        <span class="chip">nvm</span>
+        <span class="arrow">+</span>
+        <span class="chip">npm</span>
+        <span class="arrow">→</span>
+        <span class="chip win">pnpm</span>
+      </div>
+      <div class="detail" id="card-01-detail" data-anim="fade-in" data-anim-at="1.3" data-anim-duration="0.35">
+        Una sola herramienta. Confías en pnpm.
+      </div>
+    </div>
+  </div>
+</div>

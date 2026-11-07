@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-400.woff2") format("woff2");
+          font-weight: 400;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-600.woff2") format("woff2");
+          font-weight: 600;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("assets/fonts/inter-800.woff2") format("woff2");
+          font-weight: 800;
+        }
+        :root {
+          --accent: #ff8a3d;
+          --accent-soft: #ffb37a;
+          --ink: #f5f7ff;
+          --muted: #9aa8c7;
+          --panel: rgba(8, 13, 32, 0.8);
+        }
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        #root {
+          position: relative;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          font-family: "Inter", sans-serif;
+          color: var(--ink);
+          background:
+            radial-gradient(900px 700px at 20% 18%, rgba(190, 100, 56, 0.28), transparent 70%),
+            radial-gradient(800px 900px at 85% 80%, rgba(120, 50, 170, 0.2), transparent 70%),
+            radial-gradient(1200px 1200px at 50% 50%, #0a1433, #040816 75%);
+        }
+        .head {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 190px;
+          opacity: 0;
+        }
+        .kicker {
+          display: inline-flex;
+          align-items: center;
+          gap: 14px;
+          font-size: 30px;
+          font-weight: 600;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--muted);
+        }
+        .kicker .dot {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: var(--accent);
+          box-shadow: 0 0 18px var(--accent);
+        }
+        .title {
+          margin-top: 22px;
+          font-size: 86px;
+          line-height: 1.05;
+          font-weight: 800;
+          letter-spacing: -0.035em;
+        }
+        .title .accent {
+          color: var(--accent-soft);
+        }
+        #logo-chip {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 620px;
+          height: 320px;
+          border-radius: 40px;
+          background: #f7f4ef;
+          box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+        }
+        #logo-chip img {
+          height: 160px;
+          width: auto;
+        }
+        .runs-on {
+          position: absolute;
+          left: 72px;
+          right: 72px;
+          top: 1030px;
+        }
+        .runs-on .lbl {
+          font-size: 28px;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--muted);
+          opacity: 0;
+        }
+        .pills {
+          margin-top: 30px;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+        }
+        .pill {
+          padding: 20px 36px;
+          border-radius: 999px;
+          font-size: 34px;
+          font-weight: 600;
+          background: var(--panel);
+          border: 1.5px solid rgba(255, 255, 255, 0.14);
+          opacity: 0;
+          transform: scale(0.85);
+        }
+        .pill.hot {
+          border-color: var(--accent);
+          color: var(--accent-soft);
+        }
+      </style>
+
+      <div data-hf-id="hf-v73v" id="root" data-composition-id="card-hono" data-width="1080" data-height="1920" data-duration="5">
+        <div data-hf-id="hf-xa8y" id="head" class="head">
+          <div data-hf-id="hf-kz6q" class="kicker"><span data-hf-id="hf-9gry" class="dot"></span>Ya está pasando</div>
+          <div data-hf-id="hf-wbid" class="title">Un framework <span data-hf-id="hf-lyrs" class="accent">para estos runtimes</span></div>
+        </div>
+
+        <div data-hf-id="hf-4as7" id="logo-chip"><img data-hf-id="hf-gcao" src="assets/logos/hono.png" alt="Hono"></div>
+
+        <div data-hf-id="hf-aw5k" class="runs-on">
+          <div data-hf-id="hf-35ib" id="runs-lbl" class="lbl">Corre en</div>
+          <div data-hf-id="hf-c9cw" class="pills">
+            <div data-hf-id="hf-4g2h" id="pill-1" class="pill hot">Cloudflare Workers</div>
+            <div data-hf-id="hf-dhbp" id="pill-2" class="pill hot">Deno Deploy</div>
+            <div data-hf-id="hf-1z1o" id="pill-3" class="pill hot">Bun</div>
+            <div data-hf-id="hf-qc7m" id="pill-4" class="pill">Vercel</div>
+            <div data-hf-id="hf-8tp1" id="pill-5" class="pill">Fly.io</div>
+            <div data-hf-id="hf-vmed" id="pill-6" class="pill">Browser</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        const tl = gsap.timeline({ paused: true });
+        const IN = { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" };
+
+        tl.fromTo("#head", { opacity: 0, y: 40 }, { ...IN }, 0.1);
+        tl.fromTo("#logo-chip", { opacity: 0, scale: 0.82, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(2)" }, 0.45);
+        tl.fromTo("#runs-lbl", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 1.1);
+
+        const pillIn = (sel, at) =>
+          tl.fromTo(sel, { opacity: 0, scale: 0.85, y: 14 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(2.2)" }, at);
+        pillIn("#pill-1", 1.25);
+        pillIn("#pill-2", 1.37);
+        pillIn("#pill-3", 1.49);
+        pillIn("#pill-4", 1.61);
+        pillIn("#pill-5", 1.73);
+        pillIn("#pill-6", 1.85);
+
+        window.__timelines["card-hono"] = tl;
+        tl.seek(0);
+
+        // Drive from the HOST's global hf-seek time ourselves and self-blank
+        // outside this clip's own window — see card-clouds.html for why.
+        const HOST_START = 136.24;
+        const DURATION = 5.0;
+        const root = document.querySelector('[data-composition-id="card-hono"]');
+        function renderAt(globalTime) {
+          const inWindow = globalTime >= HOST_START && globalTime <= HOST_START + DURATION;
+          root.style.opacity = inWindow ? "1" : "0";
+          const local = Math.min(DURATION, Math.max(0, globalTime - HOST_START));
+          tl.seek(local);
+        }
+        window.addEventListener("hf-seek", (e) => renderAt(e.detail.time));
+        renderAt(window.__hfThreeTime || 0);
+      </script>
+    </template>
+  </body>
+</html>

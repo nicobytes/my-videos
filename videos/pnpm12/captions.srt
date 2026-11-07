@@ -1,0 +1,112 @@
+1
+00:00:00,080 --> 00:00:02,960
+Con la nueva versión de PNP en la versión 12
+
+2
+00:00:02,960 --> 00:00:04,840
+puedo reemplazar dos herramientas que para
+
+3
+00:00:04,840 --> 00:00:06,760
+mí eran muy importantes y ahora simplemente
+
+4
+00:00:06,760 --> 00:00:09,440
+manejo solo una y confío en PNP.
+
+5
+00:00:09,440 --> 00:00:11,200
+La primera es Node Version Manager.
+
+6
+00:00:11,280 --> 00:00:12,240
+Normalmente cuando tú
+
+7
+00:00:12,480 --> 00:00:13,920
+desarrollas en diferentes proyectos,
+
+8
+00:00:13,920 --> 00:00:15,800
+diferentes frameworks, tienes que gestionar
+
+9
+00:00:15,800 --> 00:00:18,640
+diferentes versiones de Node como en tu
+
+10
+00:00:18,640 --> 00:00:20,560
+misma máquina para diferentes proyectos eso
+
+11
+00:00:20,560 --> 00:00:22,920
+es un dolor de cabeza lo solucionamos con
+
+12
+00:00:22,920 --> 00:00:24,480
+Node Persue Manager pero ahora estoy ya
+
+13
+00:00:24,480 --> 00:00:26,920
+bien integrado en la versión 2 de PNP
+
+14
+00:00:26,920 --> 00:00:27,840
+simplemente colocas
+
+15
+00:00:28,080 --> 00:00:30,480
+como un nuevo tag en tu package.json y
+
+16
+00:00:30,480 --> 00:00:32,360
+listo lo segundo es la gestión de
+
+17
+00:00:32,360 --> 00:00:34,360
+dependencias que normalmente by default en
+
+18
+00:00:34,360 --> 00:00:37,440
+Node viene NPM sin embargo NPM es un
+
+19
+00:00:37,440 --> 00:00:39,440
+poquito lento y además tiene muchos issues
+
+20
+00:00:39,440 --> 00:00:41,760
+de seguridad y eso no se ha solucionado
+
+21
+00:00:42,000 --> 00:00:44,080
+entonces PNP es mucho más seguro, se
+
+22
+00:00:44,080 --> 00:00:46,560
+reescribió en ROS, entonces es rapidísimo,
+
+23
+00:00:46,560 --> 00:00:47,880
+evita ataques de.
+
+24
+00:00:48,000 --> 00:00:50,720
+Entonces con esto yo literalmente
+
+25
+00:00:50,720 --> 00:00:53,760
+desinstalé npm y además de eso, pues no es
+
+26
+00:00:53,760 --> 00:00:55,280
+versión manager y ahora solo tengo una
+
+27
+00:00:55,280 --> 00:00:57,120
+herramienta para la gestión de dependencias
+
+28
+00:00:57,120 --> 00:00:57,840
+en note.
+

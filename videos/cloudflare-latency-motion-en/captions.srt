@@ -1,0 +1,352 @@
+1
+00:00:00,080 --> 00:00:01,520
+¿Cómo puedes lograr que tus aplicaciones
+
+2
+00:00:01,520 --> 00:00:03,560
+sean mucho más veloces? Pues vamos a
+
+3
+00:00:03,560 --> 00:00:05,680
+introducir el término de Edge Computing.
+
+4
+00:00:05,680 --> 00:00:07,000
+Normalmente tú cuando despliegas una
+
+5
+00:00:07,000 --> 00:00:09,000
+aplicación, escoges tu proveedor, Google
+
+6
+00:00:09,000 --> 00:00:12,600
+Cloud, AWS, Azure, etcétera, y luego ahí te
+
+7
+00:00:12,600 --> 00:00:14,560
+dan un panel de en qué región va a estar tu
+
+8
+00:00:14,560 --> 00:00:15,440
+aplicación.
+
+9
+00:00:15,480 --> 00:00:16,880
+Esa región es muy importante porque al
+
+10
+00:00:16,880 --> 00:00:18,560
+final es donde va a estar sectorizado como
+
+11
+00:00:18,560 --> 00:00:20,240
+todo el cómputo de tu aplicación.
+
+12
+00:00:20,240 --> 00:00:22,320
+Y si por ejemplo tienes un usuario que está
+
+13
+00:00:22,320 --> 00:00:24,400
+en el otro lado del mundo y escoges más la
+
+14
+00:00:24,400 --> 00:00:25,960
+región, pues va a haber un problema de
+
+15
+00:00:25,960 --> 00:00:26,480
+latencia.
+
+16
+00:00:26,480 --> 00:00:28,320
+Normalmente escoges el punto más cercano de
+
+17
+00:00:28,320 --> 00:00:29,120
+tus usuarios.
+
+18
+00:00:29,120 --> 00:00:30,840
+Ahora, si tienes una aplicación mundial,
+
+19
+00:00:30,840 --> 00:00:32,800
+normalmente tienes réplicas para que sean
+
+20
+00:00:32,800 --> 00:00:34,640
+lo más cercano a donde tu usuario haga la
+
+21
+00:00:34,640 --> 00:00:35,160
+petición.
+
+22
+00:00:35,160 --> 00:00:37,120
+Sin embargo, hay alguien que fue mucho más
+
+23
+00:00:37,120 --> 00:00:38,840
+allá y a esto se le conoce como el Edge
+
+24
+00:00:38,840 --> 00:00:39,400
+Computing.
+
+25
+00:00:39,480 --> 00:00:40,960
+Entonces hagamos la simulación.
+
+26
+00:00:40,960 --> 00:00:42,360
+Por ejemplo, estos son todos los puntos que
+
+27
+00:00:42,360 --> 00:00:44,400
+tiene Google Cloud y si por ejemplo yo hago
+
+28
+00:00:44,400 --> 00:00:46,600
+una petición desde la ciudad que estoy,
+
+29
+00:00:46,600 --> 00:00:49,600
+Cochabamba, hasta por ejemplo el punto más
+
+30
+00:00:49,600 --> 00:00:51,280
+cercano de Google Cloud, que sería un
+
+31
+00:00:51,280 --> 00:00:53,720
+Bogotá o un Santiago de Chile, pues hay una
+
+32
+00:00:53,720 --> 00:00:54,280
+latencia.
+
+33
+00:00:54,280 --> 00:00:55,840
+Eso es muy interesante, pero ¿sabías que
+
+34
+00:00:55,840 --> 00:00:57,760
+Cloudfare y algunos otros proveedores
+
+35
+00:00:58,080 --> 00:01:00,720
+tienen locaciones y puntos directamente
+
+36
+00:01:00,720 --> 00:01:03,000
+casi por ciudad? Miremos el de Cloudfare.
+
+37
+00:01:03,040 --> 00:01:05,440
+Lawford tiene casi puntos por cada una de
+
+38
+00:01:05,440 --> 00:01:06,960
+las ciudades de Latinoamérica.
+
+39
+00:01:06,960 --> 00:01:09,200
+Eso hace que, por ejemplo, si yo me conecto
+
+40
+00:01:09,200 --> 00:01:11,200
+desde Cochabamba, el punto más cercano cuál
+
+41
+00:01:11,200 --> 00:01:13,440
+va a ser un servidor que ellos tienen en La
+
+42
+00:01:13,440 --> 00:01:15,520
+Paz, por ende la latencia va a ser mucho menor.
+
+43
+00:01:15,520 --> 00:01:18,040
+¿Y la pregunta es entonces por qué Google
+
+44
+00:01:18,040 --> 00:01:20,240
+Cloud AWS no tienen los mismos puntos? Esto
+
+45
+00:01:20,240 --> 00:01:21,720
+se debe algo muy interesante y tiene que
+
+46
+00:01:21,720 --> 00:01:22,560
+ver con Javascript.
+
+47
+00:01:22,560 --> 00:01:24,360
+Resulta que esos puntos en la red son muy
+
+48
+00:01:24,360 --> 00:01:26,000
+complicados y normalmente necesitas de
+
+49
+00:01:26,000 --> 00:01:27,920
+servidores con recursos normal, no correr
+
+50
+00:01:27,920 --> 00:01:30,240
+una base de datos, RAM, CPU, disco,
+
+51
+00:01:30,240 --> 00:01:30,920
+etcétera.
+
+52
+00:01:31,040 --> 00:01:33,200
+Sin embargo, hay otra red mucho más liviana
+
+53
+00:01:33,200 --> 00:01:35,200
+que no se utiliza para cómputos, se utiliza
+
+54
+00:01:35,200 --> 00:01:36,720
+solo para archivos estáticos.
+
+55
+00:01:36,720 --> 00:01:39,000
+A esto se le llama el CDN o Content
+
+56
+00:01:39,000 --> 00:01:39,960
+Delivery Network.
+
+57
+00:01:39,960 --> 00:01:41,480
+Esta red es mucho más fácil de manejar
+
+58
+00:01:41,480 --> 00:01:43,840
+porque no necesita de cómputo, sino solo
+
+59
+00:01:43,840 --> 00:01:45,000
+guardar archivos en disco.
+
+60
+00:01:45,000 --> 00:01:46,440
+Por eso hay tantos en la red.
+
+61
+00:01:46,440 --> 00:01:48,080
+Pero gracias a los nuevos runtimes de
+
+62
+00:01:48,080 --> 00:01:50,840
+JavaScript que son súper ligeros, ahora se
+
+63
+00:01:50,840 --> 00:01:52,960
+puede reutilizar la red de CDN.
+
+64
+00:01:53,160 --> 00:01:55,200
+Para ejecutar código, esto es gracias a
+
+65
+00:01:55,200 --> 00:01:57,520
+runtimes más ligeros, más ligeros que Node,
+
+66
+00:01:57,520 --> 00:01:59,760
+más ligeros que Python, que Run Rails.
+
+67
+00:01:59,920 --> 00:02:02,560
+Se llaman estos nuevos y modernos runtimes
+
+68
+00:02:02,720 --> 00:02:05,920
+como Dino, Boom, Winter GS, hasta los
+
+69
+00:02:05,920 --> 00:02:07,600
+clouds of workers de Cloudfall.
+
+70
+00:02:07,720 --> 00:02:09,440
+Pero para lograr esto tienes que sacrificar
+
+71
+00:02:09,440 --> 00:02:11,640
+tecnología, es decir, casi que reescribir
+
+72
+00:02:11,640 --> 00:02:13,360
+gran parte de tu aplicación para que
+
+73
+00:02:13,360 --> 00:02:15,200
+funcionen esos runtimes tan ligeros.
+
+74
+00:02:15,200 --> 00:02:16,240
+Pero esto ya está pasando.
+
+75
+00:02:16,240 --> 00:02:18,400
+Por ejemplo, tenemos ejemplos como Hono, en
+
+76
+00:02:18,400 --> 00:02:20,320
+el cual está escrito para que corran el
+
+77
+00:02:20,320 --> 00:02:22,560
+runtime, para escribir API, sería como el
+
+78
+00:02:22,560 --> 00:02:24,640
+Express para que corran este tipo de
+
+79
+00:02:24,640 --> 00:02:27,440
+runtimes tan livianos, o Diesel, un ORM que
+
+80
+00:02:27,440 --> 00:02:28,400
+también está pensado
+
+81
+00:02:28,880 --> 00:02:30,880
+para este tipo de runtimes, o incluso
+
+82
+00:02:30,880 --> 00:02:33,360
+cualquier framework de frontend por
+
+83
+00:02:33,360 --> 00:02:35,320
+definición ya se puede correr en un
+
+84
+00:02:35,320 --> 00:02:35,800
+runtime.
+
+85
+00:02:35,800 --> 00:02:37,280
+Así que la próxima vez puedes evaluar si de
+
+86
+00:02:37,280 --> 00:02:39,120
+pronto tu proyecto ya puede correr en este
+
+87
+00:02:39,120 --> 00:02:41,800
+tipo de y puedes ganar altas velocidades
+
+88
+00:02:41,800 --> 00:02:43,520
+simplemente por desplegar ahí.
+

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/parlana.css" />
+  </head>
+  <body>
+    <template id="f12-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #f12-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #f12-lockup {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 540px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 26px;
+        }
+        #f12-logo {
+          width: 116px;
+          height: auto;
+          display: block;
+        }
+        #f12-word {
+          font-size: 100px;
+          color: var(--green-text);
+        }
+        /* The single ask. Its green surface is painted (and pressed) by the shell track. */
+        #f12-btn {
+          position: absolute;
+          left: 160px;
+          top: 770px;
+          width: 760px;
+          height: 176px;
+          gap: 26px;
+          font-size: 74px;
+          color: var(--canvas);
+          transform-origin: 50% 50%;
+        }
+        #f12-btn svg {
+          width: 70px;
+          height: 70px;
+        }
+        /* Tap on the button's chat icon, clear of the "Comenta CITAS" lettering (255, 870). */
+        #f12-ripple {
+          position: absolute;
+          left: 185px;
+          top: 800px;
+          width: 140px;
+          height: 140px;
+          border-radius: 50%;
+          border: 6px solid rgba(246, 244, 239, 0.8);
+          box-sizing: border-box;
+        }
+        #f12-sub {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 990px;
+          text-align: center;
+          font-size: 52px;
+          font-weight: 600;
+          color: var(--muted);
+        }
+        /* Loop seam: frame 1's card, now confirmed. Same geometry as frame 1. */
+        #f12-loop {
+          position: absolute;
+          left: 110px;
+          top: 440px;
+          width: 860px;
+          height: 760px;
+          padding: 63px;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+        }
+        #f12-loop-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        #f12-loop-clock {
+          height: 76px;
+          padding: 0 30px;
+          font-size: 36px;
+          font-weight: 700;
+        }
+        #f12-loop-clock svg {
+          width: 36px;
+          height: 36px;
+        }
+        #f12-loop-time {
+          margin-top: 50px;
+          font-size: 250px;
+          color: var(--ink);
+        }
+        #f12-loop-what {
+          margin-top: 36px;
+          font-size: 60px;
+          font-weight: 700;
+          color: var(--ink);
+        }
+        #f12-loop-who {
+          margin-top: 10px;
+          font-size: 46px;
+          font-weight: 500;
+          color: var(--muted);
+        }
+        #f12-loop-doc {
+          margin-top: 18px;
+          font-size: 30px;
+          color: var(--muted);
+        }
+        #f12-loop-ok {
+          position: absolute;
+          right: 63px;
+          bottom: 63px;
+          font-family: "Figtree", sans-serif;
+          font-weight: 700;
+        }
+      </style>
+
+      <div data-hf-id="hf-uap9" id="f12-root" data-composition-id="f12" data-start="0" data-duration="4.5" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-v6l7" id="f12-lockup">
+          <img data-hf-id="hf-0eyg" id="f12-logo" src="assets/brand/parlana-logo.svg" alt="" />
+          <span data-hf-id="hf-hpb5" id="f12-word" class="pr-display">Parlana</span>
+        </div>
+        <div data-hf-id="hf-c816" id="f12-btn" class="pr-btn">
+          <svg data-hf-id="hf-z3g3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path data-hf-id="hf-nkex" d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.1A8.5 8.5 0 1 1 21 12z" /></svg>
+          Comenta CITAS
+        </div>
+        <div data-hf-id="hf-kdnv" id="f12-ripple"></div>
+        <div data-hf-id="hf-uefi" id="f12-sub" class="pr-ui">y te muestro cómo</div>
+
+        <div data-hf-id="hf-isp7" id="f12-loop">
+          <div data-hf-id="hf-i6ul" id="f12-loop-top">
+            <span data-hf-id="hf-e4ov" class="pr-chip pr-chip--neutral">MARTES · HOY</span>
+            <span data-hf-id="hf-jv9f" id="f12-loop-clock" class="pr-chip pr-chip--ink">
+              <svg data-hf-id="hf-ui0x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle data-hf-id="hf-1iwn" cx="12" cy="12" r="9" /><path data-hf-id="hf-8ge0" d="M12 7v5l3.5 2" /></svg>
+              10:00
+            </span>
+          </div>
+          <div data-hf-id="hf-8kd8" id="f12-loop-time" class="pr-display">10:00</div>
+          <div data-hf-id="hf-p893" id="f12-loop-what" class="pr-ui">Consulta</div>
+          <div data-hf-id="hf-1xrc" id="f12-loop-who" class="pr-ui">Juan Pérez</div>
+          <div data-hf-id="hf-1v6d" id="f12-loop-doc" class="pr-data">Dra. Ana · Odontología</div>
+          <span data-hf-id="hf-mnby" id="f12-loop-ok" class="pr-chip pr-chip--green">✓ Confirmada</span>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          // VO cues, frame-local seconds (from assets/vo/transcript.json):
+          // "¿Quieres que no te pase lo de Ana? Comenta CITAS y te muestro cómo."
+          // The shell presses at 1.88 (global 51.13, on "citas") and morphs back to frame 1's card at 3.85.
+          var CUE = { btn: 0.35, lockup: 0.55, press: 1.88, sub: 2.25, out: 3.67, loop: 4.15 };
+          var tl = gsap.timeline({ paused: true });
+
+          tl.fromTo("#f12-btn", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.btn);
+          tl.fromTo("#f12-lockup", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power2.out" }, CUE.lockup);
+
+          // The click: the label rides the shell's press (same times, same eases).
+          tl.fromTo("#f12-btn", { scale: 1 }, { scale: 0.94, duration: 0.12, ease: "power1.in" }, CUE.press);
+          tl.to("#f12-btn", { scale: 1, duration: 0.5, ease: "back.out(1.4)" }, CUE.press + 0.12);
+          tl.fromTo("#f12-ripple", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 0.6, duration: 0.08, ease: "power2.out" }, CUE.press + 0.12);
+          tl.to("#f12-ripple", { opacity: 0, scale: 1.5, duration: 0.6, ease: "power2.out" }, CUE.press + 0.2);
+
+          tl.fromTo("#f12-sub", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.sub);
+
+          // The ask clears, the shell turns back into the 10:00 card: the loop's seam.
+          tl.fromTo(["#f12-lockup", "#f12-btn", "#f12-sub"], { filter: "blur(0px)" }, { opacity: 0, y: -18, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, CUE.out);
+          tl.fromTo("#f12-loop", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.loop);
+
+          window.__timelines["f12"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

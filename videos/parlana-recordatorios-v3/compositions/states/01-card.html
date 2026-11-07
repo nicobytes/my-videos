@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/v2.css" />
+  </head>
+  <body>
+    <template id="c01-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #c01-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Figtree", sans-serif;
+          color: #2c2c2a;
+        }
+        /* The script's on-screen hook: the one title that sits outside the shape (first beats only). */
+        #c01-hook { position: absolute; left: 140px; top: 452px; width: 800px; text-align: center; opacity: 0; }
+        #c01-hook b { display: block; font-size: 30px; font-weight: 700; letter-spacing: 0.08em; color: #5f5e58; }
+        #c01-hook span { display: block; margin-top: 8px; font-size: 54px; font-weight: 700; line-height: 1.1; color: #2c2c2a; }
+        #c01-day { left: 196px; top: 656px; }
+        #c01-clock { left: 704px; top: 656px; width: 180px; justify-content: center; font-size: 28px; font-variant-numeric: tabular-nums; }
+        #c01-time { left: 188px; top: 722px; font-weight: 700; font-size: 228px; line-height: 1; }
+        #c01-what { left: 196px; top: 970px; font-size: 54px; font-weight: 700; }
+        #c01-who { left: 196px; top: 1040px; font-size: 42px; font-weight: 500; color: #5f5e58; }
+        #c01-room { left: 196px; top: 1098px; display: flex; align-items: center; gap: 12px; font-size: 28px; color: #5f5e58; }
+        #c01-chair { transform-origin: 50% 50%; }
+        .c01-row { left: 196px; display: flex; align-items: center; gap: 16px; font-size: 32px; font-weight: 600; opacity: 0; transform-origin: 0 50%; }
+        .c01-row i { width: 44px; height: 44px; border-radius: 22px; background: #155b3f; color: #f6f4ef; display: flex; align-items: center; justify-content: center; }
+        .c01-row i svg { width: 28px; height: 28px; stroke-width: 2.6; }
+      </style>
+
+      <!-- 1 · Agenda card 10:00 → checklist → 'No llegó'. Shape grows downward for the checklist. -->
+      <div data-hf-id="hf-zace" id="c01-root" data-composition-id="c01" data-start="0" data-duration="8.277" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5ycc" id="c01-world" class="world" data-layout-allow-overflow>
+          <div data-hf-id="hf-8023" id="c01-hook" data-layout-allow-occlusion><b data-hf-id="hf-ftms" data-layout-allow-occlusion>10:00 A. M.</b><span data-hf-id="hf-ex4s" data-layout-allow-occlusion>Tu cliente no llegó a su cita.</span></div>
+          <div data-hf-id="hf-w8sh" id="c01-clip" class="clip-layer">
+            <div data-hf-id="hf-yavx" id="c01-st" class="st">
+              <div data-hf-id="hf-giba" id="c01-day" class="abs chip chip--soft">MARTES · HOY</div>
+              <div data-hf-id="hf-pmhb" id="c01-clock" class="abs chip chip--ink"><svg data-hf-id="hf-t6g8" class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle data-hf-id="hf-1iwn" cx="12" cy="12" r="9" /><path data-hf-id="hf-8ge0" d="M12 7v5l3.5 2" /></svg><span data-hf-id="hf-mwak" id="c01-clock-t">09:58</span></div>
+              <div data-hf-id="hf-ptpf" id="c01-time" class="abs fr">10:00</div>
+              <div data-hf-id="hf-7t7o" id="c01-what" class="abs">Consulta</div>
+              <div data-hf-id="hf-2qw9" id="c01-who" class="abs">Juan Pérez</div>
+              <div data-hf-id="hf-xgmb" id="c01-room" class="abs"><span data-hf-id="hf-csps" id="c01-chair"><svg data-hf-id="hf-bbvk" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-5hs9" d="M7 3h10v8H7z" /><path data-hf-id="hf-69z4" d="M5 11h14v4H5z" /><path data-hf-id="hf-es79" d="M7 15v6M17 15v6" /></svg></span>Silla vacía</div>
+              <div data-hf-id="hf-g8jp" id="c01-r0" class="abs c01-row" style="top: 1186px"><i data-hf-id="hf-wt6k"><svg data-hf-id="hf-a4yh" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-s5bw" d="M5 12.5l4.5 4.5L19 7.5" /></svg></i>Sala lista</div>
+              <div data-hf-id="hf-l88i" id="c01-r1" class="abs c01-row" style="top: 1252px"><i data-hf-id="hf-zeb8"><svg data-hf-id="hf-aj9i" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-ceb8" d="M5 12.5l4.5 4.5L19 7.5" /></svg></i>Ficha de Juan</div>
+              <div data-hf-id="hf-5t77" id="c01-r2" class="abs c01-row" style="top: 1318px"><i data-hf-id="hf-y7e5"><svg data-hf-id="hf-9ccf" class="ico" viewBox="0 0 24 24" aria-hidden="true"><path data-hf-id="hf-b7e5" d="M5 12.5l4.5 4.5L19 7.5" /></svg></i>Horario reservado</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          var R = window.Reel;
+          var P = window.Physics;
+          var A = R.A;
+          var S = R.S;
+          function $(id) {
+            return document.getElementById("c01-" + id);
+          }
+          var st = $("st");
+          var hook = $("hook");
+          var clockT = $("clock-t");
+          var time = $("time");
+          var chair = $("chair");
+          var rows = [$("r0"), $("r1"), $("r2")];
+          var timeColor = P.color([{ t: 0, c: P.hex("#2C2C2A") }, { t: R.TAP.stamp, c: P.hex("#8A8880") }], 14);
+          var ROW_AT = [0, 1, 2].map(function (i) {
+            return R.beatAfter(A.listo - 0.2, i);
+          });
+          window.__timelines["c01"] = R.mountState("card", $("root"), $("world"), $("clip"), function (t, span) {
+            R.apply(st, t, span[0], span[1]);
+            // Hook: on screen from frame one, out (blur, lift) before the checklist grows the card.
+            var hk = R.vis(t, 0, R.A.listo - 0.6); // on screen from the very first frame
+            hook.style.opacity = hk.v.toFixed(3);
+            hook.style.filter = hk.v >= 0.999 ? "none" : "blur(" + ((1 - hk.v) * 8).toFixed(2) + "px)";
+            hook.style.transform = "translateY(" + ((1 - hk.vin) * 14 - (1 - hk.vout) * 14).toFixed(2) + "px)";
+            // The clock: 09:58 → 10:00 on "llegó la hora"; then it runs to 10:30 on "pasó la hora".
+            var label = "09:58";
+            if (t >= 1.2) label = "09:59";
+            if (t >= A.hora) label = "10:00";
+            if (t >= A.paso) {
+              var m = Math.min(30, 2 * Math.floor((t - A.paso) / ((R.TAP.stamp - A.paso) / 15)));
+              label = "10:" + (m < 10 ? "0" : "") + m;
+            }
+            clockT.textContent = label;
+            time.style.color = timeColor(t);
+            // "…no apareció?": the empty chair beats once.
+            var b = P.step(t - A.aparecio, 16, 0.5) - P.step(t - A.aparecio - 0.18, 16, 0.5);
+            chair.style.transform = "scale(" + (1 + 0.35 * b).toFixed(4) + ")";
+            chair.style.color = t >= A.aparecio && t < A.aparecio + 0.6 ? "#2C2C2A" : "";
+            // "Seguramente tenías todo listo…": the checklist ticks itself, one row per beat.
+            rows.forEach(function (el, i) {
+              R.pop(el, t, ROW_AT[i]);
+            });
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

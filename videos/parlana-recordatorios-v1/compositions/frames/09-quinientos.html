@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="compositions/shared/parlana.css" />
+  </head>
+  <body>
+    <template id="f09-template">
+      <style>
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Fraunces"; src: url("assets/fonts/fraunces-700.woff2") format("woff2"); font-weight: 700; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-400.woff2") format("woff2"); font-weight: 400; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-500.woff2") format("woff2"); font-weight: 500; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-600.woff2") format("woff2"); font-weight: 600; }
+        @font-face { font-family: "Figtree"; src: url("assets/fonts/figtree-700.woff2") format("woff2"); font-weight: 700; }
+        #f09-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #f09-kick {
+          position: absolute;
+          left: 110px;
+          top: 300px;
+          font-size: 48px;
+          font-weight: 600;
+          color: var(--muted);
+        }
+        #f09-total {
+          position: absolute;
+          left: 110px;
+          top: 376px;
+          display: flex;
+          align-items: baseline;
+          gap: 18px;
+        }
+        #f09-total-value {
+          display: flex;
+          align-items: flex-start;
+          font-size: 170px;
+          color: var(--green-text);
+        }
+        #f09-total-value .f09-glyph,
+        #f09-total-value .f09-col {
+          display: inline-block;
+          height: 1em;
+          line-height: 1em;
+        }
+        #f09-total-value .f09-col {
+          overflow: hidden;
+          position: relative;
+        }
+        #f09-total-value .f09-strip {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          display: grid;
+          grid-template-columns: 100%;
+          justify-items: center;
+        }
+        /* Invisible final digit: gives each column its own glyph width (Fraunces has no tabular figures). */
+        #f09-total-value .f09-sizer {
+          visibility: hidden;
+        }
+        #f09-total-value .f09-strip span {
+          height: 1em;
+          line-height: 1em;
+        }
+        #f09-total-per {
+          font-size: 44px;
+          color: var(--muted);
+        }
+        /* One dot per reminder: 25 × 20 = 500. The card surface is painted by the shell track. */
+        #f09-card {
+          left: 110px;
+          top: 640px;
+          width: 860px;
+          height: 712px;
+          background: transparent;
+          border-color: transparent;
+          box-shadow: none;
+        }
+        .f09-dots {
+          position: absolute;
+          left: 77px;
+          top: 56px;
+          width: 700px;
+          height: 560px;
+          background-size: 28px 28px;
+        }
+        #f09-dots-off {
+          background-image: radial-gradient(circle at 14px 14px, #d3d1c7 10px, rgba(211, 209, 199, 0) 10.5px);
+        }
+        #f09-dots-on {
+          background-image: radial-gradient(circle at 14px 14px, #155b3f 10px, rgba(21, 91, 63, 0) 10.5px);
+        }
+        #f09-formula {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 640px;
+          text-align: center;
+          font-size: 32px;
+          color: var(--muted);
+        }
+      </style>
+
+      <div data-hf-id="hf-htc1" id="f09-root" data-composition-id="f09" data-start="0" data-duration="4.7" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-zoz4" id="f09-kick" class="pr-ui">500 recordatorios al mes</div>
+        <div data-hf-id="hf-p4f1" id="f09-total">
+          <span data-hf-id="hf-7ng0" id="f09-total-value" class="pr-display" data-value="Bs 71,42" aria-label="Bs 71,42"></span>
+          <span data-hf-id="hf-4p26" id="f09-total-per" class="pr-data">/mes</span>
+        </div>
+        <div data-hf-id="hf-z0fp" id="f09-card" class="pr-card">
+          <div data-hf-id="hf-4tpu" class="f09-dots" id="f09-dots-off"></div>
+          <div data-hf-id="hf-ankk" class="f09-dots" id="f09-dots-on"></div>
+          <div data-hf-id="hf-nqs7" id="f09-formula" class="pr-data">500 × Bs 0,1428</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          // VO cues, frame-local seconds (from assets/vo/transcript.json):
+          // "Si hacemos los cálculos (formula), 500 recordatorios al mes (kicker, dots), 71 bolivianos."
+          var CUE = { kick: 1.3, dots: 0.45, fillFrom: 1.5, fillTo: 3.1, formula: 0.35, total: 3.3, roll: 3.4, per: 3.85, out: 4.52 };
+
+          // Total as a number-wheel (component pattern), built once.
+          var total = document.getElementById("f09-total-value");
+          var strips = [];
+          total.dataset.value.split("").forEach(function (ch) {
+            if (!/\d/.test(ch)) {
+              var glyph = document.createElement("span");
+              glyph.className = "f09-glyph";
+              glyph.textContent = ch === " " ? " " : ch;
+              total.appendChild(glyph);
+              return;
+            }
+            var col = document.createElement("span");
+            col.className = "f09-col";
+            col.setAttribute("data-layout-allow-overflow", "");
+            col.setAttribute("data-layout-allow-occlusion", "");
+            var sizer = document.createElement("span");
+            sizer.className = "f09-sizer";
+            sizer.textContent = ch;
+            col.appendChild(sizer);
+            var strip = document.createElement("span");
+            strip.className = "f09-strip";
+            strip.setAttribute("data-layout-allow-overflow", "");
+            strip.setAttribute("data-layout-allow-occlusion", "");
+            for (var i = 0; i <= Number(ch); i++) {
+              var step = document.createElement("span");
+              step.textContent = String(i);
+              strip.appendChild(step);
+            }
+            col.appendChild(strip);
+            total.appendChild(col);
+            strips.push({ el: strip, to: Number(ch) });
+          });
+
+          var tl = gsap.timeline({ paused: true });
+          tl.fromTo("#f09-kick", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.26, ease: "power2.out" }, CUE.kick);
+          tl.fromTo("#f09-dots-off", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, CUE.dots);
+
+          // 500 reminders fill in, one row at a time (stat-bars-and-fills clip wipe, stepped).
+          tl.fromTo("#f09-dots-on", { clipPath: "inset(0px 0px 560px 0px)" }, { clipPath: "inset(0px 0px 0px 0px)", duration: CUE.fillTo - CUE.fillFrom, ease: "steps(20)" }, CUE.fillFrom);
+          tl.fromTo("#f09-formula", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, CUE.formula);
+
+          // "…setenta y un bolivianos": the total rolls into place.
+          tl.fromTo("#f09-total", { opacity: 0, y: 18, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.24, ease: "power2.out" }, CUE.total);
+          strips.forEach(function (s, i) {
+            tl.fromTo(s.el, { y: "0em" }, { y: -s.to + "em", duration: 0.8, ease: "power3.out" }, CUE.roll + i * 0.05);
+          });
+          tl.fromTo("#f09-total-per", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, CUE.per);
+
+          tl.fromTo(["#f09-kick", "#f09-total", "#f09-dots-off", "#f09-dots-on", "#f09-formula"], { filter: "blur(0px)" }, { opacity: 0, y: -18, filter: "blur(8px)", duration: 0.18, ease: "power2.in", immediateRender: false }, CUE.out);
+
+          window.__timelines["f09"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

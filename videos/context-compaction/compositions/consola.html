@@ -1,0 +1,189 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #con-card-wrap {
+      position: absolute;
+      left: 50px;
+      top: 300px;
+      width: 980px;
+      height: 620px;
+    }
+    #con-card {
+      position: absolute;
+      inset: 0;
+    }
+    #con-title {
+      position: absolute;
+      left: 26px;
+      top: -46px;
+      font-size: 66px;
+    }
+    /* Bars: the user's Google Cloud daily cost, 1–13 Oct 2026, measured from
+       their screenshot and scaled so 8 Oct = 440 px. The screenshot hides the
+       axis values, so no amounts are shown. */
+    #con-bars {
+      position: absolute;
+      left: 46px;
+      right: 46px;
+      bottom: 92px;
+      height: 460px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+    .con-bar {
+      position: relative;
+      width: 30px;
+      background: var(--color-ground, #493a80) url("assets/textures/cardboard.png") 0 0 / 1080px 1920px;
+      transform-origin: 50% 100%;
+      clip-path: polygon(0 1.5%, 100% 0, 97% 100%, 3% 100%);
+    }
+    #con-peak-fill {
+      position: absolute;
+      inset: 0;
+      background: var(--color-accent, #ffc72c);
+      transform-origin: 50% 100%;
+    }
+    .con-slot {
+      width: 30px;
+    }
+    #con-axis {
+      position: absolute;
+      left: 34px;
+      right: 34px;
+      bottom: 86px;
+      height: 6px;
+      background: var(--color-ink, #141218);
+    }
+    .con-day {
+      position: absolute;
+      bottom: 30px;
+      font-family: var(--font-ui, "Montserrat"), sans-serif;
+      font-weight: 700;
+      font-size: 30px;
+      transform: translateX(-50%);
+    }
+    #con-peak-label {
+      position: absolute;
+      left: 300px;
+      top: 50px;
+      font-size: 56px;
+    }
+    /* The torn photo is taller than the frame so it can start full-frame. */
+    #con-photo .shot,
+    #con-photo .rim {
+      bottom: -1000px;
+    }
+    #con-photo .cam {
+      bottom: auto;
+      height: 1920px;
+    }
+  </style>
+  <div id="root" data-composition-id="consola" data-width="1080" data-height="1920">
+    <div class="card-ground"></div>
+
+    <div id="con-card-wrap" class="lift">
+      <div id="con-card" class="paper cut-a">
+        <div id="con-bars">
+          <div class="con-bar" style="height: 123px"></div>
+          <div class="con-bar" style="height: 155px"></div>
+          <div class="con-bar" style="height: 48px"></div>
+          <div class="con-bar" style="height: 15px"></div>
+          <div class="con-bar" style="height: 149px"></div>
+          <div class="con-bar" style="height: 305px"></div>
+          <div class="con-bar" style="height: 346px"></div>
+          <div class="con-bar" style="height: 440px"><div id="con-peak-fill"></div></div>
+          <div class="con-bar" style="height: 369px"></div>
+          <div class="con-bar" style="height: 149px"></div>
+          <div class="con-bar" style="height: 119px"></div>
+          <div class="con-bar" style="height: 263px"></div>
+          <div class="con-bar" style="height: 214px"></div>
+          <div class="con-slot"></div>
+          <div class="con-slot"></div>
+          <div class="con-slot"></div>
+          <div class="con-slot"></div>
+          <div class="con-slot"></div>
+          <div class="con-slot"></div>
+          <div class="con-slot"></div>
+          <div class="con-slot"></div>
+        </div>
+        <div id="con-axis"></div>
+        <div class="con-day" style="left: 61px">1 oct</div>
+        <div class="con-day" style="left: 365px">8</div>
+        <div class="con-day" style="left: 582px">13</div>
+      </div>
+      <div id="con-title" class="tape">Facturación diaria · Google Cloud</div>
+      <div id="con-peak-label" class="tape yellow">El pico</div>
+    </div>
+
+    <div class="split-photo" id="con-photo">
+      <div class="rim" id="con-rim"></div>
+      <div class="shot" id="con-shot">
+        <div class="cam" id="con-cam">
+          <video
+            id="con-video"
+            class="clip"
+            src="assets/footage/working.mp4"
+            data-start="0"
+            data-duration="5"
+            data-media-start="8.6"
+            data-track-index="1"
+            muted
+            playsinline
+          ></video>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      // Host starts at 7.0 s; times below are written in film seconds.
+      const S = 7.0;
+      const at = (g) => +(g - S).toFixed(3);
+      const tl = gsap.timeline({ paused: true });
+      const ROT = { card: -1, title: -2, label: 3 };
+
+      // Full frame: the torn photo sits 992 px up (its edge above the frame) and
+      // its picture 992 px down, so the console fills the frame.
+      gsap.set("#con-photo", { y: -992 });
+      gsap.set("#con-cam", { y: 992, scale: 1, transformOrigin: "300px 560px" });
+      gsap.set("#con-card-wrap", { rotation: ROT.card, opacity: 0 });
+      gsap.set("#con-title", { rotation: ROT.title, opacity: 0 });
+      gsap.set("#con-peak-label", { rotation: ROT.label, opacity: 0 });
+      gsap.set(".con-bar", { scaleY: 0 });
+      gsap.set("#con-peak-fill", { scaleY: 0 });
+
+      // "Google Cloud Console": a slow push toward the monitor.
+      tl.to("#con-cam", { scale: 1.07, duration: 1.6, ease: "power1.inOut" }, at(7.45));
+
+      // 9.0: the photo drops into the bottom half; the monitor rides down with it.
+      tl.to("#con-photo", { y: 0, duration: 0.6, ease: "power2.inOut" }, at(9.0));
+      tl.to("#con-cam", { y: 722, scale: 1, duration: 0.6, ease: "power2.inOut" }, at(9.0));
+
+      // 9.3: the billing chart is slapped on above it, then its title.
+      PC.slap(tl, "#con-card-wrap", at(9.3), { rot: ROT.card, from: 1.06, dy: -70, spin: 2.5, dur: 0.28 });
+      PC.slap(tl, "#con-title", at(9.5), { rot: ROT.title });
+
+      // The days arrive one by one, on twos.
+      gsap.utils.toArray(".con-bar").forEach((bar, i) => {
+        tl.to(bar, { scaleY: 1, duration: 0.24, ease: "steps(4)" }, at(9.65 + i * 0.1));
+      });
+
+      // "elevados" (11.42): the peak fills yellow and gets its label.
+      tl.to("#con-peak-fill", { scaleY: 1, duration: 0.25, ease: "power3.out" }, at(11.4));
+      PC.slap(tl, "#con-peak-label", at(11.5), { rot: ROT.label, from: 1.2 });
+
+      // 11.75: chart pulled off the top, photo slides off the bottom.
+      PC.pull(tl, "#con-card-wrap", at(11.75), { rot: ROT.card, toY: -1500, spin: 6, dur: 0.24 });
+      tl.to("#con-photo", { y: 1000, duration: 0.24, ease: "power3.in" }, at(11.76));
+      tl.set({}, {}, 5);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["consola"] = tl;
+    })();
+  </script>
+</template>

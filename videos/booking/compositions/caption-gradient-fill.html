@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <style>
+      @font-face { font-family: "Rubik"; src: url("fonts/Rubik-800-latin.woff2") format("woff2"); font-weight: 800; font-display: block; }
+      @font-face { font-family: "Rubik"; src: url("fonts/Rubik-400-latin.woff2") format("woff2"); font-weight: 400; font-display: block; }
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body {
+        width: 1080px; height: 1920px; margin: 0; overflow: hidden; background: transparent;
+      }
+      #gradient-fill {
+        pointer-events: none; position: relative;
+        width: 1080px; height: 1920px; overflow: hidden; background: transparent;
+      }
+      #gr-container {
+        position: absolute; inset: 0; z-index: 50; pointer-events: none;
+      }
+      /* FRAME.md lower-third + DESIGN.md tokens — Instagram Reels safe rail */
+      .gr-group {
+        position: absolute;
+        left: 50%;
+        bottom: 380px;
+        transform: translateX(-50%);
+        width: max-content;
+        max-width: 920px;
+        display: flex; flex-wrap: wrap;
+        align-items: flex-end; justify-content: center;
+        gap: 8px 12px;
+        padding: 18px 28px;
+        border-radius: 1.5rem;
+        background: #0B1A17;
+        box-shadow: 4px 4px 0 #152A26;
+        opacity: 0; visibility: hidden;
+      }
+      .gr-word {
+        font-family: Rubik, ui-sans-serif, system-ui, sans-serif;
+        font-weight: 800;
+        font-size: 52px;
+        display: inline-block;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        padding-bottom: 0.02em;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        background-size: 350% 100%;
+        background-position: 100% 0;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-9erg" id="gradient-fill" data-composition-id="caption-gradient-fill" data-timeline-locked="" data-start="0" data-duration="106.02" data-fps="24" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-gjh8" id="gr-container"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var WORDS = [{"text":"Te","start":0.04,"end":0.218},{"text":"voy","start":0.218,"end":0.396},{"text":"a","start":0.396,"end":0.573},{"text":"mostrar","start":0.573,"end":0.751},{"text":"cómo","start":0.751,"end":0.929},{"text":"operamos","start":0.929,"end":1.107},{"text":"la","start":1.107,"end":1.284},{"text":"agenda","start":1.284,"end":1.462},{"text":"de","start":1.462,"end":1.64},{"text":"un","start":1.64,"end":1.955},{"text":"negocio","start":1.955,"end":2.27},{"text":"automatizada","start":2.27,"end":2.585},{"text":"con","start":2.585,"end":2.9},{"text":"AI","start":2.9,"end":3.215},{"text":"en","start":3.215,"end":3.53},{"text":"un","start":3.53,"end":3.845},{"text":"agente","start":3.845,"end":4.16},{"text":"que","start":4.16,"end":4.427},{"text":"corre","start":4.427,"end":4.693},{"text":"WhatsApp.","start":4.693,"end":4.96},{"text":"Vamos","start":4.96,"end":5.173},{"text":"a","start":5.173,"end":5.387},{"text":"ver,","start":5.387,"end":5.6},{"text":"para","start":5.6,"end":5.813},{"text":"esta","start":5.813,"end":6.027},{"text":"empresa","start":6.027,"end":6.24},{"text":"se","start":6.24,"end":6.453},{"text":"diseñó","start":6.453,"end":6.667},{"text":"un","start":6.667,"end":6.88},{"text":"agente","start":6.88,"end":7.12},{"text":"que","start":7.12,"end":7.36},{"text":"tiene","start":7.36,"end":7.6},{"text":"una","start":7.6,"end":7.84},{"text":"estructura,","start":7.84,"end":8.08},{"text":"por","start":8.08,"end":8.32},{"text":"ejemplo,","start":8.32,"end":8.686},{"text":"primero","start":8.686,"end":9.051},{"text":"se","start":9.051,"end":9.417},{"text":"pide","start":9.417,"end":9.783},{"text":"la","start":9.783,"end":10.149},{"text":"locación,","start":10.149,"end":10.514},{"text":"luego","start":10.514,"end":10.88},{"text":"como","start":10.88,"end":11.175},{"text":"que","start":11.175,"end":11.47},{"text":"el","start":11.47,"end":11.765},{"text":"nombre,","start":11.765,"end":12.06},{"text":"luego","start":12.06,"end":12.355},{"text":"el","start":12.355,"end":12.65},{"text":"servicio,","start":12.65,"end":12.945},{"text":"etc.","start":12.945,"end":13.24},{"text":"Tiene","start":13.24,"end":13.5},{"text":"una","start":13.5,"end":13.76},{"text":"forma","start":14,"end":14.313},{"text":"estructurada","start":14.313,"end":14.627},{"text":"para","start":14.627,"end":14.94},{"text":"poder","start":14.94,"end":15.253},{"text":"hacer","start":15.253,"end":15.567},{"text":"el","start":15.567,"end":15.88},{"text":"agendamiento.","start":15.88,"end":16.72},{"text":"Sin","start":16.72,"end":17.064},{"text":"embargo,","start":17.064,"end":17.408},{"text":"cualquier","start":17.408,"end":17.752},{"text":"persona","start":17.752,"end":18.096},{"text":"puede","start":18.096,"end":18.44},{"text":"escribir","start":18.44,"end":18.715},{"text":"y","start":18.715,"end":18.99},{"text":"empezar","start":18.99,"end":19.265},{"text":"a","start":19.265,"end":19.54},{"text":"romper","start":19.54,"end":19.815},{"text":"el","start":19.815,"end":20.09},{"text":"flujo","start":20.09,"end":20.365},{"text":"o","start":20.365,"end":20.64},{"text":"brindar","start":20.64,"end":20.973},{"text":"información,","start":20.973,"end":21.307},{"text":"pero","start":21.307,"end":21.64},{"text":"el","start":21.64,"end":21.973},{"text":"agent","start":21.973,"end":22.307},{"text":"siempre","start":22.307,"end":22.64},{"text":"trata","start":22.64,"end":23.062},{"text":"de","start":23.062,"end":23.484},{"text":"incentivar","start":23.484,"end":23.907},{"text":"hacia","start":23.907,"end":24.329},{"text":"la","start":24.329,"end":24.751},{"text":"reserva","start":24.751,"end":25.173},{"text":"de","start":25.173,"end":25.596},{"text":"una","start":25.596,"end":26.018},{"text":"cita.","start":26.018,"end":26.44},{"text":"¿Qué","start":26.96,"end":27.373},{"text":"servicio?","start":27.373,"end":27.787},{"text":"Digamos","start":27.787,"end":28.2},{"text":"de","start":28.2,"end":28.613},{"text":"yo","start":28.613,"end":29.027},{"text":"quiero","start":29.027,"end":29.44},{"text":"limpieza","start":29.52,"end":30.2},{"text":"facial,","start":30.2,"end":30.88},{"text":"que","start":31.12,"end":31.269},{"text":"ya","start":31.269,"end":31.418},{"text":"me","start":31.418,"end":31.567},{"text":"respondió","start":31.567,"end":31.716},{"text":"y","start":31.716,"end":31.865},{"text":"me","start":31.865,"end":32.015},{"text":"dice","start":32.015,"end":32.164},{"text":"que","start":32.164,"end":32.313},{"text":"en","start":32.313,"end":32.462},{"text":"la","start":32.462,"end":32.611},{"text":"CD","start":32.611,"end":32.76},{"text":"que","start":32.76,"end":32.94},{"text":"elegí,","start":32.94,"end":33.12},{"text":"hay","start":33.12,"end":33.3},{"text":"ese","start":33.3,"end":33.48},{"text":"servicio","start":33.48,"end":33.66},{"text":"que","start":33.66,"end":33.84},{"text":"no","start":33.84,"end":34.02},{"text":"hay","start":34.02,"end":34.2},{"text":"problema,","start":34.2,"end":34.371},{"text":"que","start":34.371,"end":34.543},{"text":"si","start":34.543,"end":34.714},{"text":"quiero","start":34.714,"end":34.886},{"text":"la","start":34.886,"end":35.057},{"text":"cita","start":35.057,"end":35.229},{"text":"de","start":35.229,"end":35.4},{"text":"valoración,","start":35.4,"end":35.776},{"text":"obviamente","start":35.776,"end":36.152},{"text":"puedo","start":36.152,"end":36.528},{"text":"hacer","start":36.528,"end":36.904},{"text":"más","start":36.904,"end":37.28},{"text":"preguntas","start":37.28,"end":37.8},{"text":"como","start":37.8,"end":38.32},{"text":"algo","start":38.32,"end":38.84},{"text":"como","start":38.84,"end":39.36},{"text":"debo","start":39.36,"end":39.88},{"text":"ir.","start":39.88,"end":40.4},{"text":"Aquí","start":40.4,"end":40.6},{"text":"ya","start":40.6,"end":40.8},{"text":"me","start":40.8,"end":41},{"text":"respondió","start":41,"end":41.2},{"text":"y","start":41.2,"end":41.4},{"text":"me","start":41.4,"end":41.6},{"text":"da","start":41.6,"end":41.8},{"text":"información","start":41.8,"end":42},{"text":"acerca","start":42,"end":42.304},{"text":"del","start":42.304,"end":42.608},{"text":"detalle","start":42.608,"end":42.912},{"text":"del","start":42.912,"end":43.216},{"text":"servicio.","start":43.216,"end":43.52},{"text":"Nosotros","start":43.52,"end":43.817},{"text":"con","start":43.817,"end":44.114},{"text":"este","start":44.114,"end":44.411},{"text":"agente","start":44.411,"end":44.709},{"text":"mapeamos","start":44.709,"end":45.006},{"text":"todos","start":45.006,"end":45.303},{"text":"los","start":45.303,"end":45.6},{"text":"servicios","start":45.6,"end":45.85},{"text":"de","start":45.85,"end":46.1},{"text":"esta","start":46.1,"end":46.35},{"text":"empresa","start":46.35,"end":46.6},{"text":"y","start":46.6,"end":46.85},{"text":"ofrece","start":46.85,"end":47.1},{"text":"toda","start":47.1,"end":47.35},{"text":"la","start":47.35,"end":47.6},{"text":"información","start":47.6,"end":47.9},{"text":"respecto","start":47.9,"end":48.2},{"text":"a","start":48.2,"end":48.5},{"text":"él.","start":48.5,"end":48.8},{"text":"Ahora","start":48.8,"end":49.07},{"text":"vamos","start":49.07,"end":49.34},{"text":"a","start":49.34,"end":49.61},{"text":"agendar.","start":49.61,"end":49.88},{"text":"Fíjate","start":49.88,"end":50.028},{"text":"que","start":50.028,"end":50.176},{"text":"acá","start":50.176,"end":50.324},{"text":"le","start":50.324,"end":50.472},{"text":"voy","start":50.472,"end":50.62},{"text":"a","start":50.62,"end":50.768},{"text":"hacer","start":50.768,"end":50.916},{"text":"muy","start":50.916,"end":51.064},{"text":"puntual","start":51.064,"end":51.212},{"text":"y","start":51.212,"end":51.36},{"text":"le","start":51.36,"end":51.524},{"text":"voy","start":51.524,"end":51.688},{"text":"a","start":51.688,"end":51.852},{"text":"decir","start":51.852,"end":52.016},{"text":"mira","start":52.016,"end":52.18},{"text":"si","start":52.18,"end":52.344},{"text":"quiero","start":52.344,"end":52.508},{"text":"una","start":52.508,"end":52.672},{"text":"cita","start":52.672,"end":52.836},{"text":"para","start":52.836,"end":53},{"text":"el","start":53,"end":53.269},{"text":"lunes","start":53.269,"end":53.537},{"text":"en","start":53.537,"end":53.806},{"text":"la","start":53.806,"end":54.074},{"text":"mañana","start":54.074,"end":54.343},{"text":"tienes","start":54.343,"end":54.611},{"text":"espacio.","start":54.611,"end":54.88},{"text":"Entonces","start":55.28,"end":55.566},{"text":"él","start":55.566,"end":55.851},{"text":"automáticamente","start":55.851,"end":56.137},{"text":"va","start":56.137,"end":56.423},{"text":"a","start":56.423,"end":56.709},{"text":"buscar","start":56.709,"end":56.994},{"text":"en","start":56.994,"end":57.28},{"text":"toda","start":57.28,"end":57.52},{"text":"la","start":57.52,"end":57.76},{"text":"agenda","start":57.76,"end":58},{"text":"si","start":58,"end":58.24},{"text":"el","start":58.24,"end":58.48},{"text":"lunes","start":58.48,"end":58.72},{"text":"en","start":58.72,"end":58.96},{"text":"la","start":58.96,"end":59.2},{"text":"mañana","start":59.2,"end":59.44},{"text":"y","start":59.44,"end":59.68},{"text":"él","start":59.68,"end":59.93},{"text":"sabe","start":59.93,"end":60.18},{"text":"el","start":60.18,"end":60.43},{"text":"siguiente","start":60.43,"end":60.68},{"text":"lunes","start":60.68,"end":60.93},{"text":"cuál","start":60.93,"end":61.18},{"text":"es","start":61.18,"end":61.43},{"text":"el","start":61.43,"end":61.68},{"text":"contexto,","start":61.68,"end":61.938},{"text":"o","start":61.938,"end":62.196},{"text":"sea,","start":62.196,"end":62.453},{"text":"qué","start":62.453,"end":62.711},{"text":"día","start":62.711,"end":62.969},{"text":"es","start":62.969,"end":63.227},{"text":"hoy","start":63.227,"end":63.484},{"text":"para","start":63.484,"end":63.742},{"text":"luego","start":63.742,"end":64},{"text":"saber","start":64,"end":64.268},{"text":"calcular","start":64.268,"end":64.536},{"text":"qué","start":64.536,"end":64.804},{"text":"día","start":64.804,"end":65.072},{"text":"es","start":65.072,"end":65.34},{"text":"a","start":65.34,"end":65.608},{"text":"qué","start":65.608,"end":65.876},{"text":"día","start":65.876,"end":66.144},{"text":"se","start":66.144,"end":66.412},{"text":"está","start":66.412,"end":66.68},{"text":"refiriendo","start":66.68,"end":66.967},{"text":"el","start":66.967,"end":67.253},{"text":"cliente","start":67.253,"end":67.54},{"text":"y","start":67.54,"end":67.827},{"text":"calcular","start":67.827,"end":68.113},{"text":"los","start":68.113,"end":68.4},{"text":"celulares","start":68.4,"end":68.625},{"text":"necesarios","start":68.625,"end":68.85},{"text":"y","start":68.85,"end":69.075},{"text":"a","start":69.075,"end":69.3},{"text":"ver","start":69.3,"end":69.525},{"text":"qué","start":69.525,"end":69.75},{"text":"me","start":69.75,"end":69.975},{"text":"ofrece.","start":69.975,"end":70.2},{"text":"Aquí","start":70.32,"end":70.54},{"text":"me","start":70.54,"end":70.76},{"text":"responde,","start":70.76,"end":70.98},{"text":"me","start":70.98,"end":71.2},{"text":"dice:","start":71.2,"end":71.42},{"text":"Oye,","start":71.42,"end":71.64},{"text":"si","start":71.64,"end":71.86},{"text":"tengo","start":71.86,"end":72.08},{"text":"cita","start":72.08,"end":72.376},{"text":"para","start":72.376,"end":72.672},{"text":"el","start":72.672,"end":72.968},{"text":"día","start":72.968,"end":73.264},{"text":"28,","start":73.264,"end":73.56},{"text":"que","start":73.56,"end":73.856},{"text":"sería","start":73.856,"end":74.152},{"text":"el","start":74.152,"end":74.448},{"text":"lunes","start":74.448,"end":74.744},{"text":"al","start":74.744,"end":75.04},{"text":"cual","start":75.04,"end":75.4},{"text":"hago","start":75.4,"end":75.76},{"text":"referencia.","start":75.76,"end":76.12},{"text":"Me","start":76.28,"end":76.525},{"text":"da","start":76.525,"end":76.77},{"text":"una","start":76.77,"end":77.015},{"text":"selección","start":77.015,"end":77.26},{"text":"porque","start":77.26,"end":77.505},{"text":"hay","start":77.505,"end":77.75},{"text":"muchas","start":77.75,"end":77.995},{"text":"horas","start":77.995,"end":78.24},{"text":"disponibles,","start":78.24,"end":78.552},{"text":"entonces","start":78.552,"end":78.864},{"text":"pues","start":78.864,"end":79.176},{"text":"yo","start":79.176,"end":79.488},{"text":"puedo","start":79.488,"end":79.8},{"text":"seleccionar","start":79.8,"end":80.074},{"text":"rápidamente,","start":80.074,"end":80.349},{"text":"le","start":80.349,"end":80.623},{"text":"digo","start":80.623,"end":80.897},{"text":"10","start":80.897,"end":81.171},{"text":"de","start":81.171,"end":81.446},{"text":"la","start":81.446,"end":81.72},{"text":"mañana","start":81.72,"end":81.947},{"text":"y","start":81.947,"end":82.173},{"text":"vamos","start":82.173,"end":82.4},{"text":"a","start":82.4,"end":82.627},{"text":"ver","start":82.627,"end":82.853},{"text":"qué","start":82.853,"end":83.08},{"text":"pasa","start":83.08,"end":83.307},{"text":"y","start":83.307,"end":83.533},{"text":"listo.","start":83.533,"end":83.76},{"text":"Ya","start":83.76,"end":84.029},{"text":"tengo","start":84.029,"end":84.297},{"text":"mi","start":84.297,"end":84.566},{"text":"espacio","start":84.566,"end":84.834},{"text":"separado,","start":84.834,"end":85.103},{"text":"nuestro","start":85.103,"end":85.371},{"text":"agent","start":85.371,"end":85.64},{"text":"ya","start":85.64,"end":85.84},{"text":"te","start":85.84,"end":86.04},{"text":"envía","start":86.04,"end":86.24},{"text":"que","start":86.64,"end":87.035},{"text":"zona,","start":87.035,"end":87.43},{"text":"el","start":87.43,"end":87.825},{"text":"nombre,","start":87.825,"end":88.22},{"text":"las","start":88.22,"end":88.615},{"text":"indicaciones","start":88.615,"end":89.01},{"text":"y","start":89.01,"end":89.405},{"text":"la","start":89.405,"end":89.8},{"text":"ubicación","start":89.8,"end":90.023},{"text":"para","start":90.023,"end":90.246},{"text":"que","start":90.246,"end":90.469},{"text":"asistas","start":90.469,"end":90.691},{"text":"a","start":90.691,"end":90.914},{"text":"tu","start":90.914,"end":91.137},{"text":"cita.","start":91.137,"end":91.36},{"text":"Nuestro","start":91.36,"end":91.571},{"text":"agente","start":91.571,"end":91.783},{"text":"ya","start":91.783,"end":91.994},{"text":"también","start":91.994,"end":92.206},{"text":"cuenta","start":92.206,"end":92.417},{"text":"con","start":92.417,"end":92.629},{"text":"todo","start":92.629,"end":92.84},{"text":"el","start":92.84,"end":93.029},{"text":"flujo","start":93.029,"end":93.217},{"text":"de","start":93.217,"end":93.406},{"text":"lo","start":93.406,"end":93.594},{"text":"que","start":93.594,"end":93.783},{"text":"es","start":93.783,"end":93.971},{"text":"cancelación,","start":93.971,"end":94.16},{"text":"regeneramiento","start":94.16,"end":94.54},{"text":"y","start":94.54,"end":94.92},{"text":"envía","start":94.92,"end":95.3},{"text":"notificaciones","start":95.3,"end":95.68},{"text":"a","start":95.68,"end":96.06},{"text":"los","start":96.06,"end":96.44},{"text":"clientes","start":96.44,"end":96.676},{"text":"24","start":96.676,"end":96.911},{"text":"horas","start":96.911,"end":97.147},{"text":"antes","start":97.147,"end":97.382},{"text":"o","start":97.382,"end":97.618},{"text":"2","start":97.618,"end":97.853},{"text":"horas","start":97.853,"end":98.089},{"text":"antes","start":98.089,"end":98.324},{"text":"de","start":98.324,"end":98.56},{"text":"su","start":98.56,"end":98.785},{"text":"cita","start":98.785,"end":99.01},{"text":"para","start":99.01,"end":99.235},{"text":"que","start":99.235,"end":99.46},{"text":"recuerden","start":99.46,"end":99.685},{"text":"que","start":99.685,"end":99.91},{"text":"pues","start":99.91,"end":100.135},{"text":"el","start":100.135,"end":100.36},{"text":"servicio","start":100.36,"end":100.667},{"text":"los","start":100.667,"end":100.973},{"text":"espera.","start":100.973,"end":101.28},{"text":"Si","start":101.28,"end":101.47},{"text":"estás","start":101.47,"end":101.66},{"text":"interesado","start":101.66,"end":101.85},{"text":"en","start":101.85,"end":102.04},{"text":"montar","start":102.04,"end":102.23},{"text":"este","start":102.23,"end":102.42},{"text":"tipo","start":102.42,"end":102.61},{"text":"de","start":102.61,"end":102.8},{"text":"agentes","start":102.8,"end":103.011},{"text":"para","start":103.011,"end":103.223},{"text":"tu","start":103.223,"end":103.434},{"text":"negocio,","start":103.434,"end":103.646},{"text":"escríbeme","start":103.646,"end":103.857},{"text":"en","start":103.857,"end":104.069},{"text":"los","start":104.069,"end":104.28},{"text":"comments","start":104.28,"end":104.514},{"text":"y","start":104.514,"end":104.749},{"text":"te","start":104.749,"end":104.983},{"text":"envío","start":104.983,"end":105.217},{"text":"toda","start":105.217,"end":105.451},{"text":"la","start":105.451,"end":105.686},{"text":"información.","start":105.686,"end":105.92}];
+        var GROUPS = [{"wordStart":0,"wordEnd":8,"start":0.04,"end":1.64},{"wordStart":9,"wordEnd":16,"start":1.64,"end":4.16},{"wordStart":17,"wordEnd":19,"start":4.16,"end":4.96},{"wordStart":20,"wordEnd":28,"start":4.96,"end":6.88},{"wordStart":29,"wordEnd":34,"start":6.88,"end":8.32},{"wordStart":35,"wordEnd":41,"start":8.32,"end":10.88},{"wordStart":42,"wordEnd":49,"start":10.88,"end":13.24},{"wordStart":50,"wordEnd":51,"start":13.24,"end":13.76},{"wordStart":52,"wordEnd":57,"start":14,"end":15.88},{"wordStart":58,"wordEnd":58,"start":15.88,"end":16.72},{"wordStart":59,"wordEnd":63,"start":16.72,"end":18.44},{"wordStart":64,"wordEnd":71,"start":18.44,"end":20.64},{"wordStart":72,"wordEnd":77,"start":20.64,"end":22.64},{"wordStart":78,"wordEnd":86,"start":22.64,"end":26.44},{"wordStart":87,"wordEnd":92,"start":26.96,"end":29.44},{"wordStart":93,"wordEnd":94,"start":29.52,"end":30.88},{"wordStart":95,"wordEnd":105,"start":31.12,"end":32.76},{"wordStart":106,"wordEnd":113,"start":32.76,"end":34.2},{"wordStart":114,"wordEnd":120,"start":34.2,"end":35.4},{"wordStart":121,"wordEnd":125,"start":35.4,"end":37.28},{"wordStart":126,"wordEnd":131,"start":37.28,"end":40.4},{"wordStart":132,"wordEnd":139,"start":40.4,"end":42},{"wordStart":140,"wordEnd":144,"start":42,"end":43.52},{"wordStart":145,"wordEnd":151,"start":43.52,"end":45.6},{"wordStart":152,"wordEnd":159,"start":45.6,"end":47.6},{"wordStart":160,"wordEnd":163,"start":47.6,"end":48.8},{"wordStart":164,"wordEnd":167,"start":48.8,"end":49.88},{"wordStart":168,"wordEnd":177,"start":49.88,"end":51.36},{"wordStart":178,"wordEnd":187,"start":51.36,"end":53},{"wordStart":188,"wordEnd":194,"start":53,"end":54.88},{"wordStart":195,"wordEnd":201,"start":55.28,"end":57.28},{"wordStart":202,"wordEnd":211,"start":57.28,"end":59.68},{"wordStart":212,"wordEnd":219,"start":59.68,"end":61.68},{"wordStart":220,"wordEnd":228,"start":61.68,"end":64},{"wordStart":229,"wordEnd":238,"start":64,"end":66.68},{"wordStart":239,"wordEnd":244,"start":66.68,"end":68.4},{"wordStart":245,"wordEnd":252,"start":68.4,"end":70.2},{"wordStart":253,"wordEnd":260,"start":70.32,"end":72.08},{"wordStart":261,"wordEnd":270,"start":72.08,"end":75.04},{"wordStart":271,"wordEnd":273,"start":75.04,"end":76.12},{"wordStart":274,"wordEnd":281,"start":76.28,"end":78.24},{"wordStart":282,"wordEnd":286,"start":78.24,"end":79.8},{"wordStart":287,"wordEnd":293,"start":79.8,"end":81.72},{"wordStart":294,"wordEnd":302,"start":81.72,"end":83.76},{"wordStart":303,"wordEnd":309,"start":83.76,"end":85.64},{"wordStart":310,"wordEnd":312,"start":85.64,"end":86.24},{"wordStart":313,"wordEnd":320,"start":86.64,"end":89.8},{"wordStart":321,"wordEnd":327,"start":89.8,"end":91.36},{"wordStart":328,"wordEnd":334,"start":91.36,"end":92.84},{"wordStart":335,"wordEnd":341,"start":92.84,"end":94.16},{"wordStart":342,"wordEnd":347,"start":94.16,"end":96.44},{"wordStart":348,"wordEnd":356,"start":96.44,"end":98.56},{"wordStart":357,"wordEnd":364,"start":98.56,"end":100.36},{"wordStart":365,"wordEnd":367,"start":100.36,"end":101.28},{"wordStart":368,"wordEnd":375,"start":101.28,"end":102.8},{"wordStart":376,"wordEnd":382,"start":102.8,"end":104.28},{"wordStart":383,"wordEnd":389,"start":104.28,"end":105.92}];
+        /* DESIGN.md voltage: mango → lagoon → foam-soft */
+        var BRAND_GRAD = "linear-gradient(90deg, #FF7A45 0%, #1ECAD3 22%, #E8F6F1 48%, #E8F6F1 100%)";
+        var MAX_W = 920;
+        var BASE_SIZE = 52;
+
+        var _fitCanvas = document.createElement("canvas");
+        var _fitCtx = _fitCanvas.getContext("2d");
+        function fitFontSize(text, baseFontSize, fontWeight, fontFamily, maxWidth) {
+          var size = baseFontSize;
+          var minSize = Math.floor(baseFontSize * 0.6);
+          while (size > minSize) {
+            _fitCtx.font = fontWeight + " " + size + "px " + fontFamily;
+            if (_fitCtx.measureText(text).width <= maxWidth) return size;
+            size -= 2;
+          }
+          return minSize;
+        }
+
+        var container = document.getElementById("gr-container");
+        var tl = gsap.timeline({ paused: true });
+
+        GROUPS.forEach(function (g, gi) {
+          var groupWords = WORDS.slice(g.wordStart, g.wordEnd + 1);
+          var groupText = groupWords.map(function (w) { return w.text; }).join(" ");
+          var fontSize = fitFontSize(groupText, BASE_SIZE, "800", "Rubik, sans-serif", MAX_W);
+          var grp = document.createElement("div");
+          grp.className = "gr-group";
+          grp.id = "gr-grp-" + gi;
+
+          groupWords.forEach(function (w, i) {
+            var wi = g.wordStart + i;
+            var span = document.createElement("span");
+            span.className = "gr-word";
+            span.id = "gr-w-" + wi;
+            span.textContent = w.text;
+            span.style.fontSize = fontSize + "px";
+            span.style.background = BRAND_GRAD;
+            span.style.backgroundSize = "350% 100%";
+            span.style.backgroundPosition = "100% 0";
+            span.style.webkitBackgroundClip = "text";
+            span.style.backgroundClip = "text";
+            grp.appendChild(span);
+          });
+
+          container.appendChild(grp);
+
+          tl.set(grp, { visibility: "visible", opacity: 1 }, g.start);
+
+          var lastWordEnd = groupWords[groupWords.length - 1].end;
+          var nextStart = gi < GROUPS.length - 1 ? GROUPS[gi + 1].start : lastWordEnd + 0.45;
+          var gap = nextStart - lastWordEnd;
+          var fadeDur = Math.min(0.22, Math.max(0.08, gap * 0.75));
+          var fadeStart = nextStart - fadeDur;
+          var groupEnd = nextStart;
+
+          groupWords.forEach(function (w, i) {
+            var wi = g.wordStart + i;
+            var el = document.getElementById("gr-w-" + wi);
+            var dur = Math.max(0.08, w.end - w.start);
+
+            tl.set(el, { opacity: 0, scale: 1, y: 18, backgroundPosition: "100% 0" }, g.start);
+            tl.fromTo(
+              el,
+              { opacity: 0, y: 18, scale: 0.92 },
+              { opacity: 1, y: 0, scale: 1.04, duration: 0.32, ease: "elastic.out(1, 0.6)" },
+              w.start
+            );
+            tl.fromTo(
+              el,
+              { backgroundPosition: "45% 0" },
+              { backgroundPosition: "0% 0", duration: dur, ease: "none" },
+              w.start
+            );
+            tl.set(el, { backgroundPosition: "100% 0" }, w.end);
+            tl.to(el, { scale: 1, duration: 0.12, ease: "power2.out" }, w.end);
+          });
+
+          tl.to(grp, { opacity: 0, duration: fadeDur }, fadeStart);
+          tl.set(grp, { visibility: "hidden" }, groupEnd);
+        });
+
+        window.__timelines["caption-gradient-fill"] = tl;
+      })();
+    </script>
+  </body>
+</html>

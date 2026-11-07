@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: "Inter";
+          src: url("fonts/Inter-700-latin.woff2") format("woff2");
+          font-weight: 700;
+          font-display: block;
+        }
+        @font-face {
+          font-family: "Inter";
+          src: url("fonts/Inter-400-latin.woff2") format("woff2");
+          font-weight: 400;
+          font-display: block;
+        }
+        #root {
+          pointer-events: none;
+          position: absolute;
+          inset: 0;
+          width: 1080px;
+          height: 1920px;
+          overflow: hidden;
+          background: transparent;
+        }
+        #gr-container {
+          position: absolute;
+          inset: 0;
+          z-index: 50;
+          pointer-events: none;
+        }
+        .gr-group {
+          position: absolute;
+          left: 60px;
+          right: 60px;
+          bottom: 200px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          opacity: 0;
+          visibility: hidden;
+        }
+        .gr-pill {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          gap: 8px 12px;
+          max-width: 960px;
+          width: fit-content;
+          padding: 18px 28px;
+          border-radius: 18px;
+          background: #18181b;
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+          text-align: center;
+        }
+        .gr-word {
+          font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+          font-weight: 700;
+          font-size: 40px;
+          display: inline-block;
+          letter-spacing: -0.02em;
+          line-height: 1.2;
+          color: #a1a1aa;
+          opacity: 1;
+        }
+        .gr-word.is-active {
+          color: #06b6d4;
+        }
+        .gr-word.is-done {
+          color: #fafafa;
+        }
+      </style>
+      <div data-hf-id="hf-8w41" id="root" data-composition-id="caption-gradient-fill" data-start="0" data-duration="47" data-fps="30" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-gjh8" id="gr-container"></div>
+      </div>
+      <script>
+        (function () {
+          window.__timelines = window.__timelines || {};
+
+          // Phrase groups = SRT cues (full line visible; karaoke highlight)
+          var CUES = [
+            { start: 0.08, end: 2.32, text: "¿Cómo se utiliza el más reciente modelo de" },
+            { start: 2.32, end: 3.96, text: "frontera de la familia de Google en" },
+            { start: 3.96, end: 6.0, text: "nuestros agentes? Fíjate en este código," },
+            { start: 6.16, end: 9.04, text: "normalmente en nuestros agentes tenemos una" },
+            { start: 9.04, end: 10.72, text: "ID del modelo, normalmente aquí le pones" },
+            { start: 10.72, end: 12.88, text: "3.8, 3 puntos, lo que sea, sus" },
+            { start: 12.88, end: 14.36, text: "metaparámetros, etcétera." },
+            { start: 14.56, end: 15.04, text: "Pero" },
+            { start: 15.28, end: 17.04, text: "Google tiene un placeholder muy interesante" },
+            { start: 17.04, end: 20.76, text: "que se llama gemini-flash-latest" },
+            { start: 20.76, end: 22.44, text: "Entonces en la familia de flash, pues te va" },
+            { start: 22.44, end: 24.36, text: "a traer el modelo más reciente, el de" },
+            { start: 24.36, end: 26.4, text: "frontera que tenga en automático." },
+            { start: 26.64, end: 28.4, text: "¿Qué significa eso? Que si Google hoy llega" },
+            { start: 28.4, end: 29.84, text: "a lanzar el 3.4," },
+            { start: 30.08, end: 31.44, text: "el 3.5…" },
+            { start: 31.68, end: 33.52, text: "No tienes que hacer ningún deploy a tus" },
+            { start: 33.52, end: 36.48, text: "agentes o a tu sistema, simplemente ya" },
+            { start: 36.48, end: 38.4, text: "los agentes empiezan a operar con el" },
+            { start: 38.4, end: 40.32, text: "modelo de frontera de Google en automático" },
+            { start: 40.32, end: 41.68, text: "sin hacer ningún deploy." },
+            { start: 41.68, end: 44.12, text: "Así que si quieres montar este tipo de" },
+            { start: 44.12, end: 45.72, text: "agentes usando WhatsApp, escríbeme, yo" },
+            { start: 45.72, end: 46.96, text: "tengo una plataforma para esto." }
+          ];
+
+          var MAX_W = 880;
+          var BASE_SIZE = 40;
+
+          var _fitCanvas = document.createElement("canvas");
+          var _fitCtx = _fitCanvas.getContext("2d");
+          function fitFontSize(text, baseFontSize, maxWidth) {
+            var size = baseFontSize;
+            var minSize = 26;
+            while (size > minSize) {
+              _fitCtx.font = "700 " + size + "px Inter, sans-serif";
+              if (_fitCtx.measureText(text).width <= maxWidth) return size;
+              size -= 2;
+            }
+            return minSize;
+          }
+
+          var container = document.getElementById("gr-container");
+          var tl = gsap.timeline({ paused: true });
+
+          CUES.forEach(function (cue, ci) {
+            var words = cue.text.split(/\s+/).filter(Boolean);
+            var fontSize = fitFontSize(cue.text, BASE_SIZE, MAX_W);
+
+            var grp = document.createElement("div");
+            grp.className = "gr-group";
+            grp.id = "gr-grp-" + ci;
+
+            var pill = document.createElement("div");
+            pill.className = "gr-pill";
+
+            var wordEls = words.map(function (text, i) {
+              var span = document.createElement("span");
+              span.className = "gr-word";
+              span.id = "gr-w-" + ci + "-" + i;
+              span.textContent = text;
+              span.style.fontSize = fontSize + "px";
+              pill.appendChild(span);
+              return span;
+            });
+
+            grp.appendChild(pill);
+            container.appendChild(grp);
+
+            var nextStart = ci < CUES.length - 1 ? CUES[ci + 1].start : cue.end + 0.35;
+            var gap = Math.max(0.05, nextStart - cue.end);
+            var fadeDur = Math.min(0.2, Math.max(0.08, gap * 0.7));
+            var fadeStart = Math.max(cue.start + 0.1, nextStart - fadeDur);
+
+            // Whole phrase visible at once — no empty pill space
+            tl.set(grp, { visibility: "visible" }, cue.start);
+            tl.fromTo(grp, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "power2.out" }, cue.start);
+
+            var span = (cue.end - cue.start) / Math.max(words.length, 1);
+            wordEls.forEach(function (el, i) {
+              var wStart = cue.start + i * span;
+              var wEnd = cue.start + (i + 1) * span;
+              tl.set(el, { color: "#a1a1aa", scale: 1 }, cue.start);
+              tl.to(el, { color: "#06b6d4", scale: 1.05, duration: 0.1, ease: "power2.out" }, wStart);
+              tl.to(el, { color: "#fafafa", scale: 1, duration: 0.1, ease: "power2.out" }, wEnd);
+            });
+
+            tl.to(grp, { opacity: 0, duration: fadeDur, ease: "power2.in" }, fadeStart);
+            tl.set(grp, { visibility: "hidden" }, nextStart);
+          });
+
+          window.__timelines["caption-gradient-fill"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,175 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #ad-sheet,
+    #ad-inner {
+      position: absolute;
+      inset: 0;
+    }
+    #ad-rim {
+      position: absolute;
+      inset: 0;
+      background: var(--color-paper, #f6f2e8);
+    }
+    #ad-zoom {
+      position: absolute;
+      inset: 0;
+      transform-origin: 0 0;
+    }
+    #ad-card-wrap {
+      position: absolute;
+      left: 40px;
+      top: 262px;
+      width: 1000px;
+      height: 676px;
+    }
+    #ad-card {
+      position: absolute;
+      inset: 0;
+    }
+    /* Code from adk.dev/context/compaction (verified 2026-10-22): the user's
+       App(...) snippet verbatim, plus the two lines that define my_summarizer. */
+    #ad-code {
+      position: absolute;
+      left: 36px;
+      top: 32px;
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 500;
+      font-size: 29px;
+      line-height: 43px;
+      color: var(--color-ink, #141218);
+      white-space: pre;
+    }
+    #ad-code .ln {
+      display: block;
+      height: 43px;
+    }
+    #ad-code .k { font-weight: 700; }
+    #ad-code .s { color: #493a80; }
+    #ad-code .p { color: #5b5670; }
+    #ad-hl {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 43px;
+      background: var(--color-accent, #ffc72c);
+      transform-origin: 0 50%;
+    }
+    #ad-tab {
+      position: absolute;
+      left: 30px;
+      top: -44px;
+      font-size: 64px;
+    }
+  </style>
+  <div id="root" data-composition-id="adk" data-width="1080" data-height="1920">
+    <div id="ad-sheet">
+      <div id="ad-inner">
+        <div class="card-ground"></div>
+
+        <div id="ad-zoom">
+          <div id="ad-card-wrap" class="lift">
+            <div id="ad-card" class="paper cut-a">
+              <div id="ad-hl"></div>
+              <div id="ad-code"><span class="ln">summarization_llm = <span class="k">Gemini</span>(</span><span class="ln">    <span class="p">model</span>=<span class="s">"gemini-flash-latest"</span>)</span><span class="ln">my_summarizer = <span class="k">LlmEventSummarizer</span>(</span><span class="ln">    <span class="p">llm</span>=summarization_llm)</span><span class="ln">app = <span class="k">App</span>(</span><span class="ln">    <span class="p">name</span>=<span class="s">'my-agent'</span>,</span><span class="ln">    <span class="p">root_agent</span>=root_agent,</span><span class="ln">    <span class="p">events_compaction_config</span>=<span class="k">EventsCompactionConfig</span>(</span><span class="ln">        <span class="p">compaction_interval</span>=<span class="s">3</span>,</span><span class="ln">        <span class="p">overlap_size</span>=<span class="s">1</span>,</span><span class="ln">        <span class="p">summarizer</span>=my_summarizer,</span><span class="ln">    ),</span><span class="ln">)</span></div>
+            </div>
+            <div id="ad-tab" class="tape">Google ADK</div>
+          </div>
+        </div>
+
+        <div class="split-photo" id="ad-photo">
+          <div class="rim"></div>
+          <div class="shot">
+            <div class="cam" id="ad-cam">
+              <video
+                id="ad-video"
+                class="clip"
+                src="assets/footage/keywork.mp4"
+                data-start="0"
+                data-duration="5.4"
+                data-media-start="16"
+                data-track-index="1"
+                muted
+                playsinline
+              ></video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="ad-rim"></div>
+  </div>
+  <script>
+    (function () {
+      // Host starts at 67.9 s; times below are film seconds.
+      const S = 67.9;
+      const at = (g) => +(g - S).toFixed(3);
+      const tl = gsap.timeline({ paused: true });
+
+      // Monospace grid: IBM Plex Mono advances 0.6 em; 29 px → 17.4 px a column.
+      const CW = 17.4, LH = 43, PAD_X = 36, PAD_Y = 32;
+      const CARD = { x: 40, y: 262 };
+      // [line, column, length] of each name the voice says.
+      const FOCUS = {
+        config: [7, 29, 22], // EventsCompactionConfig
+        summarizer: [2, 16, 18], // LlmEventSummarizer
+        model: [1, 10, 21], // "gemini-flash-latest"
+        interval: [8, 8, 21], // compaction_interval=3
+      };
+      const hlAt = ([ln, col, len]) => ({ x: PAD_X + col * CW - 6, y: PAD_Y + ln * LH, width: len * CW + 12 });
+      // Camera: the focus centre lands at C on screen at scale s (origin 0 0).
+      const camFor = ([ln, col, len], s, C) => {
+        C = C || { x: 540, y: 700 };
+        const px = CARD.x + PAD_X + (col + len / 2) * CW;
+        const py = CARD.y + PAD_Y + ln * LH + LH / 2;
+        return { x: C.x - s * px, y: C.y - s * py, scale: s };
+      };
+
+      gsap.set("#ad-card-wrap", { rotation: -1, opacity: 0 });
+      gsap.set("#ad-tab", { rotation: -2, opacity: 0 });
+      gsap.set("#ad-cam", { y: 672 });
+      gsap.set("#ad-photo", { y: 1000 });
+      gsap.set("#ad-hl", { scaleX: 0 });
+      const lines = gsap.utils.toArray("#ad-code .ln");
+      const typed = (f) => `inset(-6px ${(100 - f * 100).toFixed(1)}% -6px -6px)`;
+      gsap.set(lines, { clipPath: typed(0) });
+
+      // 67.9: the code card drops in; the hands on the keyboard rise underneath.
+      PC.slap(tl, "#ad-card-wrap", at(67.9), { rot: -1, from: 1.04, dy: -140, spin: 3, dur: 0.3 });
+      tl.to("#ad-photo", { y: 0, duration: 0.45, ease: "expo.out" }, at(67.96));
+      // The snippet prints line by line, in stop-motion.
+      lines.forEach((ln, i) => PC.steps(tl, ln, 0, 1, at(68.4 + i * 0.22), 0.2, 4, typed));
+      // "Google ADK" (70.85).
+      PC.slap(tl, "#ad-tab", at(70.9), { rot: -2, from: 1.25 });
+
+      // "EventsCompactionConfig" (73.14): the split closes and the camera dives in.
+      tl.to("#ad-photo", { y: 1000, duration: 0.35, ease: "power3.in" }, at(72.9));
+      const focus = (key, g, dur) => {
+        tl.to("#ad-hl", { scaleX: 0, duration: 0.08, ease: "power2.in" }, at(g));
+        tl.to("#ad-zoom", Object.assign(camFor(FOCUS[key], 1.9), { duration: dur, ease: "power2.inOut" }), at(g));
+        tl.set("#ad-hl", hlAt(FOCUS[key]), at(g + 0.1));
+        tl.to("#ad-hl", { scaleX: 1, duration: 0.2, ease: "power2.out" }, at(g + dur - 0.05));
+      };
+      focus("config", 72.95, 0.6);
+      // "LlmEventSummarizer" (75.22).
+      focus("summarizer", 75.0, 0.5);
+      // "tu modelo" (78.34), "tu umbral" (78.85).
+      focus("model", 78.05, 0.35);
+      focus("interval", 78.6, 0.35);
+      // "automáticamente por ti" (80.18): back out to the whole snippet.
+      tl.to("#ad-hl", { scaleX: 0, duration: 0.1, ease: "power2.in" }, at(80.1));
+      tl.to("#ad-zoom", { x: 0, y: 330, scale: 1, duration: 0.7, ease: "power2.inOut" }, at(80.1));
+
+      // 82.5: torn away onto the results.
+      PC.rip(tl, "#ad-sheet", "#ad-inner", "#ad-rim", at(82.5), { dur: 0.45, seed: 37 });
+      tl.set({}, {}, 15.05);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["adk"] = tl;
+    })();
+  </script>
+</template>

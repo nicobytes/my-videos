@@ -1,0 +1,316 @@
+1
+00:00:00,080 --> 00:00:02,000
+Desde hoy, primero de octubre, WhatsApp
+
+2
+00:00:02,000 --> 00:00:04,000
+empieza a cobrar ciertas tarifas si tienes
+
+3
+00:00:04,000 --> 00:00:05,760
+automatizaciones, sobre todo cuando
+
+4
+00:00:05,760 --> 00:00:06,680
+utilizas la API.
+
+5
+00:00:06,680 --> 00:00:08,880
+Vamos a repasar esos precios y cómo aplican
+
+6
+00:00:08,880 --> 00:00:09,680
+aquí en Bolivia.
+
+7
+00:00:09,680 --> 00:00:11,040
+Hay muchas alarmas de estos precios, pero
+
+8
+00:00:11,040 --> 00:00:12,240
+vamos a repasar cuáles son.
+
+9
+00:00:12,240 --> 00:00:13,800
+Primero tenemos los mensajes de marketing
+
+10
+00:00:13,800 --> 00:00:15,560
+que cuestan 0.9 bolivianos.
+
+11
+00:00:15,560 --> 00:00:16,880
+Ahora estos son los mensajes que
+
+12
+00:00:16,880 --> 00:00:18,200
+normalmente enviamos con campañas de
+
+13
+00:00:18,200 --> 00:00:20,440
+marketing y por eso son los más caros.
+
+14
+00:00:20,440 --> 00:00:22,080
+Son este tipo de mensajes en donde si tú
+
+15
+00:00:22,080 --> 00:00:23,920
+tuviste contacto, por ejemplo, alguna vez
+
+16
+00:00:23,920 --> 00:00:24,720
+con ese WhatsApp.
+
+17
+00:00:24,840 --> 00:00:25,960
+Pueden enviar una campaña.
+
+18
+00:00:25,960 --> 00:00:27,840
+Normalmente esto lo hacen mucho, no sé los
+
+19
+00:00:27,840 --> 00:00:29,600
+bancos en donde te ofrecen una tarjeta de
+
+20
+00:00:29,600 --> 00:00:31,000
+crédito o más servicios.
+
+21
+00:00:31,040 --> 00:00:33,600
+Esto clasifica como un mensaje de marketing
+
+22
+00:00:33,600 --> 00:00:34,640
+y esa es la tarifa.
+
+23
+00:00:35,040 --> 00:00:36,560
+Ahora tenemos los mensajes de utility y
+
+24
+00:00:36,560 --> 00:00:38,840
+estos están en 0.1 bolivianos, son mucho
+
+25
+00:00:38,840 --> 00:00:40,720
+más económicos que los de marketing porque
+
+26
+00:00:40,720 --> 00:00:42,280
+tienen una funcionalidad diferente.
+
+27
+00:00:42,280 --> 00:00:43,960
+Normalmente esos mensajes son de tipo de
+
+28
+00:00:43,960 --> 00:00:45,360
+notificación, por ejemplo,
+
+29
+00:00:45,840 --> 00:00:48,000
+un password o un código que te llega para
+
+30
+00:00:48,000 --> 00:00:49,360
+hacer la notificación y te llega a
+
+31
+00:00:49,360 --> 00:00:49,920
+WhatsApp.
+
+32
+00:00:50,000 --> 00:00:51,480
+También los mensajes de recordatorios de
+
+33
+00:00:51,480 --> 00:00:53,520
+citas, por ejemplo, tus citas a tal hora,
+
+34
+00:00:53,680 --> 00:00:55,560
+esto no es una campaña de marketing, es un
+
+35
+00:00:55,560 --> 00:00:56,640
+mensaje de utilidad.
+
+36
+00:00:56,720 --> 00:00:58,560
+Y también tenemos otros tipos de mensajes
+
+37
+00:00:58,560 --> 00:01:00,120
+como por ejemplo, recordatorios de tus
+
+38
+00:01:00,120 --> 00:01:02,080
+pedidos o cosas que tú ya habías adquirido
+
+39
+00:01:02,080 --> 00:01:04,080
+y te están recordando cómo hacerlo, por eso
+
+40
+00:01:04,120 --> 00:01:04,920
+cuesta mucho menos.
+
+41
+00:01:05,040 --> 00:01:06,720
+Luego está el gran cambio que son unos
+
+42
+00:01:06,720 --> 00:01:08,160
+mensajes que son sobre todo para
+
+43
+00:01:08,160 --> 00:01:10,280
+automatizaciones en plataformas o si ya
+
+44
+00:01:10,280 --> 00:01:11,920
+estás operando con inteligencia artificial
+
+45
+00:01:12,160 --> 00:01:14,080
+y son estos mensajes que simplemente
+
+46
+00:01:14,080 --> 00:01:16,000
+respondes dentro de un hilo conversacional.
+
+47
+00:01:16,160 --> 00:01:18,160
+Estos no se cobraban, estos eran gratis,
+
+48
+00:01:18,160 --> 00:01:19,760
+pero WhatsApp a partir de hoy, primero de
+
+49
+00:01:19,760 --> 00:01:22,000
+octubre los empieza a cobrar con la misma
+
+50
+00:01:22,000 --> 00:01:23,080
+tarifa de Utility.
+
+51
+00:01:23,080 --> 00:01:24,800
+Hay algo importante y es que los primeros
+
+52
+00:01:24,800 --> 00:01:26,880
+1000 mensajes que envíes van a ser gratis a
+
+53
+00:01:26,880 --> 00:01:29,000
+partir de 1000 para adelante, pues ya se te
+
+54
+00:01:29,000 --> 00:01:30,640
+cobra la tarifa de Utility.
+
+55
+00:01:30,640 --> 00:01:32,080
+Esto es muy importante porque si tienes
+
+56
+00:01:32,080 --> 00:01:34,320
+automatizaciones, estos mensajes antes eran
+
+57
+00:01:34,320 --> 00:01:34,920
+gratis.
+
+58
+00:01:35,040 --> 00:01:36,000
+enviar y recibir
+
+59
+00:01:36,480 --> 00:01:38,160
+según como el usuario te vaya escribiendo,
+
+60
+00:01:38,320 --> 00:01:40,320
+pero ahora son los que empiezan a cobrar y
+
+61
+00:01:40,320 --> 00:01:42,640
+empiezan a costar y tienen la tarifa de
+
+62
+00:01:42,640 --> 00:01:43,240
+utility.
+
+63
+00:01:43,240 --> 00:01:44,720
+De nuevo, recuerda que tienes 1000 mensajes
+
+64
+00:01:44,720 --> 00:01:46,480
+gratis, después de eso si empiezas a pagar,
+
+65
+00:01:46,640 --> 00:01:48,080
+pero también hay otras te disco muy
+
+66
+00:01:48,080 --> 00:01:49,880
+interesante y es que WhatsApp pues
+
+67
+00:01:49,880 --> 00:01:51,920
+obviamente quiere y meta y Facebook al
+
+68
+00:01:51,920 --> 00:01:53,360
+final lo que quieren es potenciar tu
+
+69
+00:01:53,360 --> 00:01:54,000
+plataforma
+
+70
+00:01:54,240 --> 00:01:56,760
+y si el mensaje, si la conversación fue
+
+71
+00:01:56,760 --> 00:01:59,760
+iniciada por un ad de Instagram, de
+
+72
+00:01:59,760 --> 00:02:01,760
+Facebook, de WhatsApp, literalmente
+
+73
+00:02:02,000 --> 00:02:04,920
+si literalmente dan en el botón click to add.
+
+74
+00:02:05,040 --> 00:02:07,120
+O vino desde un anuncio de una campaña paga
+
+75
+00:02:07,360 --> 00:02:09,960
+los las una ventana de 72 horas.
+
+76
+00:02:09,960 --> 00:02:11,760
+Todo eso va a ser gratis, pero sí viene
+
+77
+00:02:11,760 --> 00:02:12,320
+desde allá.
+
+78
+00:02:12,320 --> 00:02:13,720
+Así que sí, esta es la nueva tarifa de
+
+79
+00:02:13,720 --> 00:02:15,280
+costos aplicadas para Bolivia.
+

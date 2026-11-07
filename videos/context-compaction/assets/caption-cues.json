@@ -1,0 +1,467 @@
+[
+ {
+  "start": 0.1,
+  "end": 1.04,
+  "text": "Mis agentes de AI"
+ },
+ {
+  "start": 1.04,
+  "end": 2.26,
+  "text": "estaban costando más de"
+ },
+ {
+  "start": 2.26,
+  "end": 3.0,
+  "text": "lo normal y"
+ },
+ {
+  "start": 3.0,
+  "end": 3.74,
+  "text": "había un culpable."
+ },
+ {
+  "start": 3.74,
+  "end": 4.65,
+  "text": "Yo, obviamente,"
+ },
+ {
+  "start": 4.65,
+  "end": 5.37,
+  "text": "y que no estaba"
+ },
+ {
+  "start": 5.37,
+  "end": 6.18,
+  "text": "manejando bien el"
+ },
+ {
+  "start": 6.18,
+  "end": 7.29,
+  "text": "contexto."
+ },
+ {
+  "start": 7.44,
+  "end": 8.111,
+  "text": "Así que me puse"
+ },
+ {
+  "start": 8.111,
+  "end": 8.783,
+  "text": "a ver mi Google"
+ },
+ {
+  "start": 8.783,
+  "end": 9.51,
+  "text": "Cloud Console y"
+ },
+ {
+  "start": 9.51,
+  "end": 10.517,
+  "text": "realmente los costos"
+ },
+ {
+  "start": 10.517,
+  "end": 12.0,
+  "text": "estaban bastante elevados."
+ },
+ {
+  "start": 12.0,
+  "end": 12.701,
+  "text": "¿Y esto por qué?"
+ },
+ {
+  "start": 12.701,
+  "end": 13.565,
+  "text": "Porque a medida que"
+ },
+ {
+  "start": 13.565,
+  "end": 14.536,
+  "text": "un usuario chatea con"
+ },
+ {
+  "start": 14.536,
+  "end": 14.86,
+  "text": "mi bot,"
+ },
+ {
+  "start": 14.86,
+  "end": 15.399,
+  "text": "mi agente de"
+ },
+ {
+  "start": 15.399,
+  "end": 17.04,
+  "text": "inteligencia artificial,"
+ },
+ {
+  "start": 17.04,
+  "end": 18.259,
+  "text": "el historial crece."
+ },
+ {
+  "start": 18.259,
+  "end": 19.048,
+  "text": "Y si tu agente"
+ },
+ {
+  "start": 19.048,
+  "end": 20.196,
+  "text": "usa herramientas,"
+ },
+ {
+  "start": 20.196,
+  "end": 21.487,
+  "text": "skills, el tamaño del"
+ },
+ {
+  "start": 21.487,
+  "end": 22.419,
+  "text": "contexto va y va"
+ },
+ {
+  "start": 22.419,
+  "end": 23.28,
+  "text": "y va en aumento"
+ },
+ {
+  "start": 23.28,
+  "end": 24.087,
+  "text": "y pues en algún"
+ },
+ {
+  "start": 24.087,
+  "end": 25.364,
+  "text": "momento va a explotar."
+ },
+ {
+  "start": 25.364,
+  "end": 26.708,
+  "text": "Más contexto significa"
+ },
+ {
+  "start": 26.708,
+  "end": 27.56,
+  "text": "más tokens."
+ },
+ {
+  "start": 27.56,
+  "end": 28.423,
+  "text": "Y la factura de"
+ },
+ {
+  "start": 28.423,
+  "end": 29.429,
+  "text": "mi API se dispara"
+ },
+ {
+  "start": 29.429,
+  "end": 30.436,
+  "text": "y va aumentando."
+ },
+ {
+  "start": 30.436,
+  "end": 31.874,
+  "text": "Me pasó exactamente eso"
+ },
+ {
+  "start": 31.874,
+  "end": 33.08,
+  "text": "con mis agentes."
+ },
+ {
+  "start": 33.08,
+  "end": 33.976,
+  "text": "Así que buscando y"
+ },
+ {
+  "start": 33.976,
+  "end": 35.17,
+  "text": "demás, hay una práctica"
+ },
+ {
+  "start": 35.17,
+  "end": 35.707,
+  "text": "en lo que se"
+ },
+ {
+  "start": 35.707,
+  "end": 36.723,
+  "text": "llama ingeniería de"
+ },
+ {
+  "start": 36.723,
+  "end": 37.48,
+  "text": "contexto,"
+ },
+ {
+  "start": 37.48,
+  "end": 38.771,
+  "text": "que es justamente"
+ },
+ {
+  "start": 38.771,
+  "end": 40.493,
+  "text": "compactarlo para que no"
+ },
+ {
+  "start": 40.493,
+  "end": 41.613,
+  "text": "sea tan grande,"
+ },
+ {
+  "start": 41.613,
+  "end": 43.076,
+  "text": "ahorrando todas las"
+ },
+ {
+  "start": 43.076,
+  "end": 44.68,
+  "text": "llamadas de skills,"
+ },
+ {
+  "start": 44.68,
+  "end": 45.418,
+  "text": "quitando toda la"
+ },
+ {
+  "start": 45.418,
+  "end": 46.314,
+  "text": "información vieja,"
+ },
+ {
+  "start": 46.314,
+  "end": 47.157,
+  "text": "lo va compactando,"
+ },
+ {
+  "start": 47.157,
+  "end": 47.737,
+  "text": "también lo va"
+ },
+ {
+  "start": 47.737,
+  "end": 48.739,
+  "text": "sumarizando y eso hace"
+ },
+ {
+  "start": 48.739,
+  "end": 50.15,
+  "text": "que quede más liviano."
+ },
+ {
+  "start": 50.6,
+  "end": 51.41,
+  "text": "¿Cómo funciona?"
+ },
+ {
+  "start": 51.41,
+  "end": 52.568,
+  "text": "Cuando la conversación"
+ },
+ {
+  "start": 52.568,
+  "end": 53.551,
+  "text": "alcanza un límite de"
+ },
+ {
+  "start": 53.551,
+  "end": 54.709,
+  "text": "tokens, entra en acción"
+ },
+ {
+  "start": 54.709,
+  "end": 55.519,
+  "text": "un modelo un poco"
+ },
+ {
+  "start": 55.519,
+  "end": 56.317,
+  "text": "más ligero que lo"
+ },
+ {
+  "start": 56.317,
+  "end": 57.204,
+  "text": "que hace es resumir"
+ },
+ {
+  "start": 57.204,
+  "end": 58.091,
+  "text": "todos los eventos y"
+ },
+ {
+  "start": 58.091,
+  "end": 58.868,
+  "text": "todas las partes"
+ },
+ {
+  "start": 58.868,
+  "end": 59.699,
+  "text": "importantes de la"
+ },
+ {
+  "start": 59.699,
+  "end": 60.56,
+  "text": "conversación."
+ },
+ {
+  "start": 60.56,
+  "end": 61.641,
+  "text": "Esto es importante"
+ },
+ {
+  "start": 61.641,
+  "end": 62.655,
+  "text": "porque con esto el"
+ },
+ {
+  "start": 62.655,
+  "end": 63.88,
+  "text": "bot, No pierde memoria"
+ },
+ {
+  "start": 63.88,
+  "end": 64.371,
+  "text": "de lo que le"
+ },
+ {
+  "start": 64.371,
+  "end": 65.245,
+  "text": "estaban hablando,"
+ },
+ {
+  "start": 65.245,
+  "end": 65.956,
+  "text": "pero sí reduces"
+ },
+ {
+  "start": 65.956,
+  "end": 67.048,
+  "text": "drásticamente la carga"
+ },
+ {
+  "start": 67.048,
+  "end": 67.82,
+  "text": "de tokens."
+ },
+ {
+  "start": 67.82,
+  "end": 68.735,
+  "text": "Esto ya por defecto"
+ },
+ {
+  "start": 68.735,
+  "end": 69.821,
+  "text": "lo tienen habilitados"
+ },
+ {
+  "start": 69.821,
+  "end": 70.793,
+  "text": "varios frameworks."
+ },
+ {
+  "start": 70.793,
+  "end": 71.537,
+  "text": "En el Google ADK"
+ },
+ {
+  "start": 71.537,
+  "end": 73.08,
+  "text": "tú lo habilitas utilizando"
+ },
+ {
+  "start": 73.08,
+  "end": 75.0,
+  "text": "EventsCompactionConfig y"
+ },
+ {
+  "start": 75.0,
+  "end": 76.9,
+  "text": "el LlmEventSummarizer."
+ },
+ {
+  "start": 76.9,
+  "end": 77.474,
+  "text": "Le mandas tu"
+ },
+ {
+  "start": 77.474,
+  "end": 78.737,
+  "text": "configuración, tu modelo"
+ },
+ {
+  "start": 78.737,
+  "end": 79.311,
+  "text": "y tu umbral y"
+ },
+ {
+  "start": 79.311,
+  "end": 79.885,
+  "text": "él va a hacer"
+ },
+ {
+  "start": 79.885,
+  "end": 81.148,
+  "text": "esto automáticamente por"
+ },
+ {
+  "start": 81.148,
+  "end": 81.73,
+  "text": "ti."
+ },
+ {
+  "start": 82.66,
+  "end": 83.315,
+  "text": "Así que luego de"
+ },
+ {
+  "start": 83.315,
+  "end": 84.424,
+  "text": "implementar esta mejora,"
+ },
+ {
+  "start": 84.424,
+  "end": 85.231,
+  "text": "fui viendo los logs"
+ },
+ {
+  "start": 85.231,
+  "end": 86.289,
+  "text": "de facturación desde que"
+ },
+ {
+  "start": 86.289,
+  "end": 87.247,
+  "text": "implementé este nuevo"
+ },
+ {
+  "start": 87.247,
+  "end": 87.841,
+  "text": "release y las"
+ },
+ {
+  "start": 87.841,
+  "end": 89.046,
+  "text": "conversaciones siguen"
+ },
+ {
+  "start": 89.046,
+  "end": 90.19,
+  "text": "manteniendo calidad,"
+ },
+ {
+  "start": 90.19,
+  "end": 91.335,
+  "text": "pero mi facturación ha"
+ },
+ {
+  "start": 91.335,
+  "end": 91.997,
+  "text": "bajado y ya no"
+ },
+ {
+  "start": 91.997,
+  "end": 93.07,
+  "text": "está en alta."
+ }
+]

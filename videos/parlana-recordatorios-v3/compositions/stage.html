@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="stage-template">
+      <style>
+        #stage-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #f6f4ef;
+        }
+        /* parlana.bo background: soft green top-left, warm right, green tint bottom. Screen space. */
+        .stage-aurora {
+          position: absolute;
+          border-radius: 50%;
+        }
+        #stage-a {
+          left: -360px;
+          top: -320px;
+          width: 1300px;
+          height: 1300px;
+          background: radial-gradient(circle, rgba(21, 91, 63, 0.11) 0%, rgba(21, 91, 63, 0) 68%);
+        }
+        #stage-b {
+          left: 420px;
+          top: 520px;
+          width: 1200px;
+          height: 1200px;
+          background: radial-gradient(circle, rgba(186, 117, 23, 0.09) 0%, rgba(186, 117, 23, 0) 68%);
+        }
+        #stage-c {
+          left: -300px;
+          top: 1280px;
+          width: 1400px;
+          height: 1400px;
+          background: radial-gradient(circle, rgba(21, 91, 63, 0.08) 0%, rgba(21, 91, 63, 0) 68%);
+        }
+        /* Static fine grain: keeps the soft gradients from banding under H.264. */
+        #stage-grain {
+          position: absolute;
+          inset: 0;
+          opacity: 0.05;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.17 0 0 0 0 0.16 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+      </style>
+
+      <div data-hf-id="hf-r35b" id="stage-root" data-composition-id="stage" data-start="0" data-duration="75.05" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-uc58" id="stage-a" class="stage-aurora" data-layout-allow-overflow></div>
+        <div data-hf-id="hf-57mv" id="stage-b" class="stage-aurora" data-layout-allow-overflow></div>
+        <div data-hf-id="hf-19iu" id="stage-c" class="stage-aurora" data-layout-allow-overflow></div>
+        <div data-hf-id="hf-6lz3" id="stage-grain"></div>
+      </div>
+
+      <script>
+        (function () {
+          // One slow, finite drift of the background light over the whole reel; the stage never pans.
+          var D = window.Reel.END;
+          var AMP = 40;
+          var a = document.getElementById("stage-a");
+          var b = document.getElementById("stage-b");
+          var c = document.getElementById("stage-c");
+          window.__timelines["stage"] = window.Reel.mountFull(function (t) {
+            var p = (t / D) * Math.PI * 2;
+            a.style.transform = "translate(" + (Math.sin(p) * AMP).toFixed(2) + "px, " + (Math.sin(p * 0.5) * AMP * 0.6).toFixed(2) + "px)";
+            b.style.transform = "translate(" + (Math.sin(p + Math.PI / 2) * -AMP).toFixed(2) + "px, " + (Math.sin(p) * AMP * 0.5).toFixed(2) + "px)";
+            c.style.transform = "translate(" + (Math.sin(p + Math.PI) * AMP * 0.7).toFixed(2) + "px, " + (Math.sin(p * 0.5 + 1) * -AMP * 0.5).toFixed(2) + "px)";
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

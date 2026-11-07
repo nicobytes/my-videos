@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        
+
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-300.woff2") format("woff2"); font-weight: 300; }
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/fonts/cormorant-garamond-500.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-500.woff2") format("woff2"); font-weight: 500; }
+@font-face { font-family: "Jost"; src: url("assets/fonts/jost-600.woff2") format("woff2"); font-weight: 600; }
+
+.lbl { font: 500 28px/1 "Jost"; letter-spacing: 0.16em; text-transform: uppercase; color: #5B4334; }
+.ttl { font: 500 64px/1.04 "Cormorant Garamond"; color: #312A23; letter-spacing: -0.01em; }
+.txt { font: 400 30px/1.42 "Jost"; color: #5B4334; }
+.meta { font: 400 28px/1.3 "Jost"; color: #8A7668; }
+.w { display: inline-block; }
+.stamp { display: inline-block; padding: 12px 22px 10px; border: 3px solid #5B4334; color: #5B4334;
+  font: 600 28px/1 "Jost"; letter-spacing: 0.14em; text-transform: uppercase; transform-origin: 0% 50%; }
+.stamp.ask { background: #A4583A; border-color: #A4583A; color: #FFFFFF; }
+.chip { font: 500 28px/1 "Jost"; letter-spacing: 0.04em; color: #5B4334; white-space: nowrap; }
+.chip.ask { color: #A4583A; font-weight: 600; }
+.chip .mk { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: currentColor; margin-right: 12px; transform: translateY(-2px); }
+
+        #root { position: absolute; inset: 0; }
+        #cierre-doc { position: absolute; left: 84px; top: 92px; font: 300 60px/1 "Cormorant Garamond"; color: #5B4334; }
+        #cierre-list .row { position: absolute; left: 64px; width: 1088px; height: 86px; border-bottom: 2px solid #E4D6C6;
+          display: flex; align-items: center; }
+        #cierre-list .num { width: 64px; padding-left: 20px; font: 400 30px/1 "Jost"; color: #8A7668; }
+        #cierre-list .rt { flex: 1; font: 500 40px/1 "Cormorant Garamond"; color: #312A23; }
+        #cierre-list .rs { width: 290px; text-align: right; padding-right: 20px; }
+        #cierre-list .rs .chip { display: inline-block; transform-origin: 100% 50%; }
+        #cierre-hl { position: absolute; left: 64px; top: 0; width: 1088px; height: 86px; background: #F3E6DE; transform-origin: 0% 50%; }
+      </style>
+      <div id="root" data-composition-id="cierre" data-width="1920" data-height="1080">
+        <div id="cierre-doc">Pedidos de cambios para el sistema Sofi</div>
+        <div id="cierre-list">
+          <div id="cierre-hl"></div>
+          <div id="cierre-r1" class="row" style="top:206px"><span class="num">1</span><span id="cierre-rt1" class="rt">Comprobante de pago</span><span class="rs"><span id="cierre-st1" class="chip">✓ Resuelto</span></span></div>
+          <div id="cierre-r2" class="row" style="top:292px"><span class="num">2</span><span id="cierre-rt2" class="rt">Editar citas en agenda</span><span class="rs"><span id="cierre-st2" class="chip ask"><span class="mk"></span>Su respuesta</span></span></div>
+          <div id="cierre-r3" class="row" style="top:378px"><span class="num">3</span><span id="cierre-rt3" class="rt">Agenda con datos restringidos</span><span class="rs"><span id="cierre-st3" class="chip ask"><span class="mk"></span>Por confirmar</span></span></div>
+          <div id="cierre-r4" class="row" style="top:464px"><span class="num">4</span><span id="cierre-rt4" class="rt">Sofi no está agendando bien</span><span class="rs"><span id="cierre-st4" class="chip">Revisado</span></span></div>
+          <div id="cierre-r5" class="row" style="top:550px"><span class="num">5</span><span id="cierre-rt5" class="rt">Ir a la conversación desde la agenda</span><span class="rs"><span id="cierre-st5" class="chip">✓ Resuelto</span></span></div>
+          <div id="cierre-r6" class="row" style="top:636px"><span class="num">6</span><span id="cierre-rt6" class="rt">Tiempo para enviar mensajes</span><span class="rs"><span id="cierre-st6" class="chip ask"><span class="mk"></span>Sus mensajes</span></span></div>
+          <div id="cierre-r7" class="row" style="top:722px"><span class="num">7</span><span id="cierre-rt7" class="rt">Nueva cita en lugar de reagendar</span><span class="rs"><span id="cierre-st7" class="chip">✓ Resuelto</span></span></div>
+          <div id="cierre-r8" class="row" style="top:808px"><span class="num">8</span><span id="cierre-rt8" class="rt">Límite de fecha en agenda</span><span class="rs"><span id="cierre-st8" class="chip">✓ Resuelto</span></span></div>
+          <div id="cierre-r9" class="row" style="top:894px"><span class="num">9</span><span id="cierre-rt9" class="rt">Siguiente sesión o reagendar</span><span class="rs"><span id="cierre-st9" class="chip">✓ Resuelto</span></span></div>
+        </div>
+      </div>
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#cierre-doc", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 0.5);
+        tl.fromTo("#cierre-list .row", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.18, stagger: 0.06, ease: "power4.out" }, 0.7);
+        // The whole list gets its verdicts, one stamp after another.
+        tl.fromTo("#cierre-list .chip", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.2, stagger: 0.14, ease: "expo.out" }, 1.6);
+        tl.set("#cierre-hl", { scaleX: 0 }, 0);
+        tl.fromTo("#cierre-hl", { y: 292, scaleX: 0 }, { y: 292, scaleX: 1, duration: 0.45, ease: "power3.out" }, 5.88);
+        tl.fromTo("#cierre-rt2", { color: "#312A23" }, { color: "#A4583A", duration: 0.25 }, 6.08);
+        tl.to("#cierre-hl", { y: 378, duration: 0.5, ease: "power3.inOut" }, 14.02);
+        tl.fromTo("#cierre-rt3", { color: "#312A23" }, { color: "#A4583A", duration: 0.25 }, 14.22);
+        tl.to("#cierre-hl", { y: 636, duration: 0.5, ease: "power3.inOut" }, 27.547);
+        tl.fromTo("#cierre-rt6", { color: "#312A23" }, { color: "#A4583A", duration: 0.25 }, 27.747);
+        window.__timelines["cierre"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
